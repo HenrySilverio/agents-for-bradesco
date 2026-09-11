@@ -1,0 +1,14 @@
+{
+  "_leia": "Tabela paramétrica: quanto VALE, em horas sem IA, cada unidade observada. O COMO observar cada unidade está em toolkits.json > unidades. Valores abaixo são PLACEHOLDER — AJUSTE ANTES DE USAR.",
+  "_como_calibrar": "Pegue 8 a 10 tarefas já entregues SEM IA. Três devs estimam cada uma sem ver o tempo real (planning poker). Divida pela quantidade de unidades de cada tarefa e registre a mediana. Anote quem calibrou e quando: o dashboard exibe isso.",
+  "versao": "placeholder-2026-09",
+  "calibrado_por": "AJUSTE ANTES DE USAR",
+  "calibrado_em": null,
+  "unidades": {
+    "sdd.fatia": { "horas": 6, "rotulo": "fatia vertical (linha 'Demonstra:' em tarefas.md)" },
+    "sdd.arquivo_teste": { "horas": 1.5, "rotulo": "arquivo de teste criado" },
+    "discovery.briefing": { "horas": 4, "rotulo": "briefing gravado em docs/briefings/" },
+    "d2c.componente": { "horas": 4, "rotulo": "componente criado pelo design-to-code-liquid" },
+    "d2c.pagina": { "horas": 10, "rotulo": "página criada pelo design-to-code-liquid" }
+  }
+}

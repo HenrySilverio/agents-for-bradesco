@@ -1,0 +1,17 @@
+{
+  "name": "harness-metricas",
+  "version": "1.0.0",
+  "description": "Coleta determinística de métricas do harness de IA (Copilot/VS Code) e dashboard HTML autocontido em cores Bradesco",
+  "type": "module",
+  "private": true,
+  "engines": { "node": ">=18" },
+  "bin": { "hm": "bin/hm.mjs" },
+  "scripts": {
+    "test": "node --test \"test/*.test.mjs\"",
+    "demo": "node bin/hm.mjs demo",
+    "build": "node bin/hm.mjs build",
+    "diagnostico": "node bin/hm.mjs diagnostico"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}

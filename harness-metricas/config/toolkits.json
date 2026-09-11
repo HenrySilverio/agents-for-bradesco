@@ -1,0 +1,163 @@
+{
+  "_leia": "COMO observar. Detecção de toolkit/etapa, categorias de ferramenta, sondas de artefato e regras de contagem de unidades. Adicionar um toolkit novo é editar este JSON, não o código. Itens com _ajuste precisam ser conferidos no spike (hm diagnostico).",
+  "versao": 1,
+
+  "toolkits": {
+    "discovery": {
+      "rotulo": "Discovery",
+      "etapas": ["rota", "triagem", "grill", "prototipo"],
+      "comandos": {
+        "discovery-rota": "rota",
+        "discovery-triagem": "triagem",
+        "discovery-grill": "grill",
+        "discovery-prototipo": "prototipo"
+      },
+      "agentes": {},
+      "arquivos_gatilho": {},
+      "ferramentas_gatilho": {}
+    },
+    "sdd": {
+      "rotulo": "SDD",
+      "etapas": ["plan", "implement", "review", "archive"],
+      "comandos": {
+        "sdd-plan": "plan",
+        "sdd-plan-v2": "plan",
+        "sdd-implement": "implement",
+        "sdd-review": "review",
+        "sdd-archive": "archive"
+      },
+      "agentes": {},
+      "arquivos_gatilho": {},
+      "ferramentas_gatilho": {}
+    },
+    "design-to-code-liquid": {
+      "rotulo": "Design-to-code Liquid",
+      "_ajuste": "AJUSTE ANTES DE USAR: troque pelos nomes reais do comando, do agente e/ou da skill do design-to-code-liquid.",
+      "etapas": ["gerar"],
+      "comandos": {
+        "design-to-code-liquid": "gerar"
+      },
+      "agentes": {
+        "design-to-code-liquid": "gerar"
+      },
+      "arquivos_gatilho": {
+        "skills/design-to-code-liquid/SKILL\\.md$": "gerar"
+      },
+      "ferramentas_gatilho": {
+        "^mcp_figma": "gerar"
+      }
+    }
+  },
+
+  "ordem_fluxo": ["discovery", "sdd", "design-to-code-liquid"],
+
+  "categorias_ferramenta": [
+    ["subagente", "subagent"],
+    ["mcp", "^mcp_"],
+    ["terminal", "terminal|command|exec|shell|task|runtests|run_tests"],
+    ["edicao", "edit|create|replace|insert|patch|write|rename|delete|move"],
+    ["leitura", "read|search|grep|find|list|fetch|codebase|usages|problems|changes|file"]
+  ],
+  "_categorias_ferramenta": "Primeira regex que casar com o nome da ferramenta (case-insensitive) define a categoria. Sem casamento = 'outra'.",
+
+  "classe_por_ferramenta": {
+    "runtests|run_tests": "teste"
+  },
+
+  "comandos_terminal": [
+    ["git_escrita", "^\\s*git\\s+(commit|push|reset|rebase|merge|checkout|switch|cherry-pick|revert|tag|stash|clean)\\b"],
+    ["validador_sdd", "sdd\\.mjs"],
+    ["teste", "\\b(jest|vitest|ng\\s+test|npm\\s+(run\\s+)?test|npx\\s+jest|mvn\\b.*\\btest|gradlew?\\b.*\\btest)"],
+    ["lint", "\\b(eslint|ng\\s+lint|npm\\s+run\\s+lint)"],
+    ["build", "\\b(ng\\s+build|npm\\s+run\\s+build|mvn\\b.*\\b(package|install|verify)|gradlew?\\b.*\\bbuild)"]
+  ],
+  "_comandos_terminal": "Só a CLASSE do comando é gravada. O texto do comando nunca vai para disco (pode conter credencial).",
+
+  "resultado_terminal": {
+    "falha": "(exit code:?\\s*[1-9]|exited with code [1-9]|\\b\\d+ failed\\b|\\bFAIL(ED)?\\b|\\bREPROVADO\\b|npm ERR!|BUILD FAILURE|✗)",
+    "sucesso": "(exit code:?\\s*0\\b|exited with code 0|\\bPASS(ED)?\\b|\\bAPROVADO\\b|BUILD SUCCESS|✓|\\bOK\\b)",
+    "_ajuste": "AJUSTE NO SPIKE: confira o formato real do tool_response do terminal e da saída do sdd.mjs. Sem casamento, o resultado fica 'desconhecido' — nunca é chutado."
+  },
+
+  "caminhos_contrato": "(^|/)(federation\\.config\\.js|CONTRACT\\.md|[^/]*openapi[^/]*\\.(ya?ml|json)|contracts?/[^/]+\\.(ya?ml|json)|[^/]*manifest[^/]*\\.json)$",
+
+  "sondas": [
+    {
+      "id": "sdd.proposta",
+      "toolkit": "sdd",
+      "caminho": "(^|/)\\.sdd/(?:.*/)?([\\w.-]+)/proposta\\.md$",
+      "grupos": { "2": "mudanca" },
+      "quando": ["leitura", "edicao"],
+      "extrair": {
+        "ticket": "Ticket\\W{0,6}\\s*([A-Z][A-Z0-9]{1,9}-\\d{1,6})",
+        "branch": "Branch\\W{0,6}\\s*`?([\\w./-]+)"
+      },
+      "chaves": { "ticket": "ticket", "mudanca": "sdd", "branch": "branch" }
+    },
+    {
+      "id": "sdd.tarefas",
+      "toolkit": "sdd",
+      "caminho": "(^|/)\\.sdd/(?:.*/)?([\\w.-]+)/tarefas\\.md$",
+      "grupos": { "2": "mudanca" },
+      "quando": ["leitura", "edicao"],
+      "contar": {
+        "fatias": "^\\s*(?:[-*]\\s*)?(?:\\*\\*)?Demonstra\\b",
+        "concluidas": "^\\s*[-*]\\s*\\[[xX]\\]",
+        "pendentes": "^\\s*[-*]\\s*\\[ \\]"
+      },
+      "chaves": { "mudanca": "sdd" }
+    },
+    {
+      "id": "sdd.veredito",
+      "toolkit": "sdd",
+      "caminho": "(^|/)\\.sdd/(?:(?:.*/)?([\\w.-]+)/)?revisao/([a-z0-9_]+(?:-[a-z0-9_]+)*?)-([0-9a-f]{7,40})\\.md$",
+      "grupos": { "2": "mudanca", "3": "eixo", "4": "commit" },
+      "quando": ["edicao"],
+      "extrair": { "veredito": "\\b(APROVADO|REPROVADO)\\b" },
+      "chaves": { "mudanca": "sdd" }
+    },
+    {
+      "id": "discovery.briefing",
+      "toolkit": "discovery",
+      "caminho": "(^|/)docs/briefings/([\\w.-]+)\\.md$",
+      "grupos": { "2": "slug" },
+      "quando": ["leitura", "edicao"],
+      "contar": { "nao_respondido": "\\[NÃO RESPONDIDO\\]" },
+      "extrair": { "ticket": "\\b([A-Z][A-Z0-9]{1,9}-\\d{1,6})\\b" },
+      "chaves": { "slug": "briefing", "ticket": "ticket" }
+    },
+    {
+      "id": "d2c.template",
+      "toolkit": "design-to-code-liquid",
+      "caminho": "\\.component\\.html$",
+      "quando": ["edicao"],
+      "contar": {
+        "liquid_elementos": "<brad-[\\w-]+",
+        "liquid_classes": "class=\"[^\"]*\\bbrad-"
+      },
+      "_ajuste": "AJUSTE ANTES DE USAR: prefixo real dos elementos e classes do Liquid."
+    },
+    {
+      "id": "d2c.estilo",
+      "toolkit": "design-to-code-liquid",
+      "caminho": "\\.component\\.s?css$",
+      "quando": ["edicao"],
+      "contar": { "declaracoes_css": "^\\s*[a-z-]+\\s*:\\s*[^;{]+;" }
+    }
+  ],
+  "_sondas": "Sonda = arquivo que o hook lê NO MOMENTO em que o agente o lê/edita, para extrair um fato (ticket, nº de fatias, veredito). Só o fato é gravado, nunca o conteúdo. O campo 'toolkit' da sonda é informativo: a sonda dispara pelo caminho do arquivo, independente do toolkit detectado na sessão.",
+
+  "unidades": {
+    "sdd.fatia": { "tipo": "sonda_max", "sonda": "sdd.tarefas", "campo": "fatias" },
+    "sdd.arquivo_teste": { "tipo": "arquivos_criados", "caminho": "\\.(spec|test)\\.[tj]sx?$|Tests?\\.java$", "toolkit": "sdd" },
+    "discovery.briefing": { "tipo": "sonda_distintos", "sonda": "discovery.briefing", "campo": "slug", "somente_edicao": true },
+    "d2c.pagina": { "tipo": "arquivos_criados", "caminho": "/(pages?|paginas?)/.+\\.component\\.ts$", "toolkit": "design-to-code-liquid" },
+    "d2c.componente": { "tipo": "arquivos_criados", "caminho": "\\.component\\.ts$", "excluir": "/(pages?|paginas?)/", "toolkit": "design-to-code-liquid" }
+  },
+
+  "otel": {
+    "atributos_decisao_hook": ["copilot_chat.hook.decision", "copilot_chat.hook.permission_decision", "copilot_chat.hook.result", "hook.decision"],
+    "atributos_nome_hook": ["copilot_chat.hook.name", "copilot_chat.hook.command", "copilot_chat.hook.event", "hook.name"],
+    "_ajuste": "AJUSTE NO SPIKE: 'hm diagnostico' lista os atributos reais dos spans execute_hook. Coloque aqui a chave que carrega a decisão (allow/ask/deny)."
+  }
+}

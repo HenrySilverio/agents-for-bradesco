@@ -1,0 +1,574 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Resultados do Harness de IA · 27/07/2026 a 04/09/2026</title>
+<style>
+:root{
+  color-scheme: light;
+  --red:#cc092f; --red-dark:#9d0b21; --red-light:#d63a59; --red-xlight:#fce7ec;
+  --ink:#262626; --ink-2:#47484c; --ink-3:#6d6e71; --line:#d9dcdd; --soft:#f0f1f5; --soft-2:#fafbff;
+  --base-bar:#a7a8ac; --page:#f0f1f5; --surface:#ffffff;
+  --ok:#09ab47; --ok-dark:#056129; --ok-bg:#e6faee;
+  --warn:#ffbc00; --warn-dark:#ab6100; --warn-bg:#fefbd5;
+  --err:#e1173f; --err-dark:#b00f2f; --err-bg:#fce7ec;
+  --radius:14px;
+  --font:"Bradesco Sans","Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--page);color:var(--ink);font-family:var(--font);font-size:14px;line-height:1.45}
+a{color:var(--red-dark)}
+.topo{background:linear-gradient(120deg,var(--red) 0%,var(--red-dark) 100%);color:#fff;padding:28px 24px 84px}
+.topo-in{max-width:1240px;margin:0 auto;display:flex;flex-wrap:wrap;gap:16px 32px;justify-content:space-between;align-items:flex-end}
+.olho{font-size:12px;letter-spacing:.08em;text-transform:uppercase;opacity:.85;font-weight:600;margin:0 0 6px}
+.topo h1{margin:0;font-size:clamp(22px,3vw,30px);line-height:1.15;font-weight:700}
+.topo .sub{margin:6px 0 0;opacity:.92;font-size:14px}
+.topo-meta{font-size:12px;opacity:.9;text-align:right}
+.topo-meta div{margin-top:2px}
+main{max-width:1240px;margin:-60px auto 0;padding:0 24px 48px;position:relative}
+.aviso{display:flex;gap:10px;align-items:flex-start;border-radius:10px;padding:12px 14px;margin:0 0 16px;font-size:13.5px;border:1px solid}
+.aviso svg{flex:0 0 18px;margin-top:1px}
+.aviso strong{display:block;margin-bottom:2px}
+.aviso--warn{background:var(--warn-bg);border-color:#f3dc7a;color:#5c3a00}
+.aviso--warn svg{color:var(--warn-dark)}
+.aviso--err{background:var(--err-bg);border-color:#f2b8c5;color:var(--err-dark)}
+.grade{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:16px;align-items:start}
+.card{background:var(--surface);border-radius:var(--radius);box-shadow:0 1px 2px rgba(38,38,38,.06),0 4px 16px rgba(38,38,38,.05);padding:20px 22px;min-width:0}
+.s12{grid-column:span 12}.s8{grid-column:span 8}.s7{grid-column:span 7}.s6{grid-column:span 6}.s5{grid-column:span 5}.s4{grid-column:span 4}
+@media (max-width:980px){.s8,.s7,.s6,.s5,.s4{grid-column:span 12}}
+.card-cab{display:flex;gap:8px 12px;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;margin-bottom:14px}
+.card-cab h3{margin:0;font-size:15.5px;font-weight:700;color:var(--ink)}
+.card-cab p{margin:3px 0 0;color:var(--ink-3);font-size:12.5px}
+.card-acoes{display:flex;gap:8px;align-items:center}
+.secao{margin:34px 0 12px;display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.secao h2{margin:0;font-size:19px;font-weight:700;color:var(--ink);padding-left:12px;border-left:4px solid var(--red)}
+.secao p{margin:0;color:var(--ink-3);font-size:13px}
+.chip{display:inline-flex;align-items:center;gap:5px;font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;border-radius:999px;padding:2px 8px;border:1px solid var(--line);background:var(--soft);color:var(--ink-2);white-space:nowrap}
+.chip i{font-style:normal;font-size:10px}
+.chip--derivado{background:#fff}
+.chip--estimado{background:var(--warn-bg);border-color:#f3dc7a;color:#7a4700}
+.toggle{font:inherit;font-size:12px;border:1px solid var(--line);background:#fff;color:var(--ink-2);border-radius:8px;padding:4px 10px;cursor:pointer}
+.toggle:hover{border-color:var(--red-light);color:var(--red-dark)}
+.toggle:focus-visible,.foco:focus-visible{outline:2px solid var(--red);outline-offset:2px}
+/* herói */
+.heroi{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:28px;align-items:center}
+@media (max-width:860px){.heroi{grid-template-columns:1fr}}
+.heroi-rot{display:flex;gap:8px;align-items:center;flex-wrap:wrap;color:var(--ink-2);font-weight:600;font-size:13.5px}
+.heroi-num{font-size:clamp(48px,7vw,64px);font-weight:700;color:var(--red);line-height:1.05;margin:8px 0 6px;letter-spacing:-.01em}
+.heroi-sub{color:var(--ink-3);font-size:13px;max-width:52ch}
+.comparar{display:grid;gap:14px}
+.comparar-l{display:grid;gap:5px}
+.comparar-t{display:flex;justify-content:space-between;gap:8px;font-size:12.5px;color:var(--ink-2)}
+.comparar-t strong{color:var(--ink);font-size:14px}
+.trilho{height:14px;background:var(--soft);border-radius:0 4px 4px 0}
+.trilho span{display:block;height:100%;border-radius:0 4px 4px 0}
+/* KPIs */
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(178px,1fr));gap:16px;margin-top:16px}
+.kpi{background:var(--surface);border-radius:var(--radius);padding:16px 18px;box-shadow:0 1px 2px rgba(38,38,38,.06),0 4px 16px rgba(38,38,38,.05);display:flex;flex-direction:column;gap:5px;min-width:0;border-top:3px solid var(--red)}
+.kpi-rot{font-size:12.5px;color:var(--ink-2);font-weight:600}
+.kpi-val{font-size:26px;font-weight:700;color:var(--ink);line-height:1.15;white-space:nowrap}
+.kpi-sub{font-size:12px;color:var(--ink-3)}
+.rodape-chip{margin-top:auto;padding-top:8px}
+.medidor{height:8px;background:var(--red-xlight);border-radius:4px;overflow:hidden;margin-top:2px}
+.medidor span{display:block;height:100%;background:var(--red);border-radius:4px}
+.status{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600}
+.status svg{width:15px;height:15px}
+.status--ok{color:var(--ok-dark)}.status--warn{color:var(--warn-dark)}.status--err{color:var(--err-dark)}
+/* narrativa */
+.narrativa{border-left:4px solid var(--red)}
+.narrativa h3{font-size:14px;margin:14px 0 4px;color:var(--red-dark)}
+.narrativa h3:first-child{margin-top:0}
+.narrativa p,.narrativa li{color:var(--ink);font-size:14px}
+.narrativa ul{margin:4px 0;padding-left:20px}
+.cit{border-bottom:1px dotted var(--red-light);cursor:help;font-weight:600}
+.nota{font-size:11.5px;color:var(--ink-3);margin-top:12px}
+/* barras horizontais */
+.legenda{display:flex;gap:16px;flex-wrap:wrap;font-size:12px;color:var(--ink-2);margin:-4px 0 12px}
+.legenda span{display:inline-flex;align-items:center;gap:6px}
+.legenda b{width:12px;height:12px;border-radius:3px;display:inline-block}
+.hbar{display:grid;grid-template-columns:minmax(96px,38%) minmax(0,1fr);gap:4px 12px;align-items:center;padding:6px 0;border-bottom:1px solid var(--soft)}
+.hbar:last-child{border-bottom:0}
+.hbar-rot{font-size:13px;color:var(--ink);font-weight:600;overflow-wrap:anywhere}
+.hbar-rot small{display:block;font-weight:400;color:var(--ink-3);font-size:11.5px}
+.hbar-trilhas{display:grid;gap:2px;min-width:0}
+.hbar-linha{display:flex;align-items:center;gap:8px;min-width:0}
+.barra{height:12px;border-radius:0 4px 4px 0;flex:0 0 auto;min-width:2px;cursor:default}
+.barra:hover,.barra:focus-visible{filter:brightness(1.12)}
+.barra--base{background:var(--base-bar)}
+.barra--acento{background:var(--red)}
+.barra--neg{background:var(--red-dark)}
+.hbar-val{font-size:12px;color:var(--ink-2);white-space:nowrap;font-variant-numeric:tabular-nums}
+/* colunas */
+.colunas svg{display:block;width:100%;height:auto;overflow:visible}
+.colunas text{font-family:var(--font);fill:var(--ink-3);font-size:11px}
+.colunas .val{fill:var(--ink-2);font-weight:600}
+/* tabelas */
+.tab-wrap{overflow-x:auto;margin:0 -4px}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{font-size:11.5px;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-3);font-weight:700;text-align:left;padding:8px 8px;border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:8px 8px;border-bottom:1px solid var(--soft);vertical-align:top}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+tr.expansivel{cursor:pointer}
+tr.expansivel:hover td{background:var(--soft-2)}
+tr.detalhe td{background:var(--soft-2);padding:12px 14px}
+.fluxo{display:flex;flex-wrap:wrap;gap:4px;align-items:center}
+.passo{font-size:11px;border-radius:6px;padding:1px 6px;border:1px solid var(--line);color:var(--ink-2);background:#fff;white-space:nowrap}
+.passo--sdd{background:var(--red-xlight);border-color:#f2b8c5;color:var(--red-dark)}
+.passo--design-to-code-liquid{border-color:var(--red-light);color:var(--red-dark)}
+.passo--discovery{background:var(--soft);color:var(--ink-2)}
+.seta{color:var(--base-bar);font-size:11px}
+.alerta{display:inline-flex;align-items:center;gap:4px;font-size:11px;border-radius:6px;padding:1px 6px;margin:0 4px 4px 0;background:var(--warn-bg);color:#7a4700;border:1px solid #f3dc7a;white-space:nowrap}
+.alerta--neutro{background:var(--soft);color:var(--ink-2);border-color:var(--line)}
+.det-grade{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.det-grade h4{margin:0 0 6px;font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-3)}
+.mini td,.mini th{padding:4px 6px;font-size:12px}
+/* tiles */
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.tile{border:1px solid var(--soft);background:var(--soft-2);border-radius:10px;padding:12px 14px;display:flex;flex-direction:column;gap:4px;min-width:0}
+.tile-rot{font-size:12.5px;color:var(--ink-2);font-weight:600}
+.tile-val{font-size:24px;font-weight:700;color:var(--ink);line-height:1.15;white-space:nowrap}
+.tile-sub{font-size:12px;color:var(--ink-3)}
+.lista-pend{margin:0;padding:0;list-style:none;display:grid;gap:8px}
+.lista-pend li{display:flex;gap:8px;align-items:flex-start;font-size:13px}
+.lista-pend svg{flex:0 0 16px;margin-top:2px;color:var(--warn-dark)}
+.vazio{color:var(--ink-3);font-size:13px;padding:12px 0}
+.modelo-nome{white-space:nowrap;font-size:12.5px}
+.tip{position:fixed;z-index:50;pointer-events:none;background:#fff;border:1px solid var(--line);box-shadow:0 8px 24px rgba(38,38,38,.16);border-radius:10px;padding:8px 10px;font-size:12px;max-width:280px}
+.tip-tit{font-weight:700;color:var(--ink);margin-bottom:4px}
+.tip-l{display:flex;align-items:center;gap:6px;color:var(--ink-2);margin-top:2px}
+.tip-l strong{color:var(--ink);font-variant-numeric:tabular-nums}
+.tip-k{width:12px;height:3px;border-radius:2px;display:inline-block}
+footer{max-width:1240px;margin:0 auto;padding:0 24px 32px;color:var(--ink-3);font-size:12px}
+@media print{
+  html,body{background:#fff}
+  .topo{-webkit-print-color-adjust:exact;print-color-adjust:exact;padding-bottom:28px}
+  main{margin-top:12px}
+  .toggle{display:none}
+  .card,.kpi{box-shadow:none;border:1px solid var(--line);break-inside:avoid}
+  .barra,.medidor span,.trilho span,.chip,.passo,.alerta{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+@media (max-width:520px){ main{padding:0 16px 40px} .topo{padding:24px 16px 80px} .card{padding:16px} .hbar{grid-template-columns:1fr} }
+</style>
+</head>
+<body>
+<header class="topo">
+  <div class="topo-in">
+    <div>
+      <p class="olho">Harness de IA · GitHub Copilot</p>
+      <h1>Produtividade, segurança e qualidade</h1>
+      <p class="sub">27/07/2026 a 04/09/2026 · cockpit-renegociacao-shell · recr-fed-agc-posvenda</p>
+    </div>
+    <div class="topo-meta">
+      <div>Gerado em 11/09/2026, 22:10</div>
+      <div>66 sessões · coletor v1.0.0</div>
+      <div><strong>DADOS SINTÉTICOS</strong></div>
+    </div>
+  </div>
+</header>
+<main id="app"></main>
+<footer>harness-metricas v1.0.0 · dados.json de 2026-09-11T22:10:12.843Z · preços: <a href="https://docs.github.com/en/copilot/reference/copilot-billing/models-and-pricing">https://docs.github.com/en/copilot/reference/copilot-billing/models-and-pricing</a> (consultado em 2026-09-11)</footer>
+<div id="narrativa-fonte" hidden><h3>Resultado em uma frase</h3>
+<p>Estes números são sintéticos, gerados para demonstrar o painel: no período, o harness está associado a uma economia estimada de <span class="cit" title="Fonte: dados.json → kpi.horas_economizadas">161,3 h</span> em <span class="cit" title="Fonte: dados.json → kpi.atividades_concluidas">12</span> atividades concluídas, a um custo de consumo de US$ <span class="cit" title="Fonte: dados.json → kpi.custo_usd">47,73</span> a valor de lista.</p>
+<h3>Destaques</h3>
+<ul>
+<li>O fator de produtividade estimado ficou em <span class="cit" title="Fonte: dados.json → kpi.fator_produtividade">2,8×</span>: <span class="cit" title="Fonte: dados.json → kpi.horas_sem_ia_ref">251 h</span> de referência sem IA contra <span class="cit" title="Fonte: dados.json → kpi.horas_com_ia">89,7 h</span> com IA.</li>
+<li>O roteamento de modelo por etapa é responsável por US$ <span class="cit" title="Fonte: dados.json → kpi.economia_roteamento_usd">23,29</span> de economia, quase metade do consumo do período, com <span class="cit" title="Fonte: dados.json → kpi.cache_entrada_pct">74,9%</span> da entrada servida por cache.</li>
+<li>As barreiras do harness atuaram <span class="cit" title="Fonte: dados.json → kpi.guardrails_acionados">14</span> vezes, e <span class="cit" title="Fonte: dados.json → qualidade.aprovadas_primeira">8</span> de <span class="cit" title="Fonte: dados.json → qualidade.atividades_com_revisao">10</span> atividades revisadas passaram de primeira.</li>
+</ul>
+<h3>Pontos de atenção</h3>
+<ul>
+<li>A tabela de calibração ainda não foi calibrada pela squad: enquanto isso, o número de horas economizadas não deve ser apresentado como resultado, e sim como leitura preliminar.</li>
+<li><span class="cit" title="Fonte: dados.json → alertas.estimativas_nao_cegas">1</span> atividade teve a estimativa registrada depois do início da execução e <span class="cit" title="Fonte: dados.json → alertas.atividades_sem_estimativa">1</span> ficou sem estimativa do dev, o que reduz a base do indicador principal.</li>
+<li>Houve <span class="cit" title="Fonte: dados.json → kpi.violacoes_invariante">1</span> violação de invariante: o agente executou um comando git de escrita, o que o fluxo proíbe.</li>
+</ul>
+<h3>Próximo passo recomendado</h3>
+<ul>
+<li>Calibrar a tabela paramétrica com tarefas reais já entregues e repetir o painel no próximo mês, antes de levar o ganho para o fórum da tribo.</li>
+</ul></div>
+<script type="application/json" id="dados">{"schema":"harness-metricas/dados@1","gerado_em":"2026-09-11T22:10:12.843Z","versao_coletor":"1.0.0","demo":true,"periodo":{"de":"2026-07-27","ate":"2026-09-04","filtro":false},"repos":["cockpit-renegociacao-shell","recr-fed-agc-posvenda"],"parametros":{"limiar_ociosidade_min":10,"sobrecarga_humana_fora_sessao_pct":30,"estrategia_referencia":"minimo","divergencia_alerta_pct":50,"modelo_referencia_roteamento":"claude-sonnet-5"},"precos":{"fonte":"https://docs.github.com/en/copilot/reference/copilot-billing/models-and-pricing","consultado_em":"2026-09-11","vigencia_inicio":"2026-06-01","credito_usd":0.01},"moeda":null,"calibracao":{"versao":"placeholder-2026-09","calibrado_por":"AJUSTE ANTES DE USAR","calibrado_em":null},"kpi":{"atividades_concluidas":12,"atividades_com_ganho":12,"horas_sem_ia_ref":251,"horas_com_ia":89.7,"horas_economizadas":161.3,"fator_produtividade":2.8,"custo_usd":47.73,"creditos":4773,"custo_brl":null,"custo_por_atividade_usd":3.78,"economia_roteamento_usd":23.29,"cache_entrada_pct":74.9,"guardrails_acionados":14,"aprovacao_primeira_revisao_pct":80,"reprovacoes":2,"violacoes_invariante":1,"lacunas_explicitadas":8,"sessoes":66},"produtividade":{"por_atividade":[{"id":"ticket:REAB-430","rotulo":"REAB-430","sem_ia_h":14,"com_ia_h":4.64,"economizadas_h":9.36,"fator":3.02,"fonte":"cega"},{"id":"branch:feature/REAB-439-simulador","rotulo":"REAB-439","sem_ia_h":14,"com_ia_h":4.07,"economizadas_h":9.93,"fator":3.44,"fonte":"cega"},{"id":"ticket:REAB-436","rotulo":"REAB-436","sem_ia_h":30,"com_ia_h":7.14,"economizadas_h":22.86,"fator":4.2,"fonte":"cega"},{"id":"briefing:parcelamento-entrada","rotulo":"REAB-412","sem_ia_h":32,"com_ia_h":10.75,"economizadas_h":21.25,"fator":2.98,"fonte":"cega"},{"id":"ticket:REAB-420","rotulo":"REAB-420","sem_ia_h":13.5,"com_ia_h":11.01,"economizadas_h":2.49,"fator":1.23,"fonte":"parametrica"},{"id":"briefing:proposta-renegociacao","rotulo":"REAB-405","sem_ia_h":30,"com_ia_h":17.28,"economizadas_h":12.72,"fator":1.74,"fonte":"cega"},{"id":"branch:feature/REAB-433-cards-cliente","rotulo":"REAB-433","sem_ia_h":22,"com_ia_h":5.29,"economizadas_h":16.71,"fator":4.16,"fonte":"cega"},{"id":"ticket:REAB-423","rotulo":"REAB-423","sem_ia_h":21,"com_ia_h":5.09,"economizadas_h":15.91,"fator":4.12,"fonte":"parametrica"},{"id":"ticket:REAB-418","rotulo":"REAB-418","sem_ia_h":22.5,"com_ia_h":5.92,"economizadas_h":16.58,"fator":3.8,"fonte":"parametrica"},{"id":"briefing:extrato-parcelas","rotulo":"REAB-409","sem_ia_h":16,"com_ia_h":5.63,"economizadas_h":10.37,"fator":2.84,"fonte":"cega"},{"id":"ticket:REAB-415","rotulo":"REAB-415","sem_ia_h":12,"com_ia_h":3.78,"economizadas_h":8.22,"fator":3.17,"fonte":"cega"},{"id":"briefing:simulacao-acordo","rotulo":"REAB-401","sem_ia_h":24,"com_ia_h":9.11,"economizadas_h":14.89,"fator":2.63,"fonte":"cega"}],"por_semana":[{"inicio":"2026-07-27","horas_economizadas":23.1,"atividades":2},{"inicio":"2026-08-03","horas_economizadas":26.9,"atividades":2},{"inicio":"2026-08-10","horas_economizadas":15.9,"atividades":1},{"inicio":"2026-08-17","horas_economizadas":31.9,"atividades":3},{"inicio":"2026-08-24","horas_economizadas":44.1,"atividades":2},{"inicio":"2026-08-31","horas_economizadas":19.3,"atividades":2}]},"custo":{"etapas":[{"passo":"discovery.rota","rotulo":"Discovery · rota","toolkit":"discovery","sessoes":1,"ativo_min":5.9,"usd":0.0091,"usd_medio_sessao":0.0091,"tokens":31820,"cache_pct":55.1,"prompts":1,"ferramentas":6,"compactacoes":0,"subagentes":0,"sem_tokens":0,"modelos":["gpt-5-mini"]},{"passo":"discovery.triagem","rotulo":"Discovery · triagem","toolkit":"discovery","sessoes":2,"ativo_min":53.1,"usd":0.4477,"usd_medio_sessao":0.2239,"tokens":442143,"cache_pct":70.9,"prompts":2,"ferramentas":25,"compactacoes":0,"subagentes":0,"sem_tokens":0,"modelos":["claude-sonnet-5"]},{"passo":"discovery.grill","rotulo":"Discovery · grill","toolkit":"discovery","sessoes":3,"ativo_min":142.1,"usd":1.1698,"usd_medio_sessao":0.3899,"tokens":1097087,"cache_pct":74.1,"prompts":3,"ferramentas":61,"compactacoes":0,"subagentes":0,"sem_tokens":0,"modelos":["claude-sonnet-5"]},{"passo":"discovery.prototipo","rotulo":"Discovery · prototipo","toolkit":"discovery","sessoes":1,"ativo_min":45.6,"usd":0.1705,"usd_medio_sessao":0.1705,"tokens":497136,"cache_pct":73.6,"prompts":1,"ferramentas":20,"compactacoes":0,"subagentes":0,"sem_tokens":0,"modelos":["gemini-3.6-flash"]},{"passo":"sdd.plan","rotulo":"SDD · plan","toolkit":"sdd","sessoes":13,"ativo_min":576.3,"usd":10.6954,"usd_medio_sessao":0.8227,"tokens":9037208,"cache_pct":72.4,"prompts":13,"ferramentas":258,"compactacoes":0,"subagentes":0,"sem_tokens":0,"modelos":["claude-sonnet-5","claude-opus-5"]},{"passo":"sdd.implement","rotulo":"SDD · implement","toolkit":"sdd","sessoes":14,"ativo_min":2455.1,"usd":21.1677,"usd_medio_sessao":1.512,"tokens":53408397,"cache_pct":75.9,"prompts":14,"ferramentas":1061,"compactacoes":4,"subagentes":0,"sem_tokens":0,"modelos":["claude-haiku-4.5"]},{"passo":"sdd.review","rotulo":"SDD · review","toolkit":"sdd","sessoes":12,"ativo_min":371.1,"usd":2.2753,"usd_medio_sessao":0.1896,"tokens":4687351,"cache_pct":70.2,"prompts":12,"ferramentas":164,"compactacoes":0,"subagentes":0,"sem_tokens":0,"modelos":["claude-haiku-4.5"]},{"passo":"sdd.archive","rotulo":"SDD · archive","toolkit":"sdd","sessoes":10,"ativo_min":123.7,"usd":0.7207,"usd_medio_sessao":0.0721,"tokens":1135819,"cache_pct":59.2,"prompts":10,"ferramentas":64,"compactacoes":0,"subagentes":0,"sem_tokens":0,"modelos":["claude-haiku-4.5"]},{"passo":"design-to-code-liquid.gerar","rotulo":"Design-to-code Liquid · gerar","toolkit":"design-to-code-liquid","sessoes":5,"ativo_min":500.7,"usd":10.332,"usd_medio_sessao":2.0664,"tokens":12704974,"cache_pct":75.9,"prompts":5,"ferramentas":227,"compactacoes":0,"subagentes":0,"sem_tokens":0,"modelos":["claude-sonnet-5"]},{"passo":"livre","rotulo":"Sem toolkit (chat livre)","toolkit":null,"sessoes":5,"ativo_min":95.1,"usd":0.7418,"usd_medio_sessao":0.1484,"tokens":469452,"cache_pct":67.1,"prompts":4,"ferramentas":34,"compactacoes":0,"subagentes":0,"sem_tokens":0,"modelos":["gpt-5.4"]}],"modelos":[{"modelo":"claude-haiku-4.5","com_preco":true,"entrada_nova":10929986,"cache_leitura":43838502,"cache_escrita":3590787,"saida":872292,"chamadas":803,"usd":24.1638,"pct_usd":50.6},{"modelo":"claude-sonnet-5","com_preco":true,"entrada_nova":4315805,"cache_leitura":16459461,"cache_escrita":1328502,"saida":567283,"chamadas":348,"usd":20.9176,"pct_usd":43.8},{"modelo":"claude-opus-5","com_preco":true,"entrada_nova":133146,"cache_leitura":419699,"cache_escrita":31260,"saida":26256,"chamadas":11,"usd":1.7274,"pct_usd":3.6},{"modelo":"gpt-5.4","com_preco":true,"entrada_nova":106342,"cache_leitura":268615,"cache_escrita":24102,"saida":23238,"chamadas":24,"usd":0.7418,"pct_usd":1.6},{"modelo":"gemini-3.6-flash","com_preco":true,"entrada_nova":96220,"cache_leitura":356622,"cache_escrita":31519,"saida":12775,"chamadas":13,"usd":0.1705,"pct_usd":0.4},{"modelo":"gpt-5-mini","com_preco":true,"entrada_nova":11521,"cache_leitura":16031,"cache_escrita":1535,"saida":2733,"chamadas":3,"usd":0.0091,"pct_usd":0},{"modelo":"raptor-mini-preview","com_preco":false,"entrada_nova":12391,"cache_leitura":28787,"cache_escrita":2947,"saida":3030,"chamadas":3,"usd":0,"pct_usd":0}],"tokens":{"entrada_nova":15605411,"cache_leitura":61387717,"cache_escrita":5010652,"saida":1507607}},"seguranca":{"barreiras":[{"rotulo":"Portão do validador SDD reprovou","valor":5,"grupo":"Validador"},{"rotulo":"contrato-federation — confirmação exigida","valor":4,"grupo":"Hook de guarda"},{"rotulo":"comando-destrutivo — bloqueio","valor":2,"grupo":"Hook de guarda"},{"rotulo":"Git de escrita interrompido","valor":2,"grupo":"Invariante"},{"rotulo":"openapi-spec — confirmação exigida","valor":1,"grupo":"Hook de guarda"}],"por_regra":[{"rotulo":"contrato-federation","fonte":"arquivo","deny":0,"ask":4},{"rotulo":"comando-destrutivo","fonte":"arquivo","deny":2,"ask":0},{"rotulo":"openapi-spec","fonte":"arquivo","deny":0,"ask":1}],"deny":2,"ask":5,"validador":{"execucoes":38,"falhas":5},"git_escrita_executada":1,"git_escrita_interrompida":2,"contrato_editados":3,"ferramentas_interrompidas":2,"lacunas_explicitadas":8},"qualidade":{"atividades_com_revisao":10,"aprovadas_primeira":8,"aprovacao_primeira_pct":80,"reprovacoes":2,"validador":{"execucoes":38,"falhas":5},"testes":{"execucoes":25,"falhas":10},"lint":{"execucoes":11,"falhas":2},"compactacoes_por_sessao":0.06,"d2c":{"sessoes":5,"componentes":11,"liquid_elementos":192,"declaracoes_css":48,"css_por_componente":4.4,"liquid_por_componente":17.5},"sobrevivencia_edicoes":{"sem_reversao_pct":88,"quatro_gramas_pct":74}},"atividades":[{"id":"ticket:REAB-427","rotulo":"REAB-427","tipo_chave":"ticket","chaves":["branch:feature/REAB-427-exportar","sdd:exportar-extrato","ticket:REAB-427"],"repos":["recr-fed-agc-posvenda"],"fluxo":["sdd.plan","sdd.implement"],"sessoes":["vscode-chat-062-7b6579","vscode-chat-063-e5cdf7"],"inicio":1788439200000,"fim":1788534717533,"lead_time_dias":1.1,"concluida":false,"conclusao_origem":null,"inicio_execucao":1788529644553,"tempo":{"ativo_min":164.1,"com_ia_h":3.56},"estimativa":{"cega_h":18,"cega_registrada_em":"2026-09-02T12:00:00.000Z","cega_origem":"cli","nao_cega_h":null,"parametrica_h":19.5,"parametrica_detalhe":[{"unidade":"sdd.fatia","rotulo":"fatia vertical (linha 'Demonstra:' em tarefas.md)","quantidade":3,"horas_unidade":6,"subtotal_h":18},{"unidade":"sdd.arquivo_teste","rotulo":"arquivo de teste criado","quantidade":1,"horas_unidade":1.5,"subtotal_h":1.5}],"referencia_h":18,"referencia_fonte":"cega","divergencia_pct":8},"ganho":null,"custo":{"usd":1.8915,"creditos":189.1,"economia_roteamento_usd":1.083},"tokens":{"entrada_nova":661987,"cache_leitura":2590840,"cache_escrita":202464,"saida":62614},"qualidade":{"vereditos":[],"aprovada_primeira":null,"reprovacoes":0,"validador":{"execucoes":2,"falhas":0},"testes":{"execucoes":1,"falhas":1},"lint":{"execucoes":1,"falhas":0},"lacunas_explicitadas":0,"unidades":{"sdd.fatia":3,"sdd.arquivo_teste":1,"discovery.briefing":0,"d2c.pagina":0,"d2c.componente":0},"d2c":{"liquid_elementos":0,"declaracoes_css":0}},"seguranca":{"guardrails":{"deny":0,"ask":0,"por_regra":{}},"git_escrita_executada":0,"git_escrita_interrompida":0,"contrato_editados":0,"ferramentas_interrompidas":0},"arquivos_editados":7,"alertas":["nao_concluida"],"sessoes_detalhe":[{"id":"vscode-chat-062-7b6579","origem":"hook","passo":"sdd.plan","inicio":1788439200000,"ativo_min":47.1,"usd":0.8085,"tokens":784468,"modelos":["claude-sonnet-5"],"correlacao":"id"},{"id":"vscode-chat-063-e5cdf7","origem":"hook","passo":"sdd.implement","inicio":1788527700000,"ativo_min":117,"usd":1.083,"tokens":2733437,"modelos":["claude-haiku-4.5"],"correlacao":"id"}]},{"id":"ticket:REAB-430","rotulo":"REAB-430","tipo_chave":"ticket","chaves":["branch:feature/REAB-430-aviso","sdd:aviso-inadimplencia","ticket:REAB-430"],"repos":["cockpit-renegociacao-shell"],"fluxo":["sdd.plan","sdd.implement","sdd.review","sdd.archive"],"sessoes":["vscode-chat-056-924b8b","vscode-chat-057-5ea1d3","vscode-chat-058-48dee8","vscode-chat-059-cc806b"],"inicio":1788180000000,"fim":1788380373661,"lead_time_dias":2.3,"concluida":true,"conclusao_origem":"fluxo","inicio_execucao":1788271063348,"tempo":{"ativo_min":214.1,"com_ia_h":4.64},"estimativa":{"cega_h":14,"cega_registrada_em":"2026-08-31T12:00:00.000Z","cega_origem":"cli","nao_cega_h":null,"parametrica_h":15,"parametrica_detalhe":[{"unidade":"sdd.fatia","rotulo":"fatia vertical (linha 'Demonstra:' em tarefas.md)","quantidade":2,"horas_unidade":6,"subtotal_h":12},{"unidade":"sdd.arquivo_teste","rotulo":"arquivo de teste criado","quantidade":2,"horas_unidade":1.5,"subtotal_h":3}],"referencia_h":14,"referencia_fonte":"cega","divergencia_pct":7},"ganho":{"horas_economizadas":9.36,"fator":3.02},"custo":{"usd":2.0711,"creditos":207.1,"economia_roteamento_usd":1.5013},"tokens":{"entrada_nova":798567,"cache_leitura":3042633,"cache_escrita":255975,"saida":72681},"qualidade":{"vereditos":[{"eixo":"spec","commit":"8ba3804","veredito":"APROVADO","t":1788374207632},{"eixo":"padroes","commit":"6b8c39c","veredito":"APROVADO","t":1788374694298}],"aprovada_primeira":true,"reprovacoes":0,"validador":{"execucoes":3,"falhas":0},"testes":{"execucoes":1,"falhas":0},"lint":{"execucoes":1,"falhas":1},"lacunas_explicitadas":0,"unidades":{"sdd.fatia":2,"sdd.arquivo_teste":2,"discovery.briefing":0,"d2c.pagina":0,"d2c.componente":0},"d2c":{"liquid_elementos":0,"declaracoes_css":0}},"seguranca":{"guardrails":{"deny":0,"ask":0,"por_regra":{}},"git_escrita_executada":1,"git_escrita_interrompida":0,"contrato_editados":0,"ferramentas_interrompidas":0},"arquivos_editados":11,"alertas":[],"sessoes_detalhe":[{"id":"vscode-chat-056-924b8b","origem":"hook","passo":"sdd.plan","inicio":1788180000000,"ativo_min":35.3,"usd":0.5697,"tokens":554714,"modelos":["claude-sonnet-5"],"correlacao":"id"},{"id":"vscode-chat-057-5ea1d3","origem":"hook","passo":"sdd.implement","inicio":1788268500000,"ativo_min":141.7,"usd":1.2848,"tokens":3208583,"modelos":["claude-haiku-4.5"],"correlacao":"id"},{"id":"vscode-chat-058-48dee8","origem":"hook","passo":"sdd.review","inicio":1788373200000,"ativo_min":27.5,"usd":0.1517,"tokens":308255,"modelos":["claude-haiku-4.5"],"correlacao":"id"},{"id":"vscode-chat-059-cc806b","origem":"hook","passo":"sdd.archive","inicio":1788379800000,"ativo_min":9.6,"usd":0.0649,"tokens":98304,"modelos":["claude-haiku-4.5"],"correlacao":"id"}]},{"id":"branch:feature/REAB-439-simulador","rotulo":"REAB-439","tipo_chave":"ticket","chaves":["branch:feature/REAB-439-simulador","ticket:REAB-439"],"repos":["recr-fed-agc-posvenda"],"fluxo":["design-to-code-liquid.gerar"],"sessoes":["vscode-chat-060-327c31","vscode-chat-061-b8da9a"],"inicio":1788265200000,"fim":1788373190237,"lead_time_dias":1.2,"concluida":true,"conclusao_origem":"manual","inicio_execucao":1788266100756,"tempo":{"ativo_min":187.8,"com_ia_h":4.07},"estimativa":{"cega_h":14,"cega_registrada_em":"2026-09-01T12:00:00.000Z","cega_origem":"cli","nao_cega_h":null,"parametrica_h":16,"parametrica_detalhe":[{"unidade":"d2c.componente","rotulo":"componente criado pelo design-to-code-liquid","quantidade":4,"horas_unidade":4,"subtotal_h":16}],"referencia_h":14,"referencia_fonte":"cega","divergencia_pct":13},"ganho":{"horas_economizadas":9.93,"fator":3.44},"custo":{"usd":3.9479,"creditos":394.8,"economia_roteamento_usd":0},"tokens":{"entrada_nova":870308,"cache_leitura":3556756,"cache_escrita":288529,"saida":77457},"qualidade":{"vereditos":[],"aprovada_primeira":null,"reprovacoes":0,"validador":{"execucoes":0,"falhas":0},"testes":{"execucoes":0,"falhas":0},"lint":{"execucoes":0,"falhas":0},"lacunas_explicitadas":0,"unidades":{"sdd.fatia":0,"sdd.arquivo_teste":0,"discovery.briefing":0,"d2c.pagina":0,"d2c.componente":4},"d2c":{"liquid_elementos":58,"declaracoes_css":14}},"seguranca":{"guardrails":{"deny":0,"ask":0,"por_regra":{}},"git_escrita_executada":0,"git_escrita_interrompida":0,"contrato_editados":0,"ferramentas_interrompidas":0},"arquivos_editados":16,"alertas":[],"sessoes_detalhe":[{"id":"vscode-chat-060-327c31","origem":"hook","passo":"design-to-code-liquid.gerar","inicio":1788265200000,"ativo_min":108,"usd":2.2914,"tokens":2750600,"modelos":["claude-sonnet-5"],"correlacao":"id"},{"id":"vscode-chat-061-b8da9a","origem":"hook","passo":"design-to-code-liquid.gerar","inicio":1788368400000,"ativo_min":79.8,"usd":1.6564,"tokens":2042450,"modelos":["claude-sonnet-5"],"correlacao":"id"}]},{"id":"ticket:REAB-436","rotulo":"REAB-436","tipo_chave":"ticket","chaves":["branch:feature/REAB-436-painel","sdd:painel-acompanhamento","ticket:REAB-436"],"repos":["recr-fed-agc-posvenda"],"fluxo":["sdd.plan","design-to-code-liquid.gerar","sdd.implement","sdd.review","sdd.archive"],"sessoes":["vscode-chat-051-4738da","vscode-chat-052-5e0965","vscode-chat-053-d643a2","vscode-chat-054-751ba5","vscode-chat-055-14fb5c"],"inicio":1787661000000,"fim":1787944272054.0002,"lead_time_dias":3.3,"concluida":true,"conclusao_origem":"fluxo","inicio_execucao":1787747589743,"tempo":{"ativo_min":329.5,"com_ia_h":7.14},"estimativa":{"cega_h":30,"cega_registrada_em":"2026-08-25T12:00:00.000Z","cega_origem":"cli","nao_cega_h":null,"parametrica_h":39,"parametrica_detalhe":[{"unidade":"sdd.fatia","rotulo":"fatia vertical (linha 'Demonstra:' em tarefas.md)","quantidade":3,"horas_unidade":6,"subtotal_h":18},{"unidade":"sdd.arquivo_teste","rotulo":"arquivo de teste criado","quantidade":2,"horas_unidade":1.5,"subtotal_h":3},{"unidade":"d2c.pagina","rotulo":"página criada pelo design-to-code-liquid","quantidade":1,"horas_unidade":10,"subtotal_h":10},{"unidade":"d2c.componente","rotulo":"componente criado pelo design-to-code-liquid","quantidade":2,"horas_unidade":4,"subtotal_h":8}],"referencia_h":30,"referencia_fonte":"cega","divergencia_pct":23},"ganho":{"horas_economizadas":22.86,"fator":4.2},"custo":{"usd":4.57,"creditos":457,"economia_roteamento_usd":1.6112},"tokens":{"entrada_nova":1335992,"cache_leitura":5369057,"cache_escrita":432264,"saida":135473},"qualidade":{"vereditos":[{"eixo":"spec","commit":"ce98b12","veredito":"APROVADO","t":1787922989938},{"eixo":"padroes","commit":"4060698","veredito":"APROVADO","t":1787923344249}],"aprovada_primeira":true,"reprovacoes":0,"validador":{"execucoes":1,"falhas":0},"testes":{"execucoes":1,"falhas":0},"lint":{"execucoes":0,"falhas":0},"lacunas_explicitadas":0,"unidades":{"sdd.fatia":3,"sdd.arquivo_teste":2,"discovery.briefing":0,"d2c.pagina":1,"d2c.componente":2},"d2c":{"liquid_elementos":54,"declaracoes_css":15}},"seguranca":{"guardrails":{"deny":0,"ask":0,"por_regra":{}},"git_escrita_executada":0,"git_escrita_interrompida":0,"contrato_editados":0,"ferramentas_interrompidas":0},"arquivos_editados":20,"alertas":[],"sessoes_detalhe":[{"id":"vscode-chat-051-4738da","origem":"hook","passo":"sdd.plan","inicio":1787661000000,"ativo_min":43.4,"usd":0.8245,"tokens":739205,"modelos":["claude-sonnet-5"],"correlacao":"id"},{"id":"vscode-chat-052-5e0965","origem":"hook","passo":"design-to-code-liquid.gerar","inicio":1787746500000,"ativo_min":99.8,"usd":2.1344,"tokens":2577731,"modelos":["claude-sonnet-5"],"correlacao":"id"},{"id":"vscode-chat-053-d643a2","origem":"hook","passo":"sdd.implement","inicio":1787832600000,"ativo_min":147.5,"usd":1.3406,"tokens":3451441,"modelos":["claude-haiku-4.5"],"correlacao":"id"},{"id":"vscode-chat-054-751ba5","origem":"hook","passo":"sdd.review","inicio":1787922000000,"ativo_min":27.6,"usd":0.2058,"tokens":406709,"modelos":["claude-haiku-4.5"],"correlacao":"id"},{"id":"vscode-chat-055-14fb5c","origem":"hook","passo":"sdd.archive","inicio":1787943600000,"ativo_min":11.2,"usd":0.0648,"tokens":97700,"modelos":["claude-haiku-4.5"],"correlacao":"id"}]},{"id":"briefing:parcelamento-entrada","rotulo":"REAB-412","tipo_chave":"ticket","chaves":["branch:feature/REAB-412-parcelamento-entrada","briefing:parcelamento-entrada","sdd:parcelamento-entrada","ticket:REAB-412"],"repos":["recr-fed-agc-posvenda"],"fluxo":["discovery.grill","sdd.plan","sdd.implement","sdd.review","sdd.archive"],"sessoes":["vscode-chat-045-19ea13","vscode-chat-046-496f94","vscode-chat-047-b84778","vscode-chat-048-328fe6","vscode-chat-049-773a25","vscode-chat-050-bcf738"],"inicio":1787574000000,"fim":1787862268774.0002,"lead_time_dias":3.3,"concluida":true,"conclusao_origem":"fluxo","inicio_execucao":1787667307269,"tempo":{"ativo_min":496.1,"com_ia_h":10.75},"estimativa":{"cega_h":32,"cega_registrada_em":"2026-08-24T12:00:00.000Z","cega_origem":"cli","nao_cega_h":null,"parametrica_h":38.5,"parametrica_detalhe":[{"unidade":"sdd.fatia","rotulo":"fatia vertical (linha 'Demonstra:' em tarefas.md)","quantidade":5,"horas_unidade":6,"subtotal_h":30},{"unidade":"sdd.arquivo_teste","rotulo":"arquivo de teste criado","quantidade":3,"horas_unidade":1.5,"subtotal_h":4.5},{"unidade":"discovery.briefing","rotulo":"briefing gravado em docs/briefings/","quantidade":1,"horas_unidade":4,"subtotal_h":4}],"referencia_h":32,"referencia_fonte":"cega","divergencia_pct":17},"ganho":{"horas_economizadas":21.25,"fator":2.98},"custo":{"usd":4.7238,"creditos":472.4,"economia_roteamento_usd":3.3827},"tokens":{"entrada_nova":1778425,"cache_leitura":7156605,"cache_escrita":601887,"saida":161360},"qualidade":{"vereditos":[{"eixo":"spec","commit":"f49d91e","veredito":"APROVADO","t":1787856071471},{"eixo":"padroes","commit":"a7c9c4f","veredito":"APROVADO","t":1787856592738}],"aprovada_primeira":true,"reprovacoes":0,"validador":{"execucoes":5,"falhas":1},"testes":{"execucoes":3,"falhas":1},"lint":{"execucoes":2,"falhas":0},"lacunas_explicitadas":3,"unidades":{"sdd.fatia":5,"sdd.arquivo_teste":3,"discovery.briefing":1,"d2c.pagina":0,"d2c.componente":0},"d2c":{"liquid_elementos":0,"declaracoes_css":0}},"seguranca":{"guardrails":{"deny":1,"ask":1,"por_regra":{"contrato-federation":{"deny":0,"ask":1},"comando-destrutivo":{"deny":1,"ask":0}}},"git_escrita_executada":0,"git_escrita_interrompida":1,"contrato_editados":1,"ferramentas_interrompidas":1},"arquivos_editados":14,"alertas":[],"sessoes_detalhe":[{"id":"vscode-chat-045-19ea13","origem":"hook","passo":"discovery.grill","inicio":1787574000000,"ativo_min":49.7,"usd":0.3995,"tokens":379439,"modelos":["claude-sonnet-5"],"correlacao":"id"},{"id":"vscode-chat-046-496f94","origem":"hook","passo":"sdd.plan","inicio":1787575200000,"ativo_min":58.8,"usd":0.9416,"tokens":953479,"modelos":["claude-sonnet-5"],"correlacao":"id"},{"id":"vscode-chat-047-b84778","origem":"hook","passo":"sdd.implement","inicio":1787663700000,"ativo_min":200.3,"usd":1.8027,"tokens":4577294,"modelos":["claude-haiku-4.5"],"correlacao":"id"},{"id":"vscode-chat-048-328fe6","origem":"hook","passo":"sdd.implement","inicio":1787763900000,"ativo_min":138.1,"usd":1.2957,"tokens":3199362,"modelos":["claude-haiku-4.5"],"correlacao":"id"},{"id":"vscode-chat-049-773a25","origem":"hook","passo":"sdd.review","inicio":1787854800000,"ativo_min":34.7,"usd":0.2016,"tokens":451434,"modelos":["claude-haiku-4.5"],"correlacao":"id"},{"id":"vscode-chat-050-bcf738","origem":"hook","passo":"sdd.archive","inicio":1787861400000,"ativo_min":14.5,"usd":0.0827,"tokens":137269,"modelos":["claude-haiku-4.5"],"correlacao":"id"}]},{"id":"ticket:REAB-420","rotulo":"REAB-420","tipo_chave":"ticket","chaves":["branch:feature/REAB-420-mascara-cpf","sdd:mascara-cpf","ticket:REAB-420"],"repos":["recr-fed-agc-posvenda"],"fluxo":["sdd.plan","sdd.implement","sdd.review","sdd.plan","sdd.implement","sdd.review","sdd.archive"],"sessoes":["vscode-chat-038-32b7de","vscode-chat-039-e8940e","vscode-chat-040-9733a6","vscode-chat-041-d8a279","vscode-chat-042-911a03","vscode-chat-043-ea357d","vscode-chat-044-58fcd7"],"inicio":1787143200000,"fim":1787343897778,"lead_time_dias":2.3,"concluida":true,"conclusao_origem":"fluxo","inicio_execucao":1787150597916,"tempo":{"ativo_min":508.1,"com_ia_h":11.01},"estimativa":{"cega_h":null,"cega_registrada_em":null,"cega_origem":null,"nao_cega_h":null,"parametrica_h":13.5,"parametrica_detalhe":[{"unidade":"sdd.fatia","rotulo":"fatia vertical (linha 'Demonstra:' em tarefas.md)","quantidade":2,"horas_unidade":6,"subtotal_h":12},{"unidade":"sdd.arquivo_teste","rotulo":"arquivo de teste criado","quantidade":1,"horas_unidade":1.5,"subtotal_h":1.5}],"referencia_h":13.5,"referencia_fonte":"parametrica","divergencia_pct":null},"ganho":{"horas_economizadas":2.49,"fator":1.23},"custo":{"usd":4.4054,"creditos":440.5,"economia_roteamento_usd":3.3693},"tokens":{"entrada_nova":1703652,"cache_leitura":6853589,"cache_escrita":557744,"saida":160231},"qualidade":{"vereditos":[{"eixo":"spec","commit":"53b8cd8","veredito":"REPROVADO","t":1787251353161},{"eixo":"padroes","commit":"9e9f8e9","veredito":"APROVADO","t":1787251801429},{"eixo":"spec","commit":"b80c5e0","veredito":"APROVADO","t":1787337590364},{"eixo":"padroes","commit":"718648f","veredito":"APROVADO","t":1787338018925}],"aprovada_primeira":false,"reprovacoes":1,"validador":{"execucoes":4,"falhas":0},"testes":{"execucoes":5,"falhas":3},"lint":{"execucoes":1,"falhas":0},"lacunas_explicitadas":0,"unidades":{"sdd.fatia":2,"sdd.arquivo_teste":1,"discovery.briefing":0,"d2c.pagina":0,"d2c.componente":0},"d2c":{"liquid_elementos":0,"declaracoes_css":0}},"seguranca":{"guardrails":{"deny":0,"ask":0,"por_regra":{}},"git_escrita_executada":0,"git_escrita_interrompida":0,"contrato_editados":0,"ferramentas_interrompidas":0},"arquivos_editados":12,"alertas":["sem_estimativa","fonte_unica"],"sessoes_detalhe":[{"id":"vscode-chat-038-32b7de","origem":"hook","passo":"sdd.plan","inicio":1787143200000,"ativo_min":40.9,"usd":0.6624,"tokens":607004,"modelos":["claude-sonnet-5"],"correlacao":"id"},{"id":"vscode-chat-039-e8940e","origem":"hook","passo":"sdd.implement","inicio":1787145300000,"ativo_min":292.4,"usd":2.2336,"tokens":5708632,"modelos":["claude-haiku-4.5"],"correlacao":"id"},{"id":"vscode-chat-040-9733a6","origem":"hook","passo":"sdd.review","inicio":1787250000000,"ativo_min":34.4,"usd":0.2274,"tokens":462912,"modelos":["claude-haiku-4.5"],"correlacao":"id"},{"id":"vscode-chat-041-d8a279","origem":"hook","passo":"sdd.plan","inicio":1787315400000,"ativo_min":24.3,"usd":0.3737,"tokens":374529,"modelos":["claude-sonnet-5"],"correlacao":"id"},{"id":"vscode-chat-042-911a03","origem":"hook","passo":"sdd.implement","inicio":1787320800000,"ativo_min":69,"usd":0.6429,"tokens":1581274,"modelos":["claude-haiku-4.5"],"correlacao":"id"},{"id":"vscode-chat-043-ea357d","origem":"hook","passo":"sdd.review","inicio":1787336400000,"ativo_min":32.1,"usd":0.1863,"tokens":406392,"modelos":["claude-haiku-4.5"],"correlacao":"id"},{"id":"vscode-chat-044-58fcd7","origem":"hook","passo":"sdd.archive","inicio":1787343000000,"ativo_min":15,"usd":0.0791,"tokens":134473,"modelos":["claude-haiku-4.5"],"correlacao":"id"}]},{"id":"briefing:proposta-renegociacao","rotulo":"REAB-405","tipo_chave":"ticket","chaves":["branch:feature/REAB-405-proposta","briefing:proposta-renegociacao","sdd:proposta-renegociacao","ticket:REAB-405"],"repos":["recr-fed-agc-posvenda"],"fluxo":["discovery.grill","discovery.prototipo","sdd.plan","sdd.implement","sdd.review","sdd.plan","sdd.implement","sdd.review","sdd.archive"],"sessoes":["vscode-chat-021-25e2d3","vscode-chat-022-acce5e","vscode-chat-023-406a11","vscode-chat-024-22d72e","vscode-chat-025-5e9cb4","vscode-chat-026-48835b","vscode-chat-027-65cc41","vscode-chat-028-97f43f","vscode-chat-029-2d7309","vscode-chat-030-03225c"],"inicio":1786364100000,"fim":1787084677502.0002,"lead_time_dias":8.3,"concluida":true,"conclusao_origem":"fluxo","inicio_execucao":1786545781637,"tempo":{"ativo_min":797.5,"com_ia_h":17.28},"estimativa":{"cega_h":30,"cega_registrada_em":"2026-08-11T14:00:00.000Z","cega_origem":"cli","nao_cega_h":null,"parametrica_h":53.5,"parametrica_detalhe":[{"unidade":"sdd.fatia","rotulo":"fatia vertical (linha 'Demonstra:' em tarefas.md)","quantidade":7,"horas_unidade":6,"subtotal_h":42},{"unidade":"sdd.arquivo_teste","rotulo":"arquivo de teste criado","quantidade":5,"horas_unidade":1.5,"subtotal_h":7.5},{"unidade":"discovery.briefing","rotulo":"briefing gravado em docs/briefings/","quantidade":1,"horas_unidade":4,"subtotal_h":4}],"referencia_h":30,"referencia_fonte":"cega","divergencia_pct":44},"ganho":{"horas_economizadas":12.72,"fator":1.74},"custo":{"usd":7.0951,"creditos":709.5,"economia_roteamento_usd":4.626},"tokens":{"entrada_nova":2545473,"cache_leitura":9982451,"cache_escrita":814554,"saida":259732},"qualidade":{"vereditos":[{"eixo":"spec","commit":"025c646","veredito":"APROVADO","t":1786646898181},{"eixo":"padroes","commit":"63bc3b5","veredito":"REPROVADO","t":1786647449975},{"eixo":"spec","commit":"246077c","veredito":"APROVADO","t":1786991939294},{"eixo":"padroes","commit":"65a8408","veredito":"APROVADO","t":1786992389411}],"aprovada_primeira":false,"reprovacoes":1,"validador":{"execucoes":5,"falhas":1},"testes":{"execucoes":5,"falhas":3},"lint":{"execucoes":1,"falhas":1},"lacunas_explicitadas":2,"unidades":{"sdd.fatia":7,"sdd.arquivo_teste":5,"discovery.briefing":1,"d2c.pagina":0,"d2c.componente":0},"d2c":{"liquid_elementos":0,"declaracoes_css":0}},"seguranca":{"guardrails":{"deny":0,"ask":3,"por_regra":{"contrato-federation":{"deny":0,"ask":2},"openapi-spec":{"deny":0,"ask":1}}},"git_escrita_executada":0,"git_escrita_interrompida":0,"contrato_editados":1,"ferramentas_interrompidas":0},"arquivos_editados":18,"alertas":[],"sessoes_detalhe":[{"id":"vscode-chat-021-25e2d3","origem":"hook","passo":"discovery.grill","inicio":1786364100000,"ativo_min":52.8,"usd":0.442,"tokens":406805,"modelos":["claude-sonnet-5"],"correlacao":"id"},{"id":"vscode-chat-022-acce5e","origem":"hook","passo":"discovery.grill","inicio":1786381200000,"ativo_min":39.6,"usd":0.3284,"tokens":310843,"modelos":["claude-sonnet-5"],"correlacao":"id"},{"id":"vscode-chat-023-406a11","origem":"hook","passo":"discovery.prototipo","inicio":1786450200000,"ativo_min":45.6,"usd":0.1705,"tokens":497136,"modelos":["gemini-3.6-flash"],"correlacao":"id"},{"id":"vscode-chat-024-22d72e","origem":"hook","passo":"sdd.plan","inicio":1786452000000,"ativo_min":74,"usd":1.2099,"tokens":1124852,"modelos":["claude-sonnet-5"],"correlacao":"id"},{"id":"vscode-chat-025-5e9cb4","origem":"hook","passo":"sdd.implement","inicio":1786540500000,"ativo_min":337.7,"usd":2.7006,"tokens":6923500,"modelos":["claude-haiku-4.5"],"correlacao":"id"},{"id":"vscode-chat-026-48835b","origem":"hook","passo":"sdd.review","inicio":1786645200000,"ativo_min":42,"usd":0.2261,"tokens":505726,"modelos":["claude-haiku-4.5"],"correlacao":"id"},{"id":"vscode-chat-027-65cc41","origem":"hook","passo":"sdd.plan","inicio":1786710600000,"ativo_min":36.1,"usd":0.6183,"tokens":554387,"modelos":["claude-sonnet-5"],"correlacao":"id"},{"id":"vscode-chat-028-97f43f","origem":"hook","passo":"sdd.implement","inicio":1786716000000,"ativo_min":123.8,"usd":1.1243,"tokens":2737061,"modelos":["claude-haiku-4.5"],"correlacao":"id"},{"id":"vscode-chat-029-2d7309","origem":"hook","passo":"sdd.review","inicio":1786990800000,"ativo_min":31.3,"usd":0.1997,"tokens":407923,"modelos":["claude-haiku-4.5"],"correlacao":"id"},{"id":"vscode-chat-030-03225c","origem":"hook","passo":"sdd.archive","inicio":1787083800000,"ativo_min":14.6,"usd":0.0756,"tokens":133977,"modelos":["claude-haiku-4.5"],"correlacao":"id"}]},{"id":"branch:feature/REAB-433-cards-cliente","rotulo":"REAB-433","tipo_chave":"ticket","chaves":["branch:feature/REAB-433-cards-cliente","ticket:REAB-433"],"repos":["recr-fed-agc-posvenda"],"fluxo":["design-to-code-liquid.gerar"],"sessoes":["vscode-chat-035-05fa99","vscode-chat-036-91a02e","vscode-chat-037-197f80"],"inicio":1786969800000,"fim":1787079651987,"lead_time_dias":1.3,"concluida":true,"conclusao_origem":"manual","inicio_execucao":1786971386159,"tempo":{"ativo_min":243.9,"com_ia_h":5.29},"estimativa":{"cega_h":22,"cega_registrada_em":"2026-08-17T12:00:00.000Z","cega_origem":"cli","nao_cega_h":null,"parametrica_h":22,"parametrica_detalhe":[{"unidade":"d2c.pagina","rotulo":"página criada pelo design-to-code-liquid","quantidade":1,"horas_unidade":10,"subtotal_h":10},{"unidade":"d2c.componente","rotulo":"componente criado pelo design-to-code-liquid","quantidade":3,"horas_unidade":4,"subtotal_h":12}],"referencia_h":22,"referencia_fonte":"cega","divergencia_pct":0},"ganho":{"horas_economizadas":16.71,"fator":4.16},"custo":{"usd":4.5068,"creditos":450.7,"economia_roteamento_usd":-0.062},"tokens":{"entrada_nova":950136,"cache_leitura":4137079,"cache_escrita":315484,"saida":92839},"qualidade":{"vereditos":[],"aprovada_primeira":null,"reprovacoes":0,"validador":{"execucoes":0,"falhas":0},"testes":{"execucoes":0,"falhas":0},"lint":{"execucoes":0,"falhas":0},"lacunas_explicitadas":0,"unidades":{"sdd.fatia":0,"sdd.arquivo_teste":0,"discovery.briefing":0,"d2c.pagina":1,"d2c.componente":3},"d2c":{"liquid_elementos":80,"declaracoes_css":19}},"seguranca":{"guardrails":{"deny":0,"ask":0,"por_regra":{}},"git_escrita_executada":0,"git_escrita_interrompida":0,"contrato_editados":0,"ferramentas_interrompidas":0},"arquivos_editados":16,"alertas":[],"sessoes_detalhe":[{"id":"vscode-chat-035-05fa99","origem":"hook","passo":"design-to-code-liquid.gerar","inicio":1786969800000,"ativo_min":122.7,"usd":2.4108,"tokens":3029465,"modelos":["claude-sonnet-5"],"correlacao":"id"},{"id":"vscode-chat-036-91a02e","origem":"hook","passo":"design-to-code-liquid.gerar","inicio":1787058000000,"ativo_min":90.4,"usd":1.8389,"tokens":2304728,"modelos":["claude-sonnet-5"],"correlacao":"id"},{"id":"vscode-chat-037-197f80","origem":"hook","passo":"livre","inicio":1787077800000,"ativo_min":30.9,"usd":0.257,"tokens":161345,"modelos":["gpt-5.4"],"correlacao":"id"}]},{"id":"ticket:REAB-423","rotulo":"REAB-423","tipo_chave":"ticket","chaves":["branch:feature/REAB-423-banner-oferta","sdd:banner-oferta","ticket:REAB-423"],"repos":["recr-fed-agc-posvenda"],"fluxo":["sdd.plan","sdd.implement","sdd.review","sdd.archive"],"sessoes":["vscode-chat-031-11293b","vscode-chat-032-b647e0","vscode-chat-033-85fb0a","vscode-chat-034-feaaba"],"inicio":1786538400000,"fim":1786738812301,"lead_time_dias":2.3,"concluida":true,"conclusao_origem":"fluxo","inicio_execucao":1786629643182,"tempo":{"ativo_min":235.1,"com_ia_h":5.09},"estimativa":{"cega_h":60,"cega_registrada_em":"2026-08-12T13:00:00.000Z","cega_origem":"cli","nao_cega_h":null,"parametrica_h":21,"parametrica_detalhe":[{"unidade":"sdd.fatia","rotulo":"fatia vertical (linha 'Demonstra:' em tarefas.md)","quantidade":3,"horas_unidade":6,"subtotal_h":18},{"unidade":"sdd.arquivo_teste","rotulo":"arquivo de teste criado","quantidade":2,"horas_unidade":1.5,"subtotal_h":3}],"referencia_h":21,"referencia_fonte":"parametrica","divergencia_pct":65},"ganho":{"horas_economizadas":15.91,"fator":4.12},"custo":{"usd":3.4787,"creditos":347.9,"economia_roteamento_usd":0.7149},"tokens":{"entrada_nova":934472,"cache_leitura":3434122,"cache_escrita":283794,"saida":92833},"qualidade":{"vereditos":[{"eixo":"spec","commit":"1ac83e3","veredito":"APROVADO","t":1786732611207},{"eixo":"padroes","commit":"215d48c","veredito":"APROVADO","t":1786733131948}],"aprovada_primeira":true,"reprovacoes":0,"validador":{"execucoes":3,"falhas":0},"testes":{"execucoes":1,"falhas":0},"lint":{"execucoes":1,"falhas":0},"lacunas_explicitadas":0,"unidades":{"sdd.fatia":3,"sdd.arquivo_teste":2,"discovery.briefing":0,"d2c.pagina":0,"d2c.componente":0},"d2c":{"liquid_elementos":0,"declaracoes_css":0}},"seguranca":{"guardrails":{"deny":0,"ask":0,"por_regra":{}},"git_escrita_executada":0,"git_escrita_interrompida":0,"contrato_editados":0,"ferramentas_interrompidas":0},"arquivos_editados":11,"alertas":["divergencia"],"sessoes_detalhe":[{"id":"vscode-chat-031-11293b","origem":"hook","passo":"sdd.plan","inicio":1786538400000,"ativo_min":39.5,"usd":1.7274,"tokens":610361,"modelos":["claude-opus-5"],"correlacao":"id"},{"id":"vscode-chat-032-b647e0","origem":"hook","passo":"sdd.implement","inicio":1786626900000,"ativo_min":157.8,"usd":1.5355,"tokens":3717041,"modelos":["claude-haiku-4.5"],"correlacao":"id"},{"id":"vscode-chat-033-85fb0a","origem":"hook","passo":"sdd.review","inicio":1786731600000,"ativo_min":27.7,"usd":0.1556,"tokens":315666,"modelos":["claude-haiku-4.5"],"correlacao":"id"},{"id":"vscode-chat-034-feaaba","origem":"hook","passo":"sdd.archive","inicio":1786738200000,"ativo_min":10.2,"usd":0.0603,"tokens":102153,"modelos":["claude-haiku-4.5"],"correlacao":"id"}]},{"id":"ticket:REAB-418","rotulo":"REAB-418","tipo_chave":"ticket","chaves":["branch:feature/REAB-418-filtro-carteira","sdd:filtro-carteira","ticket:REAB-418"],"repos":["recr-fed-agc-posvenda"],"fluxo":["sdd.plan","sdd.implement","sdd.review","sdd.archive"],"sessoes":["vscode-chat-017-21cd3f","vscode-chat-018-d5ed8f","vscode-chat-019-cf4bf2","vscode-chat-020-c4827d"],"inicio":1785933600000,"fim":1786134107555,"lead_time_dias":2.3,"concluida":true,"conclusao_origem":"fluxo","inicio_execucao":1786025410319,"tempo":{"ativo_min":273.4,"com_ia_h":5.92},"estimativa":{"cega_h":null,"cega_registrada_em":null,"cega_origem":null,"nao_cega_h":20,"parametrica_h":22.5,"parametrica_detalhe":[{"unidade":"sdd.fatia","rotulo":"fatia vertical (linha 'Demonstra:' em tarefas.md)","quantidade":3,"horas_unidade":6,"subtotal_h":18},{"unidade":"sdd.arquivo_teste","rotulo":"arquivo de teste criado","quantidade":3,"horas_unidade":1.5,"subtotal_h":4.5}],"referencia_h":22.5,"referencia_fonte":"parametrica","divergencia_pct":null},"ganho":{"horas_economizadas":16.58,"fator":3.8},"custo":{"usd":2.6559,"creditos":265.6,"economia_roteamento_usd":1.8614},"tokens":{"entrada_nova":990066,"cache_leitura":3909567,"cache_escrita":322307,"saida":94948},"qualidade":{"vereditos":[{"eixo":"spec","commit":"d7fc78b","veredito":"APROVADO","t":1786128077976},{"eixo":"padroes","commit":"3a157da","veredito":"APROVADO","t":1786128474330}],"aprovada_primeira":true,"reprovacoes":0,"validador":{"execucoes":3,"falhas":0},"testes":{"execucoes":2,"falhas":1},"lint":{"execucoes":1,"falhas":0},"lacunas_explicitadas":0,"unidades":{"sdd.fatia":3,"sdd.arquivo_teste":3,"discovery.briefing":0,"d2c.pagina":0,"d2c.componente":0},"d2c":{"liquid_elementos":0,"declaracoes_css":0}},"seguranca":{"guardrails":{"deny":1,"ask":0,"por_regra":{"comando-destrutivo":{"deny":1,"ask":0}}},"git_escrita_executada":0,"git_escrita_interrompida":1,"contrato_editados":0,"ferramentas_interrompidas":1},"arquivos_editados":12,"alertas":["estimativa_nao_cega","fonte_unica"],"sessoes_detalhe":[{"id":"vscode-chat-017-21cd3f","origem":"hook","passo":"sdd.plan","inicio":1785933600000,"ativo_min":45.4,"usd":0.7946,"tokens":720472,"modelos":["claude-sonnet-5"],"correlacao":"id"},{"id":"vscode-chat-018-d5ed8f","origem":"hook","passo":"sdd.implement","inicio":1786022100000,"ativo_min":184.3,"usd":1.5909,"tokens":4098873,"modelos":["claude-haiku-4.5"],"correlacao":"id"},{"id":"vscode-chat-019-cf4bf2","origem":"hook","passo":"sdd.review","inicio":1786126800000,"ativo_min":31.9,"usd":0.1979,"tokens":397567,"modelos":["claude-haiku-4.5"],"correlacao":"id"},{"id":"vscode-chat-020-c4827d","origem":"hook","passo":"sdd.archive","inicio":1786133400000,"ativo_min":11.8,"usd":0.0726,"tokens":99976,"modelos":["claude-haiku-4.5"],"correlacao":"id"}]},{"id":"briefing:extrato-parcelas","rotulo":"REAB-409","tipo_chave":"ticket","chaves":["branch:feature/REAB-409-extrato","briefing:extrato-parcelas","sdd:extrato-parcelas","ticket:REAB-409"],"repos":["recr-fed-agc-posvenda"],"fluxo":["discovery.rota","discovery.triagem","sdd.plan","sdd.implement","sdd.review","sdd.archive"],"sessoes":["vscode-chat-010-05f945","vscode-chat-011-6a435c","vscode-chat-012-825130","vscode-chat-013-26a018","vscode-chat-014-64f05a","vscode-chat-015-6c79d7"],"inicio":1785759000000,"fim":1785961286964,"lead_time_dias":2.3,"concluida":true,"conclusao_origem":"fluxo","inicio_execucao":1785852120309,"tempo":{"ativo_min":259.7,"com_ia_h":5.63},"estimativa":{"cega_h":16,"cega_registrada_em":"2026-08-03T12:40:05.000Z","cega_origem":"prompt","nao_cega_h":null,"parametrica_h":25,"parametrica_detalhe":[{"unidade":"sdd.fatia","rotulo":"fatia vertical (linha 'Demonstra:' em tarefas.md)","quantidade":3,"horas_unidade":6,"subtotal_h":18},{"unidade":"sdd.arquivo_teste","rotulo":"arquivo de teste criado","quantidade":2,"horas_unidade":1.5,"subtotal_h":3},{"unidade":"discovery.briefing","rotulo":"briefing gravado em docs/briefings/","quantidade":1,"horas_unidade":4,"subtotal_h":4}],"referencia_h":16,"referencia_fonte":"cega","divergencia_pct":36},"ganho":{"horas_economizadas":10.37,"fator":2.84},"custo":{"usd":2.4926,"creditos":249.3,"economia_roteamento_usd":1.6409},"tokens":{"entrada_nova":930598,"cache_leitura":3408779,"cache_escrita":278670,"saida":89384},"qualidade":{"vereditos":[{"eixo":"spec","commit":"c5b66c1","veredito":"APROVADO","t":1785955048367},{"eixo":"padroes","commit":"cedb925","veredito":"APROVADO","t":1785955380575}],"aprovada_primeira":true,"reprovacoes":0,"validador":{"execucoes":3,"falhas":0},"testes":{"execucoes":2,"falhas":0},"lint":{"execucoes":1,"falhas":0},"lacunas_explicitadas":1,"unidades":{"sdd.fatia":3,"sdd.arquivo_teste":2,"discovery.briefing":1,"d2c.pagina":0,"d2c.componente":0},"d2c":{"liquid_elementos":0,"declaracoes_css":0}},"seguranca":{"guardrails":{"deny":0,"ask":0,"por_regra":{}},"git_escrita_executada":0,"git_escrita_interrompida":0,"contrato_editados":0,"ferramentas_interrompidas":0},"arquivos_editados":12,"alertas":["correlacao_ambigua"],"sessoes_detalhe":[{"id":"vscode-chat-010-05f945","origem":"hook","passo":"discovery.rota","inicio":1785759000000,"ativo_min":5.9,"usd":0.0091,"tokens":31820,"modelos":["gpt-5-mini"],"correlacao":"id"},{"id":"vscode-chat-011-6a435c","origem":"hook","passo":"discovery.triagem","inicio":1785760200000,"ativo_min":22.6,"usd":0.2084,"tokens":197378,"modelos":["claude-sonnet-5"],"correlacao":"id"},{"id":"vscode-chat-012-825130","origem":"hook","passo":"sdd.plan","inicio":1785760800000,"ativo_min":40.8,"usd":0.6825,"tokens":607517,"modelos":["claude-sonnet-5"],"correlacao":"id"},{"id":"vscode-chat-013-26a018","origem":"hook","passo":"sdd.implement","inicio":1785849300000,"ativo_min":152.4,"usd":1.3643,"tokens":3458189,"modelos":["claude-haiku-4.5"],"correlacao":"ambigua"},{"id":"vscode-chat-014-64f05a","origem":"hook","passo":"sdd.review","inicio":1785954000000,"ativo_min":26.5,"usd":0.1657,"tokens":314096,"modelos":["claude-haiku-4.5"],"correlacao":"id"},{"id":"vscode-chat-015-6c79d7","origem":"hook","passo":"sdd.archive","inicio":1785960600000,"ativo_min":11.4,"usd":0.0626,"tokens":98431,"modelos":["claude-haiku-4.5"],"correlacao":"id"}]},{"id":"ticket:REAB-415","rotulo":"REAB-415","tipo_chave":"ticket","chaves":["branch:feature/REAB-415-juros-mora","sdd:ajuste-juros-mora","ticket:REAB-415"],"repos":["recr-fed-agc-posvenda"],"fluxo":["sdd.plan","sdd.implement","sdd.review","sdd.archive"],"sessoes":["vscode-chat-006-047869","vscode-chat-007-3e24a6","vscode-chat-008-73ef15","vscode-chat-009-4807c9"],"inicio":1785328800000,"fim":1785529278887,"lead_time_dias":2.3,"concluida":true,"conclusao_origem":"fluxo","inicio_execucao":1785419245602,"tempo":{"ativo_min":174.6,"com_ia_h":3.78},"estimativa":{"cega_h":12,"cega_registrada_em":"2026-07-28T19:00:00.000Z","cega_origem":"cli","nao_cega_h":null,"parametrica_h":15,"parametrica_detalhe":[{"unidade":"sdd.fatia","rotulo":"fatia vertical (linha 'Demonstra:' em tarefas.md)","quantidade":2,"horas_unidade":6,"subtotal_h":12},{"unidade":"sdd.arquivo_teste","rotulo":"arquivo de teste criado","quantidade":2,"horas_unidade":1.5,"subtotal_h":3}],"referencia_h":12,"referencia_fonte":"cega","divergencia_pct":20},"ganho":{"horas_economizadas":8.22,"fator":3.17},"custo":{"usd":1.72,"creditos":172,"economia_roteamento_usd":1.2116},"tokens":{"entrada_nova":667666,"cache_leitura":2407236,"cache_escrita":205056,"saida":60219},"qualidade":{"vereditos":[{"eixo":"spec","commit":"3104d7f","veredito":"APROVADO","t":1785522826521},{"eixo":"padroes","commit":"a80b47e","veredito":"APROVADO","t":1785523029049}],"aprovada_primeira":true,"reprovacoes":0,"validador":{"execucoes":5,"falhas":2},"testes":{"execucoes":1,"falhas":0},"lint":{"execucoes":1,"falhas":0},"lacunas_explicitadas":0,"unidades":{"sdd.fatia":2,"sdd.arquivo_teste":2,"discovery.briefing":0,"d2c.pagina":0,"d2c.componente":0},"d2c":{"liquid_elementos":0,"declaracoes_css":0}},"seguranca":{"guardrails":{"deny":0,"ask":0,"por_regra":{}},"git_escrita_executada":0,"git_escrita_interrompida":0,"contrato_editados":0,"ferramentas_interrompidas":0},"arquivos_editados":11,"alertas":[],"sessoes_detalhe":[{"id":"vscode-chat-006-047869","origem":"hook","passo":"sdd.plan","inicio":1785328800000,"ativo_min":32,"usd":0.5085,"tokens":501940,"modelos":["claude-sonnet-5"],"correlacao":"id"},{"id":"vscode-chat-007-3e24a6","origem":"hook","passo":"sdd.implement","inicio":1785417300000,"ativo_min":112.5,"usd":0.9956,"tokens":2474190,"modelos":["claude-haiku-4.5"],"correlacao":"id"},{"id":"vscode-chat-008-73ef15","origem":"hook","passo":"sdd.review","inicio":1785522000000,"ativo_min":18.8,"usd":0.1371,"tokens":263130,"modelos":["claude-haiku-4.5"],"correlacao":"id"},{"id":"vscode-chat-009-4807c9","origem":"hook","passo":"sdd.archive","inicio":1785528600000,"ativo_min":11.3,"usd":0.0789,"tokens":100917,"modelos":["claude-haiku-4.5"],"correlacao":"id"}]},{"id":"briefing:simulacao-acordo","rotulo":"REAB-401","tipo_chave":"ticket","chaves":["branch:feature/REAB-401-simulacao-acordo","briefing:simulacao-acordo","sdd:simulacao-acordo","ticket:REAB-401"],"repos":["recr-fed-agc-posvenda"],"fluxo":["discovery.triagem","sdd.plan","sdd.implement","sdd.review","sdd.archive"],"sessoes":["vscode-chat-001-632fef","vscode-chat-002-dea9a2","vscode-chat-003-f6a031","vscode-chat-004-db47a2","vscode-chat-005-c051de"],"inicio":1785154800000,"fim":1785443048445,"lead_time_dias":3.3,"concluida":true,"conclusao_origem":"fluxo","inicio_execucao":1785248797181,"tempo":{"ativo_min":420.5,"com_ia_h":9.11},"estimativa":{"cega_h":24,"cega_registrada_em":"2026-07-27T12:05:00.000Z","cega_origem":"cli","nao_cega_h":null,"parametrica_h":32.5,"parametrica_detalhe":[{"unidade":"sdd.fatia","rotulo":"fatia vertical (linha 'Demonstra:' em tarefas.md)","quantidade":4,"horas_unidade":6,"subtotal_h":24},{"unidade":"sdd.arquivo_teste","rotulo":"arquivo de teste criado","quantidade":3,"horas_unidade":1.5,"subtotal_h":4.5},{"unidade":"discovery.briefing","rotulo":"briefing gravado em docs/briefings/","quantidade":1,"horas_unidade":4,"subtotal_h":4}],"referencia_h":24,"referencia_fonte":"cega","divergencia_pct":26},"ganho":{"horas_economizadas":14.89,"fator":2.63},"custo":{"usd":3.6866,"creditos":368.7,"economia_roteamento_usd":2.4733},"tokens":{"entrada_nova":1356131,"cache_leitura":5349129,"cache_escrita":434247,"saida":129218},"qualidade":{"vereditos":[{"eixo":"spec","commit":"7361a22","veredito":"APROVADO","t":1785350612293},{"eixo":"padroes","commit":"2973b48","veredito":"APROVADO","t":1785351137894}],"aprovada_primeira":true,"reprovacoes":0,"validador":{"execucoes":4,"falhas":1},"testes":{"execucoes":3,"falhas":1},"lint":{"execucoes":1,"falhas":0},"lacunas_explicitadas":2,"unidades":{"sdd.fatia":4,"sdd.arquivo_teste":3,"discovery.briefing":1,"d2c.pagina":0,"d2c.componente":0},"d2c":{"liquid_elementos":0,"declaracoes_css":0}},"seguranca":{"guardrails":{"deny":0,"ask":1,"por_regra":{"contrato-federation":{"deny":0,"ask":1}}},"git_escrita_executada":0,"git_escrita_interrompida":0,"contrato_editados":1,"ferramentas_interrompidas":0},"arquivos_editados":14,"alertas":[],"sessoes_detalhe":[{"id":"vscode-chat-001-632fef","origem":"hook","passo":"discovery.triagem","inicio":1785154800000,"ativo_min":30.5,"usd":0.2394,"tokens":244765,"modelos":["claude-sonnet-5"],"correlacao":"id"},{"id":"vscode-chat-002-dea9a2","origem":"hook","passo":"sdd.plan","inicio":1785156000000,"ativo_min":58.6,"usd":0.9739,"tokens":904280,"modelos":["claude-sonnet-5"],"correlacao":"id"},{"id":"vscode-chat-003-f6a031","origem":"hook","passo":"sdd.implement","inicio":1785244500000,"ativo_min":280.7,"usd":2.1734,"tokens":5539520,"modelos":["claude-haiku-4.5"],"correlacao":"id"},{"id":"vscode-chat-004-db47a2","origem":"hook","passo":"sdd.review","inicio":1785349200000,"ativo_min":36.6,"usd":0.2206,"tokens":447541,"modelos":["claude-haiku-4.5"],"correlacao":"id"},{"id":"vscode-chat-005-c051de","origem":"hook","passo":"sdd.archive","inicio":1785442200000,"ativo_min":14.1,"usd":0.0794,"tokens":132619,"modelos":["claude-haiku-4.5"],"correlacao":"id"}]}],"sessoes_sem_atividade":[{"id":"vscode-chat-016-aad857","origem":"hook","passo":"livre","inicio":1785853800000,"ativo_min":16.3,"usd":0.1793,"tokens":88602,"modelos":["gpt-5.4"],"correlacao":"ambigua"},{"id":"vscode-chat-064-1c3845","origem":"hook","passo":"livre","inicio":1787254800000,"ativo_min":13.5,"usd":0.1231,"tokens":69078,"modelos":["gpt-5.4"],"correlacao":"id"},{"id":"vscode-chat-065-ac5a5b","origem":"hook","passo":"livre","inicio":1788466800000,"ativo_min":11.9,"usd":0,"tokens":47155,"modelos":["raptor-mini-preview"],"correlacao":"id"},{"id":"otel-conv-7b01390f3ff9","origem":"otel","passo":"livre","inicio":1788008400000,"ativo_min":22.6,"usd":0.1824,"tokens":103272,"modelos":["gpt-5.4"],"correlacao":"sem_hook"}],"pendencias":{"sem_estimativa":["REAB-420"],"estimativa_nao_cega":["REAB-418"],"divergentes":["REAB-423"],"estimativas_sem_atividade":[],"sessoes_sem_atividade":4,"modelos_sem_preco":["raptor-mini-preview"],"calibracao_placeholder":true},"cobertura":{"sessoes_total":66,"sessoes_hook":65,"sessoes_so_otel":1,"sessoes_com_tokens_pct":100,"sessoes_com_atividade_pct":94,"atividades_total":13,"atividades_concluidas":12,"concluidas_com_ganho":12,"concluidas_com_estimativa_cega_pct":83,"correlacao":{"id":63,"janela":0,"ambigua":2,"orfas":1},"otel_disponivel":true,"otel_linhas":67,"otel_linhas_invalidas":0,"input_inclui_cache":true,"hook_ms_p50":39.9,"hook_ms_p95":56.3,"modelos_sem_preco":["raptor-mini-preview"],"sessoes_sid_fallback":0},"metodologia":[{"metrica":"Tempo ativo em sessão","tipo":"Medido","fonte":"Carimbos de tempo dos hooks + início/fim dos spans OTel","premissa":"Intervalo acima de 10 min entre eventos não conta"},{"metrica":"Tempo com IA","tipo":"Derivado","fonte":"Tempo ativo × (1 + sobrecarga)","premissa":"Sobrecarga humana fora da sessão: 30%"},{"metrica":"Horas sem IA — estimativa cega","tipo":"Estimado","fonte":"Dev registra antes da primeira edição de código (hm estimar ou estimativa-sem-ia: no prompt)","premissa":"Registrada depois do início da execução → marcada como não cega e fora do KPI"},{"metrica":"Horas sem IA — tabela paramétrica","tipo":"Estimado","fonte":"Unidades observadas nos artefatos × calibracao.json","premissa":"Tabela placeholder-2026-09, calibrada por AJUSTE ANTES DE USAR"},{"metrica":"Horas economizadas","tipo":"Estimado","fonte":"Referência − tempo com IA, só atividades concluídas","premissa":"Estratégia 'minimo' (menor valor entre cega e paramétrica); reconhecida na data de conclusão"},{"metrica":"Tokens","tipo":"Medido","fonte":"OTel gen_ai.usage.* dos spans chat","premissa":"input_tokens inclui cache (detecção auto)"},{"metrica":"Custo de consumo","tipo":"Derivado","fonte":"Tokens × https://docs.github.com/en/copilot/reference/copilot-billing/models-and-pricing","premissa":"Valor de lista consultado em 2026-09-11; 1 crédito = US$ 0.01; não é desembolso (Business inclui créditos por usuário)"},{"metrica":"Economia do roteamento de modelos","tipo":"Estimado","fonte":"Mesmos tokens precificados em claude-sonnet-5","premissa":"Ignora que outro modelo geraria outra quantidade de tokens"},{"metrica":"Guard-rails","tipo":"Medido","fonte":"Spans execute_hook (OTel), contrato file-drop dos hooks de guarda, saída do validador SDD","premissa":"Conta decisões deny/ask, falhas de portão e git de escrita interrompido. Se o span execute_hook já trouxer a decisão, desligue o file-drop para não contar duas vezes"},{"metrica":"Vereditos de revisão","tipo":"Medido","fonte":"revisao/\u003ceixo>-\u003ccommit>.md lido no momento em que é gravado","premissa":"Aprovada na 1ª = primeiro veredito de cada eixo é APROVADO"},{"metrica":"Lacunas explicitadas","tipo":"Medido","fonte":"Marcadores [NÃO RESPONDIDO] na última versão de cada briefing","premissa":"Lacuna escrita em vez de requisito inventado"},{"metrica":"Aderência ao Liquid","tipo":"Derivado","fonte":"Elementos brad-* nos templates e declarações CSS nos estilos gerados","premissa":"Proxy: menos CSS custom por componente = mais uso do design system"},{"metrica":"Violação de invariante","tipo":"Medido","fonte":"Comando git de escrita executado pelo agente","premissa":"Invariante do SDD: nenhuma etapa escreve Git"}],"_otel":{"inventario_disponivel":true}}</script>
+<script>
+(function(){
+const D = JSON.parse(document.getElementById('dados').textContent);
+const NBR = (min, max) => new Intl.NumberFormat('pt-BR', { minimumFractionDigits: min, maximumFractionDigits: max });
+const F = {
+  num: (n, c = 1) => n == null ? '—' : NBR(0, c).format(n),
+  h: (n, c = 1) => n == null ? '—' : NBR(0, c).format(n) + ' h',
+  usd: (n) => n == null ? '—' : 'US$ ' + NBR(2, 2).format(n),
+  brl: (n) => n == null ? '—' : 'R$ ' + NBR(2, 2).format(n),
+  int: (n) => n == null ? '—' : NBR(0, 0).format(Math.round(n)),
+  pct: (n) => n == null ? '—' : NBR(0, 1).format(n) + '%',
+  x: (n) => n == null ? '—' : NBR(1, 1).format(n) + '×',
+  compacto: (n) => n == null ? '—' : new Intl.NumberFormat('pt-BR', { notation: 'compact', maximumFractionDigits: 1 }).format(n),
+  min: (n) => { if (n == null) return '—'; const h = Math.floor(n / 60), m = Math.round(n - h * 60); return h ? h + ' h ' + String(m).padStart(2, '0') + ' min' : m + ' min'; },
+  data: (v) => v == null ? '—' : new Date(v).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' }),
+  dataCurta: (v) => { const d = new Date(typeof v === 'string' && v.length === 10 ? v + 'T12:00:00' : v); return d.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' }); },
+};
+const NS = 'http://www.w3.org/2000/svg';
+function h(tag, props, ...filhos) {
+  const el = document.createElement(tag);
+  for (const [k, v] of Object.entries(props || {})) {
+    if (v == null || v === false) continue;
+    if (k === 'class') el.className = v;
+    else if (k === 'text') el.textContent = v;
+    else if (k === 'style') Object.assign(el.style, v);
+    else if (k.startsWith('on')) el.addEventListener(k.slice(2), v);
+    else el.setAttribute(k, v === true ? '' : v);
+  }
+  for (const f of filhos.flat()) if (f != null && f !== false) el.append(f instanceof Node ? f : document.createTextNode(String(f)));
+  return el;
+}
+function s(tag, attrs, ...filhos) {
+  const el = document.createElementNS(NS, tag);
+  for (const [k, v] of Object.entries(attrs || {})) if (v != null) el.setAttribute(k, v);
+  for (const f of filhos.flat()) if (f != null) el.append(f instanceof Node ? f : document.createTextNode(String(f)));
+  return el;
+}
+const ICONES = {
+  alerta: 'M12 3 2 20h20L12 3Zm0 6v5m0 3v.01',
+  ok: 'M5 12.5 10 17 19 7',
+  erro: 'M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18Zm-3 6 6 6m0-6-6 6',
+  info: 'M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18Zm0 5v.01M12 11v5',
+};
+const icone = (nome) => s('svg', { viewBox: '0 0 24 24', width: 18, height: 18, fill: 'none', stroke: 'currentColor', 'stroke-width': 2, 'stroke-linecap': 'round', 'stroke-linejoin': 'round', 'aria-hidden': 'true' }, s('path', { d: ICONES[nome] }));
+const TIPOS = { Medido: ['●', ''], Derivado: ['◐', 'chip--derivado'], Estimado: ['≈', 'chip--estimado'] };
+const chip = (tipo) => { const [i, c] = TIPOS[tipo] || TIPOS.Medido; return h('span', { class: 'chip ' + c, title: 'Tipo de métrica: ' + tipo }, h('i', { text: i }), tipo); };
+const status = (nivel, texto) => h('span', { class: 'status status--' + nivel }, icone(nivel === 'ok' ? 'ok' : nivel === 'err' ? 'erro' : 'alerta'), texto);
+
+// ── tooltip ──
+const tip = h('div', { class: 'tip', role: 'tooltip', hidden: true });
+document.body.append(tip);
+function mostrarTip(ev, titulo, linhas) {
+  tip.replaceChildren(h('div', { class: 'tip-tit', text: titulo }), ...linhas.map(([valor, rotulo, cor]) => h('div', { class: 'tip-l' }, cor ? h('span', { class: 'tip-k', style: { background: cor } }) : null, h('strong', { text: valor }), h('span', { text: rotulo }))));
+  tip.hidden = false;
+  let x, y;
+  if (ev.type === 'focus') { const r = ev.target.getBoundingClientRect(); x = r.left + r.width / 2; y = r.top; }
+  else { x = ev.clientX; y = ev.clientY; }
+  const w = tip.offsetWidth, hh = tip.offsetHeight;
+  tip.style.left = Math.max(8, Math.min(window.innerWidth - w - 8, x + 12)) + 'px';
+  tip.style.top = Math.max(8, y - hh - 12) + 'px';
+}
+const esconderTip = () => { tip.hidden = true; };
+function comTip(el, titulo, linhas) {
+  el.tabIndex = 0;
+  el.classList.add('foco');
+  el.setAttribute('aria-label', titulo + ': ' + linhas.map((l) => l[1] + ' ' + l[0]).join(', '));
+  el.addEventListener('pointermove', (e) => mostrarTip(e, titulo, linhas));
+  el.addEventListener('pointerleave', esconderTip);
+  el.addEventListener('focus', (e) => mostrarTip(e, titulo, linhas));
+  el.addEventListener('blur', esconderTip);
+  return el;
+}
+
+// ── blocos ──
+function cartao({ titulo, sub, tipo, corpo, tabela, span = 's12' }) {
+  const acoes = h('div', { class: 'card-acoes' }, tipo ? chip(tipo) : null);
+  const conteudo = h('div', {}, corpo);
+  let tab = null;
+  if (tabela && corpo) {
+    tab = h('div', { class: 'tab-wrap', hidden: true }, tabela);
+    const bt = h('button', { class: 'toggle', type: 'button', 'aria-pressed': 'false', text: 'Ver tabela' });
+    bt.addEventListener('click', () => {
+      const ativo = tab.hidden;
+      tab.hidden = !ativo; conteudo.hidden = ativo;
+      bt.textContent = ativo ? 'Ver gráfico' : 'Ver tabela';
+      bt.setAttribute('aria-pressed', String(ativo));
+    });
+    acoes.append(bt);
+  }
+  return h('section', { class: 'card ' + span },
+    h('div', { class: 'card-cab' }, h('div', {}, h('h3', { text: titulo }), sub ? h('p', { text: sub }) : null), acoes),
+    corpo ? conteudo : h('div', { class: 'tab-wrap' }, tabela), tab);
+}
+function tabela(colunas, linhas) {
+  return h('table', {},
+    h('thead', {}, h('tr', {}, colunas.map((c) => h('th', { class: c.n ? 'n' : null, scope: 'col', text: c.t })))),
+    h('tbody', {}, linhas.map((l) => h('tr', {}, l.map((v, i) => h('td', { class: colunas[i].n ? 'n' : null }, v))))));
+}
+function kpi({ rotulo, valor, sub, tipo, extra }) {
+  return h('div', { class: 'kpi' }, h('div', { class: 'kpi-rot', text: rotulo }), h('div', { class: 'kpi-val', text: valor }), extra || null, sub ? h('div', { class: 'kpi-sub', text: sub }) : null, tipo ? h('div', { class: 'rodape-chip' }, chip(tipo)) : null);
+}
+function tile({ rotulo, valor, sub, tipo, extra }) {
+  return h('div', { class: 'tile' }, h('div', { class: 'tile-rot', text: rotulo }), h('div', { class: 'tile-val', text: valor }), extra || null, sub ? h('div', { class: 'tile-sub', text: sub }) : null, tipo ? h('div', { class: 'rodape-chip' }, chip(tipo)) : null);
+}
+const medidor = (pct) => h('div', { class: 'medidor', role: 'img', 'aria-label': F.pct(pct) }, h('span', { style: { width: Math.max(0, Math.min(100, pct || 0)) + '%' } }));
+const secao = (titulo, sub) => h('div', { class: 'secao' }, h('h2', { text: titulo }), sub ? h('p', { text: sub }) : null);
+const vazio = (texto) => h('div', { class: 'vazio', text: texto });
+
+function barrasH(linhas, { formato, max }) {
+  if (!linhas.length) return vazio('Sem dados no período.');
+  const topo = max ?? (Math.max(...linhas.map((l) => Math.abs(l.valor)), 0) || 1);
+  return h('div', {}, linhas.map((l) => {
+    const pct = Math.abs(l.valor) / topo;
+    const barra = h('span', { class: 'barra ' + (l.valor < 0 ? 'barra--neg' : 'barra--acento'), style: { width: 'calc((100% - 92px) * ' + pct.toFixed(4) + ')' } });
+    comTip(barra, l.rotulo, l.tip || [[formato(l.valor), '']]);
+    return h('div', { class: 'hbar' }, h('div', { class: 'hbar-rot' }, l.rotulo, l.sub ? h('small', { text: l.sub }) : null),
+      h('div', { class: 'hbar-trilhas' }, h('div', { class: 'hbar-linha' }, barra, h('span', { class: 'hbar-val', text: formato(l.valor) }))));
+  }));
+}
+
+function barrasPareadas(linhas) {
+  if (!linhas.length) return vazio('Nenhuma atividade concluída com estimativa no período.');
+  const topo = Math.max(...linhas.flatMap((l) => [l.a, l.b]), 0) || 1;
+  const leg = h('div', { class: 'legenda' },
+    h('span', {}, h('b', { style: { background: 'var(--base-bar)' } }), 'Sem IA — estimativa de referência'),
+    h('span', {}, h('b', { style: { background: 'var(--red)' } }), 'Com IA — tempo ativo + sobrecarga'));
+  return h('div', {}, leg, linhas.map((l) => {
+    const tips = [[F.h(l.a), 'sem IA (' + l.fonte + ')', 'var(--base-bar)'], [F.h(l.b), 'com IA', 'var(--red)'], [F.h(l.eco), 'economizadas'], [F.x(l.fator), 'fator']];
+    const mk = (v, cls) => comTip(h('span', { class: 'barra ' + cls, style: { width: 'calc((100% - 64px) * ' + (v / topo).toFixed(4) + ')' } }), l.rotulo, tips);
+    return h('div', { class: 'hbar' },
+      h('div', { class: 'hbar-rot' }, l.rotulo, h('small', { text: 'referência ' + l.fonte + ' · ' + F.x(l.fator) })),
+      h('div', { class: 'hbar-trilhas' },
+        h('div', { class: 'hbar-linha' }, mk(l.a, 'barra--base'), h('span', { class: 'hbar-val', text: F.h(l.a) })),
+        h('div', { class: 'hbar-linha' }, mk(l.b, 'barra--acento'), h('span', { class: 'hbar-val', text: F.h(l.b) }))));
+  }));
+}
+
+function passoBonito(passo) {
+  if (passo === 'livre') return 'livre';
+  const [tk, etapa] = passo.split('.');
+  const nomes = { discovery: 'Discovery', sdd: 'SDD', 'design-to-code-liquid': 'D2C Liquid' };
+  return (nomes[tk] || tk) + ' · ' + etapa;
+}
+
+function colunas(pontos) {
+  const cont = h('div', { class: 'colunas' });
+  if (!pontos.length) { cont.append(vazio('Sem atividades concluídas no período.')); return cont; }
+  const desenhar = () => {
+    const W = Math.max(280, cont.clientWidth || 520), H = 230, m = { l: 44, r: 10, t: 22, b: 30 };
+    const vals = pontos.map((p) => p.horas_economizadas);
+    const maxV = Math.max(0, ...vals), minV = Math.min(0, ...vals);
+    const bruto = (maxV - minV) / 4 || 1;
+    const mag = Math.pow(10, Math.floor(Math.log10(bruto)));
+    const passo = [1, 2, 2.5, 5, 10].map((k) => k * mag).find((k) => k >= bruto);
+    const topo = Math.ceil(maxV / passo) * passo || passo, base = Math.floor(minV / passo) * passo;
+    const y = (v) => m.t + (H - m.t - m.b) * (1 - (v - base) / (topo - base));
+    const banda = (W - m.l - m.r) / pontos.length, larg = Math.min(24, banda * 0.6);
+    const svg = s('svg', { viewBox: '0 0 ' + W + ' ' + H, role: 'img', 'aria-label': 'Horas economizadas por semana' });
+    for (let v = base; v <= topo + 1e-9; v += passo) {
+      svg.append(s('line', { x1: m.l, x2: W - m.r, y1: y(v), y2: y(v), stroke: v === 0 ? '#a7a8ac' : '#e6e8ea', 'stroke-width': 1 }));
+      svg.append(s('text', { x: m.l - 8, y: y(v) + 4, 'text-anchor': 'end' }, F.num(v, 0)));
+    }
+    const iMax = vals.indexOf(maxV), iUlt = vals.length - 1;
+    pontos.forEach((p, i) => {
+      const cx = m.l + banda * i + banda / 2, v = p.horas_economizadas;
+      const y0 = y(0), y1 = y(v), alto = Math.abs(y0 - y1), r = Math.min(4, alto);
+      const x0 = cx - larg / 2;
+      const d = v >= 0
+        ? 'M' + x0 + ',' + y0 + 'V' + (y1 + r) + 'Q' + x0 + ',' + y1 + ' ' + (x0 + r) + ',' + y1 + 'H' + (x0 + larg - r) + 'Q' + (x0 + larg) + ',' + y1 + ' ' + (x0 + larg) + ',' + (y1 + r) + 'V' + y0 + 'Z'
+        : 'M' + x0 + ',' + y0 + 'V' + (y1 - r) + 'Q' + x0 + ',' + y1 + ' ' + (x0 + r) + ',' + y1 + 'H' + (x0 + larg - r) + 'Q' + (x0 + larg) + ',' + y1 + ' ' + (x0 + larg) + ',' + (y1 - r) + 'V' + y0 + 'Z';
+      svg.append(s('path', { d, fill: v >= 0 ? '#cc092f' : '#9d0b21' }));
+      if (i === iMax || i === iUlt) svg.append(s('text', { x: cx, y: (v >= 0 ? y1 - 6 : y1 + 14), 'text-anchor': 'middle', class: 'val' }, F.num(v, 1)));
+      const mostrarRotulo = pontos.length <= 10 || i % 2 === 0;
+      if (mostrarRotulo) svg.append(s('text', { x: cx, y: H - 10, 'text-anchor': 'middle' }, F.dataCurta(p.inicio)));
+      const alvo = s('rect', { x: m.l + banda * i, y: m.t, width: banda, height: H - m.t - m.b, fill: 'transparent', tabindex: 0 });
+      const titulo = 'Semana de ' + F.dataCurta(p.inicio);
+      const linhas = [[F.h(v), 'economizadas', '#cc092f'], [F.int(p.atividades), p.atividades === 1 ? 'atividade concluída' : 'atividades concluídas']];
+      alvo.setAttribute('aria-label', titulo + ': ' + F.h(v));
+      alvo.addEventListener('pointermove', (e) => mostrarTip(e, titulo, linhas));
+      alvo.addEventListener('pointerleave', esconderTip);
+      alvo.addEventListener('focus', (e) => mostrarTip(e, titulo, linhas));
+      alvo.addEventListener('blur', esconderTip);
+      svg.append(alvo);
+    });
+    cont.replaceChildren(svg);
+  };
+  requestAnimationFrame(desenhar);
+  if ('ResizeObserver' in window) { let t; new ResizeObserver(() => { clearTimeout(t); t = setTimeout(desenhar, 80); }).observe(cont); }
+  return cont;
+}
+
+const ROTULO_ALERTA = {
+  estimativa_nao_cega: ['Estimativa registrada após o início', 'warn'],
+  sem_estimativa: ['Sem estimativa do dev', 'warn'],
+  divergencia: ['Estimativas divergentes', 'warn'],
+  fonte_unica: ['Referência de fonte única', 'neutro'],
+  nao_concluida: ['Em andamento', 'neutro'],
+  sessao_sem_tokens: ['Sessão sem tokens', 'warn'],
+  modelo_sem_preco: ['Modelo sem preço', 'warn'],
+  correlacao_ambigua: ['Correlação de tokens ambígua', 'warn'],
+  sid_fallback: ['Sessão sem ID do hook', 'warn'],
+  multiplos_tickets: ['Mais de um ticket agrupado', 'warn'],
+};
+const alertaChip = (a) => { const [t, n] = ROTULO_ALERTA[a] || [a, 'neutro']; return h('span', { class: 'alerta' + (n === 'neutro' ? ' alerta--neutro' : '') }, t); };
+const fluxoChips = (fluxo) => h('div', { class: 'fluxo' }, fluxo.flatMap((p, i) => [i ? h('span', { class: 'seta', text: '→' }) : null, h('span', { class: 'passo passo--' + p.split('.')[0], text: passoBonito(p) })]));
+
+// ───────────── montagem ─────────────
+const K = D.kpi, raiz = document.getElementById('app');
+
+if (D.demo) raiz.append(h('div', { class: 'aviso aviso--warn', role: 'note' }, icone('alerta'), h('div', {}, h('strong', { text: 'Dados sintéticos de demonstração' }), 'Gerados por hm demo para validar o painel. Não apresente estes números como resultado.')));
+if (D.pendencias.calibracao_placeholder) raiz.append(h('div', { class: 'aviso aviso--warn', role: 'note' }, icone('alerta'), h('div', {}, h('strong', { text: 'Tabela de calibração ainda com valores de exemplo' }), 'A estimativa paramétrica usa config/calibracao.json sem calibração da squad. Calibre antes de levar horas economizadas para a gerência.')));
+
+// herói
+const semIa = K.horas_sem_ia_ref || 0, comIa = K.horas_com_ia || 0, topoH = Math.max(semIa, comIa) || 1;
+raiz.append(h('section', { class: 'card heroi', 'aria-label': 'Resultado principal' },
+  h('div', {},
+    h('div', { class: 'heroi-rot' }, h('span', { text: 'Horas economizadas' }), chip('Estimado')),
+    h('div', { class: 'heroi-num', text: F.h(K.horas_economizadas) }),
+    h('div', { class: 'heroi-sub', text: 'Em ' + F.int(K.atividades_com_ganho) + ' atividades concluídas no período. Referência sem IA = ' + (D.parametros.estrategia_referencia === 'minimo' ? 'menor valor entre a estimativa cega do dev e a tabela calibrada' : 'estimativa ' + D.parametros.estrategia_referencia) + '.' })),
+  h('div', { class: 'comparar' },
+    h('div', { class: 'comparar-l' }, h('div', { class: 'comparar-t' }, h('span', { text: 'Sem IA — referência' }), h('strong', { text: F.h(semIa) })), h('div', { class: 'trilho' }, h('span', { style: { width: (semIa / topoH * 100) + '%', background: 'var(--base-bar)' } }))),
+    h('div', { class: 'comparar-l' }, h('div', { class: 'comparar-t' }, h('span', { text: 'Com IA — tempo ativo + ' + D.parametros.sobrecarga_humana_fora_sessao_pct + '% de sobrecarga' }), h('strong', { text: F.h(comIa) })), h('div', { class: 'trilho' }, h('span', { style: { width: (comIa / topoH * 100) + '%', background: 'var(--red)' } }))),
+    h('div', { class: 'comparar-t' }, h('span', { text: 'Fator de produtividade' }), h('strong', { text: F.x(K.fator_produtividade) })))));
+
+// KPIs
+const g = D.seguranca;
+raiz.append(h('div', { class: 'kpis' },
+  kpi({ rotulo: 'Fator de produtividade', valor: F.x(K.fator_produtividade), sub: 'horas sem IA ÷ horas com IA', tipo: 'Estimado' }),
+  kpi({ rotulo: 'Custo de consumo', valor: F.usd(K.custo_usd), sub: F.int(K.creditos) + ' créditos · valor de lista' + (K.custo_brl != null ? ' · ' + F.brl(K.custo_brl) : ''), tipo: 'Derivado' }),
+  kpi({ rotulo: 'Custo por atividade concluída', valor: F.usd(K.custo_por_atividade_usd), sub: 'todas as sessões da atividade', tipo: 'Derivado' }),
+  kpi({ rotulo: 'Economia do roteamento de modelos', valor: F.usd(K.economia_roteamento_usd), sub: 'vs. tudo em ' + D.parametros.modelo_referencia_roteamento, tipo: 'Estimado' }),
+  kpi({ rotulo: 'Guard-rails acionados', valor: F.int(K.guardrails_acionados), sub: F.int(g.deny) + ' bloqueios · ' + F.int(g.ask) + ' confirmações · ' + F.int(g.validador.falhas) + ' portões · ' + F.int(g.git_escrita_interrompida) + ' git barrados', tipo: 'Medido' }),
+  kpi({ rotulo: 'Aprovação na 1ª revisão', valor: F.pct(K.aprovacao_primeira_revisao_pct), sub: F.int(D.qualidade.aprovadas_primeira) + ' de ' + F.int(D.qualidade.atividades_com_revisao) + ' atividades revisadas', tipo: 'Medido', extra: medidor(K.aprovacao_primeira_revisao_pct) })));
+
+// narrativa (pré-renderizada e validada no build)
+const narr = document.getElementById('narrativa-fonte');
+if (narr && narr.innerHTML.trim()) {
+  const card = h('section', { class: 'card narrativa', style: { marginTop: '16px' } }, h('div', { class: 'card-cab' }, h('div', {}, h('h3', { text: 'Leitura executiva' })), h('div', { class: 'card-acoes' }, chip('Derivado'))));
+  const corpo = h('div', {}); corpo.innerHTML = narr.innerHTML; card.append(corpo);
+  card.append(h('div', { class: 'nota', text: 'Texto redigido por agente a partir de resumo-narrativa.json. O build conferiu cada número contra a chave de origem; passe o mouse sobre um número para ver a fonte.' }));
+  raiz.append(card);
+}
+
+// produtividade
+raiz.append(secao('Produtividade', 'Atividades reconhecidas na data de conclusão'));
+const prod = [...D.produtividade.por_atividade].sort((a, b) => b.sem_ia_h - a.sem_ia_h);
+raiz.append(h('div', { class: 'grade' },
+  cartao({ span: 's7', titulo: 'Horas por atividade concluída', sub: 'Estimativa sem IA vs. tempo com IA', tipo: 'Estimado',
+    corpo: barrasPareadas(prod.map((a) => ({ rotulo: a.rotulo, a: a.sem_ia_h, b: a.com_ia_h, eco: a.economizadas_h, fator: a.fator, fonte: a.fonte === 'cega' ? 'cega' : 'paramétrica' }))),
+    tabela: tabela([{ t: 'Atividade' }, { t: 'Sem IA', n: 1 }, { t: 'Fonte' }, { t: 'Com IA', n: 1 }, { t: 'Economia', n: 1 }, { t: 'Fator', n: 1 }], prod.map((a) => [a.rotulo, F.h(a.sem_ia_h), a.fonte, F.h(a.com_ia_h), F.h(a.economizadas_h), F.x(a.fator)])) }),
+  cartao({ span: 's5', titulo: 'Horas economizadas por semana', sub: 'Soma das atividades concluídas na semana', tipo: 'Estimado',
+    corpo: colunas(D.produtividade.por_semana),
+    tabela: tabela([{ t: 'Semana de' }, { t: 'Horas', n: 1 }, { t: 'Atividades', n: 1 }], D.produtividade.por_semana.map((p) => [F.data(p.inicio + 'T12:00:00'), F.h(p.horas_economizadas), F.int(p.atividades)])) })));
+
+// custo
+raiz.append(secao('Custo e tokens', 'Todas as sessões iniciadas no período · preços ' + D.precos.consultado_em));
+const et = D.custo.etapas;
+const tk = D.custo.tokens, entradaTot = tk.entrada_nova + tk.cache_leitura + tk.cache_escrita;
+const modelos = D.custo.modelos;
+raiz.append(h('div', { class: 'grade' },
+  cartao({ span: 's7', titulo: 'Custo por etapa do fluxo', sub: 'Valor de lista em dólar', tipo: 'Derivado',
+    corpo: barrasH(et.map((e) => ({ rotulo: e.rotulo, valor: e.usd, sub: F.int(e.sessoes) + (e.sessoes === 1 ? ' sessão' : ' sessões') + ' · média ' + F.usd(e.usd_medio_sessao), tip: [[F.usd(e.usd), 'custo'], [F.int(e.sessoes), 'sessões'], [F.usd(e.usd_medio_sessao), 'por sessão'], [F.min(e.ativo_min), 'tempo ativo'], [F.compacto(e.tokens), 'tokens']] })), { formato: F.usd }),
+    tabela: tabela([{ t: 'Etapa' }, { t: 'Sessões', n: 1 }, { t: 'Tempo ativo', n: 1 }, { t: 'Custo', n: 1 }, { t: 'Por sessão', n: 1 }, { t: 'Cache', n: 1 }, { t: 'Tokens', n: 1 }], et.map((e) => [e.rotulo, F.int(e.sessoes), F.min(e.ativo_min), F.usd(e.usd), F.usd(e.usd_medio_sessao), F.pct(e.cache_pct), F.compacto(e.tokens)])) }),
+  cartao({ span: 's5', titulo: 'Consumo por modelo', sub: 'Tokens medidos pelo OpenTelemetry do Copilot', tipo: 'Medido',
+    tabela: h('div', {},
+      h('div', { style: { margin: '0 4px 14px' } }, h('div', { class: 'comparar-t' }, h('span', { text: 'Entrada servida por cache' }), h('strong', { text: F.pct(K.cache_entrada_pct) })), medidor(K.cache_entrada_pct)),
+      tabela([{ t: 'Modelo' }, { t: 'Tokens', n: 1 }, { t: 'Custo', n: 1 }, { t: '% do custo', n: 1 }],
+        modelos.map((m) => [
+          h('span', { class: 'modelo-nome' }, m.modelo, m.com_preco ? null : h('span', { class: 'alerta', text: 'sem preço' })),
+          F.compacto(m.entrada_nova + m.cache_leitura + m.cache_escrita + m.saida),
+          m.com_preco ? F.usd(m.usd) : '—', m.com_preco ? F.pct(m.pct_usd) : '—'])),
+      h('div', { class: 'nota', text: F.compacto(tk.entrada_nova) + ' tokens de entrada nova · ' + F.compacto(tk.cache_leitura + tk.cache_escrita) + ' de cache · ' + F.compacto(tk.saida) + ' de saída (' + F.compacto(entradaTot + tk.saida) + ' no total).' })) })));
+
+// segurança
+raiz.append(secao('Segurança e guard-rails', 'Barreiras que impediram ação indevida ou exigiram decisão humana'));
+const bar = g.barreiras;
+const viol = g.git_escrita_executada;
+raiz.append(h('div', { class: 'grade' },
+  cartao({ span: 's7', titulo: 'Barreiras acionadas', sub: 'Hooks de guarda, portões do validador e invariantes', tipo: 'Medido',
+    corpo: barrasH(bar.map((b) => ({ rotulo: b.rotulo, valor: b.valor, sub: b.grupo })), { formato: F.int }),
+    tabela: tabela([{ t: 'Barreira' }, { t: 'Origem' }, { t: 'Vezes', n: 1 }], bar.map((b) => [b.rotulo, b.grupo, F.int(b.valor)])) }),
+  cartao({ span: 's5', titulo: 'Invariantes e exposição', sub: 'O que passou pelas barreiras', tipo: 'Medido',
+    tabela: h('div', { class: 'tiles' },
+      tile({ rotulo: 'Violações de invariante', valor: F.int(viol), sub: 'git de escrita executado pelo agente', extra: viol ? status('err', 'Investigar sessão') : status('ok', 'Nenhuma') }),
+      tile({ rotulo: 'Arquivos de contrato editados', valor: F.int(g.contrato_editados), sub: 'federation, OpenAPI, manifest, CONTRACT.md' }),
+      tile({ rotulo: 'Lacunas explicitadas', valor: F.int(g.lacunas_explicitadas), sub: 'marcadores [NÃO RESPONDIDO] em vez de requisito inventado' }),
+      tile({ rotulo: 'Ferramentas interrompidas', valor: F.int(g.ferramentas_interrompidas), sub: 'chamada iniciada sem conclusão (bloqueio, recusa ou falha)' })) })));
+
+// qualidade
+const q = D.qualidade;
+raiz.append(secao('Qualidade do código entregue', 'Sinais medidos durante o fluxo, antes do merge'));
+raiz.append(h('div', { class: 'grade' }, cartao({ span: 's12', titulo: 'Indicadores de qualidade', tipo: 'Medido',
+  tabela: h('div', { class: 'tiles' },
+    tile({ rotulo: 'Aprovação na 1ª revisão', valor: F.pct(q.aprovacao_primeira_pct), sub: 'eixos spec e padrões aprovados de primeira', extra: medidor(q.aprovacao_primeira_pct) }),
+    tile({ rotulo: 'Retrabalho na revisão', valor: F.int(q.reprovacoes), sub: 'vereditos REPROVADO que voltaram ao plan' }),
+    tile({ rotulo: 'Falhas do validador', valor: F.int(q.validador.falhas), sub: 'de ' + F.int(q.validador.execucoes) + ' execuções · barradas antes da revisão' }),
+    tile({ rotulo: 'Testes falhando na sessão', valor: F.int(q.testes.falhas), sub: 'de ' + F.int(q.testes.execucoes) + ' execuções · corrigidos no mesmo ciclo' }),
+    q.d2c.componentes ? tile({ rotulo: 'CSS custom por componente', valor: F.num(q.d2c.css_por_componente, 1), sub: F.num(q.d2c.liquid_por_componente, 1) + ' elementos Liquid por componente · ' + F.int(q.d2c.componentes) + ' gerados', tipo: 'Derivado' }) : null,
+    q.sobrevivencia_edicoes ? tile({ rotulo: 'Edições do agente mantidas', valor: F.pct(q.sobrevivencia_edicoes.sem_reversao_pct), sub: 'sem reversão pelo dev (métrica do Copilot)' }) : null,
+    tile({ rotulo: 'Compactações de contexto', valor: F.num(q.compactacoes_por_sessao, 2), sub: 'por sessão · sinal de pressão de tokens' })) })));
+
+// camadas
+raiz.append(secao('Por camada do harness', 'Uso e custo de cada toolkit e etapa'));
+raiz.append(h('div', { class: 'grade' }, cartao({ span: 's12', titulo: 'Toolkits e etapas', sub: 'Sessão sem toolkit = chat livre, sem comando do harness', tipo: 'Medido',
+  tabela: tabela([{ t: 'Camada' }, { t: 'Sessões', n: 1 }, { t: 'Tempo ativo', n: 1 }, { t: 'Custo', n: 1 }, { t: 'Por sessão', n: 1 }, { t: 'Cache', n: 1 }, { t: 'Tokens', n: 1 }, { t: 'Prompts', n: 1 }, { t: 'Ferramentas', n: 1 }, { t: 'Modelos' }],
+    et.map((e) => [e.rotulo, F.int(e.sessoes), F.min(e.ativo_min), F.usd(e.usd), F.usd(e.usd_medio_sessao), F.pct(e.cache_pct), F.compacto(e.tokens), F.int(e.prompts), F.int(e.ferramentas), e.modelos.join(', ') || '—'])) })));
+
+// atividades
+raiz.append(secao('Atividades', 'Clique numa linha para ver estimativas e sessões'));
+const colsAt = [{ t: 'Atividade' }, { t: 'Fluxo' }, { t: 'Sem IA', n: 1 }, { t: 'Com IA', n: 1 }, { t: 'Economia', n: 1 }, { t: 'Custo', n: 1 }, { t: 'Revisão' }, { t: 'Alertas' }];
+const corpoAt = h('tbody', {});
+for (const a of D.atividades) {
+  const revisao = a.qualidade.aprovada_primeira == null ? '—' : a.qualidade.aprovada_primeira ? status('ok', 'de primeira') : status('warn', F.int(a.qualidade.reprovacoes) + (a.qualidade.reprovacoes === 1 ? ' reprovação' : ' reprovações'));
+  const linha = h('tr', { class: 'expansivel', tabindex: 0, 'aria-expanded': 'false' },
+    h('td', {}, h('strong', { text: a.rotulo }), h('div', { class: 'kpi-sub', text: (a.concluida ? 'concluída ' : 'última sessão ') + F.data(a.fim) })),
+    h('td', {}, fluxoChips(a.fluxo)),
+    h('td', { class: 'n' }, F.h(a.estimativa.referencia_h)),
+    h('td', { class: 'n' }, F.h(a.tempo.com_ia_h)),
+    h('td', { class: 'n' }, a.ganho ? F.h(a.ganho.horas_economizadas) : '—'),
+    h('td', { class: 'n' }, F.usd(a.custo.usd)),
+    h('td', {}, revisao),
+    h('td', {}, a.alertas.map(alertaChip)));
+  const e = a.estimativa;
+  const det = h('tr', { class: 'detalhe', hidden: true }, h('td', { colspan: colsAt.length },
+    h('div', { class: 'det-grade' },
+      h('div', {}, h('h4', { text: 'Estimativas sem IA' }),
+        h('table', { class: 'mini' }, h('tbody', {},
+          h('tr', {}, h('td', { text: 'Cega (dev)' }), h('td', { class: 'n', text: F.h(e.cega_h) }), h('td', { text: e.cega_registrada_em ? 'registrada ' + F.data(e.cega_registrada_em) + ' via ' + e.cega_origem : (e.nao_cega_h != null ? 'não cega: ' + F.h(e.nao_cega_h) : 'não registrada') })),
+          h('tr', {}, h('td', { text: 'Paramétrica' }), h('td', { class: 'n', text: F.h(e.parametrica_h) }), h('td', { text: e.parametrica_detalhe.map((d) => d.quantidade + ' × ' + d.rotulo + ' (' + F.h(d.horas_unidade) + ')').join(' + ') || '—' })),
+          h('tr', {}, h('td', { text: 'Referência' }), h('td', { class: 'n', text: F.h(e.referencia_h) }), h('td', { text: (e.referencia_fonte || '—') + (e.divergencia_pct != null ? ' · divergência ' + F.pct(e.divergencia_pct) : '') }))))),
+      h('div', {}, h('h4', { text: 'Sessões' }),
+        h('table', { class: 'mini' }, h('thead', {}, h('tr', {}, ['Data', 'Etapa', 'Ativo', 'Custo', 'Modelo'].map((t, i) => h('th', { class: i === 2 || i === 3 ? 'n' : null, text: t })))),
+          h('tbody', {}, a.sessoes_detalhe.map((s) => h('tr', {}, h('td', { text: F.data(s.inicio) }), h('td', { text: passoBonito(s.passo) }), h('td', { class: 'n', text: F.min(s.ativo_min) }), h('td', { class: 'n', text: F.usd(s.usd) }), h('td', { text: s.modelos.join(', ') || '—' })))))),
+      h('div', {}, h('h4', { text: 'Qualidade e segurança' }),
+        h('table', { class: 'mini' }, h('tbody', {},
+          h('tr', {}, h('td', { text: 'Vereditos' }), h('td', { text: a.qualidade.vereditos.map((v) => v.eixo + ': ' + v.veredito).join(' · ') || '—' })),
+          h('tr', {}, h('td', { text: 'Validador' }), h('td', { text: F.int(a.qualidade.validador.falhas) + ' falhas em ' + F.int(a.qualidade.validador.execucoes) })),
+          h('tr', {}, h('td', { text: 'Testes' }), h('td', { text: F.int(a.qualidade.testes.falhas) + ' falhas em ' + F.int(a.qualidade.testes.execucoes) })),
+          h('tr', {}, h('td', { text: 'Guard-rails' }), h('td', { text: F.int(a.seguranca.guardrails.deny) + ' bloqueios · ' + F.int(a.seguranca.guardrails.ask) + ' confirmações' })),
+          h('tr', {}, h('td', { text: 'Lacunas' }), h('td', { text: F.int(a.qualidade.lacunas_explicitadas) + ' [NÃO RESPONDIDO]' })),
+          h('tr', {}, h('td', { text: 'Arquivos editados' }), h('td', { text: F.int(a.arquivos_editados) + ' · lead time ' + F.num(a.lead_time_dias, 1) + ' dias' }))))))));
+  const alternar = () => { det.hidden = !det.hidden; linha.setAttribute('aria-expanded', String(!det.hidden)); };
+  linha.addEventListener('click', alternar);
+  linha.addEventListener('keydown', (ev) => { if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); alternar(); } });
+  corpoAt.append(linha, det);
+}
+raiz.append(h('div', { class: 'grade' }, h('section', { class: 'card s12' },
+  D.atividades.length ? h('div', { class: 'tab-wrap' }, h('table', {}, h('thead', {}, h('tr', {}, colsAt.map((c) => h('th', { class: c.n ? 'n' : null, text: c.t })))), corpoAt)) : vazio('Nenhuma atividade no período.'),
+  D.sessoes_sem_atividade.length ? h('div', { class: 'nota', text: F.int(D.sessoes_sem_atividade.length) + ' sessões sem atividade vinculada (chat livre sem ticket, branch ignorada ou conversa sem hook). Use hm vincular <sessão> <atividade> para corrigir.' }) : null)));
+
+// metodologia
+const c = D.cobertura, p = D.pendencias;
+raiz.append(secao('Metodologia e confiabilidade', 'Como cada número foi obtido e onde ele é frágil'));
+const pend = [];
+if (p.calibracao_placeholder) pend.push('Tabela de calibração com valores de exemplo (config/calibracao.json).');
+if (p.sem_estimativa.length) pend.push('Sem estimativa cega do dev: ' + p.sem_estimativa.join(', ') + '.');
+if (p.estimativa_nao_cega.length) pend.push('Estimativa registrada após o início da execução (excluída como cega): ' + p.estimativa_nao_cega.join(', ') + '.');
+if (p.divergentes.length) pend.push('Estimativa cega e paramétrica divergem mais de ' + D.parametros.divergencia_alerta_pct + '%: ' + p.divergentes.join(', ') + '.');
+if (p.modelos_sem_preco.length) pend.push('Modelos sem preço em precos.json (custo não contabilizado): ' + p.modelos_sem_preco.join(', ') + '.');
+if (p.estimativas_sem_atividade.length) pend.push(p.estimativas_sem_atividade.length + ' estimativas aguardando sessões da atividade.');
+if (c.correlacao.ambigua) pend.push(c.correlacao.ambigua + (c.correlacao.ambigua === 1 ? ' conversa OTel casada' : ' conversas OTel casadas') + ' por horário com mais de uma sessão candidata.');
+if (c.correlacao.orfas) pend.push(c.correlacao.orfas + (c.correlacao.orfas === 1 ? ' conversa OTel sem sessão do hook (entra' : ' conversas OTel sem sessão do hook (entram') + ' como chat livre).');
+if (!c.otel_disponivel) pend.push('Nenhum span OpenTelemetry encontrado: tokens e custo estão zerados. Veja hm diagnostico.');
+raiz.append(h('div', { class: 'grade' },
+  cartao({ span: 's7', titulo: 'Cobertura da coleta', tipo: 'Medido',
+    tabela: h('div', { class: 'tiles' },
+      tile({ rotulo: 'Sessões com tokens', valor: F.pct(c.sessoes_com_tokens_pct), sub: F.int(c.sessoes_total) + ' sessões · ' + F.int(c.sessoes_so_otel) + ' só OTel' }),
+      tile({ rotulo: 'Concluídas com estimativa cega', valor: F.pct(c.concluidas_com_estimativa_cega_pct), sub: F.int(c.atividades_concluidas) + ' atividades concluídas' }),
+      tile({ rotulo: 'Sessões com atividade', valor: F.pct(c.sessoes_com_atividade_pct), sub: 'vínculo por ticket, branch, briefing ou mudança SDD' }),
+      tile({ rotulo: 'Custo do coletor', valor: c.hook_ms_p95 != null ? F.int(c.hook_ms_p95) + ' ms' : '—', sub: 'p95 por evento · zero token' })) }),
+  cartao({ span: 's5', titulo: 'Pendências de dado', tipo: null,
+    tabela: pend.length ? h('ul', { class: 'lista-pend' }, pend.map((t) => h('li', {}, icone('alerta'), h('span', { text: t })))) : h('div', {}, status('ok', 'Nenhuma pendência')) }),
+  cartao({ span: 's12', titulo: 'Origem de cada métrica', sub: 'Medido = lido de evento real · Derivado = conta sobre medidas · Estimado = depende de premissa humana',
+    tabela: tabela([{ t: 'Métrica' }, { t: 'Tipo' }, { t: 'Fonte' }, { t: 'Premissa' }], D.metodologia.map((m) => [m.metrica, chip(m.tipo), m.fonte, m.premissa])) }),
+  cartao({ span: 's12', titulo: 'O que este painel não mede',
+    tabela: h('ul', { class: 'lista-pend' }, [
+      'Causalidade por camada: o painel mostra uso e custo de cada toolkit, não quanto do ganho vem de cada um. Isso exige experimento controlado (mesma tarefa com e sem a camada).',
+      'Tempo humano fora da sessão (revisão de PR, teste manual): coberto só pela sobrecarga fixa de ' + D.parametros.sobrecarga_humana_fora_sessao_pct + '%.',
+      'Qualidade em produção: incidentes, defeitos pós-merge e achados do Mend ainda não entram no cálculo.',
+      'Custo desembolsado: o valor é de lista; o Copilot Business inclui créditos por usuário.',
+    ].map((t) => h('li', {}, icone('info'), h('span', { text: t })))) })));
+})();
+</script>
+</body>
+</html>
