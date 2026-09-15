@@ -1,1 +1,2 @@
 # agents-for-bradesco
+node -p "Object.entries(require('C:/Users/i459249/.copilot/harness-metricas/config/toolkits.json').toolkits).map(([k,v])=>k.padEnd(24)+Object.keys(v.comandos||{}).map(c=>'/'+c).join(' ')+'  | agentes: '+(Object.keys(v.agentes||{}).join(' ')||'-')).join('\n')"
