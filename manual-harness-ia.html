@@ -1,0 +1,463 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Manual do Harness de IA · Copilot no VS Code</title>
+<style>
+:root{
+  color-scheme: light;
+  --red:#cc092f; --red-dark:#9d0b21; --red-light:#d63a59; --red-xlight:#fce7ec;
+  --ink:#262626; --ink-2:#47484c; --ink-3:#6d6e71; --line:#d9dcdd; --soft:#f0f1f5; --soft-2:#fafbff;
+  --base-bar:#a7a8ac; --page:#f0f1f5; --surface:#ffffff;
+  --ok:#09ab47; --ok-dark:#056129; --ok-bg:#e6faee;
+  --warn:#ffbc00; --warn-dark:#ab6100; --warn-bg:#fefbd5;
+  --err:#e1173f; --err-dark:#b00f2f; --err-bg:#fce7ec;
+  --radius:14px;
+  --font:"Bradesco Sans","Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--page);color:var(--ink);font-family:var(--font);font-size:14px;line-height:1.45}
+a{color:var(--red-dark)}
+.topo{background:linear-gradient(120deg,var(--red) 0%,var(--red-dark) 100%);color:#fff;padding:28px 24px 84px}
+.topo-in{max-width:1240px;margin:0 auto;display:flex;flex-wrap:wrap;gap:16px 32px;justify-content:space-between;align-items:flex-end}
+.olho{font-size:12px;letter-spacing:.08em;text-transform:uppercase;opacity:.85;font-weight:600;margin:0 0 6px}
+.topo h1{margin:0;font-size:clamp(22px,3vw,30px);line-height:1.15;font-weight:700}
+.topo .sub{margin:6px 0 0;opacity:.92;font-size:14px}
+.topo-meta{font-size:12px;opacity:.9;text-align:right}
+.topo-meta div{margin-top:2px}
+main{max-width:1240px;margin:-60px auto 0;padding:0 24px 48px;position:relative}
+.aviso{display:flex;gap:10px;align-items:flex-start;border-radius:10px;padding:12px 14px;margin:0 0 16px;font-size:13.5px;border:1px solid}
+.aviso svg{flex:0 0 18px;margin-top:1px}
+.aviso strong{display:block;margin-bottom:2px}
+.aviso--warn{background:var(--warn-bg);border-color:#f3dc7a;color:#5c3a00}
+.aviso--warn svg{color:var(--warn-dark)}
+.aviso--err{background:var(--err-bg);border-color:#f2b8c5;color:var(--err-dark)}
+.grade{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:16px;align-items:start}
+.card{background:var(--surface);border-radius:var(--radius);box-shadow:0 1px 2px rgba(38,38,38,.06),0 4px 16px rgba(38,38,38,.05);padding:20px 22px;min-width:0}
+.s12{grid-column:span 12}.s8{grid-column:span 8}.s7{grid-column:span 7}.s6{grid-column:span 6}.s5{grid-column:span 5}.s4{grid-column:span 4}
+@media (max-width:980px){.s8,.s7,.s6,.s5,.s4{grid-column:span 12}}
+.card-cab{display:flex;gap:8px 12px;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;margin-bottom:14px}
+.card-cab h3{margin:0;font-size:15.5px;font-weight:700;color:var(--ink)}
+.card-cab p{margin:3px 0 0;color:var(--ink-3);font-size:12.5px}
+.card-acoes{display:flex;gap:8px;align-items:center}
+.secao{margin:34px 0 12px;display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.secao h2{margin:0;font-size:19px;font-weight:700;color:var(--ink);padding-left:12px;border-left:4px solid var(--red)}
+.secao p{margin:0;color:var(--ink-3);font-size:13px}
+.chip{display:inline-flex;align-items:center;gap:5px;font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;border-radius:999px;padding:2px 8px;border:1px solid var(--line);background:var(--soft);color:var(--ink-2);white-space:nowrap}
+.chip i{font-style:normal;font-size:10px}
+.chip--derivado{background:#fff}
+.chip--estimado{background:var(--warn-bg);border-color:#f3dc7a;color:#7a4700}
+.toggle{font:inherit;font-size:12px;border:1px solid var(--line);background:#fff;color:var(--ink-2);border-radius:8px;padding:4px 10px;cursor:pointer}
+.toggle:hover{border-color:var(--red-light);color:var(--red-dark)}
+.toggle:focus-visible,.foco:focus-visible{outline:2px solid var(--red);outline-offset:2px}
+/* herói */
+.heroi{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:28px;align-items:center}
+@media (max-width:860px){.heroi{grid-template-columns:1fr}}
+.heroi-rot{display:flex;gap:8px;align-items:center;flex-wrap:wrap;color:var(--ink-2);font-weight:600;font-size:13.5px}
+.heroi-num{font-size:clamp(48px,7vw,64px);font-weight:700;color:var(--red);line-height:1.05;margin:8px 0 6px;letter-spacing:-.01em}
+.heroi-sub{color:var(--ink-3);font-size:13px;max-width:52ch}
+.comparar{display:grid;gap:14px}
+.comparar-l{display:grid;gap:5px}
+.comparar-t{display:flex;justify-content:space-between;gap:8px;font-size:12.5px;color:var(--ink-2)}
+.comparar-t strong{color:var(--ink);font-size:14px}
+.trilho{height:14px;background:var(--soft);border-radius:0 4px 4px 0}
+.trilho span{display:block;height:100%;border-radius:0 4px 4px 0}
+/* KPIs */
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(178px,1fr));gap:16px;margin-top:16px}
+.kpi{background:var(--surface);border-radius:var(--radius);padding:16px 18px;box-shadow:0 1px 2px rgba(38,38,38,.06),0 4px 16px rgba(38,38,38,.05);display:flex;flex-direction:column;gap:5px;min-width:0;border-top:3px solid var(--red)}
+.kpi-rot{font-size:12.5px;color:var(--ink-2);font-weight:600}
+.kpi-val{font-size:26px;font-weight:700;color:var(--ink);line-height:1.15;white-space:nowrap}
+.kpi-sub{font-size:12px;color:var(--ink-3)}
+.rodape-chip{margin-top:auto;padding-top:8px}
+.medidor{height:8px;background:var(--red-xlight);border-radius:4px;overflow:hidden;margin-top:2px}
+.medidor span{display:block;height:100%;background:var(--red);border-radius:4px}
+.status{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600}
+.status svg{width:15px;height:15px}
+.status--ok{color:var(--ok-dark)}.status--warn{color:var(--warn-dark)}.status--err{color:var(--err-dark)}
+/* narrativa */
+.narrativa{border-left:4px solid var(--red)}
+.narrativa h3{font-size:14px;margin:14px 0 4px;color:var(--red-dark)}
+.narrativa h3:first-child{margin-top:0}
+.narrativa p,.narrativa li{color:var(--ink);font-size:14px}
+.narrativa ul{margin:4px 0;padding-left:20px}
+.cit{border-bottom:1px dotted var(--red-light);cursor:help;font-weight:600}
+.nota{font-size:11.5px;color:var(--ink-3);margin-top:12px}
+/* barras horizontais */
+.legenda{display:flex;gap:16px;flex-wrap:wrap;font-size:12px;color:var(--ink-2);margin:-4px 0 12px}
+.legenda span{display:inline-flex;align-items:center;gap:6px}
+.legenda b{width:12px;height:12px;border-radius:3px;display:inline-block}
+.hbar{display:grid;grid-template-columns:minmax(96px,38%) minmax(0,1fr);gap:4px 12px;align-items:center;padding:6px 0;border-bottom:1px solid var(--soft)}
+.hbar:last-child{border-bottom:0}
+.hbar-rot{font-size:13px;color:var(--ink);font-weight:600;overflow-wrap:anywhere}
+.hbar-rot small{display:block;font-weight:400;color:var(--ink-3);font-size:11.5px}
+.hbar-trilhas{display:grid;gap:2px;min-width:0}
+.hbar-linha{display:flex;align-items:center;gap:8px;min-width:0}
+.barra{height:12px;border-radius:0 4px 4px 0;flex:0 0 auto;min-width:2px;cursor:default}
+.barra:hover,.barra:focus-visible{filter:brightness(1.12)}
+.barra--base{background:var(--base-bar)}
+.barra--acento{background:var(--red)}
+.barra--neg{background:var(--red-dark)}
+.hbar-val{font-size:12px;color:var(--ink-2);white-space:nowrap;font-variant-numeric:tabular-nums}
+/* colunas */
+.colunas svg{display:block;width:100%;height:auto;overflow:visible}
+.colunas text{font-family:var(--font);fill:var(--ink-3);font-size:11px}
+.colunas .val{fill:var(--ink-2);font-weight:600}
+/* tabelas */
+.tab-wrap{overflow-x:auto;margin:0 -4px}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{font-size:11.5px;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-3);font-weight:700;text-align:left;padding:8px 8px;border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:8px 8px;border-bottom:1px solid var(--soft);vertical-align:top}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+tr.expansivel{cursor:pointer}
+tr.expansivel:hover td{background:var(--soft-2)}
+tr.detalhe td{background:var(--soft-2);padding:12px 14px}
+.fluxo{display:flex;flex-wrap:wrap;gap:4px;align-items:center}
+.passo{font-size:11px;border-radius:6px;padding:1px 6px;border:1px solid var(--line);color:var(--ink-2);background:#fff;white-space:nowrap}
+.passo--sdd{background:var(--red-xlight);border-color:#f2b8c5;color:var(--red-dark)}
+.passo--design-to-code-liquid{border-color:var(--red-light);color:var(--red-dark)}
+.passo--discovery{background:var(--soft);color:var(--ink-2)}
+.seta{color:var(--base-bar);font-size:11px}
+.alerta{display:inline-flex;align-items:center;gap:4px;font-size:11px;border-radius:6px;padding:1px 6px;margin:0 4px 4px 0;background:var(--warn-bg);color:#7a4700;border:1px solid #f3dc7a;white-space:nowrap}
+.alerta--neutro{background:var(--soft);color:var(--ink-2);border-color:var(--line)}
+.det-grade{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.det-grade h4{margin:0 0 6px;font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-3)}
+.mini td,.mini th{padding:4px 6px;font-size:12px}
+/* tiles */
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.tile{border:1px solid var(--soft);background:var(--soft-2);border-radius:10px;padding:12px 14px;display:flex;flex-direction:column;gap:4px;min-width:0}
+.tile-rot{font-size:12.5px;color:var(--ink-2);font-weight:600}
+.tile-val{font-size:24px;font-weight:700;color:var(--ink);line-height:1.15;white-space:nowrap}
+.tile-sub{font-size:12px;color:var(--ink-3)}
+.lista-pend{margin:0;padding:0;list-style:none;display:grid;gap:8px}
+.lista-pend li{display:flex;gap:8px;align-items:flex-start;font-size:13px}
+.lista-pend svg{flex:0 0 16px;margin-top:2px;color:var(--warn-dark)}
+.vazio{color:var(--ink-3);font-size:13px;padding:12px 0}
+.modelo-nome{white-space:nowrap;font-size:12.5px}
+.tip{position:fixed;z-index:50;pointer-events:none;background:#fff;border:1px solid var(--line);box-shadow:0 8px 24px rgba(38,38,38,.16);border-radius:10px;padding:8px 10px;font-size:12px;max-width:280px}
+.tip-tit{font-weight:700;color:var(--ink);margin-bottom:4px}
+.tip-l{display:flex;align-items:center;gap:6px;color:var(--ink-2);margin-top:2px}
+.tip-l strong{color:var(--ink);font-variant-numeric:tabular-nums}
+.tip-k{width:12px;height:3px;border-radius:2px;display:inline-block}
+footer{max-width:1240px;margin:0 auto;padding:0 24px 32px;color:var(--ink-3);font-size:12px}
+@media print{
+  html,body{background:#fff}
+  .topo{-webkit-print-color-adjust:exact;print-color-adjust:exact;padding-bottom:28px}
+  main{margin-top:12px}
+  .toggle{display:none}
+  .card,.kpi{box-shadow:none;border:1px solid var(--line);break-inside:avoid}
+  .barra,.medidor span,.trilho span,.chip,.passo,.alerta{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+@media (max-width:520px){ main{padding:0 16px 40px} .topo{padding:24px 16px 80px} .card{padding:16px} .hbar{grid-template-columns:1fr} }
+
+.doc{display:grid;grid-template-columns:230px minmax(0,1fr);gap:24px;align-items:start}
+@media (max-width:1000px){.doc{grid-template-columns:1fr}}
+.sumario{position:sticky;top:16px;background:var(--surface);border-radius:var(--radius);padding:16px 18px;box-shadow:0 1px 2px rgba(38,38,38,.06),0 4px 16px rgba(38,38,38,.05)}
+.sumario h2{font-size:11.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-3);margin:0 0 10px}
+.sumario ol{margin:0;padding-left:18px;display:grid;gap:7px;font-size:13px}
+.sumario a{color:var(--ink-2);text-decoration:none}
+.sumario a:hover{color:var(--red-dark);text-decoration:underline}
+.conteudo{display:grid;gap:18px;min-width:0}
+.bloco,.bloco *{min-width:0}
+.bloco{background:var(--surface);border-radius:var(--radius);padding:22px 24px;box-shadow:0 1px 2px rgba(38,38,38,.06),0 4px 16px rgba(38,38,38,.05);scroll-margin-top:16px}
+.bloco{min-width:0;overflow-wrap:anywhere}
+.bloco h2{margin:0 0 4px;font-size:20px;font-weight:700;display:flex;align-items:center;gap:10px}
+.bloco h2 .num{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:8px;background:var(--red);color:#fff;font-size:13px;flex:0 0 26px}
+.bloco h3{margin:22px 0 8px;font-size:15px;font-weight:700;color:var(--red-dark)}
+.bloco h3:first-of-type{margin-top:16px}
+.bloco p{margin:8px 0;max-width:80ch}
+.bloco ul,.bloco ol{margin:8px 0;padding-left:22px;max-width:80ch}
+.bloco li{margin:5px 0}
+.lead{color:var(--ink-3);font-size:14px;margin:0 0 4px!important}
+code{font-family:Consolas,"Cascadia Mono",monospace;font-size:12.5px;background:var(--soft);border:1px solid var(--line);border-radius:5px;padding:1px 5px;white-space:break-spaces;overflow-wrap:anywhere}
+.cmd{max-width:100%;position:relative;background:#262626;color:#f0f1f5;border-radius:10px;padding:14px 46px 14px 16px;margin:10px 0;overflow-x:auto}
+.cmd pre{margin:0;font-family:Consolas,"Cascadia Mono",monospace;font-size:12.5px;line-height:1.7;white-space:pre}
+.cmd .c{color:#a7a8ac}
+.cmd button{position:absolute;top:8px;right:8px;background:#47484c;color:#fff;border:0;border-radius:6px;font:inherit;font-size:11px;padding:4px 8px;cursor:pointer;opacity:.85}
+.cmd button:hover{opacity:1;background:var(--red)}
+.m-passos{counter-reset:passo;display:grid;gap:14px;margin:14px 0}
+.m-passo{display:grid;grid-template-columns:30px minmax(0,1fr);gap:12px;align-items:start}
+.m-passo::before{counter-increment:passo;content:counter(passo);display:flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;background:var(--red-xlight);color:var(--red-dark);font-weight:700;font-size:13px}
+.m-passo h4{margin:2px 0 4px;font-size:14.5px}
+.m-passo p{margin:0 0 4px}
+.caixa{border-left:4px solid var(--red);background:var(--soft-2);border-radius:0 10px 10px 0;padding:12px 16px;margin:14px 0}
+.caixa--alerta{border-left-color:var(--warn);background:var(--warn-bg)}
+.caixa--ok{border-left-color:var(--ok);background:var(--ok-bg)}
+.caixa p{margin:4px 0}
+.caixa strong{display:block;margin-bottom:2px}
+.duas{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin:12px 0}
+.lista-sim li::marker,.lista-nao li::marker{font-size:14px}
+.lista-sim li{color:var(--ok-dark)}
+.lista-nao li{color:var(--err-dark)}
+.lista-sim span,.lista-nao span{color:var(--ink)}
+.rapido{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px;margin-top:12px}
+.rapido div{border:1px solid var(--line);border-radius:10px;padding:10px 12px;background:var(--soft-2)}
+.rapido b{display:block;font-size:12px;color:var(--ink-3);font-weight:600;margin-bottom:4px}
+.rapido code{display:inline-block}
+td code,th code{white-space:nowrap}
+td,th{overflow-wrap:normal}
+kbd{font-family:inherit;font-size:12px;background:#fff;border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;padding:1px 6px}
+@media print{
+  .sumario{display:none}
+  .doc{grid-template-columns:1fr}
+  .bloco{break-inside:avoid;box-shadow:none;border:1px solid var(--line)}
+  .cmd{background:#fff;color:#262626;border:1px solid var(--line)}
+  .cmd .c{color:#6d6e71}
+  .cmd button{display:none}
+}
+</style>
+</head>
+<body>
+<header class="topo">
+  <div class="topo-in">
+    <div>
+      <p class="olho">GitHub Copilot · VS Code</p>
+      <h1>Manual do harness de IA e das métricas</h1>
+      <p class="sub">Instalar, escolher o que é medido, puxar os artefatos de cada repositório e gerar o painel</p>
+    </div>
+    <div class="topo-meta">
+      <div>harness-metricas v1.2.0</div>
+      <div>gerado em 14 de setembro de 2026</div>
+      <div>modo de coleta: marcador</div>
+    </div>
+  </div>
+</header>
+<main>
+  <div class="doc">
+    <nav class="sumario"><h2>Conteúdo</h2><ol><li><a href="#visao">O que é isso</a></li><li><a href="#pastas">Onde mora cada coisa</a></li><li><a href="#instalar">Instalar o pacote na sua máquina</a></li><li><a href="#hooks-ok">Conferir se os hooks realmente rodam</a></li><li><a href="#medir">Escolher quais sessões são medidas</a></li><li><a href="#rotina">A rotina de uma tarefa</a></li><li><a href="#avulsa">Medir uma sessão avulsa (ex.: debug)</a></li><li><a href="#puxar">Puxar os harnesses da sua base de código</a></li><li><a href="#painel">Gerar o painel e a leitura executiva</a></li><li><a href="#privacidade">O que é e o que não é gravado</a></li><li><a href="#problemas">Problemas comuns</a></li><li><a href="#glossario">Glossário</a></li></ol></nav>
+    <div class="conteudo"><section class="bloco" id="visao"><h2><span class="num">1</span>O que é isso</h2>
+<p class="lead">Duas coisas diferentes, que convivem: o <strong>harness</strong> (o que você ensina para o Copilot) e o <strong>harness-metricas</strong> (a camada que mede o resultado disso).</p>
+<div class="duas">
+  <div class="caixa"><strong>Harness</strong>
+    <p>São os arquivos de customização do Copilot no VS Code: <em>instructions</em>, <em>prompts</em>, <em>agents</em>, <em>skills</em> e <em>hooks</em>. É o que faz o agente conhecer o padrão do time, seguir o fluxo SDD e respeitar as travas.</p></div>
+  <div class="caixa"><strong>harness-metricas</strong>
+    <p>Um coletor que observa as sessões que <em>você escolher</em> e um comando que gera um painel HTML com tempo, guard-rails, tokens, custo e qualidade — para apresentar a resultado, não a achismo.</p></div>
+</div>
+<h3>Três regras que evitam 90% dos problemas</h3>
+<ul>
+  <li><strong>Nada é medido sem você pedir.</strong> O coletor só grava a sessão depois que você escreve <code>#medir</code> num prompt. Sem isso, nem o SessionStart entra.</li>
+  <li><strong>Nada de conteúdo vai para disco.</strong> Nem prompt, nem código, nem texto de comando. Só metadado (ver a seção de privacidade).</li>
+  <li><strong>Nada é commitado nos repos de produto.</strong> Os arquivos em <code>.github/</code> ficam locais e entram no <code>.git\info\exclude</code>.</li>
+</ul>
+<div class="rapido">
+  <div><b>Medir esta sessão</b>escreva <code>#medir</code> no prompt</div>
+  <div><b>Parar de medir</b>escreva <code>#nao-medir</code> no prompt</div>
+  <div><b>Ver o que está sendo medido</b><code>"%HM%" medir status</code></div>
+  <div><b>Gerar o painel</b><code>"%HM%" build</code></div>
+  <div><b>Algo não funcionou</b><code>"%HM%" doutor</code></div>
+</div></section>
+<section class="bloco" id="pastas"><h2><span class="num">2</span>Onde mora cada coisa</h2>
+<p class="lead">Duas caixas: <strong>repositório</strong> (vale só naquele projeto) e <strong>usuário</strong> (vale em todos os projetos da sua máquina). Escolha sempre a mais estreita que resolve.</p>
+<div class="tab-wrap"><table><thead><tr><th>O quê</th><th>Extensão</th><th>No repositório</th><th>No usuário</th><th>Criar pelo VS Code</th></tr></thead><tbody><tr><td><strong>Instructions</strong><br><small>regra que entra sozinha por tipo de arquivo</small></td><td><code>.instructions.md</code></td><td><code>.github/instructions/</code></td><td><code>%USERPROFILE%\.copilot\instructions\</code><br><small>ou o perfil do VS Code</small></td><td><code>Chat: New Instructions File</code></td></tr><tr><td><strong>Prompts</strong><br><small>comando <code>/nome</code> no chat</small></td><td><code>.prompt.md</code></td><td><code>.github/prompts/</code></td><td><code>%USERPROFILE%\.copilot\prompts\</code><br><small>ou o perfil do VS Code</small></td><td><code>Chat: New Prompt File</code></td></tr><tr><td><strong>Agents</strong><br><small>persona + allowlist de ferramentas</small></td><td><code>.agent.md</code></td><td><code>.github/agents/</code><br><code>.claude/agents/</code></td><td><code>%USERPROFILE%\.copilot\agents\</code></td><td><code>Chat: New Agent File</code></td></tr><tr><td><strong>Skills</strong><br><small>playbook que carrega por intenção</small></td><td>pasta com <code>SKILL.md</code></td><td><code>.github/skills/&lt;nome&gt;/</code><br><code>.agents/skills/&lt;nome&gt;/</code><br><code>.claude/skills/&lt;nome&gt;/</code></td><td><code>%USERPROFILE%\.copilot\skills\&lt;nome&gt;\</code></td><td>—</td></tr><tr><td><strong>Hooks</strong><br><small>script que roda no ciclo do agente</small></td><td><code>.json</code></td><td><code>.github/hooks/</code></td><td><code>%USERPROFILE%\.copilot\hooks\</code></td><td><code>Chat: Configure Hooks</code> ou <code>/hooks</code></td></tr></tbody></table></div>
+<h3>As três regras de precedência que mordem</h3>
+<ul>
+  <li><strong>Hook de workspace ganha do hook de usuário</strong> para o mesmo evento. Se o repo já tem <code>.github/hooks/*.json</code>, instale o coletor também nele.</li>
+  <li><strong>Agent de usuário mascara o do repositório</strong> quando têm o mesmo nome — e você fica com uma versão velha sem perceber.</li>
+  <li><strong>Skill carrega por descrição.</strong> A <code>description</code> do <code>SKILL.md</code> fica sempre no índice e custa token em toda requisição; o corpo só carrega quando o pedido casa.</li>
+</ul>
+<div class="caixa caixa--alerta"><strong>Política do banco</strong>
+  <p>Não commite nada dentro de <code>.github/</code> nos repositórios de produto. Deixe os arquivos locais e registre no <code>.git\info\exclude</code>. Para skills, <code>.agents/skills/</code> é a alternativa quando a restrição é só sobre <code>.github/</code>.</p></div>
+<div class="cmd"><button type="button" data-copiar="cmd1">copiar</button><pre id="cmd1"><span class="c">:: marcar os artefatos locais como não versionados (dentro do repo)</span>
+echo .github/ &gt;&gt; .git\info\exclude
+echo .agents/ &gt;&gt; .git\info\exclude</pre></div></section>
+<section class="bloco" id="instalar"><h2><span class="num">3</span>Instalar o pacote na sua máquina</h2>
+<p class="lead">Node 18+ e nada mais: sem npm install, sem extensão, sem admin. Se algum comando falhar, o <code>doutor</code> (passo 6) diz exatamente o porquê.</p>
+<div class="m-passos">
+  <div class="m-passo"><div><h4>Descompacte e coloque a pasta no lugar</h4>
+    <p>O zip traz uma pasta <code>harness-metricas</code> dentro. É <strong>essa</strong> pasta que vai para <code>C:\Users\i459249\.copilot\harness-metricas</code> — cuidado com a pasta dentro de pasta que o Windows cria ao extrair.</p>
+    <div class="cmd"><button type="button" data-copiar="cmd2">copiar</button><pre id="cmd2"><span class="c">:: confira que o arquivo principal está no lugar certo:</span>
+dir &quot;C:\Users\i459249\.copilot\harness-metricas\bin\hm.mjs&quot;
+
+<span class="c">:: se não achar, procure onde ele foi parar:</span>
+dir /s /b %USERPROFILE%\.copilot\hm.mjs</pre></div>
+    <div class="caixa caixa--alerta"><strong>Se o caminho for outro</strong><p>Use o caminho que o <code>dir /s /b</code> imprimiu em todos os comandos abaixo, ou mova a pasta para o caminho acima.</p></div></div></div>
+  <div class="m-passo"><div><h4>Confira o Node</h4><div class="cmd"><button type="button" data-copiar="cmd3">copiar</button><pre id="cmd3">node -v</pre></div>
+    <p>Precisa ser <code>v18</code> ou maior. Se aparecer "não é reconhecido", o Node não está no PATH deste terminal.</p></div></div>
+  <div class="m-passo"><div><h4>Guarde o atalho</h4>
+    <p>O pacote traz um <code>hm.cmd</code> que roda de qualquer pasta. Grave o caminho dele numa variável (uma vez só) e <strong>abra um terminal novo</strong> depois:</p>
+    <div class="cmd"><button type="button" data-copiar="cmd4">copiar</button><pre id="cmd4">setx HM &quot;C:\Users\i459249\.copilot\harness-metricas\hm.cmd&quot;
+<span class="c">:: feche este terminal, abra outro, e teste:</span>
+&quot;%HM%&quot; ajuda</pre></div>
+    <p>Sem isso, use sempre o caminho completo: <code>node "C:\Users\i459249\.copilot\harness-metricas\bin\hm.mjs" ajuda</code>.</p></div></div>
+  <div class="m-passo"><div><h4>Instale os hooks</h4>
+    <p><strong>Só num repositório</strong> (recomendado quando você quer medir um projeto específico):</p>
+    <div class="cmd"><button type="button" data-copiar="cmd5">copiar</button><pre id="cmd5">&quot;%HM%&quot; instalar --workspace &quot;C:\Users\&lt;voce&gt;\Documents\Projetos\&lt;seu-repo&gt;&quot;</pre></div>
+    <p>Ou <strong>em todos os repositórios</strong> da máquina (o marcador continua decidindo o que é medido):</p>
+    <div class="cmd"><button type="button" data-copiar="cmd6">copiar</button><pre id="cmd6">&quot;%HM%&quot; instalar</pre></div>
+    <p>Se o repositório já tiver <code>.github/hooks</code> próprios, instale no workspace também: hook de workspace tem precedência sobre o de usuário.</p></div></div>
+  <div class="m-passo"><div><h4>Ligue o OpenTelemetry do Copilot</h4><p>É daqui que vêm tokens, modelo e custo. Rode uma vez e <strong>reabra o VS Code</strong>.</p>
+    <div class="cmd"><button type="button" data-copiar="cmd7">copiar</button><pre id="cmd7">setx COPILOT_OTEL_ENABLED true
+setx COPILOT_OTEL_FILE_EXPORTER_PATH &quot;C:\Users\i459249\.copilot\harness-metricas\dados\otel\copilot-otel.jsonl&quot;</pre></div>
+    <p>Alternativa pelo <code>settings.json</code> do usuário: <code>github.copilot.chat.otel.enabled</code>, <code>exporterType: "file"</code> e <code>outfile</code> apontando para o mesmo caminho.</p>
+    <div class="caixa caixa--alerta"><strong>captureContent fica em false</strong><p>Com <code>true</code>, o OTel grava prompt, resposta e conteúdo de arquivo em disco. Com dado de cliente isso é inaceitável. O padrão já é <code>false</code> — não mude.</p></div></div></div>
+  <div class="m-passo"><div><h4>Rode o doutor</h4>
+    <div class="cmd"><button type="button" data-copiar="cmd8">copiar</button><pre id="cmd8">&quot;%HM%&quot; doutor --repo &quot;C:\Users\&lt;voce&gt;\Documents\Projetos\&lt;seu-repo&gt;&quot;</pre></div>
+    <p>Ele checa Node, pacote, config, pasta de dados, hooks (usuário e repositório), OTel, sessões ativas e erros do coletor — e termina com uma lista do que fazer.</p></div></div>
+  <div class="m-passo"><div><h4>Instale o agente da narrativa (opcional)</h4><div class="cmd"><button type="button" data-copiar="cmd9">copiar</button><pre id="cmd9">copy &quot;C:\Users\i459249\.copilot\harness-metricas\agents\metricas-narrador.agent.md&quot; &quot;%USERPROFILE%\.copilot\agents\&quot;</pre></div></div></div>
+</div>
+<div class="caixa caixa--alerta"><strong>Erro mais comum: pasta errada aberta no VS Code</strong>
+  <p>Para trabalhar e ser medido, abra <strong>o seu projeto</strong> no VS Code — não a pasta do harness-metricas. A pasta do harness só é aberta se você for editar a configuração dele. Os comandos <code>"%HM%" …</code> rodam de qualquer terminal, inclusive o do seu projeto.</p></div></section>
+<section class="bloco" id="hooks-ok"><h2><span class="num">4</span>Conferir se os hooks realmente rodam</h2>
+<p class="lead">Conseguir criar a pasta <code>.github/hooks</code> não prova nada — isso é permissão de disco. Se a política <code>ChatHooks</code> estiver desligada, o VS Code ignora o arquivo em silêncio.</p>
+<h3>Prova em 1 prompt (canário)</h3>
+<div class="cmd"><button type="button" data-copiar="cmd10">copiar</button><pre id="cmd10">node bin\hm.mjs verificar-hooks
+<span class="c">:: feche e reabra o VS Code, mande UM prompt em modo agente que leia um arquivo, e:</span>
+node bin\hm.mjs verificar-hooks --conferir
+node bin\hm.mjs verificar-hooks --limpar</pre></div>
+<h3>Checagens manuais, na ordem</h3>
+<div class="tab-wrap"><table><thead><tr><th>#</th><th>Onde</th><th>O que olhar</th><th>Leitura</th></tr></thead><tbody><tr><td>1</td><td>Paleta (<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>P</kbd>) → <code>Chat: Configure Hooks</code></td><td>o comando existe?</td><td>não existe → sua versão do VS Code não tem a superfície</td></tr><tr><td>2</td><td>Settings (<kbd>Ctrl</kbd>+<kbd>,</kbd>) → <code>chat.useHooks</code></td><td>valor e se está gerenciado pela organização</td><td><code>false</code> gerenciado → bloqueado por política</td></tr><tr><td>3</td><td>Paleta → <code>Developer: Policy Diagnostics</code></td><td>procure <code>ChatHooks</code></td><td>aparece com <code>false</code> → confirmado, fale com o admin</td></tr><tr><td>4</td><td><code>%USERPROFILE%\.copilot\settings.json</code></td><td>chave <code>disableAllHooks</code></td><td><code>true</code> → foi você quem desligou</td></tr><tr><td>5</td><td>Output (<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>U</kbd>) → canal <strong>GitHub Copilot Chat Hooks</strong></td><td>erro de JSON ou de comando</td><td>arquivo malformado cai aqui</td></tr><tr><td>6</td><td>Paleta → <code>Developer: Show Agent Debug Logs</code></td><td>execução evento a evento</td><td>confirma o que rodou na sessão</td></tr></tbody></table></div>
+<div class="caixa"><strong>Se estiver bloqueado</strong>
+  <p>O pedido ao admin é específico: liberar a política <code>ChatHooks</code> (setting <code>chat.useHooks</code>) para o seu grupo. Argumento: estes hooks são telemetria read-only, não alteram o comportamento do agente, não injetam contexto e não enviam nada para fora da máquina.</p>
+  <p>Sem hooks o pacote degrada em vez de morrer: o painel continua com tokens, custo e modelo (via OTel), e perde tempo ativo, guard-rails e o vínculo com atividade.</p></div></section>
+<section class="bloco" id="medir"><h2><span class="num">5</span>Escolher quais sessões são medidas</h2>
+<p class="lead">O modo atual é <strong>marcador</strong>: nenhuma sessão é gravada até você pedir. Chat exploratório, pergunta rápida, teste de prompt — nada disso entra no painel.</p>
+<h3>Como ligar a medição de uma sessão</h3>
+<p>Escreva <code>#medir</code> em qualquer prompt dela — de preferência no primeiro, porque o que vem antes do marcador não é gravado. O prefixo <code>+</code> funciona igual (<code>+medir</code>), útil porque o <kbd>#</kbd> abre o seletor de contexto do VS Code.</p>
+<div class="cmd"><button type="button" data-copiar="cmd11">copiar</button><pre id="cmd11">/sdd-implement REAB-412 primeira fatia de tarefas.md   #medir
+
+analisa o bug do brad-card que some no reload   +medir</pre></div>
+<div class="caixa caixa--ok"><strong>O que acontece quando você marca</strong>
+  <p>O coletor grava um <code>SessionStart</code> com o repositório, a branch e o commit do momento, e passa a registrar todos os eventos seguintes daquela sessão até ela acabar. O marcador vale para a sessão inteira — não precisa repetir nos próximos prompts.</p></div>
+<h3>Como parar no meio</h3>
+<p>Escreva <code>#nao-medir</code> no chat. A gravação para na hora; o que já foi coletado continua lá. Para descartar tudo daquela sessão:</p>
+<div class="cmd"><button type="button" data-copiar="cmd12">copiar</button><pre id="cmd12">node bin\hm.mjs medir status
+<span class="c">:: copie o id da sessão e:</span>
+node bin\hm.mjs ignorar vscode-chat-0f3a…</pre></div>
+<h3>Ver e administrar</h3>
+<div class="tab-wrap"><table><thead><tr><th>Comando</th><th>O que faz</th></tr></thead><tbody><tr><td><code>hm medir status</code></td><td>modo atual, marcador, sessões ativas</td></tr><tr><td><code>hm medir parar &lt;sessao&gt;</code></td><td>desliga a medição de uma sessão específica</td></tr><tr><td><code>hm medir limpar</code></td><td>remove ativações com mais de 7 dias (<code>--tudo</code> limpa todas)</td></tr><tr><td><code>hm ignorar &lt;sessao&gt;</code></td><td>exclui a sessão das métricas no build</td></tr></tbody></table></div>
+<h3>Outros modos (arquivo <code>config/parametros.json</code> → <code>coleta.modo</code>)</h3>
+<div class="tab-wrap"><table><thead><tr><th>Modo</th><th>Quando faz sentido</th></tr></thead><tbody><tr><td><code>marcador</code> <em>(atual)</em></td><td>controle total: nada entra sem você escrever o marcador</td></tr><tr><td><code>comandos</code></td><td>medir sozinho toda sessão que usar <code>/sdd-*</code>, <code>/discovery-*</code> ou o design-to-code, e ignorar o resto</td></tr><tr><td><code>marcador+comandos</code></td><td>os dois: comandos do harness automáticos, mais os chats que você marcar</td></tr><tr><td><code>interruptor</code></td><td>medir por período de trabalho: <code>hm medir on</code> / <code>hm medir off</code></td></tr><tr><td><code>tudo</code></td><td>medir todas as sessões de todo repositório com o hook instalado</td></tr></tbody></table></div>
+<p>Dá para restringir por repositório em qualquer modo, com <code>coleta.repos_permitidos</code>: <code>["recr-fed-agc-posvenda"]</code> mede só naquele projeto.</p></section>
+<section class="bloco" id="rotina"><h2><span class="num">6</span>A rotina de uma tarefa</h2>
+<p class="lead">O que muda no seu dia é uma linha de comando no começo e um marcador no prompt. O resto é o fluxo que você já faz.</p>
+<div class="m-passos">
+  <div class="m-passo"><div><h4>Antes de começar: registre a estimativa cega</h4>
+    <p>Quanto essa tarefa levaria <em>sem</em> IA, na sua melhor estimativa, antes de qualquer código. É este número que a gerência vai olhar — e ele só vale como "cego" se for registrado antes da primeira edição de código.</p>
+    <div class="cmd"><button type="button" data-copiar="cmd13">copiar</button><pre id="cmd13">node bin\hm.mjs estimar REAB-412 32 --nota &quot;planning poker da squad&quot;</pre></div>
+    <p>Alternativa sem sair do chat: escreva <code>estimativa-sem-ia: 32h</code> no primeiro prompt do <code>/sdd-plan</code>.</p></div></div>
+  <div class="m-passo"><div><h4>No primeiro prompt da tarefa: ligue a medição</h4>
+    <p>Acrescente <code>#medir</code> ao prompt do <code>/sdd-plan</code> (ou do discovery, se o fluxo começar lá).</p></div></div>
+  <div class="m-passo"><div><h4>Trabalhe normalmente</h4>
+    <p><code>plan → implement → review → archive</code>, cada etapa em sua sessão. Marque cada sessão nova da mesma tarefa — o coletor junta todas pela branch, pelo ticket e pelos artefatos do SDD.</p></div></div>
+  <div class="m-passo"><div><h4>Se a atividade não termina em <code>/sdd-archive</code></h4>
+    <p>Fluxos de design-to-code, por exemplo, precisam de um sinal explícito de conclusão:</p>
+    <div class="cmd"><button type="button" data-copiar="cmd14">copiar</button><pre id="cmd14">node bin\hm.mjs concluir REAB-433</pre></div></div></div>
+  <div class="m-passo"><div><h4>No fim do período: gere o painel</h4>
+    <div class="cmd"><button type="button" data-copiar="cmd15">copiar</button><pre id="cmd15">node bin\hm.mjs pendencias
+node bin\hm.mjs build --de 2026-09-01 --ate 2026-09-30</pre></div></div></div>
+</div></section>
+<section class="bloco" id="avulsa"><h2><span class="num">7</span>Medir uma sessão avulsa (ex.: debug)</h2>
+<p class="lead">Nem todo trabalho passa pelo fluxo SDD. Para uma sessão de depuração entrar no painel como atividade com ganho, ela precisa de três coisas: aparecer como camada própria, ter uma chave de atividade e ter começo e fim.</p>
+<div class="m-passos">
+  <div class="m-passo"><div><h4>Uma vez: registre o seu fluxo de depuração</h4>
+    <p>Descubra o nome real do comando ou do agente no repositório:</p>
+    <div class="cmd"><button type="button" data-copiar="cmd16">copiar</button><pre id="cmd16">&quot;%HM%&quot; harness listar --repo &quot;C:\Users\&lt;voce&gt;\Documents\Projetos\&lt;seu-repo&gt;&quot;</pre></div>
+    <p>E registre — troque os nomes pelos que apareceram:</p>
+    <div class="cmd"><button type="button" data-copiar="cmd17">copiar</button><pre id="cmd17">&quot;%HM%&quot; toolkit depuracao --comandos depurar --agentes depurador --rotulo &quot;Depuração&quot;</pre></div>
+    <p>Sem isso a sessão ainda é medida, mas aparece como "sem toolkit" em vez de virar uma camada do painel.</p></div></div>
+  <div class="m-passo"><div><h4>Antes de começar: estimativa e chave da atividade</h4>
+    <p>A chave é o que junta várias sessões numa atividade só. Serve o ticket no prompt, ou uma branch com o ticket no nome. Registre a estimativa cega com a mesma chave:</p>
+    <div class="cmd"><button type="button" data-copiar="cmd18">copiar</button><pre id="cmd18">&quot;%HM%&quot; estimar REAB-501 4 --nota &quot;tempo que eu levaria sem IA&quot;</pre></div></div></div>
+  <div class="m-passo"><div><h4>No chat do projeto: marque a sessão</h4>
+    <p>Abra o repositório no VS Code, selecione o agente de depuração e, no primeiro prompt, cite o ticket e o marcador:</p>
+    <div class="cmd"><button type="button" data-copiar="cmd19">copiar</button><pre id="cmd19">/depurar REAB-501 o brad-card some quando recarrego a tela   #medir</pre></div>
+    <p>Confirme que ligou:</p>
+    <div class="cmd"><button type="button" data-copiar="cmd20">copiar</button><pre id="cmd20">&quot;%HM%&quot; medir status</pre></div></div></div>
+  <div class="m-passo"><div><h4>Ao resolver: feche a atividade</h4>
+    <p>Fluxo que não termina em <code>/sdd-archive</code> precisa do sinal explícito de conclusão — sem ele a atividade fica "em andamento" e não entra no cálculo de horas economizadas:</p>
+    <div class="cmd"><button type="button" data-copiar="cmd21">copiar</button><pre id="cmd21">&quot;%HM%&quot; concluir REAB-501</pre></div></div></div>
+  <div class="m-passo"><div><h4>Gere o painel</h4><div class="cmd"><button type="button" data-copiar="cmd22">copiar</button><pre id="cmd22">&quot;%HM%&quot; build</pre></div>
+    <p>Se a sessão aparecer solta, em "sessões sem atividade", ligue na mão:</p>
+    <div class="cmd"><button type="button" data-copiar="cmd23">copiar</button><pre id="cmd23">&quot;%HM%&quot; medir status
+<span class="c">:: copie o id e:</span>
+&quot;%HM%&quot; vincular &lt;id-da-sessao&gt; REAB-501</pre></div></div></div>
+</div>
+<div class="caixa"><strong>Sem ticket, e agora?</strong>
+  <p>Um debug sem ticket ainda rende tempo, tokens, custo e guard-rails na camada de depuração — só não rende "horas economizadas", porque não há estimativa nem atividade concluída para comparar. Se quiser o ganho, invente uma chave estável e use nos dois lugares: <code>"%HM%" estimar debug-brad-card 4</code> e <code>debug-brad-card</code> escrito no prompt.</p></div></section>
+<section class="bloco" id="puxar"><h2><span class="num">8</span>Puxar os harnesses da sua base de código</h2>
+<p class="lead">Seus artefatos vivem dentro de cada repositório de produto. Estes comandos inventariam, copiam entre repos e promovem para o nível de usuário — sem sobrescrever nada por padrão.</p>
+<h3>1. Ver o que existe hoje</h3>
+<div class="cmd"><button type="button" data-copiar="cmd24">copiar</button><pre id="cmd24">node bin\hm.mjs harness listar --repo C:\dev\recr-fed-agc-posvenda</pre></div>
+<p>Sai o que há em <code>.github/</code>, <code>.agents/</code> e <code>.claude/</code> daquele repo, mais o que já está no seu nível de usuário. Rode em cada repo para montar o inventário.</p>
+<h3>2. Levar de um repo para outro</h3>
+<div class="cmd"><button type="button" data-copiar="cmd25">copiar</button><pre id="cmd25"><span class="c">:: sempre simule antes</span>
+node bin\hm.mjs harness copiar --de C:\dev\repo-origem --para C:\dev\repo-destino --simular
+
+<span class="c">:: só os tipos que interessam</span>
+node bin\hm.mjs harness copiar --de C:\dev\repo-origem --para C:\dev\repo-destino --tipos prompts,skills
+
+<span class="c">:: sobrescrever o que já existe no destino</span>
+node bin\hm.mjs harness copiar --de C:\dev\repo-origem --para C:\dev\repo-destino --forcar</pre></div>
+<h3>3. Promover para o nível de usuário</h3>
+<p>O que subir para <code>%USERPROFILE%\.copilot\</code> passa a valer em <strong>todos</strong> os repositórios da máquina.</p>
+<div class="cmd"><button type="button" data-copiar="cmd26">copiar</button><pre id="cmd26">node bin\hm.mjs harness promover --de C:\dev\recr-fed-agc-posvenda --tipos agents,skills --simular
+node bin\hm.mjs harness promover --de C:\dev\recr-fed-agc-posvenda --tipos agents,skills</pre></div>
+<p>Prompts e instructions de usuário também podem ir para o perfil do VS Code, se é de lá que o seu chat lê:</p>
+<div class="cmd"><button type="button" data-copiar="cmd27">copiar</button><pre id="cmd27">node bin\hm.mjs harness promover --de C:\dev\seu-repo --tipos prompts --perfil-vscode &quot;%APPDATA%\Code\User&quot;</pre></div>
+<h3>Repositório ou usuário?</h3>
+<div class="tab-wrap"><table><thead><tr><th>Vai para</th><th>Quando</th><th>Exemplo</th></tr></thead><tbody><tr><td><strong>Repositório</strong></td><td>o artefato depende da stack, do padrão ou dos caminhos daquele projeto</td><td>instruction de Angular com <code>applyTo</code>, skill de triagem de federação, prompts do SDD</td></tr><tr><td><strong>Usuário</strong></td><td>vale para qualquer projeto seu e você quer em todos</td><td>agente de depuração, skill de estilo Liquid, agente da narrativa de métricas</td></tr></tbody></table></div>
+<div class="caixa caixa--alerta"><strong>Cuidado com a duplicata silenciosa</strong>
+  <p>Um agente no nível de usuário com o mesmo nome de um do repositório mascara o do repositório. Se o time atualizar o do repo, você continua usando a sua cópia velha. Promova poucos artefatos, e os estáveis.</p></div></section>
+<section class="bloco" id="painel"><h2><span class="num">9</span>Gerar o painel e a leitura executiva</h2>
+<p class="lead">O build é determinístico: mesma entrada, mesmo painel. Nenhum número é escrito por LLM.</p>
+<div class="cmd"><button type="button" data-copiar="cmd28">copiar</button><pre id="cmd28">node bin\hm.mjs build
+<span class="c">:: ou recortando o período</span>
+node bin\hm.mjs build --de 2026-09-01 --ate 2026-09-30</pre></div>
+<p>Saída em <code>C:\Users\i459249\.copilot\harness-metricas\dados\relatorios\&lt;data&gt;\</code>: <code>dashboard.html</code> (é o que você compartilha), <code>dados.json</code> e <code>resumo-narrativa.json</code>.</p>
+<h3>Leitura executiva (opcional)</h3>
+<div class="m-passos">
+  <div class="m-passo"><div><h4>Rode o build</h4><p>Ele grava o <code>resumo-narrativa.json</code>, com cerca de 1 KB.</p></div></div>
+  <div class="m-passo"><div><h4>Chame o agente no Copilot Chat</h4><p>Selecione o agente <code>metricas-narrador</code> e anexe o resumo:</p><div class="cmd"><button type="button" data-copiar="cmd29">copiar</button><pre id="cmd29"><span class="c">#readFile resumo-narrativa.json</span></pre></div><p>Ele cria <code>narrativa.md</code> na mesma pasta.</p></div></div>
+  <div class="m-passo"><div><h4>Rode o build de novo</h4><p>O build confere <strong>cada número</strong> contra a chave citada no resumo. Número sem chave, chave inexistente ou valor diferente: narrativa recusada, com a lista de problemas no terminal. Só texto conferido entra no painel.</p></div></div>
+</div>
+<div class="caixa caixa--alerta"><strong>Antes de apresentar para a gerência</strong>
+  <p>Calibre <code>config/calibracao.json</code> com a squad (8 a 10 tarefas já entregues, três devs estimando sem ver o tempo real, mediana por unidade). Enquanto ele estiver com valores de exemplo, o próprio painel exibe um aviso dizendo para não apresentar o ganho como resultado.</p></div></section>
+<section class="bloco" id="privacidade"><h2><span class="num">10</span>O que é e o que não é gravado</h2>
+<p class="lead">Isto aqui é o que você mostra para o time e para a governança. Há teste automatizado garantindo cada linha desta lista.</p>
+<div class="duas">
+  <div><h3 style="margin-top:0">Vai para o disco</h3><ul class="lista-sim">
+    <li><span>carimbo de tempo de cada evento</span></li>
+    <li><span>nome e categoria da ferramenta (<code>readFile</code>, <code>runInTerminal</code>…)</span></li>
+    <li><span>caminho <em>relativo</em> do arquivo tocado</span></li>
+    <li><span>classe do comando de terminal (teste, lint, validador, git)</span></li>
+    <li><span>resultado do comando: sucesso ou falha</span></li>
+    <li><span>fato extraído do artefato: ticket, nº de fatias, veredito, contagem de <code>[NÃO RESPONDIDO]</code></span></li>
+    <li><span>tokens, modelo e cache (do OpenTelemetry)</span></li>
+  </ul></div>
+  <div><h3 style="margin-top:0">Nunca vai para o disco</h3><ul class="lista-nao">
+    <li><span>texto do prompt (só o tamanho em caracteres)</span></li>
+    <li><span>conteúdo de arquivo, seu ou gerado</span></li>
+    <li><span>texto do comando de terminal (pode conter credencial)</span></li>
+    <li><span>resposta da ferramenta</span></li>
+    <li><span>caminho absoluto (o nome da sua pasta de usuário é dado pessoal)</span></li>
+  </ul></div>
+</div>
+<p>Tudo fica em <code>C:\Users\i459249\.copilot\harness-metricas\dados</code>, na sua máquina. Nada é enviado para fora, não há serviço, servidor nem telemetria externa.</p></section>
+<section class="bloco" id="problemas"><h2><span class="num">11</span>Problemas comuns</h2>
+<div class="tab-wrap"><table><thead><tr><th>Sintoma</th><th>Causa provável</th><th>O que fazer</th></tr></thead><tbody><tr><td><code>Cannot find module …hm.mjs</code></td><td>você não está na pasta do pacote, ou a pasta foi extraída dentro de outra</td><td><code>dir /s /b %USERPROFILE%\.copilot\hm.mjs</code> e use o caminho que aparecer</td></tr><tr><td><code>node não é reconhecido</code></td><td>Node fora do PATH deste terminal</td><td>abra um terminal novo; se persistir, instale/peça o Node 18+</td></tr><tr><td>Qualquer outro erro na instalação</td><td>—</td><td><code>"%HM%" doutor --repo &lt;seu-repo&gt;</code> aponta a causa e o que fazer</td></tr><tr><td>O painel não tem nenhuma sessão</td><td>você não marcou nenhuma sessão com <code>#medir</code></td><td><code>hm medir status</code> e marque a próxima sessão</td></tr><tr><td>Sessões aparecem, mas custo e tokens estão zerados</td><td>o OTel não está ligado ou o arquivo está vazio</td><td><code>hm diagnostico</code> → seção OpenTelemetry</td></tr><tr><td>Nada é gravado nem com o marcador</td><td>hooks bloqueados por política ou VS Code não releu a pasta</td><td><code>hm verificar-hooks</code> e a seção 4</td></tr><tr><td>Funciona num repo e no outro não</td><td>o outro repo tem <code>.github/hooks</code> próprio (precedência)</td><td><code>hm instalar --workspace &lt;repo&gt;</code></td></tr><tr><td>Duas sessões viraram uma atividade só</td><td>branch compartilhada ou ticket repetido no prompt</td><td><code>hm vincular &lt;sessao&gt; &lt;atividade&gt;</code></td></tr><tr><td>Atividade não aparece como concluída</td><td>o fluxo não terminou em <code>/sdd-archive</code></td><td><code>hm concluir &lt;atividade&gt;</code></td></tr><tr><td>"Narrativa RECUSADA" no build</td><td>o agente citou um número que não existe no resumo</td><td>apague <code>narrativa.md</code>, rode o agente de novo e o build</td></tr><tr><td>O painel avisa que a calibração é de exemplo</td><td><code>calibracao.json</code> ainda com valores placeholder</td><td>calibre com a squad antes de apresentar</td></tr></tbody></table></div>
+<div class="cmd"><button type="button" data-copiar="cmd30">copiar</button><pre id="cmd30"><span class="c">:: o comando que responde quase tudo</span>
+node bin\hm.mjs diagnostico</pre></div></section>
+<section class="bloco" id="glossario"><h2><span class="num">12</span>Glossário</h2>
+<div class="tab-wrap"><table><thead><tr><th>Termo</th><th>O que é</th></tr></thead><tbody><tr><td><strong>Sessão</strong></td><td>uma conversa do Copilot Chat, do primeiro prompt até você fechar. É a unidade que o coletor grava.</td></tr><tr><td><strong>Atividade</strong></td><td>a tarefa de negócio (um ticket). Junta várias sessões: discovery, plan, implement, review, archive.</td></tr><tr><td><strong>Hook</strong></td><td>script que o VS Code executa em momentos do ciclo do agente (início da sessão, antes/depois de cada ferramenta, fim). Aqui ele só observa.</td></tr><tr><td><strong>OpenTelemetry (OTel)</strong></td><td>padrão de telemetria. O Copilot Chat pode exportar cada chamada ao modelo para um arquivo — é de lá que saem tokens, modelo e cache.</td></tr><tr><td><strong>Guard-rail</strong></td><td>barreira que impediu uma ação ou exigiu confirmação: hook de guarda, portão do validador SDD, invariante de git.</td></tr><tr><td><strong>Estimativa cega</strong></td><td>quanto a tarefa levaria sem IA, registrada antes de a execução começar. Registrada depois, não conta no indicador.</td></tr><tr><td><strong>AI Credits</strong></td><td>unidade de cobrança do Copilot desde junho de 2026, calculada por token consumido. 1 crédito = US$ 0,01.</td></tr></tbody></table></div></section></div>
+  </div>
+</main>
+<footer>Documento autocontido: pode ser copiado, anexado no Teams ou impresso. Caminhos desta cópia: pacote <code>C:\Users\i459249\.copilot\harness-metricas</code> · dados <code>C:\Users\i459249\.copilot\harness-metricas\dados</code>.</footer>
+<script>
+document.addEventListener('click', (ev) => {
+  const bt = ev.target.closest('button[data-copiar]');
+  if (!bt) return;
+  const alvo = document.getElementById(bt.dataset.copiar);
+  if (!alvo) return;
+  const texto = alvo.textContent;
+  const fim = () => { bt.textContent = 'copiado'; setTimeout(() => { bt.textContent = 'copiar'; }, 1500); };
+  if (navigator.clipboard) navigator.clipboard.writeText(texto).then(fim, fim);
+  else {
+    const ta = document.createElement('textarea');
+    ta.value = texto; document.body.append(ta); ta.select();
+    try { document.execCommand('copy'); } catch (e) { /* sem clipboard */ }
+    ta.remove(); fim();
+  }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+{
+  "_leia": "Tabela de preço por modelo. Valor de LISTA pública do GitHub. Se o banco tiver acordo enterprise com preço diferente, este arquivo é a fonte da verdade: ajuste aqui e o dashboard reprecifica tudo no próximo build.",
+  "fonte": "https://docs.github.com/en/copilot/reference/copilot-billing/models-and-pricing",
+  "consultado_em": "2026-09-11",
+  "vigencia_inicio": "2026-06-01",
+  "unidade": "USD por 1 milhão de tokens",
+  "credito_usd": 0.01,
+  "observacao": "Cobrança por AI Credits desde 01/06/2026. O Copilot Business inclui US$ 19/mês de créditos por usuário (pool). Por isso o dashboard fala em 'custo de consumo (valor de lista)', não em desembolso.",
+  "modelos": [
+    { "id": "claude-haiku-4.5", "padrao": "haiku[-_. ]?4[-_. ]?5", "entrada": 1.00, "cache_leitura": 0.10, "cache_escrita": 1.25, "saida": 5.00 },
+    { "id": "claude-sonnet-5", "padrao": "sonnet[-_. ]?5", "entrada": 2.00, "cache_leitura": 0.20, "cache_escrita": 2.50, "saida": 10.00 },
+    { "id": "claude-sonnet-4", "padrao": "sonnet[-_. ]?4(?![-_.]?\\d)", "entrada": 3.00, "cache_leitura": 0.30, "cache_escrita": 3.75, "saida": 15.00 },
+    { "id": "claude-opus-5", "padrao": "opus[-_. ]?5", "entrada": 5.00, "cache_leitura": 0.50, "cache_escrita": 6.25, "saida": 25.00 },
+    { "id": "claude-opus-4.7", "padrao": "opus[-_. ]?4[-_. ]?7", "entrada": 5.00, "cache_leitura": 0.50, "cache_escrita": 6.25, "saida": 25.00 },
+    { "id": "gpt-5-mini", "padrao": "gpt[-_. ]?5[-_. ]?mini", "entrada": 0.25, "cache_leitura": 0.025, "cache_escrita": null, "saida": 2.00 },
+    { "id": "gpt-5.4", "padrao": "gpt[-_. ]?5[-_.]4", "entrada": 2.50, "cache_leitura": 0.25, "cache_escrita": null, "saida": 15.00 },
+    { "id": "gpt-5.5", "padrao": "gpt[-_. ]?5[-_.]5", "entrada": 5.00, "cache_leitura": 0.50, "cache_escrita": null, "saida": 30.00 },
+    { "id": "gemini-3.5-flash", "padrao": "gemini[-_. ]?3[-_.]5[-_. ]?flash", "entrada": 1.50, "cache_leitura": 0.15, "cache_escrita": null, "saida": 9.00 },
+    { "id": "gemini-3.6-flash", "padrao": "gemini[-_. ]?3[-_.]6[-_. ]?flash", "entrada": 0.75, "cache_leitura": 0.075, "cache_escrita": null, "saida": 3.75 }
+  ],
+  "_cache_escrita_null": "Modelo sem preço de escrita em cache: tokens de cache_creation são cobrados como entrada."
+}

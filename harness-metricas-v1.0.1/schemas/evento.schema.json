@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "harness-metricas/evento@1",
+  "title": "Evento bruto do coletor (uma linha de dados/eventos/<sessao>.jsonl)",
+  "description": "Append-only. Fonte da verdade: sessões, atividades e dashboard são projeções recalculáveis a partir destes eventos. NUNCA contém texto de prompt, conteúdo de arquivo, texto de comando de terminal nem caminho absoluto.",
+  "type": "object",
+  "required": ["v", "t", "ev", "sid"],
+  "properties": {
+    "v": { "const": 1 },
+    "t": { "type": "string", "format": "date-time" },
+    "ev": { "enum": ["SessionStart", "UserPromptSubmit", "PreToolUse", "PostToolUse", "PreCompact", "SubagentStart", "SubagentStop", "Stop"] },
+    "sid": { "type": "string", "pattern": "^[\\w.-]{1,120}$" },
+    "sid_origem": { "enum": ["hook", "fallback"] },
+    "hook_ms": { "type": "number", "description": "Tempo gasto pelo próprio coletor neste evento." },
+
+    "repo": { "type": "string", "description": "SessionStart: nome da pasta raiz do repositório (basename), nunca o caminho." },
+    "origem": { "type": ["string", "null"] },
+    "git": {
+      "type": "object",
+      "properties": {
+        "branch": { "type": ["string", "null"] },
+        "head": { "type": ["string", "null"] },
+        "diff": {
+          "type": ["object", "null"],
+          "properties": {
+            "arquivos": { "type": "integer" },
+            "adicionadas": { "type": "integer" },
+            "removidas": { "type": "integer" }
+          }
+        }
+      }
+    },
+
+    "cmd": { "type": ["string", "null"], "description": "UserPromptSubmit: nome do /comando, se o prompt começar com um." },
+    "tickets": { "type": "array", "items": { "type": "string" }, "maxItems": 3 },
+    "estimativa_h": { "type": ["number", "null"] },
+    "chars": { "type": "integer", "description": "Tamanho do prompt. O texto não é gravado." },
+
+    "tool": { "type": "string" },
+    "id": { "type": ["string", "null"] },
+    "cat": { "enum": ["subagente", "mcp", "terminal", "edicao", "leitura", "outra"] },
+    "paths": { "type": "array", "items": { "type": "string" }, "description": "Relativos ao cwd. Fora do cwd: '~ext/<basename>'." },
+    "novos": { "type": "array", "items": { "type": "string" }, "description": "PreToolUse de edição: caminhos que ainda não existiam." },
+    "contrato": { "type": "boolean" },
+    "term": { "type": ["string", "null"], "description": "Classe do comando de terminal (toolkits.json > comandos_terminal)." },
+    "res": { "enum": ["falha", "sucesso", "desconhecido", null] },
+    "sondas": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "path"],
+        "properties": {
+          "id": { "type": "string" },
+          "path": { "type": "string" },
+          "op": { "enum": ["leitura", "edicao"] },
+          "campos": { "type": "object" }
+        }
+      }
+    },
+
+    "gatilho": { "type": ["string", "null"] },
+    "agente_tipo": { "type": ["string", "null"] },
+    "agente_id": { "type": ["string", "null"] }
+  },
+  "additionalProperties": false
+}

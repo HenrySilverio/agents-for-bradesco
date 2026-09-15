@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "harness-metricas/guardrail-evento@1",
+  "title": "Contrato file-drop para hooks de guarda (guard-invariants.mjs e afins)",
+  "description": "Opcional e desacoplado: o hook de guarda NÃO importa nada do harness-metricas. Se a variável HARNESS_METRICAS_GUARDRAILS existir, ele acrescenta uma linha JSON neste formato no arquivo apontado. Sem a variável, não faz nada. Remover o harness-metricas não quebra o hook de guarda.",
+  "type": "object",
+  "required": ["v", "t", "regra", "decisao"],
+  "properties": {
+    "v": { "const": 1 },
+    "t": { "type": "string", "format": "date-time" },
+    "sid": { "type": ["string", "null"], "description": "session_id recebido pelo hook de guarda, se houver." },
+    "hook": { "type": "string", "description": "Nome do script de guarda. Ex.: guard-invariants" },
+    "regra": { "type": "string", "pattern": "^[a-z0-9][a-z0-9._-]{0,60}$", "description": "Identificador estável da regra. Ex.: contrato-federation, comando-destrutivo" },
+    "decisao": { "enum": ["deny", "ask", "allow"] },
+    "categoria": { "enum": ["seguranca", "contrato", "qualidade", "processo"] },
+    "alvo_tipo": { "type": "string", "description": "Tipo do alvo, nunca o valor. Ex.: arquivo-contrato, comando-terminal" }
+  },
+  "additionalProperties": false,
+  "examples": [
+    { "v": 1, "t": "2026-09-11T14:02:11.000Z", "sid": "abc123", "hook": "guard-invariants", "regra": "comando-destrutivo", "decisao": "deny", "categoria": "seguranca", "alvo_tipo": "comando-terminal" }
+  ]
+}

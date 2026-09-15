@@ -1,0 +1,51 @@
+{
+  "_leia": "Parâmetros de cálculo. Tudo que aparece no dashboard como premissa vem daqui — mude aqui, nunca no código.",
+  "versao": 1,
+
+  "limiar_ociosidade_min": 10,
+  "_limiar_ociosidade_min": "Intervalo entre dois eventos acima deste valor não conta como tempo ativo (almoço, reunião, chat esquecido aberto).",
+
+  "sobrecarga_humana_fora_sessao_pct": 30,
+  "_sobrecarga_humana_fora_sessao_pct": "Acréscimo sobre o tempo ativo em sessão para cobrir o que o hook não vê: revisão de PR, teste manual, commit. Conservador de propósito — superestimar o tempo com IA protege a credibilidade do número.",
+
+  "estrategia_referencia": "minimo",
+  "_estrategia_referencia": "minimo | cega | parametrica. 'minimo' usa o menor valor entre a estimativa cega do dev e a tabela calibrada — resistente a inflação de estimativa.",
+
+  "divergencia_alerta_pct": 50,
+  "_divergencia_alerta_pct": "Se estimativa cega e paramétrica divergirem mais que isso, a atividade ganha o alerta 'revisar estimativa'.",
+
+  "modelo_referencia_roteamento": "claude-sonnet-5",
+  "_modelo_referencia_roteamento": "Modelo usado para calcular a economia do roteamento: quanto os mesmos tokens custariam se toda sessão rodasse neste modelo.",
+
+  "janela_correlacao_otel_min": 2,
+  "_janela_correlacao_otel_min": "Tolerância, em minutos, para casar uma conversa OTel com uma sessão do hook por sobreposição de horário quando os IDs não batem.",
+
+  "otel": {
+    "arquivos": ["otel/*.jsonl", "otel/historico/*.jsonl"],
+    "_arquivos": "Relativos à pasta de dados. Aponte COPILOT_OTEL_FILE_EXPORTER_PATH para <dados>/otel/copilot-otel.jsonl. Spans repetidos entre arquivo ativo e histórico são deduplicados por traceId+spanId.",
+    "input_inclui_cache": "auto",
+    "_input_inclui_cache": "auto | true | false. Em 'auto', se qualquer span tiver cache_read + cache_creation > input_tokens, conclui que input_tokens NÃO inclui cache."
+  },
+
+  "moeda": {
+    "cotacao_usd_brl": null,
+    "cotacao_data": null,
+    "cotacao_fonte": null,
+    "_leia": "Preencha os três campos para o dashboard exibir também em R$. Sem data e fonte, o valor em reais não aparece."
+  },
+
+  "ticket_regex": "\\b[A-Z][A-Z0-9]{1,9}-\\d{1,6}\\b",
+  "estimativa_prompt_regex": "estimativa[-_ ]sem[-_ ]ia\\s*[:=]\\s*(\\d+(?:[.,]\\d+)?)\\s*h?",
+  "branches_ignoradas": ["main", "master", "develop", "dev", "hml", "homolog", "HEAD", "release/*", "hotfix/*"],
+
+  "conclusao": [
+    { "toolkit": "sdd", "etapa": "archive" }
+  ],
+  "_conclusao": "Sessões que marcam a atividade como concluída. Atividade sem esse sinal pode ser concluída à mão: hm concluir <atividade>.",
+
+  "caminhos_nao_codigo": "(^|/)(\\.sdd|docs/briefings|\\.github|\\.vscode)/",
+  "_caminhos_nao_codigo": "Edição fora destes caminhos marca o início da execução da atividade. Estimativa registrada depois disso não é cega.",
+
+  "dados_dir": null,
+  "_dados_dir": "null = <pasta do pacote>/dados. A variável de ambiente HARNESS_METRICAS_DADOS tem precedência."
+}
