@@ -216,8 +216,8 @@ kbd{font-family:inherit;font-size:12px;background:#fff;border:1px solid var(--li
       <p class="sub">Instalar, escolher o que é medido, puxar os artefatos de cada repositório e gerar o painel</p>
     </div>
     <div class="topo-meta">
-      <div>harness-metricas v1.2.0</div>
-      <div>gerado em 14 de setembro de 2026</div>
+      <div>harness-metricas v1.2.1</div>
+      <div>gerado em 15 de setembro de 2026</div>
       <div>modo de coleta: marcador</div>
     </div>
   </div>
@@ -242,9 +242,9 @@ kbd{font-family:inherit;font-size:12px;background:#fff;border:1px solid var(--li
 <div class="rapido">
   <div><b>Medir esta sessão</b>escreva <code>#medir</code> no prompt</div>
   <div><b>Parar de medir</b>escreva <code>#nao-medir</code> no prompt</div>
-  <div><b>Ver o que está sendo medido</b><code>"%HM%" medir status</code></div>
-  <div><b>Gerar o painel</b><code>"%HM%" build</code></div>
-  <div><b>Algo não funcionou</b><code>"%HM%" doutor</code></div>
+  <div><b>Ver o que está sendo medido</b><code>node "C:\Users\i459249\.copilot\harness-metricas\bin\hm.mjs" medir status</code></div>
+  <div><b>Gerar o painel</b><code>node "C:\Users\i459249\.copilot\harness-metricas\bin\hm.mjs" build</code></div>
+  <div><b>Algo não funcionou</b><code>node "C:\Users\i459249\.copilot\harness-metricas\bin\hm.mjs" doutor</code></div>
 </div></section>
 <section class="bloco" id="pastas"><h2><span class="num">2</span>Onde mora cada coisa</h2>
 <p class="lead">Duas caixas: <strong>repositório</strong> (vale só naquele projeto) e <strong>usuário</strong> (vale em todos os projetos da sua máquina). Escolha sempre a mais estreita que resolve.</p>
@@ -257,33 +257,33 @@ kbd{font-family:inherit;font-size:12px;background:#fff;border:1px solid var(--li
 </ul>
 <div class="caixa caixa--alerta"><strong>Política do banco</strong>
   <p>Não commite nada dentro de <code>.github/</code> nos repositórios de produto. Deixe os arquivos locais e registre no <code>.git\info\exclude</code>. Para skills, <code>.agents/skills/</code> é a alternativa quando a restrição é só sobre <code>.github/</code>.</p></div>
-<div class="cmd"><button type="button" data-copiar="cmd1">copiar</button><pre id="cmd1"><span class="c">:: marcar os artefatos locais como não versionados (dentro do repo)</span>
-echo .github/ &gt;&gt; .git\info\exclude
-echo .agents/ &gt;&gt; .git\info\exclude</pre></div></section>
+<div class="cmd"><button type="button" data-copiar="cmd1">copiar</button><pre id="cmd1"><span class="c" data-nc># marcar os artefatos locais como não versionados (PowerShell, dentro da pasta do repo)</span>
+Add-Content .git\info\exclude &quot;.github/&quot;
+Add-Content .git\info\exclude &quot;.agents/&quot;</pre></div></section>
 <section class="bloco" id="instalar"><h2><span class="num">3</span>Instalar o pacote na sua máquina</h2>
 <p class="lead">Node 18+ e nada mais: sem npm install, sem extensão, sem admin. Se algum comando falhar, o <code>doutor</code> (passo 6) diz exatamente o porquê.</p>
 <div class="m-passos">
   <div class="m-passo"><div><h4>Descompacte e coloque a pasta no lugar</h4>
     <p>O zip traz uma pasta <code>harness-metricas</code> dentro. É <strong>essa</strong> pasta que vai para <code>C:\Users\i459249\.copilot\harness-metricas</code> — cuidado com a pasta dentro de pasta que o Windows cria ao extrair.</p>
-    <div class="cmd"><button type="button" data-copiar="cmd2">copiar</button><pre id="cmd2"><span class="c">:: confira que o arquivo principal está no lugar certo:</span>
+    <div class="cmd"><button type="button" data-copiar="cmd2">copiar</button><pre id="cmd2"><span class="c" data-nc># confira que o arquivo principal está no lugar certo:</span>
 dir &quot;C:\Users\i459249\.copilot\harness-metricas\bin\hm.mjs&quot;
 
-<span class="c">:: se não achar, procure onde ele foi parar:</span>
-dir /s /b %USERPROFILE%\.copilot\hm.mjs</pre></div>
-    <div class="caixa caixa--alerta"><strong>Se o caminho for outro</strong><p>Use o caminho que o <code>dir /s /b</code> imprimiu em todos os comandos abaixo, ou mova a pasta para o caminho acima.</p></div></div></div>
+<span class="c" data-nc># se não achar, procure onde ele foi parar (PowerShell):</span>
+Get-ChildItem -Path $env:USERPROFILE -Filter hm.mjs -Recurse -ErrorAction SilentlyContinue | Select-Object -First 5 FullName</pre></div>
+    <div class="caixa caixa--alerta"><strong>Se o caminho for outro</strong><p>Use o caminho que a busca imprimiu em todos os comandos abaixo (trocando a parte <code>C:\Users\i459249\.copilot\harness-metricas</code>), ou mova a pasta para o caminho acima. No <code>cmd</code>, a mesma busca é <code>dir /s /b %USERPROFILE%\hm.mjs</code>.</p></div></div></div>
   <div class="m-passo"><div><h4>Confira o Node</h4><div class="cmd"><button type="button" data-copiar="cmd3">copiar</button><pre id="cmd3">node -v</pre></div>
     <p>Precisa ser <code>v18</code> ou maior. Se aparecer "não é reconhecido", o Node não está no PATH deste terminal.</p></div></div>
-  <div class="m-passo"><div><h4>Guarde o atalho</h4>
-    <p>O pacote traz um <code>hm.cmd</code> que roda de qualquer pasta. Grave o caminho dele numa variável (uma vez só) e <strong>abra um terminal novo</strong> depois:</p>
-    <div class="cmd"><button type="button" data-copiar="cmd4">copiar</button><pre id="cmd4">setx HM &quot;C:\Users\i459249\.copilot\harness-metricas\hm.cmd&quot;
-<span class="c">:: feche este terminal, abra outro, e teste:</span>
-&quot;%HM%&quot; ajuda</pre></div>
-    <p>Sem isso, use sempre o caminho completo: <code>node "C:\Users\i459249\.copilot\harness-metricas\bin\hm.mjs" ajuda</code>.</p></div></div>
+  <div class="m-passo"><div><h4>Teste o comando</h4>
+    <p>A CLI é sempre invocada pelo <strong>caminho completo do arquivo</strong>. Essa forma funciona igual no PowerShell, no <code>cmd</code> e no Git Bash, e de qualquer pasta corrente — é a forma usada no manual inteiro:</p>
+    <div class="cmd"><button type="button" data-copiar="cmd4">copiar</button><pre id="cmd4">node &quot;C:\Users\i459249\.copilot\harness-metricas\bin\hm.mjs&quot; ajuda</pre></div>
+    <p>Se imprimir <code>harness-metricas v…</code> e a lista de comandos, está instalado. Daqui em diante, onde o manual mostrar <code>node "C:\Users\i459249\.copilot\harness-metricas\bin\hm.mjs" …</code>, é literalmente isso que você digita.</p>
+    <div class="caixa caixa--alerta"><strong>Não crie atalho com <code>%HM%</code></strong>
+      <p>Variável no formato <code>"%HM%"</code> só existe no <code>cmd</code>. O terminal integrado do VS Code no Windows é <strong>PowerShell</strong>, e lá <code>"%HM%" ajuda</code> falha com <code>Token 'ajuda' inesperado</code> — o PowerShell trata a linha inteira como texto. Se quiser mesmo um atalho, veja a caixa no fim desta seção; se não quiser pensar nisso, use o caminho completo acima e ignore o resto.</p></div></div></div>
   <div class="m-passo"><div><h4>Instale os hooks</h4>
     <p><strong>Só num repositório</strong> (recomendado quando você quer medir um projeto específico):</p>
-    <div class="cmd"><button type="button" data-copiar="cmd5">copiar</button><pre id="cmd5">&quot;%HM%&quot; instalar --workspace &quot;C:\Users\&lt;voce&gt;\Documents\Projetos\&lt;seu-repo&gt;&quot;</pre></div>
+    <div class="cmd"><button type="button" data-copiar="cmd5">copiar</button><pre id="cmd5">node &quot;C:\Users\i459249\.copilot\harness-metricas\bin\hm.mjs&quot; instalar --workspace &quot;C:\Users\&lt;voce&gt;\Documents\Projetos\&lt;seu-repo&gt;&quot;</pre></div>
     <p>Ou <strong>em todos os repositórios</strong> da máquina (o marcador continua decidindo o que é medido):</p>
-    <div class="cmd"><button type="button" data-copiar="cmd6">copiar</button><pre id="cmd6">&quot;%HM%&quot; instalar</pre></div>
+    <div class="cmd"><button type="button" data-copiar="cmd6">copiar</button><pre id="cmd6">node &quot;C:\Users\i459249\.copilot\harness-metricas\bin\hm.mjs&quot; instalar</pre></div>
     <p>Se o repositório já tiver <code>.github/hooks</code> próprios, instale no workspace também: hook de workspace tem precedência sobre o de usuário.</p></div></div>
   <div class="m-passo"><div><h4>Ligue o OpenTelemetry do Copilot</h4><p>É daqui que vêm tokens, modelo e custo. Rode uma vez e <strong>reabra o VS Code</strong>.</p>
     <div class="cmd"><button type="button" data-copiar="cmd7">copiar</button><pre id="cmd7">setx COPILOT_OTEL_ENABLED true
@@ -291,19 +291,27 @@ setx COPILOT_OTEL_FILE_EXPORTER_PATH &quot;C:\Users\i459249\.copilot\harness-met
     <p>Alternativa pelo <code>settings.json</code> do usuário: <code>github.copilot.chat.otel.enabled</code>, <code>exporterType: "file"</code> e <code>outfile</code> apontando para o mesmo caminho.</p>
     <div class="caixa caixa--alerta"><strong>captureContent fica em false</strong><p>Com <code>true</code>, o OTel grava prompt, resposta e conteúdo de arquivo em disco. Com dado de cliente isso é inaceitável. O padrão já é <code>false</code> — não mude.</p></div></div></div>
   <div class="m-passo"><div><h4>Rode o doutor</h4>
-    <div class="cmd"><button type="button" data-copiar="cmd8">copiar</button><pre id="cmd8">&quot;%HM%&quot; doutor --repo &quot;C:\Users\&lt;voce&gt;\Documents\Projetos\&lt;seu-repo&gt;&quot;</pre></div>
+    <div class="cmd"><button type="button" data-copiar="cmd8">copiar</button><pre id="cmd8">node &quot;C:\Users\i459249\.copilot\harness-metricas\bin\hm.mjs&quot; doutor --repo &quot;C:\Users\&lt;voce&gt;\Documents\Projetos\&lt;seu-repo&gt;&quot;</pre></div>
     <p>Ele checa Node, pacote, config, pasta de dados, hooks (usuário e repositório), OTel, sessões ativas e erros do coletor — e termina com uma lista do que fazer.</p></div></div>
-  <div class="m-passo"><div><h4>Instale o agente da narrativa (opcional)</h4><div class="cmd"><button type="button" data-copiar="cmd9">copiar</button><pre id="cmd9">copy &quot;C:\Users\i459249\.copilot\harness-metricas\agents\metricas-narrador.agent.md&quot; &quot;%USERPROFILE%\.copilot\agents\&quot;</pre></div></div></div>
+  <div class="m-passo"><div><h4>Instale o agente da narrativa (opcional)</h4><div class="cmd"><button type="button" data-copiar="cmd9">copiar</button><pre id="cmd9"><span class="c" data-nc># PowerShell:</span>
+New-Item -ItemType Directory -Force &quot;$env:USERPROFILE\.copilot\agents&quot; | Out-Null
+Copy-Item &quot;C:\Users\i459249\.copilot\harness-metricas\agents\metricas-narrador.agent.md&quot; &quot;$env:USERPROFILE\.copilot\agents\&quot;</pre></div></div></div>
 </div>
 <div class="caixa caixa--alerta"><strong>Erro mais comum: pasta errada aberta no VS Code</strong>
-  <p>Para trabalhar e ser medido, abra <strong>o seu projeto</strong> no VS Code — não a pasta do harness-metricas. A pasta do harness só é aberta se você for editar a configuração dele. Os comandos <code>"%HM%" …</code> rodam de qualquer terminal, inclusive o do seu projeto.</p></div></section>
+  <p>Para trabalhar e ser medido, abra <strong>o seu projeto</strong> no VS Code — não a pasta do harness-metricas. A pasta do harness só é aberta se você for editar a configuração dele. Os comandos <code>node "C:\Users\i459249\.copilot\harness-metricas\bin\hm.mjs" …</code> rodam de qualquer terminal, inclusive o do seu projeto.</p></div>
+
+<h3 id="shells">PowerShell, cmd e Git Bash: o que muda</h3>
+<p>O terminal integrado do VS Code no Windows é <strong>PowerShell</strong> por padrão. Quase tudo neste manual é <code>node "caminho" …</code>, que é idêntico nos três. O que muda é só isto:</p>
+<div class="tab-wrap"><table><thead><tr><th>O que</th><th>PowerShell (padrão do VS Code)</th><th>cmd</th></tr></thead><tbody><tr><td>Ler uma variável de ambiente</td><td><code>$env:USERPROFILE</code></td><td><code>%USERPROFILE%</code></td></tr><tr><td>Executar um caminho guardado numa variável</td><td><code>&amp; $env:HM ajuda</code> (precisa do <code>&amp;</code>)</td><td><code>"%HM%" ajuda</code></td></tr><tr><td>Comentário numa linha</td><td><code>#</code></td><td><code>::</code></td></tr><tr><td>Anexar linha a um arquivo</td><td><code>Add-Content .git\info\exclude ".github/"</code></td><td><code>echo .github/ &gt;&gt; .git\info\exclude</code></td></tr><tr><td><code>setx</code>, <code>node</code>, <code>git</code></td><td>igual</td><td>igual</td></tr></tbody></table></div>
+<div class="caixa caixa--alerta"><strong>Por que o manual não usa atalho</strong>
+  <p>Um atalho como <code>setx HM …</code> obriga cada pessoa a lembrar o dialeto do terminal em que está, e o erro aparece como <code>ParserError: Token 'ajuda' inesperado</code> — que não parece erro de shell, parece bug do pacote. O caminho completo tem zero ambiguidade. Se ainda assim quiser o atalho, no PowerShell a forma correta é <code>function hm { node "C:\Users\i459249\.copilot\harness-metricas\bin\hm.mjs" @args }</code> dentro do seu <code>$PROFILE</code>.</p></div></section>
 <section class="bloco" id="hooks-ok"><h2><span class="num">4</span>Conferir se os hooks realmente rodam</h2>
 <p class="lead">Conseguir criar a pasta <code>.github/hooks</code> não prova nada — isso é permissão de disco. Se a política <code>ChatHooks</code> estiver desligada, o VS Code ignora o arquivo em silêncio.</p>
 <h3>Prova em 1 prompt (canário)</h3>
-<div class="cmd"><button type="button" data-copiar="cmd10">copiar</button><pre id="cmd10">node bin\hm.mjs verificar-hooks
-<span class="c">:: feche e reabra o VS Code, mande UM prompt em modo agente que leia um arquivo, e:</span>
-node bin\hm.mjs verificar-hooks --conferir
-node bin\hm.mjs verificar-hooks --limpar</pre></div>
+<div class="cmd"><button type="button" data-copiar="cmd10">copiar</button><pre id="cmd10">node &quot;C:\Users\i459249\.copilot\harness-metricas\bin\hm.mjs&quot; verificar-hooks
+<span class="c" data-nc># feche e reabra o VS Code, mande UM prompt em modo agente que leia um arquivo, e:</span>
+node &quot;C:\Users\i459249\.copilot\harness-metricas\bin\hm.mjs&quot; verificar-hooks --conferir
+node &quot;C:\Users\i459249\.copilot\harness-metricas\bin\hm.mjs&quot; verificar-hooks --limpar</pre></div>
 <h3>Checagens manuais, na ordem</h3>
 <div class="tab-wrap"><table><thead><tr><th>#</th><th>Onde</th><th>O que olhar</th><th>Leitura</th></tr></thead><tbody><tr><td>1</td><td>Paleta (<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>P</kbd>) → <code>Chat: Configure Hooks</code></td><td>o comando existe?</td><td>não existe → sua versão do VS Code não tem a superfície</td></tr><tr><td>2</td><td>Settings (<kbd>Ctrl</kbd>+<kbd>,</kbd>) → <code>chat.useHooks</code></td><td>valor e se está gerenciado pela organização</td><td><code>false</code> gerenciado → bloqueado por política</td></tr><tr><td>3</td><td>Paleta → <code>Developer: Policy Diagnostics</code></td><td>procure <code>ChatHooks</code></td><td>aparece com <code>false</code> → confirmado, fale com o admin</td></tr><tr><td>4</td><td><code>%USERPROFILE%\.copilot\settings.json</code></td><td>chave <code>disableAllHooks</code></td><td><code>true</code> → foi você quem desligou</td></tr><tr><td>5</td><td>Output (<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>U</kbd>) → canal <strong>GitHub Copilot Chat Hooks</strong></td><td>erro de JSON ou de comando</td><td>arquivo malformado cai aqui</td></tr><tr><td>6</td><td>Paleta → <code>Developer: Show Agent Debug Logs</code></td><td>execução evento a evento</td><td>confirma o que rodou na sessão</td></tr></tbody></table></div>
 <div class="caixa"><strong>Se estiver bloqueado</strong>
@@ -320,9 +328,9 @@ analisa o bug do brad-card que some no reload   +medir</pre></div>
   <p>O coletor grava um <code>SessionStart</code> com o repositório, a branch e o commit do momento, e passa a registrar todos os eventos seguintes daquela sessão até ela acabar. O marcador vale para a sessão inteira — não precisa repetir nos próximos prompts.</p></div>
 <h3>Como parar no meio</h3>
 <p>Escreva <code>#nao-medir</code> no chat. A gravação para na hora; o que já foi coletado continua lá. Para descartar tudo daquela sessão:</p>
-<div class="cmd"><button type="button" data-copiar="cmd12">copiar</button><pre id="cmd12">node bin\hm.mjs medir status
-<span class="c">:: copie o id da sessão e:</span>
-node bin\hm.mjs ignorar vscode-chat-0f3a…</pre></div>
+<div class="cmd"><button type="button" data-copiar="cmd12">copiar</button><pre id="cmd12">node &quot;C:\Users\i459249\.copilot\harness-metricas\bin\hm.mjs&quot; medir status
+<span class="c" data-nc># copie o id da sessão e:</span>
+node &quot;C:\Users\i459249\.copilot\harness-metricas\bin\hm.mjs&quot; ignorar vscode-chat-0f3a…</pre></div>
 <h3>Ver e administrar</h3>
 <div class="tab-wrap"><table><thead><tr><th>Comando</th><th>O que faz</th></tr></thead><tbody><tr><td><code>hm medir status</code></td><td>modo atual, marcador, sessões ativas</td></tr><tr><td><code>hm medir parar &lt;sessao&gt;</code></td><td>desliga a medição de uma sessão específica</td></tr><tr><td><code>hm medir limpar</code></td><td>remove ativações com mais de 7 dias (<code>--tudo</code> limpa todas)</td></tr><tr><td><code>hm ignorar &lt;sessao&gt;</code></td><td>exclui a sessão das métricas no build</td></tr></tbody></table></div>
 <h3>Outros modos (arquivo <code>config/parametros.json</code> → <code>coleta.modo</code>)</h3>
@@ -333,7 +341,7 @@ node bin\hm.mjs ignorar vscode-chat-0f3a…</pre></div>
 <div class="m-passos">
   <div class="m-passo"><div><h4>Antes de começar: registre a estimativa cega</h4>
     <p>Quanto essa tarefa levaria <em>sem</em> IA, na sua melhor estimativa, antes de qualquer código. É este número que a gerência vai olhar — e ele só vale como "cego" se for registrado antes da primeira edição de código.</p>
-    <div class="cmd"><button type="button" data-copiar="cmd13">copiar</button><pre id="cmd13">node bin\hm.mjs estimar REAB-412 32 --nota &quot;planning poker da squad&quot;</pre></div>
+    <div class="cmd"><button type="button" data-copiar="cmd13">copiar</button><pre id="cmd13">node &quot;C:\Users\i459249\.copilot\harness-metricas\bin\hm.mjs&quot; estimar REAB-412 32 --nota &quot;planning poker da squad&quot;</pre></div>
     <p>Alternativa sem sair do chat: escreva <code>estimativa-sem-ia: 32h</code> no primeiro prompt do <code>/sdd-plan</code>.</p></div></div>
   <div class="m-passo"><div><h4>No primeiro prompt da tarefa: ligue a medição</h4>
     <p>Acrescente <code>#medir</code> ao prompt do <code>/sdd-plan</code> (ou do discovery, se o fluxo começar lá).</p></div></div>
@@ -341,73 +349,73 @@ node bin\hm.mjs ignorar vscode-chat-0f3a…</pre></div>
     <p><code>plan → implement → review → archive</code>, cada etapa em sua sessão. Marque cada sessão nova da mesma tarefa — o coletor junta todas pela branch, pelo ticket e pelos artefatos do SDD.</p></div></div>
   <div class="m-passo"><div><h4>Se a atividade não termina em <code>/sdd-archive</code></h4>
     <p>Fluxos de design-to-code, por exemplo, precisam de um sinal explícito de conclusão:</p>
-    <div class="cmd"><button type="button" data-copiar="cmd14">copiar</button><pre id="cmd14">node bin\hm.mjs concluir REAB-433</pre></div></div></div>
+    <div class="cmd"><button type="button" data-copiar="cmd14">copiar</button><pre id="cmd14">node &quot;C:\Users\i459249\.copilot\harness-metricas\bin\hm.mjs&quot; concluir REAB-433</pre></div></div></div>
   <div class="m-passo"><div><h4>No fim do período: gere o painel</h4>
-    <div class="cmd"><button type="button" data-copiar="cmd15">copiar</button><pre id="cmd15">node bin\hm.mjs pendencias
-node bin\hm.mjs build --de 2026-09-01 --ate 2026-09-30</pre></div></div></div>
+    <div class="cmd"><button type="button" data-copiar="cmd15">copiar</button><pre id="cmd15">node &quot;C:\Users\i459249\.copilot\harness-metricas\bin\hm.mjs&quot; pendencias
+node &quot;C:\Users\i459249\.copilot\harness-metricas\bin\hm.mjs&quot; build --de 2026-09-01 --ate 2026-09-30</pre></div></div></div>
 </div></section>
 <section class="bloco" id="avulsa"><h2><span class="num">7</span>Medir uma sessão avulsa (ex.: debug)</h2>
 <p class="lead">Nem todo trabalho passa pelo fluxo SDD. Para uma sessão de depuração entrar no painel como atividade com ganho, ela precisa de três coisas: aparecer como camada própria, ter uma chave de atividade e ter começo e fim.</p>
 <div class="m-passos">
   <div class="m-passo"><div><h4>Uma vez: registre o seu fluxo de depuração</h4>
     <p>Descubra o nome real do comando ou do agente no repositório:</p>
-    <div class="cmd"><button type="button" data-copiar="cmd16">copiar</button><pre id="cmd16">&quot;%HM%&quot; harness listar --repo &quot;C:\Users\&lt;voce&gt;\Documents\Projetos\&lt;seu-repo&gt;&quot;</pre></div>
+    <div class="cmd"><button type="button" data-copiar="cmd16">copiar</button><pre id="cmd16">node &quot;C:\Users\i459249\.copilot\harness-metricas\bin\hm.mjs&quot; harness listar --repo &quot;C:\Users\&lt;voce&gt;\Documents\Projetos\&lt;seu-repo&gt;&quot;</pre></div>
     <p>E registre — troque os nomes pelos que apareceram:</p>
-    <div class="cmd"><button type="button" data-copiar="cmd17">copiar</button><pre id="cmd17">&quot;%HM%&quot; toolkit depuracao --comandos depurar --agentes depurador --rotulo &quot;Depuração&quot;</pre></div>
+    <div class="cmd"><button type="button" data-copiar="cmd17">copiar</button><pre id="cmd17">node &quot;C:\Users\i459249\.copilot\harness-metricas\bin\hm.mjs&quot; toolkit depuracao --comandos depurar --agentes depurador --rotulo &quot;Depuração&quot;</pre></div>
     <p>Sem isso a sessão ainda é medida, mas aparece como "sem toolkit" em vez de virar uma camada do painel.</p></div></div>
   <div class="m-passo"><div><h4>Antes de começar: estimativa e chave da atividade</h4>
     <p>A chave é o que junta várias sessões numa atividade só. Serve o ticket no prompt, ou uma branch com o ticket no nome. Registre a estimativa cega com a mesma chave:</p>
-    <div class="cmd"><button type="button" data-copiar="cmd18">copiar</button><pre id="cmd18">&quot;%HM%&quot; estimar REAB-501 4 --nota &quot;tempo que eu levaria sem IA&quot;</pre></div></div></div>
+    <div class="cmd"><button type="button" data-copiar="cmd18">copiar</button><pre id="cmd18">node &quot;C:\Users\i459249\.copilot\harness-metricas\bin\hm.mjs&quot; estimar REAB-501 4 --nota &quot;tempo que eu levaria sem IA&quot;</pre></div></div></div>
   <div class="m-passo"><div><h4>No chat do projeto: marque a sessão</h4>
     <p>Abra o repositório no VS Code, selecione o agente de depuração e, no primeiro prompt, cite o ticket e o marcador:</p>
     <div class="cmd"><button type="button" data-copiar="cmd19">copiar</button><pre id="cmd19">/depurar REAB-501 o brad-card some quando recarrego a tela   #medir</pre></div>
     <p>Confirme que ligou:</p>
-    <div class="cmd"><button type="button" data-copiar="cmd20">copiar</button><pre id="cmd20">&quot;%HM%&quot; medir status</pre></div></div></div>
+    <div class="cmd"><button type="button" data-copiar="cmd20">copiar</button><pre id="cmd20">node &quot;C:\Users\i459249\.copilot\harness-metricas\bin\hm.mjs&quot; medir status</pre></div></div></div>
   <div class="m-passo"><div><h4>Ao resolver: feche a atividade</h4>
     <p>Fluxo que não termina em <code>/sdd-archive</code> precisa do sinal explícito de conclusão — sem ele a atividade fica "em andamento" e não entra no cálculo de horas economizadas:</p>
-    <div class="cmd"><button type="button" data-copiar="cmd21">copiar</button><pre id="cmd21">&quot;%HM%&quot; concluir REAB-501</pre></div></div></div>
-  <div class="m-passo"><div><h4>Gere o painel</h4><div class="cmd"><button type="button" data-copiar="cmd22">copiar</button><pre id="cmd22">&quot;%HM%&quot; build</pre></div>
+    <div class="cmd"><button type="button" data-copiar="cmd21">copiar</button><pre id="cmd21">node &quot;C:\Users\i459249\.copilot\harness-metricas\bin\hm.mjs&quot; concluir REAB-501</pre></div></div></div>
+  <div class="m-passo"><div><h4>Gere o painel</h4><div class="cmd"><button type="button" data-copiar="cmd22">copiar</button><pre id="cmd22">node &quot;C:\Users\i459249\.copilot\harness-metricas\bin\hm.mjs&quot; build</pre></div>
     <p>Se a sessão aparecer solta, em "sessões sem atividade", ligue na mão:</p>
-    <div class="cmd"><button type="button" data-copiar="cmd23">copiar</button><pre id="cmd23">&quot;%HM%&quot; medir status
-<span class="c">:: copie o id e:</span>
-&quot;%HM%&quot; vincular &lt;id-da-sessao&gt; REAB-501</pre></div></div></div>
+    <div class="cmd"><button type="button" data-copiar="cmd23">copiar</button><pre id="cmd23">node &quot;C:\Users\i459249\.copilot\harness-metricas\bin\hm.mjs&quot; medir status
+<span class="c" data-nc># copie o id e:</span>
+node &quot;C:\Users\i459249\.copilot\harness-metricas\bin\hm.mjs&quot; vincular &lt;id-da-sessao&gt; REAB-501</pre></div></div></div>
 </div>
 <div class="caixa"><strong>Sem ticket, e agora?</strong>
-  <p>Um debug sem ticket ainda rende tempo, tokens, custo e guard-rails na camada de depuração — só não rende "horas economizadas", porque não há estimativa nem atividade concluída para comparar. Se quiser o ganho, invente uma chave estável e use nos dois lugares: <code>"%HM%" estimar debug-brad-card 4</code> e <code>debug-brad-card</code> escrito no prompt.</p></div></section>
+  <p>Um debug sem ticket ainda rende tempo, tokens, custo e guard-rails na camada de depuração — só não rende "horas economizadas", porque não há estimativa nem atividade concluída para comparar. Se quiser o ganho, invente uma chave estável e use nos dois lugares: <code>node "C:\Users\i459249\.copilot\harness-metricas\bin\hm.mjs" estimar debug-brad-card 4</code> e <code>debug-brad-card</code> escrito no prompt.</p></div></section>
 <section class="bloco" id="puxar"><h2><span class="num">8</span>Puxar os harnesses da sua base de código</h2>
 <p class="lead">Seus artefatos vivem dentro de cada repositório de produto. Estes comandos inventariam, copiam entre repos e promovem para o nível de usuário — sem sobrescrever nada por padrão.</p>
 <h3>1. Ver o que existe hoje</h3>
-<div class="cmd"><button type="button" data-copiar="cmd24">copiar</button><pre id="cmd24">node bin\hm.mjs harness listar --repo C:\dev\recr-fed-agc-posvenda</pre></div>
+<div class="cmd"><button type="button" data-copiar="cmd24">copiar</button><pre id="cmd24">node &quot;C:\Users\i459249\.copilot\harness-metricas\bin\hm.mjs&quot; harness listar --repo C:\dev\recr-fed-agc-posvenda</pre></div>
 <p>Sai o que há em <code>.github/</code>, <code>.agents/</code> e <code>.claude/</code> daquele repo, mais o que já está no seu nível de usuário. Rode em cada repo para montar o inventário.</p>
 <h3>2. Levar de um repo para outro</h3>
-<div class="cmd"><button type="button" data-copiar="cmd25">copiar</button><pre id="cmd25"><span class="c">:: sempre simule antes</span>
-node bin\hm.mjs harness copiar --de C:\dev\repo-origem --para C:\dev\repo-destino --simular
+<div class="cmd"><button type="button" data-copiar="cmd25">copiar</button><pre id="cmd25"><span class="c" data-nc># sempre simule antes</span>
+node &quot;C:\Users\i459249\.copilot\harness-metricas\bin\hm.mjs&quot; harness copiar --de C:\dev\repo-origem --para C:\dev\repo-destino --simular
 
-<span class="c">:: só os tipos que interessam</span>
-node bin\hm.mjs harness copiar --de C:\dev\repo-origem --para C:\dev\repo-destino --tipos prompts,skills
+<span class="c" data-nc># só os tipos que interessam</span>
+node &quot;C:\Users\i459249\.copilot\harness-metricas\bin\hm.mjs&quot; harness copiar --de C:\dev\repo-origem --para C:\dev\repo-destino --tipos prompts,skills
 
-<span class="c">:: sobrescrever o que já existe no destino</span>
-node bin\hm.mjs harness copiar --de C:\dev\repo-origem --para C:\dev\repo-destino --forcar</pre></div>
+<span class="c" data-nc># sobrescrever o que já existe no destino</span>
+node &quot;C:\Users\i459249\.copilot\harness-metricas\bin\hm.mjs&quot; harness copiar --de C:\dev\repo-origem --para C:\dev\repo-destino --forcar</pre></div>
 <h3>3. Promover para o nível de usuário</h3>
 <p>O que subir para <code>%USERPROFILE%\.copilot\</code> passa a valer em <strong>todos</strong> os repositórios da máquina.</p>
-<div class="cmd"><button type="button" data-copiar="cmd26">copiar</button><pre id="cmd26">node bin\hm.mjs harness promover --de C:\dev\recr-fed-agc-posvenda --tipos agents,skills --simular
-node bin\hm.mjs harness promover --de C:\dev\recr-fed-agc-posvenda --tipos agents,skills</pre></div>
+<div class="cmd"><button type="button" data-copiar="cmd26">copiar</button><pre id="cmd26">node &quot;C:\Users\i459249\.copilot\harness-metricas\bin\hm.mjs&quot; harness promover --de C:\dev\recr-fed-agc-posvenda --tipos agents,skills --simular
+node &quot;C:\Users\i459249\.copilot\harness-metricas\bin\hm.mjs&quot; harness promover --de C:\dev\recr-fed-agc-posvenda --tipos agents,skills</pre></div>
 <p>Prompts e instructions de usuário também podem ir para o perfil do VS Code, se é de lá que o seu chat lê:</p>
-<div class="cmd"><button type="button" data-copiar="cmd27">copiar</button><pre id="cmd27">node bin\hm.mjs harness promover --de C:\dev\seu-repo --tipos prompts --perfil-vscode &quot;%APPDATA%\Code\User&quot;</pre></div>
+<div class="cmd"><button type="button" data-copiar="cmd27">copiar</button><pre id="cmd27">node &quot;C:\Users\i459249\.copilot\harness-metricas\bin\hm.mjs&quot; harness promover --de C:\dev\seu-repo --tipos prompts --perfil-vscode &quot;$env:APPDATA\Code\User&quot;</pre></div>
 <h3>Repositório ou usuário?</h3>
 <div class="tab-wrap"><table><thead><tr><th>Vai para</th><th>Quando</th><th>Exemplo</th></tr></thead><tbody><tr><td><strong>Repositório</strong></td><td>o artefato depende da stack, do padrão ou dos caminhos daquele projeto</td><td>instruction de Angular com <code>applyTo</code>, skill de triagem de federação, prompts do SDD</td></tr><tr><td><strong>Usuário</strong></td><td>vale para qualquer projeto seu e você quer em todos</td><td>agente de depuração, skill de estilo Liquid, agente da narrativa de métricas</td></tr></tbody></table></div>
 <div class="caixa caixa--alerta"><strong>Cuidado com a duplicata silenciosa</strong>
   <p>Um agente no nível de usuário com o mesmo nome de um do repositório mascara o do repositório. Se o time atualizar o do repo, você continua usando a sua cópia velha. Promova poucos artefatos, e os estáveis.</p></div></section>
 <section class="bloco" id="painel"><h2><span class="num">9</span>Gerar o painel e a leitura executiva</h2>
 <p class="lead">O build é determinístico: mesma entrada, mesmo painel. Nenhum número é escrito por LLM.</p>
-<div class="cmd"><button type="button" data-copiar="cmd28">copiar</button><pre id="cmd28">node bin\hm.mjs build
-<span class="c">:: ou recortando o período</span>
-node bin\hm.mjs build --de 2026-09-01 --ate 2026-09-30</pre></div>
+<div class="cmd"><button type="button" data-copiar="cmd28">copiar</button><pre id="cmd28">node &quot;C:\Users\i459249\.copilot\harness-metricas\bin\hm.mjs&quot; build
+<span class="c" data-nc># ou recortando o período</span>
+node &quot;C:\Users\i459249\.copilot\harness-metricas\bin\hm.mjs&quot; build --de 2026-09-01 --ate 2026-09-30</pre></div>
 <p>Saída em <code>C:\Users\i459249\.copilot\harness-metricas\dados\relatorios\&lt;data&gt;\</code>: <code>dashboard.html</code> (é o que você compartilha), <code>dados.json</code> e <code>resumo-narrativa.json</code>.</p>
 <h3>Leitura executiva (opcional)</h3>
 <div class="m-passos">
   <div class="m-passo"><div><h4>Rode o build</h4><p>Ele grava o <code>resumo-narrativa.json</code>, com cerca de 1 KB.</p></div></div>
-  <div class="m-passo"><div><h4>Chame o agente no Copilot Chat</h4><p>Selecione o agente <code>metricas-narrador</code> e anexe o resumo:</p><div class="cmd"><button type="button" data-copiar="cmd29">copiar</button><pre id="cmd29"><span class="c">#readFile resumo-narrativa.json</span></pre></div><p>Ele cria <code>narrativa.md</code> na mesma pasta.</p></div></div>
+  <div class="m-passo"><div><h4>Chame o agente no Copilot Chat</h4><p>Selecione o agente <code>metricas-narrador</code> e anexe o resumo:</p><div class="cmd"><button type="button" data-copiar="cmd29">copiar</button><pre id="cmd29"><span class="c" data-nc># readFile resumo-narrativa.json</span></pre></div><p>Ele cria <code>narrativa.md</code> na mesma pasta.</p></div></div>
   <div class="m-passo"><div><h4>Rode o build de novo</h4><p>O build confere <strong>cada número</strong> contra a chave citada no resumo. Número sem chave, chave inexistente ou valor diferente: narrativa recusada, com a lista de problemas no terminal. Só texto conferido entra no painel.</p></div></div>
 </div>
 <div class="caixa caixa--alerta"><strong>Antes de apresentar para a gerência</strong>
@@ -434,9 +442,9 @@ node bin\hm.mjs build --de 2026-09-01 --ate 2026-09-30</pre></div>
 </div>
 <p>Tudo fica em <code>C:\Users\i459249\.copilot\harness-metricas\dados</code>, na sua máquina. Nada é enviado para fora, não há serviço, servidor nem telemetria externa.</p></section>
 <section class="bloco" id="problemas"><h2><span class="num">11</span>Problemas comuns</h2>
-<div class="tab-wrap"><table><thead><tr><th>Sintoma</th><th>Causa provável</th><th>O que fazer</th></tr></thead><tbody><tr><td><code>Cannot find module …hm.mjs</code></td><td>você não está na pasta do pacote, ou a pasta foi extraída dentro de outra</td><td><code>dir /s /b %USERPROFILE%\.copilot\hm.mjs</code> e use o caminho que aparecer</td></tr><tr><td><code>node não é reconhecido</code></td><td>Node fora do PATH deste terminal</td><td>abra um terminal novo; se persistir, instale/peça o Node 18+</td></tr><tr><td>Qualquer outro erro na instalação</td><td>—</td><td><code>"%HM%" doutor --repo &lt;seu-repo&gt;</code> aponta a causa e o que fazer</td></tr><tr><td>O painel não tem nenhuma sessão</td><td>você não marcou nenhuma sessão com <code>#medir</code></td><td><code>hm medir status</code> e marque a próxima sessão</td></tr><tr><td>Sessões aparecem, mas custo e tokens estão zerados</td><td>o OTel não está ligado ou o arquivo está vazio</td><td><code>hm diagnostico</code> → seção OpenTelemetry</td></tr><tr><td>Nada é gravado nem com o marcador</td><td>hooks bloqueados por política ou VS Code não releu a pasta</td><td><code>hm verificar-hooks</code> e a seção 4</td></tr><tr><td>Funciona num repo e no outro não</td><td>o outro repo tem <code>.github/hooks</code> próprio (precedência)</td><td><code>hm instalar --workspace &lt;repo&gt;</code></td></tr><tr><td>Duas sessões viraram uma atividade só</td><td>branch compartilhada ou ticket repetido no prompt</td><td><code>hm vincular &lt;sessao&gt; &lt;atividade&gt;</code></td></tr><tr><td>Atividade não aparece como concluída</td><td>o fluxo não terminou em <code>/sdd-archive</code></td><td><code>hm concluir &lt;atividade&gt;</code></td></tr><tr><td>"Narrativa RECUSADA" no build</td><td>o agente citou um número que não existe no resumo</td><td>apague <code>narrativa.md</code>, rode o agente de novo e o build</td></tr><tr><td>O painel avisa que a calibração é de exemplo</td><td><code>calibracao.json</code> ainda com valores placeholder</td><td>calibre com a squad antes de apresentar</td></tr></tbody></table></div>
-<div class="cmd"><button type="button" data-copiar="cmd30">copiar</button><pre id="cmd30"><span class="c">:: o comando que responde quase tudo</span>
-node bin\hm.mjs diagnostico</pre></div></section>
+<div class="tab-wrap"><table><thead><tr><th>Sintoma</th><th>Causa provável</th><th>O que fazer</th></tr></thead><tbody><tr><td><code>Cannot find module …hm.mjs</code></td><td>você não está na pasta do pacote, ou a pasta foi extraída dentro de outra</td><td>use sempre o caminho completo: <code>node &quot;C:\Users\i459249\.copilot\harness-metricas\bin\hm.mjs&quot; …</code></td></tr><tr><td><code>node não é reconhecido</code></td><td>Node fora do PATH deste terminal</td><td>abra um terminal novo; se persistir, instale/peça o Node 18+</td></tr><tr><td>Qualquer outro erro na instalação</td><td>—</td><td><code>node "C:\Users\i459249\.copilot\harness-metricas\bin\hm.mjs" doutor --repo &lt;seu-repo&gt;</code> aponta a causa e o que fazer</td></tr><tr><td>O painel não tem nenhuma sessão</td><td>você não marcou nenhuma sessão com <code>#medir</code></td><td><code>hm medir status</code> e marque a próxima sessão</td></tr><tr><td>Sessões aparecem, mas custo e tokens estão zerados</td><td>o OTel não está ligado ou o arquivo está vazio</td><td><code>hm diagnostico</code> → seção OpenTelemetry</td></tr><tr><td>Nada é gravado nem com o marcador</td><td>hooks bloqueados por política ou VS Code não releu a pasta</td><td><code>hm verificar-hooks</code> e a seção 4</td></tr><tr><td>Funciona num repo e no outro não</td><td>o outro repo tem <code>.github/hooks</code> próprio (precedência)</td><td><code>hm instalar --workspace &lt;repo&gt;</code></td></tr><tr><td>Duas sessões viraram uma atividade só</td><td>branch compartilhada ou ticket repetido no prompt</td><td><code>hm vincular &lt;sessao&gt; &lt;atividade&gt;</code></td></tr><tr><td>Atividade não aparece como concluída</td><td>o fluxo não terminou em <code>/sdd-archive</code></td><td><code>hm concluir &lt;atividade&gt;</code></td></tr><tr><td>"Narrativa RECUSADA" no build</td><td>o agente citou um número que não existe no resumo</td><td>apague <code>narrativa.md</code>, rode o agente de novo e o build</td></tr><tr><td>O painel avisa que a calibração é de exemplo</td><td><code>calibracao.json</code> ainda com valores placeholder</td><td>calibre com a squad antes de apresentar</td></tr></tbody></table></div>
+<div class="cmd"><button type="button" data-copiar="cmd30">copiar</button><pre id="cmd30"><span class="c" data-nc># o comando que responde quase tudo</span>
+node &quot;C:\Users\i459249\.copilot\harness-metricas\bin\hm.mjs&quot; diagnostico</pre></div></section>
 <section class="bloco" id="glossario"><h2><span class="num">12</span>Glossário</h2>
 <div class="tab-wrap"><table><thead><tr><th>Termo</th><th>O que é</th></tr></thead><tbody><tr><td><strong>Sessão</strong></td><td>uma conversa do Copilot Chat, do primeiro prompt até você fechar. É a unidade que o coletor grava.</td></tr><tr><td><strong>Atividade</strong></td><td>a tarefa de negócio (um ticket). Junta várias sessões: discovery, plan, implement, review, archive.</td></tr><tr><td><strong>Hook</strong></td><td>script que o VS Code executa em momentos do ciclo do agente (início da sessão, antes/depois de cada ferramenta, fim). Aqui ele só observa.</td></tr><tr><td><strong>OpenTelemetry (OTel)</strong></td><td>padrão de telemetria. O Copilot Chat pode exportar cada chamada ao modelo para um arquivo — é de lá que saem tokens, modelo e cache.</td></tr><tr><td><strong>Guard-rail</strong></td><td>barreira que impediu uma ação ou exigiu confirmação: hook de guarda, portão do validador SDD, invariante de git.</td></tr><tr><td><strong>Estimativa cega</strong></td><td>quanto a tarefa levaria sem IA, registrada antes de a execução começar. Registrada depois, não conta no indicador.</td></tr><tr><td><strong>AI Credits</strong></td><td>unidade de cobrança do Copilot desde junho de 2026, calculada por token consumido. 1 crédito = US$ 0,01.</td></tr></tbody></table></div></section></div>
   </div>
@@ -448,7 +456,11 @@ document.addEventListener('click', (ev) => {
   if (!bt) return;
   const alvo = document.getElementById(bt.dataset.copiar);
   if (!alvo) return;
-  const texto = alvo.textContent;
+  const copia = alvo.cloneNode(true);
+  copia.querySelectorAll('[data-nc]').forEach((n) => n.remove());
+  const texto = copia.textContent.split('
+').map((l) => l.trimEnd()).filter((l, i, a) => l || (i > 0 && i < a.length - 1 && a[i - 1] && a[i + 1])).join('
+').trim();
   const fim = () => { bt.textContent = 'copiado'; setTimeout(() => { bt.textContent = 'copiar'; }, 1500); };
   if (navigator.clipboard) navigator.clipboard.writeText(texto).then(fim, fim);
   else {
