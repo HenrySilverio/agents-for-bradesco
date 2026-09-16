@@ -1,68 +1,71 @@
-# agents-for-bradesco
-Você não sabe — você confere. São duas listas que precisam bater, e nada garante que batam.
-
-## Lista 1: o que o coletor tem registrado
-
-```powershell
-node -p "Object.entries(require('C:/Users/i459249/.copilot/harness-metricas/config/toolkits.json').toolkits).map(([k,v])=>k.padEnd(24)+Object.keys(v.comandos||{}).map(c=>'/'+c).join(' ')+'  | agentes: '+(Object.keys(v.agentes||{}).join(' ')||'-')).join('\n')"
-```
-
-Hoje ele responde isto:
+O OTel **não está desligado** — o rótulo do painel é que está errado. O arquivo existe e tem 8267 linhas válidas; o que falha é a minha leitura. Vou atacar isso por dois lados.Agora o diagnóstico passa a dizer a verdade sobre o estado do OTel, e o dólar vira o padrão declarado:Primeiro uma correção de premissa: **o OTel não está desligado.**
 
 ```
-discovery               /discovery-rota /discovery-triagem /discovery-grill /discovery-prototipo  | agentes: -
-sdd                     /sdd-plan /sdd-plan-v2 /sdd-implement /sdd-review /sdd-archive  | agentes: -
-design-to-code-liquid   /design-to-code-liquid  | agentes: design-to-code-liquid
+arquivos            copilot-otel.jsonl
+linhas / inválidas  8267 / 0
+spans               0
 ```
 
-## Lista 2: como os seus prompts se chamam de verdade
+O arquivo existe, está sendo escrito, e todas as linhas são JSON válido. O rótulo "OTel desligado" no painel era meu e estava errado — já virou "nenhum span lido". O problema está inteiro na minha leitura, não na sua configuração. Não mexa mais em `settings.json`.
 
-```
-node "C:/Users/i459249/.copilot/harness-metricas/bin/hm.mjs" harness listar --repo "C:/Users/i459249/Documents/Projetos/recr-fed-agc-jrnd-reneg"
-```
+## O que mudei (v1.7.0)
 
-O nome do arquivo `.prompt.md` **é** o comando de barra. Se o seu arquivo é `rota.prompt.md`, o comando é `/rota` — e `/discovery-rota` não existe, não casa, e a sessão não ativa sozinha.
+Duas redes novas no parser, em vez de continuar adivinhando o formato:
 
-## E já tem uma divergência na sua foto
+**1. Envelope de logs.** `resourceLogs → scopeLogs → logRecords`. É o palpite mais provável para o seu caso: 8267 linhas para umas dez chamadas de modelo tem cara de pipeline de log, não de trace.
 
-A tela de Agent Customizations mostra o agente do workspace chamado **`design-to-code`**. O `toolkits.json` declara **`design-to-code-liquid`**. Não batem — sessões desse agente hoje não seriam atribuídas àquela camada do painel. Aquele bloco inclusive está marcado com `_ajuste: "AJUSTE ANTES DE USAR: troque pelos nomes reais"`. Era placeholder meu, e agora está confirmado errado.
+**2. Varredura profunda.** Qualquer nó, em qualquer profundidade, em qualquer envelope, que carregue atributo `gen_ai.*` vira span. Independe da casca.
 
-Corrija editando `config\toolkits.json` direto, trocando a chave:
+Com trava contra o efeito colateral óbvio: linha sem nenhum atributo `gen_ai.*` não vira span fantasma — tem teste fixando isso, senão as 8 mil linhas de log de extensão virariam ruído no painel. E o `diagnostico` passa a contar quantos spans vieram por varredura, para você saber quando está num caminho não-padrão.
 
-```json
-"design-to-code-liquid": {
-  "comandos": { "design-to-code": "gerar" },
-  "agentes":  { "design-to-code": "gerar" }
-}
-```
+## Como verificar, na ordem
 
-Dá para fazer por comando também, mas com uma ressalva: `hm toolkit` **mescla**, não substitui. Ele adiciona o nome novo e deixa o errado lá. Para renomear, editar o JSON é mais limpo. Para *acrescentar*, o comando serve:
-
-```
-node "C:/.../hm.mjs" toolkit discovery --comandos rota --etapa rota
-```
-
-(uma chamada por etapa, porque `--etapa` vale para todos os comandos daquela chamada)
-
-## A prova que fecha a questão
-
-Depois de rodar **uma** sessão de discovery:
+**Passo 1 — instale a v1.7.0 e rode:**
 
 ```
 node "C:/Users/i459249/.copilot/harness-metricas/bin/hm.mjs" diagnostico
 ```
 
-Em `# Detecção`, `comandos vistos` tem que mostrar o comando. Se mostrar, o toolkit se ativa sozinho e o marcador é dispensável dali em diante.
+Se `spans` for maior que zero, acabou: roda o `build` e o custo aparece.
 
-## Regra prática enquanto você não tem essa prova
+**Passo 2 — se ainda der zero, descubra você mesmo qual é o caso.** Este é o teste que separa "formato" de "não tem o dado":
 
-Na **primeira** sessão de cada toolkit, use o marcador no fim do prompt como rede:
-
-```
-/discovery-rota <seus argumentos>
-+medir
+```powershell
+$otel = "C:\Users\i459249\.copilot\harness-metricas\dados\otel\copilot-otel.jsonl"
+(Select-String -Path $otel -Pattern 'gen_ai' -SimpleMatch).Count
 ```
 
-Se o comando estiver certo, o marcador é redundante e não faz mal nenhum — o portão já teria aberto. Se estiver errado, você mede a sessão do mesmo jeito e descobre o problema pelo `diagnostico` em vez de perder o dado.
+| Resultado | Significado | O que fazer |
+|---|---|---|
+| **> 0** | O dado de token está lá, o envelope é que é exótico | `diagnostico --otel-cru` e me manda a saída |
+| **0** | O Copilot exporta telemetria, mas **não** a de uso de modelo | Não é formato. Ver abaixo. |
 
-Depois que o `comandos vistos` confirmar, tire o marcador daquele toolkit. Custo de manter a rede por uma rodada: zero. Custo de descobrir depois que quatro sessões de discovery não foram gravadas: a atividade inteira.
+Se quiser ver a forma sem depender de mim:
+
+```powershell
+Get-Content $otel -TotalCount 2000 | ForEach-Object { ($_ | ConvertFrom-Json).PSObject.Properties.Name } |
+  Group-Object | Sort-Object Count -Descending | Select-Object -First 8 Count, Name
+```
+
+Isso lista as chaves de topo mais comuns. Se vier `resourceSpans` ou `resourceLogs`, é OTLP e a v1.7.0 resolve. Se vier `level`, `message`, `timestamp`, você está capturando log de extensão, não telemetria de chat — e aí o exportador está apontando para o canal errado.
+
+## O próximo obstáculo, para você não ser pego de surpresa
+
+Quando os spans começarem a entrar, o custo ainda pode sair zerado, por outro motivo: o seu modelo aparece como **`GPT-5.6 Luna`**, que é alias interno. O `precos.json` casa modelo por regex contra a tabela pública da GitHub, e `luna` não está lá. Ele vai listar em "modelos sem preço" e não contabilizar.
+
+Duas saídas, com trade-off real:
+
+- **Mapear o alias** em `precos.json` para o preço público do modelo equivalente. Rápido, e produz um número que é chute educado: se o gateway do banco cobra diferente, você está apresentando o preço errado.
+- **Pegar a tarifa real com o time do agentix/plataforma.** Mais lento, e é o único caminho que sobrevive a alguém do financeiro conferir.
+
+Eu usaria o primeiro só no piloto, com a origem do preço escrita no slide, e mandaria o pedido do segundo hoje — porque a resposta demora e você vai precisar dela antes da apresentação, não depois.
+
+## Sobre o dólar
+
+Já era o padrão, e nada precisa ser feito. O painel só mostra BRL se alguém preencher os três campos de cotação em `parametros.json`, e nenhum está preenchido. O que estava errado era o `diagnostico` tratar isso como pendência — "cotação BRL não configurada" lê-se como algo faltando. Agora diz:
+
+```
+moeda               dólar (a assinatura é cobrada em USD; BRL é opcional)
+```
+
+E o comentário no `parametros.json` explica que a conversão só existe se alguém pedir o valor em real.
