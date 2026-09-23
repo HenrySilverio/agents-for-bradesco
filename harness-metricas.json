@@ -1,0 +1,60 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "type": "command",
+        "command": "node \"C:/Users/i459249/.copilot/harness-metricas/bin/hook.mjs\"",
+        "timeout": 10
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "type": "command",
+        "command": "node \"C:/Users/i459249/.copilot/harness-metricas/bin/hook.mjs\"",
+        "timeout": 10
+      }
+    ],
+    "PreToolUse": [
+      {
+        "type": "command",
+        "command": "node \"C:/Users/i459249/.copilot/harness-metricas/bin/hook.mjs\"",
+        "timeout": 10
+      }
+    ],
+    "PostToolUse": [
+      {
+        "type": "command",
+        "command": "node \"C:/Users/i459249/.copilot/harness-metricas/bin/hook.mjs\"",
+        "timeout": 10
+      }
+    ],
+    "PreCompact": [
+      {
+        "type": "command",
+        "command": "node \"C:/Users/i459249/.copilot/harness-metricas/bin/hook.mjs\"",
+        "timeout": 10
+      }
+    ],
+    "SubagentStart": [
+      {
+        "type": "command",
+        "command": "node \"C:/Users/i459249/.copilot/harness-metricas/bin/hook.mjs\"",
+        "timeout": 10
+      }
+    ],
+    "SubagentStop": [
+      {
+        "type": "command",
+        "command": "node \"C:/Users/i459249/.copilot/harness-metricas/bin/hook.mjs\"",
+        "timeout": 10
+      }
+    ],
+    "Stop": [
+      {
+        "type": "command",
+        "command": "node \"C:/Users/i459249/.copilot/harness-metricas/bin/hook.mjs\"",
+        "timeout": 15
+      }
+    ]
+  }
+}
