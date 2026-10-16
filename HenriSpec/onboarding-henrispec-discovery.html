@@ -1,0 +1,1510 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<title>HenriSpec Discovery v0.3.0: onboarding</title>
+<meta name="description" content="Da necessidade crua ao briefing pronto para o HenriSpec.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%20role%3D%22img%22%20aria-labelledby%3D%22t%22%3E%0A%20%20%3Ctitle%20id%3D%22t%22%3EHenriSpec%20Discovery%3C%2Ftitle%3E%0A%20%20%3Cdefs%3E%0A%20%20%20%20%3ClinearGradient%20id%3D%22hsd-bg%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23e1173f%22%2F%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%22.55%22%20stop-color%3D%22%23cc092f%22%2F%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%221%22%20stop-color%3D%22%237a0819%22%2F%3E%0A%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2216%22%20fill%3D%22url(%23hsd-bg)%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M20%2017v30%22%20stroke%3D%22%23fff%22%20stroke-width%3D%225.5%22%20stroke-linecap%3D%22round%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M44%2030v17%22%20stroke%3D%22%23fff%22%20stroke-width%3D%225.5%22%20stroke-linecap%3D%22round%22%2F%3E%0A%20%20%3Ccircle%20cx%3D%2226.5%22%20cy%3D%2235%22%20r%3D%222.3%22%20fill%3D%22%23fff%22%20opacity%3D%22.7%22%2F%3E%0A%20%20%3Ccircle%20cx%3D%2232.5%22%20cy%3D%2233%22%20r%3D%223%22%20fill%3D%22%23fff%22%20opacity%3D%22.85%22%2F%3E%0A%20%20%3Ccircle%20cx%3D%2238.6%22%20cy%3D%2231%22%20r%3D%223.6%22%20fill%3D%22%23fff%22%2F%3E%0A%20%20%3Ccircle%20cx%3D%2242%22%20cy%3D%2214.5%22%20r%3D%225.6%22%20fill%3D%22none%22%20stroke%3D%22%23fff%22%20stroke-width%3D%222.8%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M46.2%2018.7l4.6%204.6%22%20stroke%3D%22%23fff%22%20stroke-width%3D%223.2%22%20stroke-linecap%3D%22round%22%2F%3E%0A%3C%2Fsvg%3E">
+<script>document.documentElement.classList.add('js')</script>
+<style>
+:root{
+  --ink:#121212; --ink-2:#1b1b1c; --surface:#232325; --line:#3a3b3f; --line-2:#47484c;
+  --text:#f0f1f5; --muted:#a7a8ac; --dim:#6d6e71;
+  --red:#cc092f; --red-dark:#9d0b21; --red-deep:#5a0714; --red-text:#f36279;
+  --ok:#09ab47; --ok-text:#3fd47a; --warn:#ffbc00;
+  --sans:"Segoe UI Variable Text","Segoe UI",system-ui,-apple-system,sans-serif;
+  --display:"Segoe UI Variable Display","Segoe UI",system-ui,sans-serif;
+  --mono:"Cascadia Mono","Cascadia Code",Consolas,"SFMono-Regular",monospace;
+  --measure:70ch;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:72px;interpolate-size:allow-keywords}
+body{margin:0;background:var(--ink);color:var(--text);font:16px/1.65 var(--sans);-webkit-font-smoothing:antialiased}
+a{color:var(--red-text);text-underline-offset:3px}
+:focus-visible{outline:2px solid var(--red-text);outline-offset:3px;border-radius:4px}
+code{font-family:var(--mono);font-size:.88em;background:#2b1a1d;color:#ffd9df;padding:.1em .38em;border-radius:5px}
+p{max-width:var(--measure)}
+h1,h2,h3{font-family:var(--display);line-height:1.12;letter-spacing:-.015em;margin:0}
+h2{font-size:clamp(1.75rem,3.2vw,2.6rem);font-weight:650;margin-bottom:.5rem}
+h3{font-size:1.2rem;font-weight:650}
+.wrap{max-width:1160px;margin:0 auto;padding:0 24px}
+.skip{position:absolute;left:-9999px}.skip:focus{left:12px;top:12px;z-index:100;background:var(--red);color:#fff;padding:8px 12px}
+
+/* topo */
+.top{position:sticky;top:0;z-index:40;background:rgba(18,18,18,.88);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;gap:20px;height:60px}
+.marca{display:flex;align-items:center;gap:10px;color:var(--text);text-decoration:none;font-weight:650;white-space:nowrap}
+.marca small{color:var(--muted);font-weight:500}
+.top nav{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;margin-left:auto}
+.top nav a{color:var(--muted);text-decoration:none;font-size:.88rem;padding:7px 11px;border-radius:8px;white-space:nowrap;transition:color .2s,background .2s}
+.top nav a:hover,.top nav a.ativo{color:var(--text);background:var(--surface)}
+.top nav a.ativo{box-shadow:inset 0 -2px 0 var(--red)}
+#progresso{position:absolute;left:0;bottom:-1px;height:2px;width:100%;transform-origin:left;transform:scaleX(0);background:var(--red)}
+
+/* hero */
+.hero{padding:48px 0 36px;border-bottom:1px solid var(--line);background:
+  radial-gradient(900px 420px at 85% 0%,rgba(204,9,47,.22),transparent 70%),var(--ink)}
+.hero h1{font-size:clamp(2.2rem,4.4vw,3.6rem);font-weight:700;max-width:20ch;margin:22px 0 14px}
+.hero .sub{font-size:1.15rem;color:var(--muted);max-width:58ch}
+.acoes{display:flex;flex-wrap:wrap;gap:12px;margin:28px 0 8px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 20px;border-radius:10px;font-weight:600;text-decoration:none;color:#fff;background:var(--red);transition:background .2s,transform .2s}
+.btn:hover{background:#e1173f;transform:translateY(-1px)}
+.btn.sec{background:transparent;border:1px solid var(--line-2);color:var(--text)}
+.btn.sec:hover{border-color:var(--red-text);background:transparent}
+
+/* esteira */
+.esteira{margin-top:36px;position:relative}
+.esteira svg{width:100%;height:auto;display:block;overflow:visible}
+.esteira .trilho{stroke:var(--line-2);stroke-width:2;fill:none}
+.esteira .trilho-vivo{stroke:var(--red);stroke-width:2.5;fill:none;stroke-dasharray:1000;stroke-dashoffset:1000}
+.js .esteira.rodando .trilho-vivo{animation:desenha 2.4s cubic-bezier(.6,.1,.2,1) forwards}
+@keyframes desenha{to{stroke-dashoffset:0}}
+.est circle.base{fill:var(--ink-2);stroke:var(--line-2);stroke-width:2;transition:fill .4s,stroke .4s}
+.est text{fill:var(--muted);font:600 14px var(--sans);transition:fill .4s}
+.est text.quem{font:12px var(--mono);fill:var(--dim)}
+.est.on circle.base{fill:var(--red-deep);stroke:var(--red)}
+.est.on text{fill:var(--text)}
+.est.voce.on circle.base{fill:#3a2c00;stroke:var(--warn)}
+.est.voce .anel{stroke:var(--warn)}
+.est .anel{fill:none;stroke:var(--red);stroke-width:2;opacity:0}
+.est.on .anel{animation:pulso 1.6s ease-out}
+@keyframes pulso{0%{opacity:.9;r:16}100%{opacity:0;r:30}}
+.legenda-esteira{display:flex;gap:18px;flex-wrap:wrap;color:var(--muted);font-size:.85rem;margin-top:14px}
+.legenda-esteira span::before{content:"";display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;vertical-align:-1px;background:var(--red)}
+.legenda-esteira span.voce::before{background:var(--warn)}
+
+/* seções */
+main section{padding:84px 0 24px}
+.intro{color:var(--muted);font-size:1.05rem;margin:0 0 28px}
+.secao-num{font-family:var(--mono);color:var(--red-text);font-size:.9rem;margin-bottom:6px;display:block}
+
+/* blocos de código no visual do VS Code (Dark+) */
+.cod{position:relative;margin:14px 0;border:1px solid #2b2b2b;border-radius:10px;background:#1e1e1e;overflow:hidden;box-shadow:0 10px 30px -18px #000}
+.cod .rot{display:flex;align-items:stretch;justify-content:space-between;background:#252526;border-bottom:1px solid #2b2b2b;min-height:34px}
+.cod .aba{display:flex;align-items:center;gap:8px;padding:0 14px;background:#1e1e1e;border-top:2px solid var(--red);color:#e0e0e0;font:12.5px var(--sans);max-width:75%;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.cod .ic{font:700 11px var(--mono);font-style:normal}
+.ic-bash{color:#89e051}.ic-ts{color:#3178c6}.ic-html{color:#e37933}.ic-yaml{color:#cb171e}.ic-java{color:#f89820}.ic-md{color:#519aba}.ic-json{color:#cbcb41}.ic-chat{color:#c586c0}.ic-saida{color:#cccccc}.ic-prompt{color:#c586c0}
+.cod .copiar{align-self:center;margin-right:8px}
+.cod pre{margin:0;padding:12px 18px;overflow:auto;font:13.5px/1.62 var(--mono);color:#d4d4d4;white-space:pre;counter-reset:ln}
+.cod.num pre{padding-left:0}
+.cod pre code{background:none;padding:0;color:inherit;font-size:inherit;border-radius:0;display:block}
+.cod .l{display:inline}
+.cod.num .l::before{counter-increment:ln;content:counter(ln);display:inline-block;width:3.2em;padding-right:1.4em;text-align:right;color:#6e7681;user-select:none}
+.cod.term .l.cmd::before{content:"$ ";color:#23d18b;user-select:none}
+.cod .caret{display:inline-block;width:.6em;height:1.15em;vertical-align:-.2em;background:#aeafad;margin-left:2px;animation:pisca 1.1s steps(1) infinite}
+@keyframes pisca{50%{opacity:0}}
+.k-cmd{color:#dcdcaa}.k-type{color:#4ec9b0}.k-str{color:#ce9178}.k-com{color:#6a9955}.k-flag{color:#9cdcfe}.k-key{color:#9cdcfe}.k-num{color:#b5cea8}.k-bool{color:#569cd6}
+.k-b1{color:#ffd700}.k-b2{color:#da70d6}.k-b3{color:#179fff}
+.k-h{color:#569cd6;font-weight:700}.k-li{color:#6796e6}.k-code{color:#ce9178}.k-bold{color:#569cd6;font-weight:700}.k-chk{color:#c586c0}.k-meta{color:#4ec9b0}
+.k-ok{color:#23d18b}.k-info{color:#3b8eea}.k-err{color:#f14c4c;font-weight:700}.k-warn{color:#f5f543}.k-dim{color:#6e7681}.k-path{color:#ce9178}.k-ref{color:#4fc1ff}.k-kw{color:#c586c0}
+.copiar{font:600 12px var(--sans);color:#e0e0e0;background:#333;border:1px solid #444;border-radius:6px;padding:3px 10px;cursor:pointer;transition:background .2s,border-color .2s}
+.copiar:hover{border-color:var(--red-text)}
+.copiar.feito{background:var(--ok);border-color:var(--ok);color:#04150a}
+
+/* passos */
+ol.passos{list-style:none;counter-reset:p;padding:0;margin:0}
+ol.passos>li{counter-increment:p;position:relative;padding:0 0 26px 54px}
+ol.passos>li::before{content:counter(p);position:absolute;left:0;top:-2px;width:34px;height:34px;border-radius:50%;border:1.5px solid var(--red);color:var(--red-text);display:grid;place-items:center;font:600 14px var(--mono);background:var(--ink)}
+ol.passos>li::after{content:"";position:absolute;left:17px;top:36px;bottom:4px;width:1px;background:var(--line)}
+ol.passos>li:last-child::after{display:none}
+ol.passos>li>strong:first-child{font-size:1.03rem}
+
+/* abas */
+.abas{display:flex;gap:4px;border-bottom:1px solid var(--line);margin:8px 0 28px;overflow-x:auto}
+.abas button{background:none;border:0;border-bottom:2px solid transparent;color:var(--muted);font:600 .95rem var(--sans);padding:12px 16px;cursor:pointer;white-space:nowrap;transition:color .2s,border-color .2s}
+.abas button:hover{color:var(--text)}
+.abas button[aria-selected="true"]{color:var(--text);border-color:var(--red)}
+.abas{display:none}
+.js .abas{display:flex}
+.painel h3.titulo-painel{margin:36px 0 16px}
+.js .painel{display:none}
+.js .painel.ativo{display:block;animation:entra .45s ease}
+.js .painel h3.titulo-painel{display:none}
+@keyframes entra{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+/* notas */
+.nota{border:1px solid var(--line);border-left:3px solid var(--warn);background:#1e1a10;border-radius:10px;padding:14px 18px;margin:16px 0;max-width:calc(var(--measure) + 8ch)}
+.nota.vermelha{border-left-color:var(--red);background:#22121a}
+.nota.verde{border-left-color:var(--ok);background:#0f1d15}
+.nota p{margin:.3em 0}
+
+/* conversor de caminho */
+.conversor{border:1px solid var(--line);border-radius:14px;padding:18px;background:var(--ink-2);margin:18px 0 32px}
+.conversor label{display:block;font-weight:600;margin-bottom:8px}
+.conversor input{width:100%;font:14px var(--mono);color:var(--text);background:#0c0c0d;border:1px solid var(--line-2);border-radius:9px;padding:11px 12px}
+.conversor input:focus{border-color:var(--red-text);outline:none}
+.conversor .saida{margin-top:10px}
+
+/* duas colunas */
+.duas{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.duas>*,.fluxo>*,.etapa .grade>*,.guard-grupos>*{min-width:0}
+.bloco{border:1px solid var(--line);border-radius:14px;padding:22px;background:var(--ink-2)}
+.bloco h3{margin-bottom:8px}
+.etiqueta{display:inline-block;font:12px var(--mono);border:1px solid var(--line-2);color:var(--muted);border-radius:6px;padding:1px 7px;margin:0 6px 6px 0}
+.etiqueta.r{border-color:var(--red);color:var(--red-text)}
+.etiqueta.v{border-color:var(--ok);color:var(--ok-text)}
+
+/* fluxo de agentes com trilho fixo */
+.fluxo{display:grid;grid-template-columns:200px 1fr;gap:40px}
+.trilho-lateral{position:sticky;top:96px;align-self:start}
+.trilho-lateral ol{list-style:none;margin:0;padding:0;border-left:2px solid var(--line)}
+.trilho-lateral li a{display:block;padding:9px 0 9px 16px;margin-left:-2px;border-left:2px solid transparent;color:var(--muted);text-decoration:none;font-size:.95rem;transition:color .3s,border-color .3s}
+.trilho-lateral li a .q{display:block;font:11.5px var(--mono);color:var(--dim)}
+.trilho-lateral li a.ativo{color:var(--text);border-color:var(--red)}
+.etapa{padding:8px 0 48px;border-bottom:1px solid var(--line);margin-bottom:40px}
+.etapa:last-child{border-bottom:0}
+.etapa header{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:12px}
+.etapa header h3{font-size:1.6rem}
+.etapa .grade{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:16px 0}
+.etapa .grade>div{border:1px solid var(--line);border-radius:12px;padding:14px 16px;background:var(--ink-2)}
+.etapa .grade h4{margin:0 0 6px;font-size:.95rem}
+.etapa .grade ul{margin:0;padding-left:18px;color:var(--muted);font-size:.95rem}
+.etapa .grade .nao h4{color:var(--red-text)}
+.etapa .grade .sim h4{color:var(--ok-text)}
+
+/* cartões expansíveis */
+details.arq{border:1px solid var(--line);border-radius:12px;background:var(--ink-2);margin:10px 0;overflow:hidden;transition:border-color .3s}
+details.arq[open]{border-color:var(--red-dark)}
+details.arq summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:12px;padding:14px 18px;font-weight:600}
+details.arq summary::-webkit-details-marker{display:none}
+details.arq summary .caminho{font:13px var(--mono);color:var(--muted);font-weight:400;min-width:0;overflow-wrap:anywhere}
+details.arq summary::after{content:"";margin-left:auto;width:10px;height:10px;border-right:2px solid var(--red-text);border-bottom:2px solid var(--red-text);transform:rotate(45deg) translateY(-3px);transition:transform .35s ease;flex:none}
+details.arq[open] summary::after{transform:rotate(-135deg) translateY(-3px)}
+details.arq::details-content{block-size:0;overflow:hidden;transition:block-size .4s ease,content-visibility .4s allow-discrete}
+details.arq[open]::details-content{block-size:auto}
+details.arq .corpo{padding:0 18px 16px}
+details.arq .corpo>p{color:var(--muted);margin:0 0 6px;font-size:.95rem}
+
+/* guardrails */
+.guard{background:linear-gradient(180deg,#1d0a10 0%,var(--ink) 100%);border-top:1px solid var(--red-dark);border-bottom:1px solid var(--line)}
+.guard-grupos{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:28px}
+.guard-grupo{border:1px solid var(--red-dark);border-radius:16px;padding:22px;background:rgba(18,18,18,.7)}
+.guard-grupo h3{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.guard-grupo h3 svg{flex:none}
+.guard-grupo dl{margin:0}
+.guard-grupo dt{font-weight:600;margin-top:12px}
+.guard-grupo dd{margin:2px 0 0;color:var(--muted);font-size:.93rem}
+.riscos{margin-top:24px}
+
+/* linha do tempo */
+.tempo{position:relative;padding-left:44px;max-width:860px}
+.tempo::before{content:"";position:absolute;left:15px;top:6px;bottom:6px;width:2px;background:var(--line)}
+.tempo .linha-viva{position:absolute;left:15px;top:6px;width:2px;height:0;background:var(--red)}
+.momento{position:relative;margin-bottom:28px}
+.momento::before{content:"";position:absolute;left:-35px;top:7px;width:12px;height:12px;border-radius:50%;background:var(--ink);border:2px solid var(--line-2);transition:border-color .4s,background .4s}
+.momento.passou::before{border-color:var(--red);background:var(--red)}
+.momento time{font:13px var(--mono);color:var(--red-text)}
+.momento h3{font-size:1.08rem;margin:2px 0 4px}
+.momento p{margin:0;color:var(--muted)}
+
+/* faq */
+.faq details.arq summary{font-weight:500}
+
+/* revelar (só com JS) */
+.js .revela{opacity:0;transform:translateY(18px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
+.js .revela.visivel{opacity:1;transform:none}
+
+footer{border-top:1px solid var(--line);margin-top:72px;padding:28px 0 40px;color:var(--dim);font-size:.88rem}
+footer .wrap{display:flex;align-items:center;gap:12px}
+
+/* marca */
+.marca .spec,.marca-hero b{color:var(--red-text)}
+.marca-hero{display:flex;align-items:center;gap:16px;font:700 1.6rem var(--display);letter-spacing:-.02em}
+.marca-hero b{font-weight:700}
+.logo-vivo{animation:logo 4.5s ease-in-out infinite;border-radius:16px}
+@keyframes logo{0%,100%{filter:drop-shadow(0 0 0 rgba(204,9,47,0))}50%{filter:drop-shadow(0 0 18px rgba(225,23,63,.7))}}
+
+/* diagramas */
+.diagrama{margin:24px 0;border-radius:18px;padding:0}
+.diagrama svg{display:block;width:100%;height:auto;border:1px solid var(--line);border-radius:18px}
+.diagrama figcaption{display:flex;flex-wrap:wrap;gap:18px;margin-top:12px;color:var(--muted);font-size:.86rem}
+.lg::before{content:"";display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:7px;vertical-align:-1px;border:1.5px solid}
+.lg.ag::before{border-color:#cc092f;background:#2a0c13}.lg.vc::before{border-color:#ffbc00;background:#2b2207}.lg.dd::before{border-color:#3b69ff;background:#0e1a33}
+.hero-dg{margin-top:40px}
+
+/* destaques vivos: alternam vermelho e âmbar para puxar o olho para o que importa */
+@property --ang{syntax:"<angle>";initial-value:0deg;inherits:false}
+.vivo{position:relative;border-radius:12px;padding:14px 18px !important;background:linear-gradient(var(--ink-2),var(--ink-2)) padding-box,conic-gradient(from var(--ang),#cc092f,#ffbc00,#f36279,#cc092f) border-box !important;border:1.5px solid transparent !important;animation:gira 5s linear infinite}
+.intro.vivo{max-width:var(--measure)}
+@keyframes gira{to{--ang:360deg}}
+.chave{background:linear-gradient(90deg,#f36279,#ffbc00,#f36279);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;font-weight:650;animation:brilho 3.2s linear infinite}
+@keyframes brilho{to{background-position:-200% 0}}
+.guard-grupo{position:relative;background:linear-gradient(#151213,#151213) padding-box,conic-gradient(from var(--ang),#9d0b21,#cc092f,#ffbc00,#cc092f,#9d0b21) border-box;border:1.5px solid transparent;animation:gira 7s linear infinite}
+.guard-grupo:nth-child(2){animation-delay:-2.3s}.guard-grupo:nth-child(3){animation-delay:-4.6s}
+.btn:not(.sec){animation:chama 2.8s ease-in-out infinite}
+@keyframes chama{0%,100%{box-shadow:0 0 0 0 rgba(204,9,47,.0)}50%{box-shadow:0 0 0 6px rgba(204,9,47,.18),0 0 26px rgba(225,23,63,.45)}}
+.etiqueta.r{animation:etq 3s ease-in-out infinite}
+@keyframes etq{0%,100%{border-color:var(--red);color:var(--red-text)}50%{border-color:#ffbc00;color:#ffcf4d}}
+
+@media (max-width:900px){
+  .duas,.guard-grupos,.etapa .grade{grid-template-columns:1fr}
+  .fluxo{grid-template-columns:1fr}
+  .trilho-lateral{display:none}
+  .marca small{display:none}
+  .esteira{overflow-x:auto;margin-left:-24px;margin-right:-24px;padding:22px 24px 0}
+  .esteira svg{min-width:780px}
+}
+@media (prefers-reduced-motion:reduce){
+  .chave{color:var(--red-text);background:none}
+
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .js .revela{opacity:1;transform:none}
+  .esteira .trilho-vivo{stroke-dashoffset:0}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#conteudo">Pular para o conteúdo</a>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs><symbol id="logo" viewBox="0 0 64 64">
+  <title id="t">HenriSpec Discovery</title>
+  <defs>
+    <linearGradient id="hsd-bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#e1173f"/>
+      <stop offset=".55" stop-color="#cc092f"/>
+      <stop offset="1" stop-color="#7a0819"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="16" fill="url(#hsd-bg)"/>
+  <path d="M20 17v30" stroke="#fff" stroke-width="5.5" stroke-linecap="round"/>
+  <path d="M44 30v17" stroke="#fff" stroke-width="5.5" stroke-linecap="round"/>
+  <circle cx="26.5" cy="35" r="2.3" fill="#fff" opacity=".7"/>
+  <circle cx="32.5" cy="33" r="3" fill="#fff" opacity=".85"/>
+  <circle cx="38.6" cy="31" r="3.6" fill="#fff"/>
+  <circle cx="42" cy="14.5" r="5.6" fill="none" stroke="#fff" stroke-width="2.8"/>
+  <path d="M46.2 18.7l4.6 4.6" stroke="#fff" stroke-width="3.2" stroke-linecap="round"/>
+</symbol></defs>
+</svg>
+
+<header class="top">
+  <div class="wrap">
+    <a class="marca" href="#inicio"><svg width="30" height="30" aria-hidden="true"><use href="#logo"/></svg><span>HenriSpec <span class="spec">Discovery</span></span> <small>v0.3.0</small></a>
+    <nav aria-label="Seções da página">
+      <a href="#antes">Requisitos</a>
+      <a href="#instalar">Instalação</a>
+      <a href="#qual">Qual agente</a>
+      <a href="#agentes">Os agentes</a>
+      <a href="#arquivos">O briefing</a>
+      <a href="#trava">Guardrails</a>
+      <a href="#integracao">Integração</a>
+      <a href="#dia">Um dia</a>
+      <a href="#problemas">Problemas</a>
+    </nav>
+  </div>
+  <div id="progresso"></div>
+</header>
+
+<div class="hero" id="inicio"><div class="wrap">
+  <div class="marca-hero"><svg class="logo-vivo" width="64" height="64" aria-hidden="true"><use href="#logo"/></svg><span>HenriSpec <b>Discovery</b></span></div>
+  <h1>Da dor ao briefing, sem inventar nada.</h1>
+  <p class="sub">O HenriSpec começa quando o briefing existe. O Discovery cobre o trecho anterior: entrevista a necessidade, aproveita o ticket que já foi escrito e constrói um protótipo descartável quando a pergunta não se resolve conversando.</p>
+  <div class="acoes">
+    <a class="btn" href="#instalar">Instalar no meu repositório</a>
+    <a class="btn sec" href="#trava">Ver a trava e os guardrails</a>
+  </div>
+  <figure class="diagrama"><svg xmlns="http://www.w3.org/2000/svg" class="dg1" viewBox="0 0 885 330" role="img" aria-label="Discovery: da necessidade ao briefing"><title>Discovery: da necessidade ao briefing</title>
+<style>.dg1 text{font-family:"Segoe UI Variable Text","Segoe UI",system-ui,Helvetica,Arial,sans-serif}
+.dg1 .t{font-size:14px;font-weight:650;fill:#f0f1f5}
+.dg1 .st{font-size:11.5px;font-family:"Cascadia Mono",Consolas,monospace}
+.dg1 .el{font-size:11.5px;fill:#a7a8ac;font-family:"Cascadia Mono",Consolas,monospace}
+.dg1 .ln{fill:none;stroke-width:2;stroke-dasharray:1;stroke-dashoffset:1}
+.dg1 .tracejada .ln{stroke-dasharray:.02 .015;stroke-dashoffset:0;animation:none!important}
+.dg1 .pulso{animation:dg1pulse 2.4s ease-in-out infinite}
+@keyframes dg1pulse{0%,100%{stroke:#cc092f}50%{stroke:#ff6b86;filter:drop-shadow(0 0 6px rgba(225,23,63,.75))}}
+.dg1 .pulso-a{animation:dg1pulsea 2.4s ease-in-out infinite}
+@keyframes dg1pulsea{0%,100%{stroke:#e1173f}50%{stroke:#ffbc00;filter:drop-shadow(0 0 6px rgba(255,188,0,.6))}}
+@keyframes dg1a0{0%,4.0%{opacity:0;transform:translateY(6px)}9.0%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg1d0{0%,4.0%{stroke-dashoffset:1}12.0%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg1 .s0{animation:dg1a0 11s ease-in-out infinite both}
+.dg1 .s0 .ln{animation:dg1d0 11s ease-in-out infinite both}
+@keyframes dg1a1{0%,16.4%{opacity:0;transform:translateY(6px)}21.4%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg1d1{0%,16.4%{stroke-dashoffset:1}24.4%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg1 .s1{animation:dg1a1 11s ease-in-out infinite both}
+.dg1 .s1 .ln{animation:dg1d1 11s ease-in-out infinite both}
+@keyframes dg1a2{0%,28.8%{opacity:0;transform:translateY(6px)}33.8%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg1d2{0%,28.8%{stroke-dashoffset:1}36.8%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg1 .s2{animation:dg1a2 11s ease-in-out infinite both}
+.dg1 .s2 .ln{animation:dg1d2 11s ease-in-out infinite both}
+@keyframes dg1a3{0%,41.2%{opacity:0;transform:translateY(6px)}46.2%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg1d3{0%,41.2%{stroke-dashoffset:1}49.2%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg1 .s3{animation:dg1a3 11s ease-in-out infinite both}
+.dg1 .s3 .ln{animation:dg1d3 11s ease-in-out infinite both}
+@keyframes dg1a4{0%,53.6%{opacity:0;transform:translateY(6px)}58.6%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg1d4{0%,53.6%{stroke-dashoffset:1}61.6%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg1 .s4{animation:dg1a4 11s ease-in-out infinite both}
+.dg1 .s4 .ln{animation:dg1d4 11s ease-in-out infinite both}
+@keyframes dg1a5{0%,66.0%{opacity:0;transform:translateY(6px)}71.0%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg1d5{0%,66.0%{stroke-dashoffset:1}74.0%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg1 .s5{animation:dg1a5 11s ease-in-out infinite both}
+.dg1 .s5 .ln{animation:dg1d5 11s ease-in-out infinite both}
+@media (prefers-reduced-motion:reduce){.dg1 *{animation:none!important}.dg1 .ln{stroke-dashoffset:0}.dg1 .pac{display:none}}</style><defs>
+<marker id="dg1-mr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#cc092f"/></marker>
+<marker id="dg1-ma" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#ffbc00"/></marker>
+<marker id="dg1-mc" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#5b5c61"/></marker>
+<marker id="dg1-mb" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#3b69ff"/></marker>
+<marker id="dg1-mg" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#09ab47"/></marker>
+<marker id="dg1-mx" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#e1173f"/></marker>
+</defs>
+<rect width="885" height="330" rx="18" fill="#121212"/>
+<g class="s1 tracejada">
+<path id="dg1-e0" class="ln" pathLength="1" d="M112.5 130V109H112.5V90" stroke="#5b5c61" marker-end="url(#dg1-mc)"/>
+</g>
+<g class="s2">
+<path id="dg1-e1" class="ln" pathLength="1" d="M205 159H222.5V59H238" stroke="#cc092f" marker-end="url(#dg1-mr)"/>
+<circle class="pac" r="3.6" fill="#cc092f"><animateMotion dur="2.2s" begin="0.35s" repeatCount="indefinite"><mpath href="#dg1-e1"/></animateMotion></circle>
+</g>
+<g class="s2">
+<path id="dg1-e2" class="ln" pathLength="1" d="M205 159H238" stroke="#cc092f" marker-end="url(#dg1-mr)"/>
+<circle class="pac" r="3.6" fill="#cc092f"><animateMotion dur="2.2s" begin="0.70s" repeatCount="indefinite"><mpath href="#dg1-e2"/></animateMotion></circle>
+</g>
+<g class="s3">
+<path id="dg1-e3" class="ln" pathLength="1" d="M205 159H222.5V259H238" stroke="#ffbc00" marker-end="url(#dg1-ma)"/>
+<circle class="pac" r="3.6" fill="#ffbc00"><animateMotion dur="2.2s" begin="1.05s" repeatCount="indefinite"><mpath href="#dg1-e3"/></animateMotion></circle>
+</g>
+<g class="s4">
+<path id="dg1-e4" class="ln" pathLength="1" d="M425 59H442.5V159H458" stroke="#cc092f" marker-end="url(#dg1-mr)"/>
+<circle class="pac" r="3.6" fill="#cc092f"><animateMotion dur="2.2s" begin="1.40s" repeatCount="indefinite"><mpath href="#dg1-e4"/></animateMotion></circle>
+</g>
+<g class="s4">
+<path id="dg1-e5" class="ln" pathLength="1" d="M425 159H458" stroke="#cc092f" marker-end="url(#dg1-mr)"/>
+<circle class="pac" r="3.6" fill="#cc092f"><animateMotion dur="2.2s" begin="0.00s" repeatCount="indefinite"><mpath href="#dg1-e5"/></animateMotion></circle>
+</g>
+<g class="s5">
+<path id="dg1-e6" class="ln" pathLength="1" d="M645 159H678" stroke="#3b69ff" marker-end="url(#dg1-mb)"/>
+<circle class="pac" r="3.6" fill="#3b69ff"><animateMotion dur="2.2s" begin="0.35s" repeatCount="indefinite"><mpath href="#dg1-e6"/></animateMotion></circle>
+</g>
+<g class="s0">
+<rect x="20" y="130" width="185" height="58" rx="12" fill="#2b2207" stroke="#ffbc00" stroke-width="1.8"/>
+<text class="t" x="112.5" y="156" text-anchor="middle">necessidade</text>
+<text class="st" x="112.5" y="174" text-anchor="middle" fill="#ffcf4d">você</text>
+</g>
+<g class="s1">
+<rect x="20" y="30" width="185" height="58" rx="12" fill="#2a0c13" stroke="#cc092f" stroke-width="1.8" stroke-dasharray="6 5"/>
+<text class="t" x="112.5" y="56" text-anchor="middle">discovery-rota</text>
+<text class="st" x="112.5" y="74" text-anchor="middle" fill="#f36279">consulta e para</text>
+</g>
+<g class="s2">
+<rect class="pulso" x="240" y="30" width="185" height="58" rx="12" fill="#2a0c13" stroke="#cc092f" stroke-width="1.8"/>
+<text class="t" x="332.5" y="56" text-anchor="middle">discovery-grill</text>
+<text class="st" x="332.5" y="74" text-anchor="middle" fill="#f36279">entrevista</text>
+</g>
+<g class="s2">
+<rect class="pulso" x="240" y="130" width="185" height="58" rx="12" fill="#2a0c13" stroke="#cc092f" stroke-width="1.8"/>
+<text class="t" x="332.5" y="156" text-anchor="middle">discovery-triagem</text>
+<text class="st" x="332.5" y="174" text-anchor="middle" fill="#f36279">ticket já escrito</text>
+</g>
+<g class="s3">
+<rect x="240" y="230" width="185" height="58" rx="12" fill="#2a0c13" stroke="#cc092f" stroke-width="1.8"/>
+<text class="t" x="332.5" y="256" text-anchor="middle">discovery-prototipo</text>
+<text class="st" x="332.5" y="274" text-anchor="middle" fill="#f36279">pergunta visual</text>
+</g>
+<g class="s4">
+<rect x="460" y="130" width="185" height="58" rx="12" fill="#1c1c1e" stroke="#5b5c61" stroke-width="1.8"/>
+<text class="t" x="552.5" y="156" text-anchor="middle">briefing.md</text>
+<text class="st" x="552.5" y="174" text-anchor="middle" fill="#a7a8ac">docs/briefings</text>
+</g>
+<g class="s5">
+<rect x="680" y="130" width="185" height="58" rx="12" fill="#0e1a33" stroke="#3b69ff" stroke-width="1.8"/>
+<text class="t" x="772.5" y="156" text-anchor="middle">sdd-plan</text>
+<text class="st" x="772.5" y="174" text-anchor="middle" fill="#8fb0ff">HenriSpec</text>
+</g>
+<g class="s3"><text x="240" y="312" class="el" text-anchor="start" style="fill:#ffcf4d">o protótipo responde e a evidência volta para o grill</text></g>
+<g class="s5"><text x="680" y="220" class="el" text-anchor="start" style="fill:#8fb0ff">chat novo, outro toolkit</text></g>
+</svg></figure>
+</div></div>
+
+<main id="conteudo">
+<section id="antes" class="wrap "><span class="secao-num">1</span>
+  <h2>Antes de começar</h2>
+  <p class="intro">As mesmas quatro coisas do HenriSpec. Os comandos desta página rodam no <strong>Git Bash</strong>.</p>
+  <div class="duas">
+    <div class="bloco"><h3>VS Code com Copilot</h3><p>Chat no harness <strong>Copilot</strong>. É nele que os agentes <code>discovery-grill</code>, <code>discovery-triagem</code>, <code>discovery-prototipo</code> e <code>discovery-rota</code> aparecem no seletor.</p></div>
+    <div class="bloco"><h3>Git Bash, Git e Node 18 ou mais</h3><p>O Node só roda o instalador. O fluxo em si é markdown puro: nenhum agente do Discovery usa terminal.</p></div>
+  </div>
+  <div class="cod term"><div class="rot"><span class="aba"><i class="ic ic-bash">&gt;_</i>bash</span><button class="copiar" type="button">Copiar</button></div><pre><code><span class="l cmd"><span class="k-cmd">node</span> <span class="k-flag">--version</span>   <span class="k-com"># precisa ser v18 ou mais</span></span>
+<span class="l cmd"><span class="k-cmd">git</span> <span class="k-flag">--version</span><span class="caret" aria-hidden="true"></span></span></code></pre></div>
+  <div class="nota"><p>O HenriSpec é opcional. Sem ele, o Discovery continua produzindo um briefing legível por qualquer pessoa. Com ele, o briefing vira a entrada do <code>sdd-plan</code>.</p></div>
+</section>
+
+<section id="instalar" class="wrap "><span class="secao-num">2</span>
+  <h2>Instalação</h2>
+  <p class="intro">O mesmo instalador do HenriSpec, com manifesto e lock próprios. Ele mostra o plano antes de escrever e <span class="chave">nunca toca nos seus briefings nem nos seus protótipos</span>.</p>
+  <figure class="diagrama"><svg xmlns="http://www.w3.org/2000/svg" class="dg2" viewBox="0 0 1000 230" role="img" aria-label="Instalação do HenriSpec Discovery"><title>Instalação do HenriSpec Discovery</title>
+<style>.dg2 text{font-family:"Segoe UI Variable Text","Segoe UI",system-ui,Helvetica,Arial,sans-serif}
+.dg2 .t{font-size:14px;font-weight:650;fill:#f0f1f5}
+.dg2 .st{font-size:11.5px;font-family:"Cascadia Mono",Consolas,monospace}
+.dg2 .el{font-size:11.5px;fill:#a7a8ac;font-family:"Cascadia Mono",Consolas,monospace}
+.dg2 .ln{fill:none;stroke-width:2;stroke-dasharray:1;stroke-dashoffset:1}
+.dg2 .tracejada .ln{stroke-dasharray:.02 .015;stroke-dashoffset:0;animation:none!important}
+.dg2 .pulso{animation:dg2pulse 2.4s ease-in-out infinite}
+@keyframes dg2pulse{0%,100%{stroke:#cc092f}50%{stroke:#ff6b86;filter:drop-shadow(0 0 6px rgba(225,23,63,.75))}}
+.dg2 .pulso-a{animation:dg2pulsea 2.4s ease-in-out infinite}
+@keyframes dg2pulsea{0%,100%{stroke:#e1173f}50%{stroke:#ffbc00;filter:drop-shadow(0 0 6px rgba(255,188,0,.6))}}
+@keyframes dg2a0{0%,4.0%{opacity:0;transform:translateY(6px)}9.0%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg2d0{0%,4.0%{stroke-dashoffset:1}12.0%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg2 .s0{animation:dg2a0 11s ease-in-out infinite both}
+.dg2 .s0 .ln{animation:dg2d0 11s ease-in-out infinite both}
+@keyframes dg2a1{0%,19.5%{opacity:0;transform:translateY(6px)}24.5%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg2d1{0%,19.5%{stroke-dashoffset:1}27.5%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg2 .s1{animation:dg2a1 11s ease-in-out infinite both}
+.dg2 .s1 .ln{animation:dg2d1 11s ease-in-out infinite both}
+@keyframes dg2a2{0%,35.0%{opacity:0;transform:translateY(6px)}40.0%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg2d2{0%,35.0%{stroke-dashoffset:1}43.0%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg2 .s2{animation:dg2a2 11s ease-in-out infinite both}
+.dg2 .s2 .ln{animation:dg2d2 11s ease-in-out infinite both}
+@keyframes dg2a3{0%,50.5%{opacity:0;transform:translateY(6px)}55.5%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg2d3{0%,50.5%{stroke-dashoffset:1}58.5%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg2 .s3{animation:dg2a3 11s ease-in-out infinite both}
+.dg2 .s3 .ln{animation:dg2d3 11s ease-in-out infinite both}
+@keyframes dg2a4{0%,66.0%{opacity:0;transform:translateY(6px)}71.0%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg2d4{0%,66.0%{stroke-dashoffset:1}74.0%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg2 .s4{animation:dg2a4 11s ease-in-out infinite both}
+.dg2 .s4 .ln{animation:dg2d4 11s ease-in-out infinite both}
+@media (prefers-reduced-motion:reduce){.dg2 *{animation:none!important}.dg2 .ln{stroke-dashoffset:0}.dg2 .pac{display:none}}</style><defs>
+<marker id="dg2-mr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#cc092f"/></marker>
+<marker id="dg2-ma" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#ffbc00"/></marker>
+<marker id="dg2-mc" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#5b5c61"/></marker>
+<marker id="dg2-mb" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#3b69ff"/></marker>
+<marker id="dg2-mg" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#09ab47"/></marker>
+<marker id="dg2-mx" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#e1173f"/></marker>
+</defs>
+<rect width="1000" height="230" rx="18" fill="#121212"/>
+<g class="s1">
+<path id="dg2-e0" class="ln" pathLength="1" d="M180 59H218" stroke="#cc092f" marker-end="url(#dg2-mr)"/>
+<circle class="pac" r="3.6" fill="#cc092f"><animateMotion dur="2.2s" begin="0.00s" repeatCount="indefinite"><mpath href="#dg2-e0"/></animateMotion></circle>
+</g>
+<g class="s2">
+<path id="dg2-e1" class="ln" pathLength="1" d="M300 88V138" stroke="#e1173f" marker-end="url(#dg2-mx)"/>
+<circle class="pac" r="3.6" fill="#e1173f"><animateMotion dur="2.2s" begin="0.35s" repeatCount="indefinite"><mpath href="#dg2-e1"/></animateMotion></circle>
+</g>
+<g class="s2">
+<path id="dg2-e2" class="ln" pathLength="1" d="M380 59H418" stroke="#cc092f" marker-end="url(#dg2-mr)"/>
+<circle class="pac" r="3.6" fill="#cc092f"><animateMotion dur="2.2s" begin="0.70s" repeatCount="indefinite"><mpath href="#dg2-e2"/></animateMotion></circle>
+</g>
+<g class="s2">
+<path id="dg2-e3" class="ln" pathLength="1" d="M340 169H500V90" stroke="#ffbc00" marker-end="url(#dg2-ma)"/>
+<text class="el" x="440" y="186" text-anchor="middle">--forcar, com backup</text>
+<circle class="pac" r="3.6" fill="#ffbc00"><animateMotion dur="2.2s" begin="1.05s" repeatCount="indefinite"><mpath href="#dg2-e3"/></animateMotion></circle>
+</g>
+<g class="s3">
+<path id="dg2-e4" class="ln" pathLength="1" d="M600 59H618" stroke="#cc092f" marker-end="url(#dg2-mr)"/>
+<circle class="pac" r="3.6" fill="#cc092f"><animateMotion dur="2.2s" begin="1.40s" repeatCount="indefinite"><mpath href="#dg2-e4"/></animateMotion></circle>
+</g>
+<g class="s4">
+<path id="dg2-e5" class="ln" pathLength="1" d="M800 59H818" stroke="#09ab47" marker-end="url(#dg2-mg)"/>
+<circle class="pac" r="3.6" fill="#09ab47"><animateMotion dur="2.2s" begin="0.00s" repeatCount="indefinite"><mpath href="#dg2-e5"/></animateMotion></circle>
+</g>
+<g class="s0">
+<rect x="20" y="30" width="160" height="58" rx="12" fill="#1c1c1e" stroke="#5b5c61" stroke-width="1.8"/>
+<text class="t" x="100" y="56" text-anchor="middle">pacote</text>
+<text class="st" x="100" y="74" text-anchor="middle" fill="#a7a8ac">baixado na máquina</text>
+</g>
+<g class="s1">
+<rect x="220" y="30" width="160" height="58" rx="12" fill="#2b2207" stroke="#ffbc00" stroke-width="1.8"/>
+<text class="t" x="300" y="56" text-anchor="middle">--dry-run</text>
+<text class="st" x="300" y="74" text-anchor="middle" fill="#ffcf4d">plano, sem gravar</text>
+</g>
+<g class="s2">
+<rect class="pulso-a" x="220" y="140" width="160" height="58" rx="12" fill="#2e0a12" stroke="#e1173f" stroke-width="1.8"/>
+<text class="t" x="300" y="166" text-anchor="middle">CONFLITO</text>
+<text class="st" x="300" y="184" text-anchor="middle" fill="#ff8197">alterado à mão</text>
+</g>
+<g class="s2">
+<rect class="pulso" x="420" y="30" width="180" height="58" rx="12" fill="#2a0c13" stroke="#cc092f" stroke-width="1.8"/>
+<text class="t" x="510" y="56" text-anchor="middle">instalar</text>
+<text class="st" x="510" y="74" text-anchor="middle" fill="#f36279">cria, atualiza, remove</text>
+</g>
+<g class="s3">
+<rect x="620" y="30" width="180" height="58" rx="12" fill="#0e1a33" stroke="#3b69ff" stroke-width="1.8"/>
+<text class="t" x="710" y="56" text-anchor="middle">lock próprio</text>
+<text class="st" x="710" y="74" text-anchor="middle" fill="#8fb0ff">não toca no HenriSpec</text>
+</g>
+<g class="s4">
+<rect x="820" y="30" width="160" height="58" rx="12" fill="#0c2016" stroke="#09ab47" stroke-width="1.8"/>
+<text class="t" x="900" y="56" text-anchor="middle">commit</text>
+<text class="st" x="900" y="74" text-anchor="middle" fill="#57d98b">.github docs</text>
+</g>
+</svg></figure>
+  <div class="abas" role="tablist"><button role="tab" id="ab1-0" aria-controls="pn1-0" aria-selected="true">Repositório novo</button><button role="tab" id="ab1-1" aria-controls="pn1-1" aria-selected="false" tabindex="-1">Atualizar da 0.1 ou 0.2</button><button role="tab" id="ab1-2" aria-controls="pn1-2" aria-selected="false" tabindex="-1">Global, sem .github</button><button role="tab" id="ab1-3" aria-controls="pn1-3" aria-selected="false" tabindex="-1">Junto com o HenriSpec</button></div><div class="painel ativo" id="pn1-0" role="tabpanel" aria-labelledby="ab1-0"><h3 class="titulo-painel">Repositório novo</h3>
+      <ol class="passos">
+        <li><strong>Na raiz do repositório, veja o plano.</strong>
+          <div class="cod term"><div class="rot"><span class="aba"><i class="ic ic-bash">&gt;_</i>bash</span><button class="copiar" type="button">Copiar</button></div><pre><code><span class="l cmd"><span class="k-cmd">cd</span> <span class="k-str">"/c/Users/&lt;seu-usuario&gt;/Documents/Projetos/&lt;seu-repo&gt;"</span></span>
+<span class="l cmd"><span class="k-cmd">bash</span> <span class="k-str">"&lt;pasta-do-pacote&gt;/instalar.sh"</span> repo . <span class="k-flag">--dry-run</span><span class="caret" aria-hidden="true"></span></span></code></pre></div></li>
+        <li><strong>Instale.</strong>
+          <div class="cod term"><div class="rot"><span class="aba"><i class="ic ic-bash">&gt;_</i>bash</span><button class="copiar" type="button">Copiar</button></div><pre><code><span class="l cmd"><span class="k-cmd">bash</span> <span class="k-str">"&lt;pasta-do-pacote&gt;/instalar.sh"</span> repo .<span class="caret" aria-hidden="true"></span></span></code></pre></div>
+          <details class="arq"><summary>Saída real <span class="caminho">instalação do zero</span></summary><div class="corpo">
+            <div class="cod"><div class="rot"><span class="aba"><i class="ic ic-saida">≡</i>TERMINAL</span><button class="copiar" type="button">Copiar</button></div><pre><code><span class="l">HenriSpec Discovery (não instalado) -&gt; 0.3.0  alvo: repo /c/Users/&lt;seu-usuario&gt;/Documents/Projetos/&lt;seu-repo&gt;</span>
+<span class="l">  <span class="k-ok">criar</span>           <span class="k-path">.github/agents/discovery-grill.agent.md</span></span>
+<span class="l">  <span class="k-ok">criar</span>           <span class="k-path">.github/agents/discovery-prototipo.agent.md</span></span>
+<span class="l">  <span class="k-ok">criar</span>           <span class="k-path">.github/agents/discovery-rota.agent.md</span></span>
+<span class="l">  <span class="k-ok">criar</span>           <span class="k-path">.github/agents/discovery-triagem.agent.md</span></span>
+<span class="l">  <span class="k-ok">criar</span>           <span class="k-path">.github/skills/discovery-grill/SKILL.md</span></span>
+<span class="l">  <span class="k-ok">criar</span>           <span class="k-path">.github/skills/discovery-prototipo/SKILL.md</span></span>
+<span class="l">  <span class="k-ok">criar</span>           <span class="k-path">.github/skills/discovery-rota/SKILL.md</span></span>
+<span class="l">  <span class="k-ok">criar</span>           <span class="k-path">.github/skills/discovery-triagem/SKILL.md</span></span>
+<span class="l">  <span class="k-ok">criar</span>           <span class="k-path">.github/skills/discovery-workflow/SKILL.md</span></span>
+<span class="l">  <span class="k-ok">criar</span>           <span class="k-path">.github/skills/discovery-workflow/references/modos-prototipo.md</span></span>
+<span class="l">  <span class="k-ok">criar</span>           <span class="k-path">.github/skills/discovery-workflow/references/molde-briefing.md</span></span>
+<span class="l">  <span class="k-ok">criar</span>           <span class="k-path">.github/skills/discovery-workflow/references/tecnica-grilling.md</span></span>
+<span class="l">  <span class="k-ok">criar</span>           <span class="k-path">docs/henrispec-discovery/README.md</span></span>
+<span class="l">  <span class="k-ok">criar</span>           <span class="k-path">docs/henrispec-discovery/assets/henrispec-discovery-ciclo.svg</span></span>
+<span class="l">  <span class="k-ok">criar</span>           <span class="k-path">docs/henrispec-discovery/assets/henrispec-discovery-fluxo.svg</span></span>
+<span class="l">  <span class="k-ok">criar</span>           <span class="k-path">docs/henrispec-discovery/assets/henrispec-discovery-grill.svg</span></span>
+<span class="l">  <span class="k-ok">criar</span>           <span class="k-path">docs/henrispec-discovery/assets/henrispec-discovery-logo.svg</span></span>
+<span class="l">  <span class="k-ok">criar</span>           <span class="k-path">docs/henrispec-discovery/assets/henrispec-discovery-prototipo.svg</span></span>
+<span class="l">  <span class="k-ok">criar</span>           <span class="k-path">docs/henrispec-discovery/assets/henrispec-discovery-rota.svg</span></span>
+<span class="l">  <span class="k-ok">criar</span>           <span class="k-path">docs/henrispec-discovery/assets/henrispec-discovery-triagem.svg</span></span>
+<span class="l">  <span class="k-ok">criar</span>           <span class="k-path">docs/briefings/EXEMPLO-confirmacao-duplicada/briefing.md</span></span>
+<span class="l">  <span class="k-ok">criar</span>           <span class="k-path">docs/prototipos/README.md</span></span>
+<span class="l"></span>
+<span class="l"><span class="k-ok">Instalado</span> 0.3.0. Lock: <span class="k-path">docs/henrispec-discovery/toolkit.lock.json</span></span></code></pre></div>
+          </div></details></li>
+        <li><strong>Commite.</strong> O lock fica em <code>docs/henrispec-discovery/toolkit.lock.json</code>.
+          <div class="cod term"><div class="rot"><span class="aba"><i class="ic ic-bash">&gt;_</i>bash</span><button class="copiar" type="button">Copiar</button></div><pre><code><span class="l cmd"><span class="k-cmd">git</span> add .github docs</span>
+<span class="l cmd"><span class="k-cmd">git</span> commit <span class="k-flag">-m</span> <span class="k-str">"chore: instala HenriSpec Discovery v0.3.0"</span><span class="caret" aria-hidden="true"></span></span></code></pre></div></li>
+        <li><strong>Recarregue o VS Code</strong> e confira os quatro agentes <code>discovery-*</code> no seletor do harness Copilot.</li>
+      </ol>
+    </div>
+<div class="painel" id="pn1-1" role="tabpanel" aria-labelledby="ab1-1"><h3 class="titulo-painel">Atualizar da 0.1 ou 0.2</h3>
+      <ol class="passos">
+        <li><strong>Rode o plano.</strong> A versão antiga é reconhecida pela assinatura dos arquivos, sem lock.
+          <div class="cod term"><div class="rot"><span class="aba"><i class="ic ic-bash">&gt;_</i>bash</span><button class="copiar" type="button">Copiar</button></div><pre><code><span class="l cmd"><span class="k-cmd">bash</span> <span class="k-str">"&lt;pasta-do-pacote&gt;/instalar.sh"</span> repo . <span class="k-flag">--dry-run</span><span class="caret" aria-hidden="true"></span></span></code></pre></div>
+          <details class="arq"><summary>Saída real de um repositório na 0.2 <span class="caminho">--dry-run</span></summary><div class="corpo">
+            <div class="cod"><div class="rot"><span class="aba"><i class="ic ic-saida">≡</i>TERMINAL</span><button class="copiar" type="button">Copiar</button></div><pre><code><span class="l">HenriSpec Discovery 0.2 (por assinatura) -&gt; 0.3.0  alvo: repo /c/Users/&lt;seu-usuario&gt;/Documents/Projetos/&lt;seu-repo&gt;  <span class="k-dim">[dry-run]</span></span>
+<span class="l">  <span class="k-err">remover</span>         <span class="k-path">.github/prompts/discovery-grill.prompt.md</span></span>
+<span class="l">  <span class="k-err">remover</span>         <span class="k-path">.github/prompts/discovery-triagem.prompt.md</span></span>
+<span class="l">  <span class="k-err">remover</span>         <span class="k-path">.github/prompts/discovery-prototipo.prompt.md</span></span>
+<span class="l">  <span class="k-err">remover</span>         <span class="k-path">.github/prompts/discovery-rota.prompt.md</span></span>
+<span class="l">  <span class="k-info">atualizar</span>       <span class="k-path">.github/skills/discovery-workflow/SKILL.md</span></span>
+<span class="l">  <span class="k-ok">criar</span>           <span class="k-path">.github/agents/discovery-grill.agent.md</span></span>
+<span class="l">  <span class="k-ok">criar</span>           <span class="k-path">.github/agents/discovery-prototipo.agent.md</span></span>
+<span class="l">  <span class="k-ok">criar</span>           <span class="k-path">.github/agents/discovery-rota.agent.md</span></span>
+<span class="l">  <span class="k-ok">criar</span>           <span class="k-path">.github/agents/discovery-triagem.agent.md</span></span>
+<span class="l">  <span class="k-ok">criar</span>           <span class="k-path">.github/skills/discovery-grill/SKILL.md</span></span>
+<span class="l">  <span class="k-ok">criar</span>           <span class="k-path">.github/skills/discovery-prototipo/SKILL.md</span></span>
+<span class="l">  <span class="k-ok">criar</span>           <span class="k-path">.github/skills/discovery-rota/SKILL.md</span></span>
+<span class="l">  <span class="k-ok">criar</span>           <span class="k-path">.github/skills/discovery-triagem/SKILL.md</span></span>
+<span class="l">  <span class="k-ok">criar</span>           <span class="k-path">docs/henrispec-discovery/README.md</span></span>
+<span class="l">  <span class="k-ok">criar</span>           <span class="k-path">docs/henrispec-discovery/assets/henrispec-discovery-ciclo.svg</span></span>
+<span class="l">  <span class="k-ok">criar</span>           <span class="k-path">docs/henrispec-discovery/assets/henrispec-discovery-fluxo.svg</span></span>
+<span class="l">  <span class="k-ok">criar</span>           <span class="k-path">docs/henrispec-discovery/assets/henrispec-discovery-grill.svg</span></span>
+<span class="l">  <span class="k-ok">criar</span>           <span class="k-path">docs/henrispec-discovery/assets/henrispec-discovery-logo.svg</span></span>
+<span class="l">  <span class="k-ok">criar</span>           <span class="k-path">docs/henrispec-discovery/assets/henrispec-discovery-prototipo.svg</span></span>
+<span class="l">  <span class="k-ok">criar</span>           <span class="k-path">docs/henrispec-discovery/assets/henrispec-discovery-rota.svg</span></span>
+<span class="l">  <span class="k-ok">criar</span>           <span class="k-path">docs/henrispec-discovery/assets/henrispec-discovery-triagem.svg</span></span>
+<span class="l">  <span class="k-dim">igual</span>           3 arquivo(s) já na versão do pacote</span>
+<span class="l">  <span class="k-warn">manter</span>          2 semente(s) que já existiam: são suas, não são tocadas</span>
+<span class="l"></span>
+<span class="l">dry-run: nada foi escrito.</span></code></pre></div>
+          </div></details></li>
+        <li><strong>Leia o plano.</strong> <span class="etiqueta r">remover</span> os <code>.prompt.md</code> antigos, só se estiverem intactos. <span class="etiqueta">manter</span> o briefing de exemplo e o README de protótipos, que já são seus. <span class="etiqueta r">CONFLITO</span> arquivo alterado à mão: nada é gravado até você decidir, e <code>--forcar</code> sobrescreve com backup.</li>
+        <li><strong>Instale e commite.</strong>
+          <div class="cod term"><div class="rot"><span class="aba"><i class="ic ic-bash">&gt;_</i>bash</span><button class="copiar" type="button">Copiar</button></div><pre><code><span class="l cmd"><span class="k-cmd">bash</span> <span class="k-str">"&lt;pasta-do-pacote&gt;/instalar.sh"</span> repo .</span>
+<span class="l cmd"><span class="k-cmd">git</span> add .github docs</span>
+<span class="l cmd"><span class="k-cmd">git</span> commit <span class="k-flag">-m</span> <span class="k-str">"chore: atualiza HenriSpec Discovery para v0.3.0"</span><span class="caret" aria-hidden="true"></span></span></code></pre></div></li>
+      </ol>
+    </div>
+<div class="painel" id="pn1-2" role="tabpanel" aria-labelledby="ab1-2"><h3 class="titulo-painel">Global, sem .github</h3>
+      <div class="nota vermelha"><p><strong>Só quando o repositório proíbe commitar <code>.github/</code>.</strong> Cada pessoa fica com a sua cópia dos agentes, e o time pode divergir de versão.</p></div>
+      <div class="cod term"><div class="rot"><span class="aba"><i class="ic ic-bash">&gt;_</i>bash</span><button class="copiar" type="button">Copiar</button></div><pre><code><span class="l cmd"><span class="k-cmd">bash</span> <span class="k-str">"&lt;pasta-do-pacote&gt;/instalar.sh"</span> global</span>
+<span class="l cmd"><span class="k-cmd">cd</span> <span class="k-str">"/c/Users/&lt;seu-usuario&gt;/Documents/Projetos/&lt;seu-repo&gt;"</span></span>
+<span class="l cmd"><span class="k-cmd">bash</span> <span class="k-str">"&lt;pasta-do-pacote&gt;/instalar.sh"</span> repo . <span class="k-flag">--sem-github</span><span class="caret" aria-hidden="true"></span></span></code></pre></div>
+      <p>Apague à mão os <code>.github/prompts/discovery-*.prompt.md</code> e a <code>.github/skills/discovery-workflow/</code> que ainda estiverem no repositório: junto com a instalação global, eles aparecem duplicados. O instalador avisa quando encontra.</p>
+    </div>
+<div class="painel" id="pn1-3" role="tabpanel" aria-labelledby="ab1-3"><h3 class="titulo-painel">Junto com o HenriSpec</h3>
+      <p>Os dois pacotes convivem no mesmo repositório, em qualquer ordem. Cada um tem o seu lock e só mexe nos próprios arquivos: agentes e skills do Discovery começam com <code>discovery-</code>, e <code>docs/briefings/</code> é compartilhado de propósito, porque é a saída daqui e a entrada de lá.</p>
+      <div class="cod term"><div class="rot"><span class="aba"><i class="ic ic-bash">&gt;_</i>bash</span><button class="copiar" type="button">Copiar</button></div><pre><code><span class="l cmd"><span class="k-cmd">bash</span> <span class="k-str">"&lt;pasta-do-henrispec&gt;/instalar.sh"</span> repo .</span>
+<span class="l cmd"><span class="k-cmd">bash</span> <span class="k-str">"&lt;pasta-do-discovery&gt;/instalar.sh"</span> repo .</span>
+<span class="l cmd"><span class="k-cmd">git</span> add .github .sdd docs</span>
+<span class="l cmd"><span class="k-cmd">git</span> commit <span class="k-flag">-m</span> <span class="k-str">"chore: instala HenriSpec e HenriSpec Discovery"</span><span class="caret" aria-hidden="true"></span></span></code></pre></div>
+      <div class="nota verde"><p>Rodar um instalador de novo não remove nada do outro. Testado nas duas ordens.</p></div>
+    </div>
+</section>
+
+<section id="qual" class="wrap "><span class="secao-num">3</span>
+  <h2>Qual agente usar</h2>
+  <p class="intro vivo">Cada etapa roda num <strong>chat novo</strong>, com o agente selecionado no seletor. A entrevista é longa: ela não pode entrar no contexto do planejamento. O briefing existe para ser a única coisa que atravessa.</p>
+  <div class="duas">
+    <div class="bloco"><span class="etiqueta">nada escrito</span><h3>Tenho uma dor ou uma ideia</h3><p><code>discovery-grill</code>: entrevista do zero, em rodadas.</p></div>
+    <div class="bloco"><span class="etiqueta">ticket pronto</span><h3>Tenho ticket, chamado ou bug escrito</h3><p><code>discovery-triagem</code>: aproveita o texto e pergunta só o que falta.</p></div>
+    <div class="bloco"><span class="etiqueta">decisão visual</span><h3>Não consigo decidir sem ver funcionando</h3><p><code>discovery-prototipo</code>: a pergunta não é entrevistável.</p></div>
+    <div class="bloco"><span class="etiqueta">perdido</span><h3>Não sei em que ponto estou</h3><p><code>discovery-rota</code>: diz o próximo agente e para.</p></div>
+  </div>
+  <p>Com o briefing pronto, a descoberta acabou: o próximo é o <code>sdd-plan</code> do HenriSpec.</p>
+</section>
+
+<section id="agentes" class="wrap "><span class="secao-num">4</span>
+  <h2>Os agentes, um por um</h2>
+  <div class="fluxo"><nav class="trilho-lateral" aria-label="Etapas"><ol><li><a href="#e-grill">discovery-grill<span class="q">Claude Opus 5</span></a></li><li><a href="#e-triagem">discovery-triagem<span class="q">Claude Opus 5</span></a></li><li><a href="#e-prototipo">discovery-prototipo<span class="q">Claude Sonnet 5</span></a></li><li><a href="#e-rota">discovery-rota<span class="q">Claude Sonnet 5</span></a></li></ol></nav><div>
+    <article class="etapa" id="e-grill">
+      <header><h3>discovery-grill</h3><span class="etiqueta r">Claude Opus 5</span><span class="etiqueta">read, edit</span></header>
+      <p>Transforma uma dor em briefing, perguntando. Nada é inferido. A sessão inteira é a entrevista: a primeira mensagem é a necessidade, as seguintes são as respostas.</p>
+      <figure class="diagrama"><svg xmlns="http://www.w3.org/2000/svg" class="dg3" viewBox="0 0 1000 220" role="img" aria-label="Entrevista em rodadas do discovery-grill"><title>Entrevista em rodadas do discovery-grill</title>
+<style>.dg3 text{font-family:"Segoe UI Variable Text","Segoe UI",system-ui,Helvetica,Arial,sans-serif}
+.dg3 .t{font-size:14px;font-weight:650;fill:#f0f1f5}
+.dg3 .st{font-size:11.5px;font-family:"Cascadia Mono",Consolas,monospace}
+.dg3 .el{font-size:11.5px;fill:#a7a8ac;font-family:"Cascadia Mono",Consolas,monospace}
+.dg3 .ln{fill:none;stroke-width:2;stroke-dasharray:1;stroke-dashoffset:1}
+.dg3 .tracejada .ln{stroke-dasharray:.02 .015;stroke-dashoffset:0;animation:none!important}
+.dg3 .pulso{animation:dg3pulse 2.4s ease-in-out infinite}
+@keyframes dg3pulse{0%,100%{stroke:#cc092f}50%{stroke:#ff6b86;filter:drop-shadow(0 0 6px rgba(225,23,63,.75))}}
+.dg3 .pulso-a{animation:dg3pulsea 2.4s ease-in-out infinite}
+@keyframes dg3pulsea{0%,100%{stroke:#e1173f}50%{stroke:#ffbc00;filter:drop-shadow(0 0 6px rgba(255,188,0,.6))}}
+@keyframes dg3a0{0%,4.0%{opacity:0;transform:translateY(6px)}9.0%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg3d0{0%,4.0%{stroke-dashoffset:1}12.0%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg3 .s0{animation:dg3a0 11s ease-in-out infinite both}
+.dg3 .s0 .ln{animation:dg3d0 11s ease-in-out infinite both}
+@keyframes dg3a1{0%,16.4%{opacity:0;transform:translateY(6px)}21.4%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg3d1{0%,16.4%{stroke-dashoffset:1}24.4%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg3 .s1{animation:dg3a1 11s ease-in-out infinite both}
+.dg3 .s1 .ln{animation:dg3d1 11s ease-in-out infinite both}
+@keyframes dg3a2{0%,28.8%{opacity:0;transform:translateY(6px)}33.8%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg3d2{0%,28.8%{stroke-dashoffset:1}36.8%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg3 .s2{animation:dg3a2 11s ease-in-out infinite both}
+.dg3 .s2 .ln{animation:dg3d2 11s ease-in-out infinite both}
+@keyframes dg3a3{0%,41.2%{opacity:0;transform:translateY(6px)}46.2%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg3d3{0%,41.2%{stroke-dashoffset:1}49.2%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg3 .s3{animation:dg3a3 11s ease-in-out infinite both}
+.dg3 .s3 .ln{animation:dg3d3 11s ease-in-out infinite both}
+@keyframes dg3a4{0%,53.6%{opacity:0;transform:translateY(6px)}58.6%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg3d4{0%,53.6%{stroke-dashoffset:1}61.6%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg3 .s4{animation:dg3a4 11s ease-in-out infinite both}
+.dg3 .s4 .ln{animation:dg3d4 11s ease-in-out infinite both}
+@keyframes dg3a5{0%,66.0%{opacity:0;transform:translateY(6px)}71.0%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg3d5{0%,66.0%{stroke-dashoffset:1}74.0%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg3 .s5{animation:dg3a5 11s ease-in-out infinite both}
+.dg3 .s5 .ln{animation:dg3d5 11s ease-in-out infinite both}
+@media (prefers-reduced-motion:reduce){.dg3 *{animation:none!important}.dg3 .ln{stroke-dashoffset:0}.dg3 .pac{display:none}}</style><defs>
+<marker id="dg3-mr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#cc092f"/></marker>
+<marker id="dg3-ma" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#ffbc00"/></marker>
+<marker id="dg3-mc" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#5b5c61"/></marker>
+<marker id="dg3-mb" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#3b69ff"/></marker>
+<marker id="dg3-mg" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#09ab47"/></marker>
+<marker id="dg3-mx" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#e1173f"/></marker>
+</defs>
+<rect width="1000" height="220" rx="18" fill="#121212"/>
+<g class="s1">
+<path id="dg3-e0" class="ln" pathLength="1" d="M180 59H218" stroke="#cc092f" marker-end="url(#dg3-mr)"/>
+<circle class="pac" r="3.6" fill="#cc092f"><animateMotion dur="2.2s" begin="0.00s" repeatCount="indefinite"><mpath href="#dg3-e0"/></animateMotion></circle>
+</g>
+<g class="s2">
+<path id="dg3-e1" class="ln" pathLength="1" d="M380 59H418" stroke="#ffbc00" marker-end="url(#dg3-ma)"/>
+<circle class="pac" r="3.6" fill="#ffbc00"><animateMotion dur="2.2s" begin="0.35s" repeatCount="indefinite"><mpath href="#dg3-e1"/></animateMotion></circle>
+</g>
+<g class="s3">
+<path id="dg3-e2" class="ln" pathLength="1" d="M500 88V112H300V90" stroke="#ffbc00" marker-end="url(#dg3-ma)"/>
+<text class="el" x="400" y="130" text-anchor="middle">próxima rodada</text>
+<circle class="pac" r="3.6" fill="#ffbc00"><animateMotion dur="2.2s" begin="0.70s" repeatCount="indefinite"><mpath href="#dg3-e2"/></animateMotion></circle>
+</g>
+<g class="s4">
+<path id="dg3-e3" class="ln" pathLength="1" d="M580 59H618" stroke="#cc092f" marker-end="url(#dg3-mr)"/>
+<circle class="pac" r="3.6" fill="#cc092f"><animateMotion dur="2.2s" begin="1.05s" repeatCount="indefinite"><mpath href="#dg3-e3"/></animateMotion></circle>
+</g>
+<g class="s5">
+<path id="dg3-e4" class="ln" pathLength="1" d="M780 59H818" stroke="#09ab47" marker-end="url(#dg3-mg)"/>
+<circle class="pac" r="3.6" fill="#09ab47"><animateMotion dur="2.2s" begin="1.40s" repeatCount="indefinite"><mpath href="#dg3-e4"/></animateMotion></circle>
+</g>
+<g class="s5">
+<path id="dg3-e5" class="ln" pathLength="1" d="M700 88V114H710V138" stroke="#e1173f" marker-end="url(#dg3-mx)"/>
+<text class="el" x="740" y="115" text-anchor="middle">sem sintoma</text>
+<circle class="pac" r="3.6" fill="#e1173f"><animateMotion dur="2.2s" begin="0.00s" repeatCount="indefinite"><mpath href="#dg3-e5"/></animateMotion></circle>
+</g>
+<g class="s0">
+<rect x="20" y="30" width="160" height="58" rx="12" fill="#2b2207" stroke="#ffbc00" stroke-width="1.8"/>
+<text class="t" x="100" y="56" text-anchor="middle">necessidade</text>
+<text class="st" x="100" y="74" text-anchor="middle" fill="#ffcf4d">1ª mensagem</text>
+</g>
+<g class="s1">
+<rect class="pulso" x="220" y="30" width="160" height="58" rx="12" fill="#2a0c13" stroke="#cc092f" stroke-width="1.8"/>
+<text class="t" x="300" y="56" text-anchor="middle">rodada</text>
+<text class="st" x="300" y="74" text-anchor="middle" fill="#f36279">até 5 perguntas</text>
+</g>
+<g class="s2">
+<rect x="420" y="30" width="160" height="58" rx="12" fill="#2b2207" stroke="#ffbc00" stroke-width="1.8"/>
+<text class="t" x="500" y="56" text-anchor="middle">respostas</text>
+<text class="st" x="500" y="74" text-anchor="middle" fill="#ffcf4d">você</text>
+</g>
+<g class="s4">
+<rect x="620" y="30" width="160" height="58" rx="12" fill="#1c1c1e" stroke="#5b5c61" stroke-width="1.8"/>
+<text class="t" x="700" y="56" text-anchor="middle">parar?</text>
+<text class="st" x="700" y="74" text-anchor="middle" fill="#a7a8ac">limite: 4 rodadas</text>
+</g>
+<g class="s5">
+<rect x="820" y="30" width="160" height="58" rx="12" fill="#0c2016" stroke="#09ab47" stroke-width="1.8"/>
+<text class="t" x="900" y="56" text-anchor="middle">briefing.md</text>
+<text class="st" x="900" y="74" text-anchor="middle" fill="#57d98b">marcador de borda</text>
+</g>
+<g class="s5">
+<rect class="pulso-a" x="620" y="140" width="180" height="58" rx="12" fill="#2e0a12" stroke="#e1173f" stroke-width="1.8"/>
+<text class="t" x="710" y="166" text-anchor="middle">lacuna bloqueante</text>
+<text class="st" x="710" y="184" text-anchor="middle" fill="#ff8197">não grava</text>
+</g>
+</svg></figure>
+      <div class="grade">
+        <div class="sim"><h4>Use quando</h4><ul><li>existe uma dor e nada escrito;</li><li>o <code>sdd-plan</code> devolveu perguntas e não gravou nada: só sobre essas perguntas.</li></ul></div>
+        <div class="nao"><h4>Ele não faz</h4><ul><li>ler código ou buscar no repositório: não tem ferramenta para isso;</li><li>escrever critério de aceite;</li><li>chamar o <code>sdd-plan</code> ao terminar.</li></ul></div>
+      </div>
+      <div class="cod"><div class="rot"><span class="aba"><i class="ic ic-chat">✦</i>chat novo, agente discovery-grill</span><button class="copiar" type="button">Copiar</button></div><pre><code><span class="l">Clientes reclamam que a renegociação às vezes gera dois acordos para o mesmo contrato.<span class="caret" aria-hidden="true"></span></span></code></pre></div>
+      <details class="arq"><summary>Como é uma rodada <span class="caminho">até cinco perguntas, numeradas</span></summary><div class="corpo">
+        <div class="cod"><div class="rot"><span class="aba"><i class="ic ic-chat">✦</i>resposta do agente, rodada 1</span><button class="copiar" type="button">Copiar</button></div><pre><code><span class="l">1. Quem percebe o acordo duplicado <span class="k-kw">hoje:</span> o cliente, o backoffice ou os dois?</span>
+<span class="l">2. Com que frequência acontece, e o que alguém faz quando acontece?</span>
+<span class="l">3. O que deveria acontecer quando o cliente confirma de novo?</span>
+<span class="l">4. Existe algo que não pode mudar nesta <span class="k-kw">entrega:</span> contrato de API, fluxo de assinatura, prazo?</span>
+<span class="l">5. Isso acontece também no aplicativo, ou só no navegador?<span class="caret" aria-hidden="true"></span></span></code></pre></div>
+      </div></details>
+    </article>
+
+    <article class="etapa" id="e-triagem">
+      <header><h3>discovery-triagem</h3><span class="etiqueta r">Claude Opus 5</span><span class="etiqueta">read, edit</span></header>
+      <p>A demanda quase nunca chega como página em branco: chega como ticket escrito com pressa. A triagem mapeia o que o ticket já responde, mostra o mapa, e pergunta só o que falta, em até três rodadas.</p>
+      <figure class="diagrama"><svg xmlns="http://www.w3.org/2000/svg" class="dg4" viewBox="0 0 1110 330" role="img" aria-label="Triagem: o ticket mapeado por seção"><title>Triagem: o ticket mapeado por seção</title>
+<style>.dg4 text{font-family:"Segoe UI Variable Text","Segoe UI",system-ui,Helvetica,Arial,sans-serif}
+.dg4 .t{font-size:14px;font-weight:650;fill:#f0f1f5}
+.dg4 .st{font-size:11.5px;font-family:"Cascadia Mono",Consolas,monospace}
+.dg4 .el{font-size:11.5px;fill:#a7a8ac;font-family:"Cascadia Mono",Consolas,monospace}
+.dg4 .ln{fill:none;stroke-width:2;stroke-dasharray:1;stroke-dashoffset:1}
+.dg4 .tracejada .ln{stroke-dasharray:.02 .015;stroke-dashoffset:0;animation:none!important}
+.dg4 .pulso{animation:dg4pulse 2.4s ease-in-out infinite}
+@keyframes dg4pulse{0%,100%{stroke:#cc092f}50%{stroke:#ff6b86;filter:drop-shadow(0 0 6px rgba(225,23,63,.75))}}
+.dg4 .pulso-a{animation:dg4pulsea 2.4s ease-in-out infinite}
+@keyframes dg4pulsea{0%,100%{stroke:#e1173f}50%{stroke:#ffbc00;filter:drop-shadow(0 0 6px rgba(255,188,0,.6))}}
+@keyframes dg4a0{0%,4.0%{opacity:0;transform:translateY(6px)}9.0%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg4d0{0%,4.0%{stroke-dashoffset:1}12.0%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg4 .s0{animation:dg4a0 11s ease-in-out infinite both}
+.dg4 .s0 .ln{animation:dg4d0 11s ease-in-out infinite both}
+@keyframes dg4a1{0%,19.5%{opacity:0;transform:translateY(6px)}24.5%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg4d1{0%,19.5%{stroke-dashoffset:1}27.5%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg4 .s1{animation:dg4a1 11s ease-in-out infinite both}
+.dg4 .s1 .ln{animation:dg4d1 11s ease-in-out infinite both}
+@keyframes dg4a2{0%,35.0%{opacity:0;transform:translateY(6px)}40.0%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg4d2{0%,35.0%{stroke-dashoffset:1}43.0%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg4 .s2{animation:dg4a2 11s ease-in-out infinite both}
+.dg4 .s2 .ln{animation:dg4d2 11s ease-in-out infinite both}
+@keyframes dg4a3{0%,50.5%{opacity:0;transform:translateY(6px)}55.5%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg4d3{0%,50.5%{stroke-dashoffset:1}58.5%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg4 .s3{animation:dg4a3 11s ease-in-out infinite both}
+.dg4 .s3 .ln{animation:dg4d3 11s ease-in-out infinite both}
+@keyframes dg4a4{0%,66.0%{opacity:0;transform:translateY(6px)}71.0%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg4d4{0%,66.0%{stroke-dashoffset:1}74.0%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg4 .s4{animation:dg4a4 11s ease-in-out infinite both}
+.dg4 .s4 .ln{animation:dg4d4 11s ease-in-out infinite both}
+@media (prefers-reduced-motion:reduce){.dg4 *{animation:none!important}.dg4 .ln{stroke-dashoffset:0}.dg4 .pac{display:none}}</style><defs>
+<marker id="dg4-mr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#cc092f"/></marker>
+<marker id="dg4-ma" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#ffbc00"/></marker>
+<marker id="dg4-mc" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#5b5c61"/></marker>
+<marker id="dg4-mb" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#3b69ff"/></marker>
+<marker id="dg4-mg" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#09ab47"/></marker>
+<marker id="dg4-mx" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#e1173f"/></marker>
+</defs>
+<rect width="1110" height="330" rx="18" fill="#121212"/>
+<g class="s1">
+<path id="dg4-e0" class="ln" pathLength="1" d="M210 159H238" stroke="#cc092f" marker-end="url(#dg4-mr)"/>
+<circle class="pac" r="3.6" fill="#cc092f"><animateMotion dur="2.2s" begin="0.00s" repeatCount="indefinite"><mpath href="#dg4-e0"/></animateMotion></circle>
+</g>
+<g class="s2">
+<path id="dg4-e1" class="ln" pathLength="1" d="M430 159H445V59H458" stroke="#09ab47" marker-end="url(#dg4-mg)"/>
+<circle class="pac" r="3.6" fill="#09ab47"><animateMotion dur="2.2s" begin="0.35s" repeatCount="indefinite"><mpath href="#dg4-e1"/></animateMotion></circle>
+</g>
+<g class="s2">
+<path id="dg4-e2" class="ln" pathLength="1" d="M430 159H458" stroke="#ffbc00" marker-end="url(#dg4-ma)"/>
+<circle class="pac" r="3.6" fill="#ffbc00"><animateMotion dur="2.2s" begin="0.70s" repeatCount="indefinite"><mpath href="#dg4-e2"/></animateMotion></circle>
+</g>
+<g class="s2">
+<path id="dg4-e3" class="ln" pathLength="1" d="M430 159H445V259H458" stroke="#e1173f" marker-end="url(#dg4-mx)"/>
+<circle class="pac" r="3.6" fill="#e1173f"><animateMotion dur="2.2s" begin="1.05s" repeatCount="indefinite"><mpath href="#dg4-e3"/></animateMotion></circle>
+</g>
+<g class="s3">
+<path id="dg4-e4" class="ln" pathLength="1" d="M650 159H678" stroke="#ffbc00" marker-end="url(#dg4-ma)"/>
+<circle class="pac" r="3.6" fill="#ffbc00"><animateMotion dur="2.2s" begin="1.40s" repeatCount="indefinite"><mpath href="#dg4-e4"/></animateMotion></circle>
+</g>
+<g class="s3">
+<path id="dg4-e5" class="ln" pathLength="1" d="M650 259H665V159H678" stroke="#e1173f" marker-end="url(#dg4-mx)"/>
+<circle class="pac" r="3.6" fill="#e1173f"><animateMotion dur="2.2s" begin="0.00s" repeatCount="indefinite"><mpath href="#dg4-e5"/></animateMotion></circle>
+</g>
+<g class="s4">
+<path id="dg4-e6" class="ln" pathLength="1" d="M870 159H898" stroke="#cc092f" marker-end="url(#dg4-mr)"/>
+<circle class="pac" r="3.6" fill="#cc092f"><animateMotion dur="2.2s" begin="0.35s" repeatCount="indefinite"><mpath href="#dg4-e6"/></animateMotion></circle>
+</g>
+<g class="s4">
+<path id="dg4-e7" class="ln" pathLength="1" d="M650 59H995V128" stroke="#09ab47" marker-end="url(#dg4-mg)"/>
+<text class="el" x="822" y="50" text-anchor="middle">transcrito, não parafraseado</text>
+<circle class="pac" r="3.6" fill="#09ab47"><animateMotion dur="2.2s" begin="0.70s" repeatCount="indefinite"><mpath href="#dg4-e7"/></animateMotion></circle>
+</g>
+<g class="s0">
+<rect x="20" y="130" width="190" height="58" rx="12" fill="#1c1c1e" stroke="#5b5c61" stroke-width="1.8"/>
+<text class="t" x="115" y="156" text-anchor="middle">ticket</text>
+<text class="st" x="115" y="174" text-anchor="middle" fill="#a7a8ac">caminho ou texto colado</text>
+</g>
+<g class="s1">
+<rect class="pulso" x="240" y="130" width="190" height="58" rx="12" fill="#2a0c13" stroke="#cc092f" stroke-width="1.8"/>
+<text class="t" x="335" y="156" text-anchor="middle">mapear seções</text>
+<text class="st" x="335" y="174" text-anchor="middle" fill="#f36279">antes de perguntar</text>
+</g>
+<g class="s2">
+<rect x="460" y="30" width="190" height="58" rx="12" fill="#0c2016" stroke="#09ab47" stroke-width="1.8"/>
+<text class="t" x="555" y="56" text-anchor="middle">coberta</text>
+<text class="st" x="555" y="74" text-anchor="middle" fill="#57d98b">cita o trecho</text>
+</g>
+<g class="s2">
+<rect x="460" y="130" width="190" height="58" rx="12" fill="#2b2207" stroke="#ffbc00" stroke-width="1.8"/>
+<text class="t" x="555" y="156" text-anchor="middle">parcial</text>
+<text class="st" x="555" y="174" text-anchor="middle" fill="#ffcf4d">vira pergunta</text>
+</g>
+<g class="s2">
+<rect x="460" y="230" width="190" height="58" rx="12" fill="#2e0a12" stroke="#e1173f" stroke-width="1.8"/>
+<text class="t" x="555" y="256" text-anchor="middle">ausente</text>
+<text class="st" x="555" y="274" text-anchor="middle" fill="#ff8197">Restrições sempre</text>
+</g>
+<g class="s3">
+<rect class="pulso" x="680" y="130" width="190" height="58" rx="12" fill="#2a0c13" stroke="#cc092f" stroke-width="1.8"/>
+<text class="t" x="775" y="156" text-anchor="middle">entrevista</text>
+<text class="st" x="775" y="174" text-anchor="middle" fill="#f36279">só lacunas, 3 rodadas</text>
+</g>
+<g class="s4">
+<rect x="900" y="130" width="190" height="58" rx="12" fill="#0c2016" stroke="#09ab47" stroke-width="1.8"/>
+<text class="t" x="995" y="156" text-anchor="middle">briefing.md</text>
+<text class="st" x="995" y="174" text-anchor="middle" fill="#57d98b">origem por seção</text>
+</g>
+</svg></figure>
+      <div class="nota vermelha vivo"><p><strong>Duas armadilhas contam como ausente.</strong> Ticket que abre com "criar endpoint de idempotência" traz a solução no lugar do problema: o texto vai para <code>Contexto útil</code>. Passos de reprodução descrevem o defeito, não o esperado.</p></div>
+      <div class="cod"><div class="rot"><span class="aba"><i class="ic ic-chat">✦</i>chat novo, agente discovery-triagem</span><button class="copiar" type="button">Copiar</button></div><pre><code><span class="l"><span class="k-ref">#INC-4472.md</span><span class="caret" aria-hidden="true"></span></span></code></pre></div>
+      <details class="arq"><summary>O mapa, antes de qualquer pergunta <span class="caminho">no máximo seis linhas</span></summary><div class="corpo">
+        <div class="cod"><div class="rot"><span class="aba"><i class="ic ic-saida">≡</i>resposta do agente</span><button class="copiar" type="button">Copiar</button></div><pre><code><span class="l">Problema          coberta   "cliente consegue clicar em confirmar mais de uma vez"</span>
+<span class="l">O que se espera   ausente   o ticket traz passos de reprodução, não o resultado desejado</span>
+<span class="l">Restrições        ausente   nada sobre o que não pode mudar</span>
+<span class="l">Fora do escopo    ausente</span>
+<span class="l">Contexto útil     parcial   "<span class="k-ok">criar</span> endpoint de idempotência" é solução já cogitada</span>
+<span class="l">Prazo e ticket    coberta   INC-4472</span></code></pre></div>
+      </div></details>
+    </article>
+
+    <article class="etapa" id="e-prototipo">
+      <header><h3>discovery-prototipo</h3><span class="etiqueta r">Claude Sonnet 5</span><span class="etiqueta">read, edit</span></header>
+      <p>Responde uma pergunta com código que será apagado. O produto é a resposta, não o código. Ele não tem terminal de propósito: protótipo que precisa de build ou servidor não vai ser aberto por quem precisa decidir.</p>
+      <figure class="diagrama"><svg xmlns="http://www.w3.org/2000/svg" class="dg5" viewBox="0 0 1110 330" role="img" aria-label="Protótipo descartável: da pergunta à evidência"><title>Protótipo descartável: da pergunta à evidência</title>
+<style>.dg5 text{font-family:"Segoe UI Variable Text","Segoe UI",system-ui,Helvetica,Arial,sans-serif}
+.dg5 .t{font-size:14px;font-weight:650;fill:#f0f1f5}
+.dg5 .st{font-size:11.5px;font-family:"Cascadia Mono",Consolas,monospace}
+.dg5 .el{font-size:11.5px;fill:#a7a8ac;font-family:"Cascadia Mono",Consolas,monospace}
+.dg5 .ln{fill:none;stroke-width:2;stroke-dasharray:1;stroke-dashoffset:1}
+.dg5 .tracejada .ln{stroke-dasharray:.02 .015;stroke-dashoffset:0;animation:none!important}
+.dg5 .pulso{animation:dg5pulse 2.4s ease-in-out infinite}
+@keyframes dg5pulse{0%,100%{stroke:#cc092f}50%{stroke:#ff6b86;filter:drop-shadow(0 0 6px rgba(225,23,63,.75))}}
+.dg5 .pulso-a{animation:dg5pulsea 2.4s ease-in-out infinite}
+@keyframes dg5pulsea{0%,100%{stroke:#e1173f}50%{stroke:#ffbc00;filter:drop-shadow(0 0 6px rgba(255,188,0,.6))}}
+@keyframes dg5a0{0%,4.0%{opacity:0;transform:translateY(6px)}9.0%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg5d0{0%,4.0%{stroke-dashoffset:1}12.0%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg5 .s0{animation:dg5a0 11s ease-in-out infinite both}
+.dg5 .s0 .ln{animation:dg5d0 11s ease-in-out infinite both}
+@keyframes dg5a1{0%,14.3%{opacity:0;transform:translateY(6px)}19.3%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg5d1{0%,14.3%{stroke-dashoffset:1}22.3%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg5 .s1{animation:dg5a1 11s ease-in-out infinite both}
+.dg5 .s1 .ln{animation:dg5d1 11s ease-in-out infinite both}
+@keyframes dg5a2{0%,24.7%{opacity:0;transform:translateY(6px)}29.7%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg5d2{0%,24.7%{stroke-dashoffset:1}32.7%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg5 .s2{animation:dg5a2 11s ease-in-out infinite both}
+.dg5 .s2 .ln{animation:dg5d2 11s ease-in-out infinite both}
+@keyframes dg5a3{0%,35.0%{opacity:0;transform:translateY(6px)}40.0%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg5d3{0%,35.0%{stroke-dashoffset:1}43.0%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg5 .s3{animation:dg5a3 11s ease-in-out infinite both}
+.dg5 .s3 .ln{animation:dg5d3 11s ease-in-out infinite both}
+@keyframes dg5a4{0%,45.3%{opacity:0;transform:translateY(6px)}50.3%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg5d4{0%,45.3%{stroke-dashoffset:1}53.3%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg5 .s4{animation:dg5a4 11s ease-in-out infinite both}
+.dg5 .s4 .ln{animation:dg5d4 11s ease-in-out infinite both}
+@keyframes dg5a5{0%,55.7%{opacity:0;transform:translateY(6px)}60.7%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg5d5{0%,55.7%{stroke-dashoffset:1}63.7%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg5 .s5{animation:dg5a5 11s ease-in-out infinite both}
+.dg5 .s5 .ln{animation:dg5d5 11s ease-in-out infinite both}
+@keyframes dg5a6{0%,66.0%{opacity:0;transform:translateY(6px)}71.0%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg5d6{0%,66.0%{stroke-dashoffset:1}74.0%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg5 .s6{animation:dg5a6 11s ease-in-out infinite both}
+.dg5 .s6 .ln{animation:dg5d6 11s ease-in-out infinite both}
+@media (prefers-reduced-motion:reduce){.dg5 *{animation:none!important}.dg5 .ln{stroke-dashoffset:0}.dg5 .pac{display:none}}</style><defs>
+<marker id="dg5-mr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#cc092f"/></marker>
+<marker id="dg5-ma" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#ffbc00"/></marker>
+<marker id="dg5-mc" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#5b5c61"/></marker>
+<marker id="dg5-mb" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#3b69ff"/></marker>
+<marker id="dg5-mg" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#09ab47"/></marker>
+<marker id="dg5-mx" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#e1173f"/></marker>
+</defs>
+<rect width="1110" height="330" rx="18" fill="#121212"/>
+<g class="s1">
+<path id="dg5-e0" class="ln" pathLength="1" d="M210 159H238" stroke="#cc092f" marker-end="url(#dg5-mr)"/>
+<circle class="pac" r="3.6" fill="#cc092f"><animateMotion dur="2.2s" begin="0.00s" repeatCount="indefinite"><mpath href="#dg5-e0"/></animateMotion></circle>
+</g>
+<g class="s2 tracejada">
+<path id="dg5-e1" class="ln" pathLength="1" d="M335 130V109H335V90" stroke="#e1173f" marker-end="url(#dg5-mx)"/>
+</g>
+<g class="s2">
+<path id="dg5-e2" class="ln" pathLength="1" d="M430 159H450V59H458" stroke="#cc092f" marker-end="url(#dg5-mr)"/>
+<circle class="pac" r="3.6" fill="#cc092f"><animateMotion dur="2.2s" begin="0.70s" repeatCount="indefinite"><mpath href="#dg5-e2"/></animateMotion></circle>
+</g>
+<g class="s2">
+<path id="dg5-e3" class="ln" pathLength="1" d="M430 159H450V259H458" stroke="#cc092f" marker-end="url(#dg5-mr)"/>
+<circle class="pac" r="3.6" fill="#cc092f"><animateMotion dur="2.2s" begin="1.05s" repeatCount="indefinite"><mpath href="#dg5-e3"/></animateMotion></circle>
+</g>
+<g class="s3">
+<path id="dg5-e4" class="ln" pathLength="1" d="M650 59H670V159H678" stroke="#cc092f" marker-end="url(#dg5-mr)"/>
+<circle class="pac" r="3.6" fill="#cc092f"><animateMotion dur="2.2s" begin="1.40s" repeatCount="indefinite"><mpath href="#dg5-e4"/></animateMotion></circle>
+</g>
+<g class="s3">
+<path id="dg5-e5" class="ln" pathLength="1" d="M650 259H670V159H678" stroke="#cc092f" marker-end="url(#dg5-mr)"/>
+<circle class="pac" r="3.6" fill="#cc092f"><animateMotion dur="2.2s" begin="0.00s" repeatCount="indefinite"><mpath href="#dg5-e5"/></animateMotion></circle>
+</g>
+<g class="s4">
+<path id="dg5-e6" class="ln" pathLength="1" d="M870 159H898" stroke="#cc092f" marker-end="url(#dg5-mr)"/>
+<circle class="pac" r="3.6" fill="#cc092f"><animateMotion dur="2.2s" begin="0.35s" repeatCount="indefinite"><mpath href="#dg5-e6"/></animateMotion></circle>
+</g>
+<g class="s5">
+<path id="dg5-e7" class="ln" pathLength="1" d="M995 188V228" stroke="#ffbc00" marker-end="url(#dg5-ma)"/>
+<circle class="pac" r="3.6" fill="#ffbc00"><animateMotion dur="2.2s" begin="0.70s" repeatCount="indefinite"><mpath href="#dg5-e7"/></animateMotion></circle>
+</g>
+<g class="s6">
+<path id="dg5-e8" class="ln" pathLength="1" d="M900 259H872" stroke="#09ab47" marker-end="url(#dg5-mg)"/>
+<circle class="pac" r="3.6" fill="#09ab47"><animateMotion dur="2.2s" begin="1.05s" repeatCount="indefinite"><mpath href="#dg5-e8"/></animateMotion></circle>
+</g>
+<g class="s0">
+<rect x="20" y="130" width="190" height="58" rx="12" fill="#2b2207" stroke="#ffbc00" stroke-width="1.8"/>
+<text class="t" x="115" y="156" text-anchor="middle">pergunta</text>
+<text class="st" x="115" y="174" text-anchor="middle" fill="#ffcf4d">uma frase</text>
+</g>
+<g class="s1">
+<rect class="pulso" x="240" y="130" width="190" height="58" rx="12" fill="#2a0c13" stroke="#cc092f" stroke-width="1.8"/>
+<text class="t" x="335" y="156" text-anchor="middle">afiar</text>
+<text class="st" x="335" y="174" text-anchor="middle" fill="#f36279">escolha entre opções</text>
+</g>
+<g class="s2">
+<rect x="240" y="30" width="190" height="58" rx="12" fill="#2e0a12" stroke="#e1173f" stroke-width="1.8" stroke-dasharray="6 5"/>
+<text class="t" x="335" y="56" text-anchor="middle">entrevistável?</text>
+<text class="st" x="335" y="74" text-anchor="middle" fill="#ff8197">vai para o grill</text>
+</g>
+<g class="s2">
+<rect x="460" y="30" width="190" height="58" rx="12" fill="#1c1c1e" stroke="#5b5c61" stroke-width="1.8"/>
+<text class="t" x="555" y="56" text-anchor="middle">modo 1</text>
+<text class="st" x="555" y="74" text-anchor="middle" fill="#a7a8ac">comportamento</text>
+</g>
+<g class="s2">
+<rect x="460" y="230" width="190" height="58" rx="12" fill="#1c1c1e" stroke="#5b5c61" stroke-width="1.8"/>
+<text class="t" x="555" y="256" text-anchor="middle">modo 2</text>
+<text class="st" x="555" y="274" text-anchor="middle" fill="#a7a8ac">disposição da tela</text>
+</g>
+<g class="s3">
+<rect class="pulso" x="680" y="130" width="190" height="58" rx="12" fill="#2a0c13" stroke="#cc092f" stroke-width="1.8"/>
+<text class="t" x="775" y="156" text-anchor="middle">construir</text>
+<text class="st" x="775" y="174" text-anchor="middle" fill="#f36279">sem build, sem servidor</text>
+</g>
+<g class="s4">
+<rect x="900" y="130" width="190" height="58" rx="12" fill="#1c1c1e" stroke="#5b5c61" stroke-width="1.8"/>
+<text class="t" x="995" y="156" text-anchor="middle">prototipo.html</text>
+<text class="st" x="995" y="174" text-anchor="middle" fill="#a7a8ac">docs/prototipos</text>
+</g>
+<g class="s5">
+<rect x="900" y="230" width="190" height="58" rx="12" fill="#2b2207" stroke="#ffbc00" stroke-width="1.8"/>
+<text class="t" x="995" y="256" text-anchor="middle">você abre e confirma</text>
+<text class="st" x="995" y="274" text-anchor="middle" fill="#ffcf4d">cenário por cenário</text>
+</g>
+<g class="s6">
+<rect x="680" y="230" width="190" height="58" rx="12" fill="#0c2016" stroke="#09ab47" stroke-width="1.8"/>
+<text class="t" x="775" y="256" text-anchor="middle">briefing</text>
+<text class="st" x="775" y="274" text-anchor="middle" fill="#57d98b">Contexto útil</text>
+</g>
+</svg></figure>
+      <div class="grade">
+        <div class="sim"><h4>Use quando</h4><ul><li>a dúvida é sobre estados, ordem de eventos ou disposição da tela;</li><li>a conversa travou e precisa ver para decidir.</li></ul></div>
+        <div class="nao"><h4>Não use para</h4><ul><li>pergunta que se resolve conversando: ele recomenda o grill;</li><li>código de produção: nada em <code>docs/prototipos/</code> vai para <code>src/</code>.</li></ul></div>
+      </div>
+      <div class="cod"><div class="rot"><span class="aba"><i class="ic ic-chat">✦</i>chat novo, agente discovery-prototipo</span><button class="copiar" type="button">Copiar</button></div><pre><code><span class="l">Depois do segundo clique, o cliente vê o acordo já criado ou uma mensagem de "processando"?</span>
+<span class="l"><span class="k-kw">contexto:</span> <span class="k-ref">#acordo-exemplo.json</span><span class="caret" aria-hidden="true"></span></span></code></pre></div>
+    </article>
+
+    <article class="etapa" id="e-rota">
+      <header><h3>discovery-rota</h3><span class="etiqueta r">Claude Sonnet 5</span><span class="etiqueta">search</span></header>
+      <p>Você descreve a situação, ele devolve o próximo agente e o que digitar, e para. Não entrevista, não grava e não executa o que recomendou. Só lista nomes de pasta quando você não sabe onde está.</p>
+      <figure class="diagrama"><svg xmlns="http://www.w3.org/2000/svg" class="dg6" viewBox="0 0 1000 220" role="img" aria-label="discovery-rota: recomenda e para"><title>discovery-rota: recomenda e para</title>
+<style>.dg6 text{font-family:"Segoe UI Variable Text","Segoe UI",system-ui,Helvetica,Arial,sans-serif}
+.dg6 .t{font-size:14px;font-weight:650;fill:#f0f1f5}
+.dg6 .st{font-size:11.5px;font-family:"Cascadia Mono",Consolas,monospace}
+.dg6 .el{font-size:11.5px;fill:#a7a8ac;font-family:"Cascadia Mono",Consolas,monospace}
+.dg6 .ln{fill:none;stroke-width:2;stroke-dasharray:1;stroke-dashoffset:1}
+.dg6 .tracejada .ln{stroke-dasharray:.02 .015;stroke-dashoffset:0;animation:none!important}
+.dg6 .pulso{animation:dg6pulse 2.4s ease-in-out infinite}
+@keyframes dg6pulse{0%,100%{stroke:#cc092f}50%{stroke:#ff6b86;filter:drop-shadow(0 0 6px rgba(225,23,63,.75))}}
+.dg6 .pulso-a{animation:dg6pulsea 2.4s ease-in-out infinite}
+@keyframes dg6pulsea{0%,100%{stroke:#e1173f}50%{stroke:#ffbc00;filter:drop-shadow(0 0 6px rgba(255,188,0,.6))}}
+@keyframes dg6a0{0%,4.0%{opacity:0;transform:translateY(6px)}9.0%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg6d0{0%,4.0%{stroke-dashoffset:1}12.0%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg6 .s0{animation:dg6a0 11s ease-in-out infinite both}
+.dg6 .s0 .ln{animation:dg6d0 11s ease-in-out infinite both}
+@keyframes dg6a1{0%,16.4%{opacity:0;transform:translateY(6px)}21.4%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg6d1{0%,16.4%{stroke-dashoffset:1}24.4%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg6 .s1{animation:dg6a1 11s ease-in-out infinite both}
+.dg6 .s1 .ln{animation:dg6d1 11s ease-in-out infinite both}
+@keyframes dg6a2{0%,28.8%{opacity:0;transform:translateY(6px)}33.8%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg6d2{0%,28.8%{stroke-dashoffset:1}36.8%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg6 .s2{animation:dg6a2 11s ease-in-out infinite both}
+.dg6 .s2 .ln{animation:dg6d2 11s ease-in-out infinite both}
+@keyframes dg6a3{0%,41.2%{opacity:0;transform:translateY(6px)}46.2%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg6d3{0%,41.2%{stroke-dashoffset:1}49.2%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg6 .s3{animation:dg6a3 11s ease-in-out infinite both}
+.dg6 .s3 .ln{animation:dg6d3 11s ease-in-out infinite both}
+@keyframes dg6a4{0%,53.6%{opacity:0;transform:translateY(6px)}58.6%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg6d4{0%,53.6%{stroke-dashoffset:1}61.6%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg6 .s4{animation:dg6a4 11s ease-in-out infinite both}
+.dg6 .s4 .ln{animation:dg6d4 11s ease-in-out infinite both}
+@keyframes dg6a5{0%,66.0%{opacity:0;transform:translateY(6px)}71.0%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg6d5{0%,66.0%{stroke-dashoffset:1}74.0%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg6 .s5{animation:dg6a5 11s ease-in-out infinite both}
+.dg6 .s5 .ln{animation:dg6d5 11s ease-in-out infinite both}
+@media (prefers-reduced-motion:reduce){.dg6 *{animation:none!important}.dg6 .ln{stroke-dashoffset:0}.dg6 .pac{display:none}}</style><defs>
+<marker id="dg6-mr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#cc092f"/></marker>
+<marker id="dg6-ma" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#ffbc00"/></marker>
+<marker id="dg6-mc" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#5b5c61"/></marker>
+<marker id="dg6-mb" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#3b69ff"/></marker>
+<marker id="dg6-mg" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#09ab47"/></marker>
+<marker id="dg6-mx" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#e1173f"/></marker>
+</defs>
+<rect width="1000" height="220" rx="18" fill="#121212"/>
+<g class="s1">
+<path id="dg6-e0" class="ln" pathLength="1" d="M180 59H218" stroke="#cc092f" marker-end="url(#dg6-mr)"/>
+<circle class="pac" r="3.6" fill="#cc092f"><animateMotion dur="2.2s" begin="0.00s" repeatCount="indefinite"><mpath href="#dg6-e0"/></animateMotion></circle>
+</g>
+<g class="s2 tracejada">
+<path id="dg6-e1" class="ln" pathLength="1" d="M300 88V138" stroke="#3b69ff" marker-end="url(#dg6-mb)"/>
+</g>
+<g class="s3">
+<path id="dg6-e2" class="ln" pathLength="1" d="M380 59H418" stroke="#cc092f" marker-end="url(#dg6-mr)"/>
+<circle class="pac" r="3.6" fill="#cc092f"><animateMotion dur="2.2s" begin="0.70s" repeatCount="indefinite"><mpath href="#dg6-e2"/></animateMotion></circle>
+</g>
+<g class="s4">
+<path id="dg6-e3" class="ln" pathLength="1" d="M580 59H618" stroke="#ffbc00" marker-end="url(#dg6-ma)"/>
+<circle class="pac" r="3.6" fill="#ffbc00"><animateMotion dur="2.2s" begin="1.05s" repeatCount="indefinite"><mpath href="#dg6-e3"/></animateMotion></circle>
+</g>
+<g class="s5">
+<path id="dg6-e4" class="ln" pathLength="1" d="M780 59H818" stroke="#cc092f" marker-end="url(#dg6-mr)"/>
+<circle class="pac" r="3.6" fill="#cc092f"><animateMotion dur="2.2s" begin="1.40s" repeatCount="indefinite"><mpath href="#dg6-e4"/></animateMotion></circle>
+</g>
+<g class="s3 tracejada">
+<path id="dg6-e5" class="ln" pathLength="1" d="M380 59H400V169H418" stroke="#e1173f" marker-end="url(#dg6-mx)"/>
+</g>
+<g class="s0">
+<rect x="20" y="30" width="160" height="58" rx="12" fill="#2b2207" stroke="#ffbc00" stroke-width="1.8"/>
+<text class="t" x="100" y="56" text-anchor="middle">situação</text>
+<text class="st" x="100" y="74" text-anchor="middle" fill="#ffcf4d">você</text>
+</g>
+<g class="s1">
+<rect class="pulso" x="220" y="30" width="160" height="58" rx="12" fill="#2a0c13" stroke="#cc092f" stroke-width="1.8"/>
+<text class="t" x="300" y="56" text-anchor="middle">discovery-rota</text>
+<text class="st" x="300" y="74" text-anchor="middle" fill="#f36279">mapa fixo</text>
+</g>
+<g class="s2">
+<rect x="220" y="140" width="160" height="58" rx="12" fill="#0e1a33" stroke="#3b69ff" stroke-width="1.8" stroke-dasharray="6 5"/>
+<text class="t" x="300" y="166" text-anchor="middle">listar pastas</text>
+<text class="st" x="300" y="184" text-anchor="middle" fill="#8fb0ff">só nomes</text>
+</g>
+<g class="s3">
+<rect x="420" y="30" width="160" height="58" rx="12" fill="#1c1c1e" stroke="#5b5c61" stroke-width="1.8"/>
+<text class="t" x="500" y="56" text-anchor="middle">resposta</text>
+<text class="st" x="500" y="74" text-anchor="middle" fill="#a7a8ac">até 6 linhas</text>
+</g>
+<g class="s3">
+<rect x="420" y="140" width="160" height="58" rx="12" fill="#2e0a12" stroke="#e1173f" stroke-width="1.8" stroke-dasharray="6 5"/>
+<text class="t" x="500" y="166" text-anchor="middle">executar aqui</text>
+<text class="st" x="500" y="184" text-anchor="middle" fill="#ff8197">proibido</text>
+<path d="M428 148L572 190M572 148L428 190" stroke="#e1173f" stroke-width="2.5" opacity=".85"/>
+</g>
+<g class="s4">
+<rect x="620" y="30" width="160" height="58" rx="12" fill="#2b2207" stroke="#ffbc00" stroke-width="1.8"/>
+<text class="t" x="700" y="56" text-anchor="middle">chat novo</text>
+<text class="st" x="700" y="74" text-anchor="middle" fill="#ffcf4d">você</text>
+</g>
+<g class="s5">
+<rect class="pulso" x="820" y="30" width="160" height="58" rx="12" fill="#2a0c13" stroke="#cc092f" stroke-width="1.8"/>
+<text class="t" x="900" y="56" text-anchor="middle">próximo agente</text>
+<text class="st" x="900" y="74" text-anchor="middle" fill="#f36279">grill, plan…</text>
+</g>
+</svg></figure>
+      <div class="cod"><div class="rot"><span class="aba"><i class="ic ic-chat">✦</i>chat novo, agente discovery-rota</span><button class="copiar" type="button">Copiar</button></div><pre><code><span class="l">o sdd-review reprovou o eixo spec da mudança evitar-confirmacao-duplicada<span class="caret" aria-hidden="true"></span></span></code></pre></div>
+      <details class="arq"><summary>Resposta <span class="caminho">no máximo seis linhas</span></summary><div class="corpo">
+        <div class="cod"><div class="rot"><span class="aba"><i class="ic ic-saida">≡</i>resposta do agente</span><button class="copiar" type="button">Copiar</button></div><pre><code><span class="l">Você está depois de uma revisão reprovada no eixo spec.</span>
+<span class="l">Próximo: chat novo, agente sdd-plan, com</span>
+<span class="l">  <span class="k-path">docs/briefings/confirmacao-duplicada/briefing.md</span> replanejar: evitar-confirmacao-duplicada</span>
+<span class="l">Não é o sdd-implement direto: o achado precisa virar agrupamento no plano.</span>
+<span class="l">Depois: sdd-implement, commit da fatia, sdd-review de novo.</span></code></pre></div>
+      </div></details>
+    </article>
+  </div></div>
+</section>
+
+<section id="arquivos" class="wrap "><span class="secao-num">5</span>
+  <h2>O briefing que sai daqui</h2>
+  <p class="intro">Uma pasta por necessidade em <code>docs/briefings/</code>, nomeada pela dor e não pela solução. É o contrato com o HenriSpec: as seções e a ordem são as que o <code>sdd-plan</code> espera.</p>
+  <div class="duas">
+    <div class="bloco"><h3>Seções obrigatórias</h3><p><code>Problema</code>, <code>O que se espera</code>, <code>Restrições</code> e <code>Fora do escopo</code>. Opcionais: <code>Contexto útil</code> e <code>Prazo e ticket</code>.</p></div>
+    <div class="bloco"><h3>Duas convenções</h3><p><strong>Lacuna</strong>: <code>**[NÃO RESPONDIDO]**</code> com a pergunta exata, na seção da resposta. <strong>Origem</strong>: texto copiado de ticket vem em citação, precedido de <code>&gt; Origem:</code>.</p></div>
+  </div>
+  <details class="arq"><summary>Exemplo real <span class="caminho">docs/briefings/EXEMPLO-confirmacao-duplicada/briefing.md</span></summary><div class="corpo">
+    <div class="cod num"><div class="rot"><span class="aba"><i class="ic ic-md">M↓</i>briefing.md</span><button class="copiar" type="button">Copiar</button></div><pre><code><span class="l"><span class="k-h"># Briefing - Segunda confirmação de renegociação gera acordo duplicado</span></span>
+<span class="l"></span>
+<span class="l">&lt;!--</span>
+<span class="l">Exemplo de saída real do /discovery-triagem, a partir do chamado INC-4472. Existe para</span>
+<span class="l">mostrar três coisas que o molde em branco não mostra: o tamanho certo, a convenção de origem</span>
+<span class="l">e a convenção de lacuna. Não copie o conteúdo.</span>
+<span class="l">--&gt;</span>
+<span class="l"></span>
+<span class="l"><span class="k-h">## Problema</span></span>
+<span class="l"></span>
+<span class="l"><span class="k-li">&gt;</span> Origem: INC-4472, campo Descrição, com os passos de reprodução removidos.</span>
+<span class="l">&gt;</span>
+<span class="l"><span class="k-li">&gt;</span> O cliente que chega na tela de confirmação de renegociação consegue clicar em confirmar</span>
+<span class="l"><span class="k-li">&gt;</span> mais de uma vez enquanto a resposta não volta. Quando isso acontece, o backoffice recebe</span>
+<span class="l"><span class="k-li">&gt;</span> dois acordos para o mesmo contrato e precisa cancelar um à mão.</span>
+<span class="l"></span>
+<span class="l">Acontece com mais frequência em rede móvel lenta. O time de backoffice relata entre quatro e</span>
+<span class="l">seis casos por semana, e cada cancelamento manual leva cerca de vinte minutos.</span>
+<span class="l"></span>
+<span class="l"><span class="k-h">## O que se espera</span></span>
+<span class="l"></span>
+<span class="l">Uma segunda confirmação do mesmo contrato não gera um segundo acordo. O cliente vê o acordo</span>
+<span class="l">que já foi criado, e não uma mensagem de erro: do ponto de vista dele, o clique repetido foi</span>
+<span class="l">insistência, não uma tentativa nova.</span>
+<span class="l"></span>
+<span class="l">O backoffice deixa de receber duplicatas e para de fazer cancelamento manual.</span>
+<span class="l"></span>
+<span class="l"><span class="k-bold">**[NÃO RESPONDIDO]**</span> Se o cliente fechar o navegador entre o primeiro clique e a resposta, e</span>
+<span class="l">voltar depois, ele deve ver o acordo criado ou começar de novo?</span>
+<span class="l"></span>
+<span class="l"><span class="k-h">## Restrições</span></span>
+<span class="l"></span>
+<span class="l"><span class="k-li">-</span> O contrato da API de efetivação não pode mudar nesta entrega.</span>
+<span class="l"><span class="k-li">-</span> Não alterar o fluxo de assinatura, que está em homologação regulatória até dezembro.</span>
+<span class="l"><span class="k-li">-</span> Precisa continuar funcionando em navegador sem suporte a armazenamento local.</span>
+<span class="l"><span class="k-li">-</span> O tempo até a tela de sucesso não pode piorar. Hoje fica entre dois e três segundos.</span>
+<span class="l"></span>
+<span class="l"><span class="k-h">## Fora do escopo</span></span>
+<span class="l"></span>
+<span class="l"><span class="k-li">-</span> Cancelamento automático das duplicatas que já existem em produção. É limpeza de base e tem</span>
+<span class="l">  dono diferente.</span>
+<span class="l"><span class="k-li">-</span> O mesmo problema no aplicativo móvel nativo. O time confirmou que lá o botão já é bloqueado.</span>
+<span class="l"><span class="k-li">-</span> Qualquer mudança na tela de listagem de acordos.</span>
+<span class="l"></span>
+<span class="l"><span class="k-h">## Contexto útil</span></span>
+<span class="l"></span>
+<span class="l"><span class="k-li">-</span> Tela: <span class="k-code">`src/app/renegociacao/confirmacao/`</span></span>
+<span class="l"><span class="k-li">-</span> O chamado sugere "criar um endpoint de idempotência no BFF". É uma solução já cogitada por</span>
+<span class="l">  quem abriu, não uma decisão. A escolha técnica é do planejamento.</span>
+<span class="l"><span class="k-li">-</span> Dono do backoffice: célula Recuperação de Crédito, Marina.</span>
+<span class="l"><span class="k-li">-</span> O time de assinatura precisa ser avisado antes do deploy, mesmo sem alteração no fluxo deles.</span>
+<span class="l"></span>
+<span class="l"><span class="k-h">## Prazo e ticket</span></span>
+<span class="l"></span>
+<span class="l">INC-4472. Sem prazo formal; o backoffice pediu prioridade para o fechamento do trimestre.</span></code></pre></div>
+  </div></details>
+</section>
+
+<section id="trava" class="faixa guard"><div class="wrap"><span class="secao-num">6</span>
+  <h2>A trava e os guardrails</h2>
+  <p class="intro"><span class="chave">Escreva no briefing apenas o que foi respondido.</span> Um briefing que parece completo esconde ambiguidade, e ambiguidade invisível é pior que ambiguidade declarada.</p>
+  <div class="guard-grupos">
+    <div class="guard-grupo"><h3>Rastro</h3><dl>
+      <dt>Toda linha tem origem</dt><dd>Uma resposta da conversa, um material entregue ou um protótipo concluído. Sem origem, a linha não entra.</dd>
+      <dt>Lacuna não vira suposição</dt><dd>Vira marcador com a pergunta exata.</dd>
+      <dt>Lacuna bloqueante não grava</dt><dd>Sem sintoma ou sem resultado esperado não existe briefing: existe uma lista de perguntas.</dd>
+    </dl></div>
+    <div class="guard-grupo"><h3>Ferramentas mínimas</h3><dl>
+      <dt>Grill e triagem sem busca</dt><dd>Código lido antes de o problema estar claro enviesa a entrevista para o que já existe.</dd>
+      <dt>Protótipo sem terminal</dt><dd>Abre direto no navegador de quem decide.</dd>
+      <dt>Rota sem leitura</dt><dd>Nome de pasta basta para orientar.</dd>
+      <dt>Modelo fixo por etapa</dt><dd>Opus onde há julgamento, Sonnet onde há consulta ou construção.</dd>
+    </dl></div>
+    <div class="guard-grupo"><h3>Escopo</h3><dl>
+      <dt>Só dois lugares de escrita</dt><dd><code>docs/briefings/</code> e <code>docs/prototipos/</code>. Em <code>.sdd/</code>, nunca.</dd>
+      <dt>Orçamento de rodadas</dt><dd>Até cinco perguntas por rodada; quatro rodadas no grill, três na triagem.</dd>
+      <dt>Sem critério de aceite</dt><dd>Critério exige olhar o código, e isso é do <code>sdd-plan</code>.</dd>
+      <dt>Para e recomenda</dt><dd>Nenhum agente encadeia o próximo no mesmo chat.</dd>
+    </dl></div>
+  </div>
+  <div class="nota vermelha riscos"><p><strong>O que depende de disciplina.</strong> No harness Copilot a ferramenta de edição não separa criar de editar: "o protótipo só cria arquivo novo" é regra do contrato. E o mapa do <code>discovery-rota</code> é mantido à mão: se o HenriSpec mudar de agente, ele aponta para o lugar errado sem quebrar.</p></div>
+</div></section>
+
+<section id="integracao" class="wrap "><span class="secao-num">7</span>
+  <h2>Com o HenriSpec</h2>
+  <p class="intro">Um chat novo por etapa, inclusive entre os dois toolkits.</p>
+  <figure class="diagrama"><svg xmlns="http://www.w3.org/2000/svg" class="dg7" viewBox="0 0 1000 230" role="img" aria-label="Discovery e HenriSpec: o ciclo completo"><title>Discovery e HenriSpec: o ciclo completo</title>
+<style>.dg7 text{font-family:"Segoe UI Variable Text","Segoe UI",system-ui,Helvetica,Arial,sans-serif}
+.dg7 .t{font-size:14px;font-weight:650;fill:#f0f1f5}
+.dg7 .st{font-size:11.5px;font-family:"Cascadia Mono",Consolas,monospace}
+.dg7 .el{font-size:11.5px;fill:#a7a8ac;font-family:"Cascadia Mono",Consolas,monospace}
+.dg7 .ln{fill:none;stroke-width:2;stroke-dasharray:1;stroke-dashoffset:1}
+.dg7 .tracejada .ln{stroke-dasharray:.02 .015;stroke-dashoffset:0;animation:none!important}
+.dg7 .pulso{animation:dg7pulse 2.4s ease-in-out infinite}
+@keyframes dg7pulse{0%,100%{stroke:#cc092f}50%{stroke:#ff6b86;filter:drop-shadow(0 0 6px rgba(225,23,63,.75))}}
+.dg7 .pulso-a{animation:dg7pulsea 2.4s ease-in-out infinite}
+@keyframes dg7pulsea{0%,100%{stroke:#e1173f}50%{stroke:#ffbc00;filter:drop-shadow(0 0 6px rgba(255,188,0,.6))}}
+@keyframes dg7a0{0%,4.0%{opacity:0;transform:translateY(6px)}9.0%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg7d0{0%,4.0%{stroke-dashoffset:1}12.0%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg7 .s0{animation:dg7a0 11s ease-in-out infinite both}
+.dg7 .s0 .ln{animation:dg7d0 11s ease-in-out infinite both}
+@keyframes dg7a1{0%,12.9%{opacity:0;transform:translateY(6px)}17.9%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg7d1{0%,12.9%{stroke-dashoffset:1}20.9%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg7 .s1{animation:dg7a1 11s ease-in-out infinite both}
+.dg7 .s1 .ln{animation:dg7d1 11s ease-in-out infinite both}
+@keyframes dg7a2{0%,21.7%{opacity:0;transform:translateY(6px)}26.7%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg7d2{0%,21.7%{stroke-dashoffset:1}29.7%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg7 .s2{animation:dg7a2 11s ease-in-out infinite both}
+.dg7 .s2 .ln{animation:dg7d2 11s ease-in-out infinite both}
+@keyframes dg7a3{0%,30.6%{opacity:0;transform:translateY(6px)}35.6%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg7d3{0%,30.6%{stroke-dashoffset:1}38.6%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg7 .s3{animation:dg7a3 11s ease-in-out infinite both}
+.dg7 .s3 .ln{animation:dg7d3 11s ease-in-out infinite both}
+@keyframes dg7a4{0%,39.4%{opacity:0;transform:translateY(6px)}44.4%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg7d4{0%,39.4%{stroke-dashoffset:1}47.4%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg7 .s4{animation:dg7a4 11s ease-in-out infinite both}
+.dg7 .s4 .ln{animation:dg7d4 11s ease-in-out infinite both}
+@keyframes dg7a5{0%,48.3%{opacity:0;transform:translateY(6px)}53.3%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg7d5{0%,48.3%{stroke-dashoffset:1}56.3%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg7 .s5{animation:dg7a5 11s ease-in-out infinite both}
+.dg7 .s5 .ln{animation:dg7d5 11s ease-in-out infinite both}
+@keyframes dg7a6{0%,57.1%{opacity:0;transform:translateY(6px)}62.1%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg7d6{0%,57.1%{stroke-dashoffset:1}65.1%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg7 .s6{animation:dg7a6 11s ease-in-out infinite both}
+.dg7 .s6 .ln{animation:dg7d6 11s ease-in-out infinite both}
+@keyframes dg7a7{0%,66.0%{opacity:0;transform:translateY(6px)}71.0%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg7d7{0%,66.0%{stroke-dashoffset:1}74.0%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg7 .s7{animation:dg7a7 11s ease-in-out infinite both}
+.dg7 .s7 .ln{animation:dg7d7 11s ease-in-out infinite both}
+@media (prefers-reduced-motion:reduce){.dg7 *{animation:none!important}.dg7 .ln{stroke-dashoffset:0}.dg7 .pac{display:none}}</style><defs>
+<marker id="dg7-mr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#cc092f"/></marker>
+<marker id="dg7-ma" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#ffbc00"/></marker>
+<marker id="dg7-mc" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#5b5c61"/></marker>
+<marker id="dg7-mb" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#3b69ff"/></marker>
+<marker id="dg7-mg" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#09ab47"/></marker>
+<marker id="dg7-mx" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#e1173f"/></marker>
+</defs>
+<rect width="1000" height="230" rx="18" fill="#121212"/>
+<g class="s1">
+<path id="dg7-e0" class="ln" pathLength="1" d="M140 59H158" stroke="#cc092f" marker-end="url(#dg7-mr)"/>
+<circle class="pac" r="3.6" fill="#cc092f"><animateMotion dur="2.2s" begin="0.00s" repeatCount="indefinite"><mpath href="#dg7-e0"/></animateMotion></circle>
+</g>
+<g class="s2">
+<path id="dg7-e1" class="ln" pathLength="1" d="M280 59H298" stroke="#cc092f" marker-end="url(#dg7-mr)"/>
+<circle class="pac" r="3.6" fill="#cc092f"><animateMotion dur="2.2s" begin="0.35s" repeatCount="indefinite"><mpath href="#dg7-e1"/></animateMotion></circle>
+</g>
+<g class="s3">
+<path id="dg7-e2" class="ln" pathLength="1" d="M420 59H438" stroke="#3b69ff" marker-end="url(#dg7-mb)"/>
+<circle class="pac" r="3.6" fill="#3b69ff"><animateMotion dur="2.2s" begin="0.70s" repeatCount="indefinite"><mpath href="#dg7-e2"/></animateMotion></circle>
+</g>
+<g class="s4">
+<path id="dg7-e3" class="ln" pathLength="1" d="M560 59H578" stroke="#3b69ff" marker-end="url(#dg7-mb)"/>
+<circle class="pac" r="3.6" fill="#3b69ff"><animateMotion dur="2.2s" begin="1.05s" repeatCount="indefinite"><mpath href="#dg7-e3"/></animateMotion></circle>
+</g>
+<g class="s5">
+<path id="dg7-e4" class="ln" pathLength="1" d="M700 59H718" stroke="#ffbc00" marker-end="url(#dg7-ma)"/>
+<circle class="pac" r="3.6" fill="#ffbc00"><animateMotion dur="2.2s" begin="1.40s" repeatCount="indefinite"><mpath href="#dg7-e4"/></animateMotion></circle>
+</g>
+<g class="s5">
+<path id="dg7-e5" class="ln" pathLength="1" d="M790 88V112H640V90" stroke="#ffbc00" marker-end="url(#dg7-ma)"/>
+<text class="el" x="715" y="130" text-anchor="middle">próximo agrupamento</text>
+<circle class="pac" r="3.6" fill="#ffbc00"><animateMotion dur="2.2s" begin="0.00s" repeatCount="indefinite"><mpath href="#dg7-e5"/></animateMotion></circle>
+</g>
+<g class="s6">
+<path id="dg7-e6" class="ln" pathLength="1" d="M840 59H858" stroke="#3b69ff" marker-end="url(#dg7-mb)"/>
+<circle class="pac" r="3.6" fill="#3b69ff"><animateMotion dur="2.2s" begin="0.35s" repeatCount="indefinite"><mpath href="#dg7-e6"/></animateMotion></circle>
+</g>
+<g class="s7">
+<path id="dg7-e7" class="ln" pathLength="1" d="M920 88V138" stroke="#09ab47" marker-end="url(#dg7-mg)"/>
+<circle class="pac" r="3.6" fill="#09ab47"><animateMotion dur="2.2s" begin="0.70s" repeatCount="indefinite"><mpath href="#dg7-e7"/></animateMotion></circle>
+</g>
+<g class="s0">
+<rect x="20" y="30" width="120" height="58" rx="12" fill="#2b2207" stroke="#ffbc00" stroke-width="1.8"/>
+<text class="t" x="80" y="56" text-anchor="middle">necessidade</text>
+<text class="st" x="80" y="74" text-anchor="middle" fill="#ffcf4d">você</text>
+</g>
+<g class="s1">
+<rect class="pulso" x="160" y="30" width="120" height="58" rx="12" fill="#2a0c13" stroke="#cc092f" stroke-width="1.8"/>
+<text class="t" x="220" y="56" text-anchor="middle">grill</text>
+<text class="st" x="220" y="74" text-anchor="middle" fill="#f36279">ou triagem</text>
+</g>
+<g class="s2">
+<rect x="300" y="30" width="120" height="58" rx="12" fill="#1c1c1e" stroke="#5b5c61" stroke-width="1.8"/>
+<text class="t" x="360" y="56" text-anchor="middle">briefing</text>
+<text class="st" x="360" y="74" text-anchor="middle" fill="#a7a8ac">o elo</text>
+</g>
+<g class="s3">
+<rect x="440" y="30" width="120" height="58" rx="12" fill="#0e1a33" stroke="#3b69ff" stroke-width="1.8"/>
+<text class="t" x="500" y="56" text-anchor="middle">sdd-plan</text>
+<text class="st" x="500" y="74" text-anchor="middle" fill="#8fb0ff">proposta</text>
+</g>
+<g class="s4">
+<rect x="580" y="30" width="120" height="58" rx="12" fill="#0e1a33" stroke="#3b69ff" stroke-width="1.8"/>
+<text class="t" x="640" y="56" text-anchor="middle">implement</text>
+<text class="st" x="640" y="74" text-anchor="middle" fill="#8fb0ff">uma fatia</text>
+</g>
+<g class="s5">
+<rect x="720" y="30" width="120" height="58" rx="12" fill="#2b2207" stroke="#ffbc00" stroke-width="1.8"/>
+<text class="t" x="780" y="56" text-anchor="middle">commit</text>
+<text class="st" x="780" y="74" text-anchor="middle" fill="#ffcf4d">você</text>
+</g>
+<g class="s6">
+<rect x="860" y="30" width="120" height="58" rx="12" fill="#0e1a33" stroke="#3b69ff" stroke-width="1.8"/>
+<text class="t" x="920" y="56" text-anchor="middle">review</text>
+<text class="st" x="920" y="74" text-anchor="middle" fill="#8fb0ff">2 eixos</text>
+</g>
+<g class="s7">
+<rect x="860" y="140" width="120" height="58" rx="12" fill="#0c2016" stroke="#09ab47" stroke-width="1.8"/>
+<text class="t" x="920" y="166" text-anchor="middle">archive</text>
+<text class="st" x="920" y="184" text-anchor="middle" fill="#57d98b">specs</text>
+</g>
+<g class="s7"><text x="20" y="205" class="el" text-anchor="start" style="fill:#a7a8ac">discovery: vermelho e âmbar  |  HenriSpec: azul  |  cada nó é um chat novo</text></g>
+</svg></figure>
+  <div class="duas">
+    <div class="bloco"><h3>Ponto de contato 1: o briefing</h3><p>Todos os agentes dependem do formato dele. Se mudar, o <code>sdd-plan</code> deixa de consumir a saída.</p></div>
+    <div class="bloco"><h3>Ponto de contato 2: o mapa do rota</h3><p>Cita agentes e pastas do HenriSpec 0.4.2. Falha em silêncio: revise-o a cada versão do HenriSpec.</p></div>
+  </div>
+</section>
+
+<section id="dia" class="wrap "><span class="secao-num">8</span>
+  <h2>Um dia de trabalho</h2>
+  <p class="intro">Um chamado chega na segunda de manhã.</p>
+  <div class="tempo" id="tempo"><div class="linha-viva"></div>
+    <div class="momento"><time>09:00</time><h3>O chamado chega</h3><p>INC-4472: "criar endpoint de idempotência na confirmação de renegociação".</p></div>
+    <div class="momento"><time>09:10</time><h3>Triagem (chat 1)</h3><p>O mapa mostra que o ticket traz solução no lugar do problema e nada sobre restrições.</p></div>
+    <div class="momento"><time>09:20</time><h3>Duas rodadas</h3><p>Restrições na primeira rodada, como sempre. O PO responde; uma pergunta de borda fica marcada.</p></div>
+    <div class="momento"><time>10:00</time><h3>Protótipo (chat 2)</h3><p>A dúvida "acordo criado ou processando?" não se resolve conversando. O protótipo abre no navegador; o PO escolhe.</p></div>
+    <div class="momento"><time>10:40</time><h3>Briefing gravado</h3><p>A escolha entra em <code>Contexto útil</code>. Você revisa e commita <code>docs/briefings/confirmacao-duplicada/</code>.</p></div>
+    <div class="momento"><time>11:00</time><h3>Para o HenriSpec (chat 3)</h3><p>Chat novo, agente <code>sdd-plan</code>, com o caminho do briefing.</p></div>
+  </div>
+</section>
+
+<section id="problemas" class="wrap "><span class="secao-num">9</span>
+  <h2>Quando algo dá errado</h2>
+  <details class="arq"><summary>Os agentes discovery-* não aparecem no seletor</summary><div class="corpo"><p>Confira o harness Copilot, os arquivos em <code>.github/agents/</code> na raiz do workspace (ou em <code>~/.copilot/agents</code> na instalação global) e recarregue a janela.</p></div></details>
+  <details class="arq"><summary>Digitei /discovery-grill e ele pediu para trocar de agente</summary><div class="corpo"><p>Esperado: o atalho só roda com o agente da etapa, que fixa modelo e ferramentas. Chat novo, agente <code>discovery-grill</code>, mesmo pedido.</p></div></details>
+  <details class="arq"><summary>O grill não gravou nada e devolveu perguntas</summary><div class="corpo"><p>Ficou lacuna bloqueante: sem sintoma ou sem resultado esperado não há briefing. Responda as perguntas no mesmo chat, ou leve-as a quem sabe.</p></div></details>
+  <details class="arq"><summary>O briefing ficou com [NÃO RESPONDIDO]</summary><div class="corpo"><p>É lacuna de borda, e está certo ficar marcada. Se ela impedir um critério verificável, o <code>sdd-plan</code> vai parar e perguntar: volte ao grill só sobre ela.</p></div></details>
+  <details class="arq"><summary>O instalador acusou CONFLITO</summary><div class="corpo"><p>Um arquivo do Discovery foi alterado à mão, e nada foi gravado. Compare, guarde o que importa e aceite a versão do pacote com backup:</p>
+    <div class="cod term"><div class="rot"><span class="aba"><i class="ic ic-bash">&gt;_</i>bash</span><button class="copiar" type="button">Copiar</button></div><pre><code><span class="l cmd"><span class="k-cmd">bash</span> <span class="k-str">"&lt;pasta-do-pacote&gt;/instalar.sh"</span> repo . <span class="k-flag">--forcar</span><span class="caret" aria-hidden="true"></span></span></code></pre></div></div></details>
+  <details class="arq"><summary>Erro pipefail\r ao rodar o instalador</summary><div class="corpo"><p>O <code>.sh</code> foi salvo com final de linha do Windows. Rode pelo Node:</p>
+    <div class="cod term"><div class="rot"><span class="aba"><i class="ic ic-bash">&gt;_</i>bash</span><button class="copiar" type="button">Copiar</button></div><pre><code><span class="l cmd"><span class="k-cmd">node</span> <span class="k-str">"&lt;pasta-do-pacote&gt;/instalar.mjs"</span> repo . <span class="k-flag">--dry-run</span><span class="caret" aria-hidden="true"></span></span></code></pre></div></div></details>
+</section>
+</main>
+
+<footer><div class="wrap"><svg width="24" height="24" aria-hidden="true"><use href="#logo"/></svg>HenriSpec Discovery v0.3.0. O que acontece antes do briefing existir. Uso interno do time.</div></footer>
+
+<script>
+(function () {
+  var reduz = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // copiar
+  document.querySelectorAll('.cod').forEach(function (bloco) {
+    var btn = bloco.querySelector('.copiar');
+    var pre = bloco.querySelector('pre');
+    if (!btn || !pre) return;
+    btn.addEventListener('click', function () {
+      var texto = pre.innerText.replace(/\n$/, '');
+      var feito = function () {
+        btn.textContent = 'Copiado';
+        btn.classList.add('feito');
+        setTimeout(function () { btn.textContent = 'Copiar'; btn.classList.remove('feito'); }, 1500);
+      };
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(texto).then(feito, function () { reserva(texto); feito(); });
+      } else { reserva(texto); feito(); }
+    });
+  });
+  function reserva(t) {
+    var ta = document.createElement('textarea');
+    ta.value = t; ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select();
+    try { document.execCommand('copy'); } catch (e) {}
+    ta.remove();
+  }
+
+  // abas: cada grupo cuida só dos seus botões e painéis
+  document.querySelectorAll('.abas').forEach(function (grupo) {
+    var botoes = Array.prototype.slice.call(grupo.querySelectorAll('[role=tab]'));
+    function ativa(aba, foco) {
+      botoes.forEach(function (b) {
+        var sel = b === aba;
+        b.setAttribute('aria-selected', sel ? 'true' : 'false');
+        b.tabIndex = sel ? 0 : -1;
+        var painel = document.getElementById(b.getAttribute('aria-controls'));
+        if (painel) painel.classList.toggle('ativo', sel);
+      });
+      if (foco) aba.focus();
+    }
+    botoes.forEach(function (b, i) {
+      b.addEventListener('click', function () { ativa(b); });
+      b.addEventListener('keydown', function (e) {
+        if (e.key === 'ArrowRight') ativa(botoes[(i + 1) % botoes.length], true);
+        if (e.key === 'ArrowLeft') ativa(botoes[(i - 1 + botoes.length) % botoes.length], true);
+      });
+    });
+  });
+
+  // conversor de caminho
+  var entrada = document.getElementById('caminho-win');
+  var alvo = entrada && entrada.parentNode.querySelector('.saida pre');
+  if (entrada && alvo) {
+    entrada.addEventListener('input', function () {
+      var v = entrada.value.trim().replace(/^"|"$/g, '');
+      if (!v) { alvo.textContent = '"/c/Users/seu-usuario/Documents/Projetos/minha pasta/henrispec-v0.4.2"'; return; }
+      var m = v.match(/^([A-Za-z]):[\\\/]?(.*)$/);
+      var p = m ? '/' + m[1].toLowerCase() + '/' + m[2] : v;
+      alvo.textContent = '"' + p.replace(/\\/g, '/').replace(/\/+$/, '') + '"';
+    });
+  }
+
+  // revelar
+  if ('IntersectionObserver' in window && !reduz) {
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('visivel'); io.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.revela').forEach(function (el) { io.observe(el); });
+  } else {
+    document.querySelectorAll('.revela').forEach(function (el) { el.classList.add('visivel'); });
+  }
+
+  // navegação, progresso, trilho lateral e linha do tempo
+  var links = Array.prototype.slice.call(document.querySelectorAll('.top nav a'));
+  var secoes = links.map(function (a) { return document.querySelector(a.getAttribute('href')); });
+  var trilho = Array.prototype.slice.call(document.querySelectorAll('.trilho-lateral a'));
+  var etapas = trilho.map(function (a) { return document.querySelector(a.getAttribute('href')); });
+  var barra = document.getElementById('progresso');
+  var tempo = document.getElementById('tempo');
+  var vivo = tempo && tempo.querySelector('.linha-viva');
+  var momentos = tempo ? tempo.querySelectorAll('.momento') : [];
+  var pendente = false;
+
+  function atual(lista, linha) {
+    var idx = -1;
+    lista.forEach(function (el, i) { if (el && el.getBoundingClientRect().top < linha) idx = i; });
+    return idx;
+  }
+  function quadro() {
+    pendente = false;
+    var h = document.documentElement.scrollHeight - innerHeight;
+    if (barra) barra.style.transform = 'scaleX(' + (h > 0 ? scrollY / h : 0) + ')';
+    var s = atual(secoes, innerHeight * 0.3);
+    links.forEach(function (a, i) { a.classList.toggle('ativo', i === s); });
+    var e = atual(etapas, innerHeight * 0.45);
+    trilho.forEach(function (a, i) { a.classList.toggle('ativo', i === e); });
+    if (tempo && vivo) {
+      var r = tempo.getBoundingClientRect();
+      var p = Math.min(1, Math.max(0, (innerHeight * 0.65 - r.top) / r.height));
+      vivo.style.height = (p * 100) + '%';
+      var limite = r.top + p * r.height;
+      momentos.forEach(function (m) { m.classList.toggle('passou', m.getBoundingClientRect().top + 8 <= limite); });
+    }
+  }
+  addEventListener('scroll', function () { if (!pendente) { pendente = true; requestAnimationFrame(quadro); } }, { passive: true });
+  addEventListener('resize', quadro);
+  quadro();
+})();
+</script>
+</body>
+</html>
