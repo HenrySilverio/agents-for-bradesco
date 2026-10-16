@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<title>SDD toolkit v0.4.1: onboarding</title>
+<script>document.documentElement.classList.add('js')</script>
+<style>
+:root{
+  --ink:#121212; --ink-2:#1b1b1c; --surface:#232325; --line:#3a3b3f; --line-2:#47484c;
+  --text:#f0f1f5; --muted:#a7a8ac; --dim:#6d6e71;
+  --red:#cc092f; --red-dark:#9d0b21; --red-deep:#5a0714; --red-text:#f36279;
+  --ok:#09ab47; --ok-text:#3fd47a; --warn:#ffbc00;
+  --sans:"Segoe UI Variable Text","Segoe UI",system-ui,-apple-system,sans-serif;
+  --display:"Segoe UI Variable Display","Segoe UI",system-ui,sans-serif;
+  --mono:"Cascadia Mono","Cascadia Code",Consolas,"SFMono-Regular",monospace;
+  --measure:70ch;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:72px;interpolate-size:allow-keywords}
+body{margin:0;background:var(--ink);color:var(--text);font:16px/1.65 var(--sans);-webkit-font-smoothing:antialiased}
+a{color:var(--red-text);text-underline-offset:3px}
+:focus-visible{outline:2px solid var(--red-text);outline-offset:3px;border-radius:4px}
+code{font-family:var(--mono);font-size:.88em;background:#2b1a1d;color:#ffd9df;padding:.1em .38em;border-radius:5px}
+p{max-width:var(--measure)}
+h1,h2,h3{font-family:var(--display);line-height:1.12;letter-spacing:-.015em;margin:0}
+h2{font-size:clamp(1.75rem,3.2vw,2.6rem);font-weight:650;margin-bottom:.5rem}
+h3{font-size:1.2rem;font-weight:650}
+.wrap{max-width:1160px;margin:0 auto;padding:0 24px}
+.skip{position:absolute;left:-9999px}.skip:focus{left:12px;top:12px;z-index:100;background:var(--red);color:#fff;padding:8px 12px}
+
+/* topo */
+.top{position:sticky;top:0;z-index:40;background:rgba(18,18,18,.88);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;gap:20px;height:60px}
+.marca{display:flex;align-items:center;gap:10px;color:var(--text);text-decoration:none;font-weight:650;white-space:nowrap}
+.marca small{color:var(--muted);font-weight:500}
+.top nav{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;margin-left:auto}
+.top nav a{color:var(--muted);text-decoration:none;font-size:.88rem;padding:7px 11px;border-radius:8px;white-space:nowrap;transition:color .2s,background .2s}
+.top nav a:hover,.top nav a.ativo{color:var(--text);background:var(--surface)}
+.top nav a.ativo{box-shadow:inset 0 -2px 0 var(--red)}
+#progresso{position:absolute;left:0;bottom:-1px;height:2px;width:100%;transform-origin:left;transform:scaleX(0);background:var(--red)}
+
+/* hero */
+.hero{padding:48px 0 36px;border-bottom:1px solid var(--line);background:
+  radial-gradient(900px 420px at 85% 0%,rgba(204,9,47,.22),transparent 70%),var(--ink)}
+.hero h1{font-size:clamp(2.3rem,4.6vw,3.9rem);font-weight:700;max-width:19ch;margin:16px 0 16px}
+.hero .sub{font-size:1.15rem;color:var(--muted);max-width:58ch}
+.acoes{display:flex;flex-wrap:wrap;gap:12px;margin:28px 0 8px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 20px;border-radius:10px;font-weight:600;text-decoration:none;color:#fff;background:var(--red);transition:background .2s,transform .2s}
+.btn:hover{background:#e1173f;transform:translateY(-1px)}
+.btn.sec{background:transparent;border:1px solid var(--line-2);color:var(--text)}
+.btn.sec:hover{border-color:var(--red-text);background:transparent}
+
+/* esteira */
+.esteira{margin-top:36px;position:relative}
+.esteira svg{width:100%;height:auto;display:block;overflow:visible}
+.esteira .trilho{stroke:var(--line-2);stroke-width:2;fill:none}
+.esteira .trilho-vivo{stroke:var(--red);stroke-width:2.5;fill:none;stroke-dasharray:1000;stroke-dashoffset:1000}
+.js .esteira.rodando .trilho-vivo{animation:desenha 2.4s cubic-bezier(.6,.1,.2,1) forwards}
+@keyframes desenha{to{stroke-dashoffset:0}}
+.est circle.base{fill:var(--ink-2);stroke:var(--line-2);stroke-width:2;transition:fill .4s,stroke .4s}
+.est text{fill:var(--muted);font:600 14px var(--sans);transition:fill .4s}
+.est text.quem{font:12px var(--mono);fill:var(--dim)}
+.est.on circle.base{fill:var(--red-deep);stroke:var(--red)}
+.est.on text{fill:var(--text)}
+.est.voce.on circle.base{fill:#3a2c00;stroke:var(--warn)}
+.est.voce .anel{stroke:var(--warn)}
+.est .anel{fill:none;stroke:var(--red);stroke-width:2;opacity:0}
+.est.on .anel{animation:pulso 1.6s ease-out}
+@keyframes pulso{0%{opacity:.9;r:16}100%{opacity:0;r:30}}
+.legenda-esteira{display:flex;gap:18px;flex-wrap:wrap;color:var(--muted);font-size:.85rem;margin-top:14px}
+.legenda-esteira span::before{content:"";display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;vertical-align:-1px;background:var(--red)}
+.legenda-esteira span.voce::before{background:var(--warn)}
+
+/* seções */
+main section{padding:84px 0 24px}
+.intro{color:var(--muted);font-size:1.05rem;margin:0 0 28px}
+.secao-num{font-family:var(--mono);color:var(--red-text);font-size:.9rem;margin-bottom:6px;display:block}
+
+/* blocos de código */
+.cod{position:relative;margin:14px 0;border:1px solid var(--line);border-radius:12px;background:#0c0c0d;overflow:hidden}
+.cod .rot{display:flex;justify-content:space-between;align-items:center;padding:7px 12px;border-bottom:1px solid var(--line);font:12px var(--mono);color:var(--dim);background:var(--ink-2)}
+.cod pre{margin:0;padding:14px 16px;overflow:auto;font:13.5px/1.6 var(--mono);color:#ececec;white-space:pre}
+.cod pre code{background:none;padding:0;color:inherit;font-size:inherit;border-radius:0}
+.cod pre .cm{color:var(--dim)}
+.copiar{font:600 12px var(--sans);color:var(--text);background:var(--surface);border:1px solid var(--line-2);border-radius:7px;padding:4px 10px;cursor:pointer;transition:background .2s,border-color .2s}
+.copiar:hover{border-color:var(--red-text)}
+.copiar.feito{background:var(--ok);border-color:var(--ok);color:#04150a}
+.no-js-only{display:none}
+
+/* passos */
+ol.passos{list-style:none;counter-reset:p;padding:0;margin:0}
+ol.passos>li{counter-increment:p;position:relative;padding:0 0 26px 54px}
+ol.passos>li::before{content:counter(p);position:absolute;left:0;top:-2px;width:34px;height:34px;border-radius:50%;border:1.5px solid var(--red);color:var(--red-text);display:grid;place-items:center;font:600 14px var(--mono);background:var(--ink)}
+ol.passos>li::after{content:"";position:absolute;left:17px;top:36px;bottom:4px;width:1px;background:var(--line)}
+ol.passos>li:last-child::after{display:none}
+ol.passos>li>strong:first-child{font-size:1.03rem}
+
+/* abas */
+.abas{display:flex;gap:4px;border-bottom:1px solid var(--line);margin:8px 0 28px;overflow-x:auto}
+.abas button{background:none;border:0;border-bottom:2px solid transparent;color:var(--muted);font:600 .95rem var(--sans);padding:12px 16px;cursor:pointer;white-space:nowrap;transition:color .2s,border-color .2s}
+.abas button:hover{color:var(--text)}
+.abas button[aria-selected="true"]{color:var(--text);border-color:var(--red)}
+.abas{display:none}
+.js .abas{display:flex}
+.painel h3.titulo-painel{margin:36px 0 16px}
+.js .painel{display:none}
+.js .painel.ativo{display:block;animation:entra .45s ease}
+.js .painel h3.titulo-painel{display:none}
+@keyframes entra{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+/* notas */
+.nota{border:1px solid var(--line);border-left:3px solid var(--warn);background:#1e1a10;border-radius:10px;padding:14px 18px;margin:16px 0;max-width:calc(var(--measure) + 8ch)}
+.nota.vermelha{border-left-color:var(--red);background:#22121a}
+.nota.verde{border-left-color:var(--ok);background:#0f1d15}
+.nota p{margin:.3em 0}
+
+/* conversor de caminho */
+.conversor{border:1px solid var(--line);border-radius:14px;padding:18px;background:var(--ink-2);margin:18px 0 32px}
+.conversor label{display:block;font-weight:600;margin-bottom:8px}
+.conversor input{width:100%;font:14px var(--mono);color:var(--text);background:#0c0c0d;border:1px solid var(--line-2);border-radius:9px;padding:11px 12px}
+.conversor input:focus{border-color:var(--red-text);outline:none}
+.conversor .saida{margin-top:10px}
+
+/* duas colunas */
+.duas{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.duas>*,.fluxo>*,.etapa .grade>*,.guard-grupos>*{min-width:0}
+.bloco{border:1px solid var(--line);border-radius:14px;padding:22px;background:var(--ink-2)}
+.bloco h3{margin-bottom:8px}
+.etiqueta{display:inline-block;font:12px var(--mono);border:1px solid var(--line-2);color:var(--muted);border-radius:6px;padding:1px 7px;margin:0 6px 6px 0}
+.etiqueta.r{border-color:var(--red);color:var(--red-text)}
+.etiqueta.v{border-color:var(--ok);color:var(--ok-text)}
+
+/* fluxo de agentes com trilho fixo */
+.fluxo{display:grid;grid-template-columns:200px 1fr;gap:40px}
+.trilho-lateral{position:sticky;top:96px;align-self:start}
+.trilho-lateral ol{list-style:none;margin:0;padding:0;border-left:2px solid var(--line)}
+.trilho-lateral li a{display:block;padding:9px 0 9px 16px;margin-left:-2px;border-left:2px solid transparent;color:var(--muted);text-decoration:none;font-size:.95rem;transition:color .3s,border-color .3s}
+.trilho-lateral li a .q{display:block;font:11.5px var(--mono);color:var(--dim)}
+.trilho-lateral li a.ativo{color:var(--text);border-color:var(--red)}
+.etapa{padding:8px 0 48px;border-bottom:1px solid var(--line);margin-bottom:40px}
+.etapa:last-child{border-bottom:0}
+.etapa header{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:12px}
+.etapa header h3{font-size:1.6rem}
+.etapa .grade{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:16px 0}
+.etapa .grade>div{border:1px solid var(--line);border-radius:12px;padding:14px 16px;background:var(--ink-2)}
+.etapa .grade h4{margin:0 0 6px;font-size:.95rem}
+.etapa .grade ul{margin:0;padding-left:18px;color:var(--muted);font-size:.95rem}
+.etapa .grade .nao h4{color:var(--red-text)}
+.etapa .grade .sim h4{color:var(--ok-text)}
+
+/* cartões expansíveis */
+details.arq{border:1px solid var(--line);border-radius:12px;background:var(--ink-2);margin:10px 0;overflow:hidden;transition:border-color .3s}
+details.arq[open]{border-color:var(--red-dark)}
+details.arq summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:12px;padding:14px 18px;font-weight:600}
+details.arq summary::-webkit-details-marker{display:none}
+details.arq summary .caminho{font:13px var(--mono);color:var(--muted);font-weight:400;min-width:0;overflow-wrap:anywhere}
+details.arq summary::after{content:"";margin-left:auto;width:10px;height:10px;border-right:2px solid var(--red-text);border-bottom:2px solid var(--red-text);transform:rotate(45deg) translateY(-3px);transition:transform .35s ease;flex:none}
+details.arq[open] summary::after{transform:rotate(-135deg) translateY(-3px)}
+details.arq::details-content{block-size:0;overflow:hidden;transition:block-size .4s ease,content-visibility .4s allow-discrete}
+details.arq[open]::details-content{block-size:auto}
+details.arq .corpo{padding:0 18px 16px}
+details.arq .corpo>p{color:var(--muted);margin:0 0 6px;font-size:.95rem}
+
+/* guardrails */
+.guard{background:linear-gradient(180deg,#1d0a10 0%,var(--ink) 100%);border-top:1px solid var(--red-dark);border-bottom:1px solid var(--line)}
+.guard-grupos{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:28px}
+.guard-grupo{border:1px solid var(--red-dark);border-radius:16px;padding:22px;background:rgba(18,18,18,.7)}
+.guard-grupo h3{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.guard-grupo h3 svg{flex:none}
+.guard-grupo dl{margin:0}
+.guard-grupo dt{font-weight:600;margin-top:12px}
+.guard-grupo dd{margin:2px 0 0;color:var(--muted);font-size:.93rem}
+.riscos{margin-top:24px}
+
+/* linha do tempo */
+.tempo{position:relative;padding-left:44px;max-width:860px}
+.tempo::before{content:"";position:absolute;left:15px;top:6px;bottom:6px;width:2px;background:var(--line)}
+.tempo .vivo{position:absolute;left:15px;top:6px;width:2px;height:0;background:var(--red)}
+.momento{position:relative;margin-bottom:28px}
+.momento::before{content:"";position:absolute;left:-35px;top:7px;width:12px;height:12px;border-radius:50%;background:var(--ink);border:2px solid var(--line-2);transition:border-color .4s,background .4s}
+.momento.passou::before{border-color:var(--red);background:var(--red)}
+.momento time{font:13px var(--mono);color:var(--red-text)}
+.momento h3{font-size:1.08rem;margin:2px 0 4px}
+.momento p{margin:0;color:var(--muted)}
+
+/* faq */
+.faq details.arq summary{font-weight:500}
+
+/* revelar (só com JS) */
+.js .revela{opacity:0;transform:translateY(18px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
+.js .revela.visivel{opacity:1;transform:none}
+
+footer{border-top:1px solid var(--line);margin-top:72px;padding:28px 0 40px;color:var(--dim);font-size:.88rem}
+footer .wrap{display:flex;align-items:center;gap:12px}
+
+@media (max-width:900px){
+  .duas,.guard-grupos,.etapa .grade{grid-template-columns:1fr}
+  .fluxo{grid-template-columns:1fr}
+  .trilho-lateral{display:none}
+  .marca small{display:none}
+  .esteira{overflow-x:auto;margin-left:-24px;margin-right:-24px;padding:22px 24px 0}
+  .esteira svg{min-width:780px}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .js .revela{opacity:1;transform:none}
+  .esteira .trilho-vivo{stroke-dashoffset:0}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#conteudo">Pular para o conteúdo</a>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="logo" viewBox="0 0 40 40">
+      <rect width="40" height="40" rx="10" fill="#cc092f"/>
+      <path d="M11 9h12l6 6v16H11z" fill="none" stroke="#fff" stroke-width="2.4" stroke-linejoin="round"/>
+      <path d="M23 9v6h6" fill="none" stroke="#fff" stroke-width="2.4" stroke-linejoin="round"/>
+      <path d="M15 18h7M15 22h5" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/>
+      <circle cx="28.5" cy="29.5" r="6.5" fill="#9d0b21" stroke="#fff" stroke-width="2"/>
+      <path d="M25.6 29.6l2 2 3.6-3.8" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+  </defs>
+</svg>
+
+<header class="top">
+  <div class="wrap">
+    <a class="marca" href="#inicio"><svg width="30" height="30" aria-hidden="true"><use href="#logo"/></svg>SDD toolkit <small>v0.4.1</small></a>
+    <nav aria-label="Seções da página">
+      <a href="#antes">Antes de começar</a>
+      <a href="#instalar">Instalação</a>
+      <a href="#verificacao">verificacao.json</a>
+      <a href="#fluxo">O fluxo</a>
+      <a href="#arquivos">Arquivos</a>
+      <a href="#guardrails">Guardrails</a>
+      <a href="#dia">Um dia</a>
+      <a href="#problemas">Problemas</a>
+    </nav>
+  </div>
+  <div id="progresso"></div>
+</header>
+
+<div class="hero" id="inicio">
+  <div class="wrap">
+    <svg width="56" height="56" aria-hidden="true"><use href="#logo"/></svg>
+    <h1>Do briefing ao código revisado, uma fatia por vez.</h1>
+    <p class="sub">O SDD toolkit transforma o Copilot num fluxo com etapas fixas: cada etapa tem o seu agente, o seu modelo e o seu limite. Você planeja antes de codar, revisa e commita cada fatia, e só arquiva o que passou nos dois eixos de revisão.</p>
+    <div class="acoes">
+      <a class="btn" href="#instalar">Instalar no meu repositório</a>
+      <a class="btn sec" href="#guardrails">Ver os guardrails</a>
+    </div>
+
+    <div class="esteira" id="esteira" role="img" aria-label="Fluxo: briefing, sdd-plan, sdd-implement, commit, sdd-review, sdd-archive">
+      <svg viewBox="0 0 1100 150" aria-hidden="true">
+        <path class="trilho" d="M60 60 H1040"/>
+        <path class="trilho-vivo" d="M60 60 H1040"/>
+        <g class="est voce" data-i="0"><circle class="anel" cx="60" cy="60" r="16"/><circle class="base" cx="60" cy="60" r="14"/><text x="60" y="108" text-anchor="middle">briefing</text><text class="quem" x="60" y="128" text-anchor="middle">você</text></g>
+        <g class="est" data-i="1"><circle class="anel" cx="256" cy="60" r="16"/><circle class="base" cx="256" cy="60" r="14"/><text x="256" y="108" text-anchor="middle">sdd-plan</text><text class="quem" x="256" y="128" text-anchor="middle">Opus</text></g>
+        <g class="est" data-i="2"><circle class="anel" cx="452" cy="60" r="16"/><circle class="base" cx="452" cy="60" r="14"/><text x="452" y="108" text-anchor="middle">sdd-implement</text><text class="quem" x="452" y="128" text-anchor="middle">Sonnet, uma fatia</text></g>
+        <g class="est voce" data-i="3"><circle class="anel" cx="648" cy="60" r="16"/><circle class="base" cx="648" cy="60" r="14"/><text x="648" y="108" text-anchor="middle">revisar e commitar</text><text class="quem" x="648" y="128" text-anchor="middle">você</text></g>
+        <g class="est" data-i="4"><circle class="anel" cx="844" cy="60" r="16"/><circle class="base" cx="844" cy="60" r="14"/><text x="844" y="108" text-anchor="middle">sdd-review</text><text class="quem" x="844" y="128" text-anchor="middle">Opus, dois eixos</text></g>
+        <g class="est" data-i="5"><circle class="anel" cx="1040" cy="60" r="16"/><circle class="base" cx="1040" cy="60" r="14"/><text x="1040" y="108" text-anchor="middle">sdd-archive</text><text class="quem" x="1040" y="128" text-anchor="middle">Sonnet</text></g>
+        <path d="M452 38 C 500 6, 600 6, 648 38" fill="none" stroke="#ffbc00" stroke-width="1.5" stroke-dasharray="4 5"/>
+        <text x="550" y="-4" text-anchor="middle" style="fill:#a7a8ac;font:12px var(--mono)">repete por agrupamento</text>
+      </svg>
+      <div class="legenda-esteira"><span>agente do toolkit, chat novo a cada etapa</span><span class="voce">você decide e commita</span></div>
+    </div>
+  </div>
+</div>
+
+<main id="conteudo">
+
+<section id="antes" class="wrap">
+  <span class="secao-num">1</span>
+  <h2>Antes de começar</h2>
+  <p class="intro">Quatro coisas na máquina. Todos os comandos desta página rodam no <strong>Git Bash</strong>, não no PowerShell nem no CMD.</p>
+  <div class="duas">
+    <div class="bloco revela">
+      <h3>VS Code com Copilot</h3>
+      <p>No chat, use o harness <strong>Copilot</strong>. É nele que os agentes <code>sdd-plan</code>, <code>sdd-implement</code>, <code>sdd-review</code> e <code>sdd-archive</code> aparecem no seletor de agentes.</p>
+    </div>
+    <div class="bloco revela">
+      <h3>Git Bash, Git e Node 18 ou mais</h3>
+      <p>O Git Bash vem com o Git for Windows. O instalador e os scripts do toolkit são Node puro: sem npm, sem rede.</p>
+    </div>
+  </div>
+  <div class="cod"><div class="rot"><span>Confira no Git Bash</span><button class="copiar" type="button">Copiar</button></div><pre><code>node --version   <span class="cm"># precisa ser v18 ou mais</span>
+git --version
+code --version</code></pre></div>
+</section>
+
+<section id="instalar" class="wrap">
+  <span class="secao-num">2</span>
+  <h2>Instalação</h2>
+  <p class="intro">Um instalador para todos os cenários. Ele mostra o plano antes de escrever, nunca toca nas suas mudanças, specs, decisões e briefings, e para sem escrever nada se encontrar arquivo do toolkit alterado à mão.</p>
+
+  <div class="conversor revela">
+    <label for="caminho-win">Converta um caminho do Windows para o Git Bash</label>
+    <input id="caminho-win" type="text" spellcheck="false" placeholder="Cole aqui, ex.: C:\Users\seu-usuario\Documents\Projetos\minha pasta\sdd-toolkit-v0.4">
+    <div class="saida"><div class="cod"><div class="rot"><span>caminho para usar nos comandos</span><button class="copiar" type="button">Copiar</button></div><pre><code>"/c/Users/seu-usuario/Documents/Projetos/minha pasta/sdd-toolkit-v0.4"</code></pre></div></div>
+    <p style="color:var(--muted);font-size:.92rem;margin:6px 0 0">Para copiar o caminho: no VS Code, botão direito na pasta e <em>Copy Path</em>; no Explorador do Windows, Shift + botão direito e <em>Copiar como caminho</em>. O caminho vai <strong>sempre entre aspas</strong>, por causa de espaços e acentos.</p>
+  </div>
+
+  <div class="abas" role="tablist" aria-label="Cenários de instalação">
+    <button role="tab" id="aba-1" aria-controls="p-1" aria-selected="true">Repositório novo</button>
+    <button role="tab" id="aba-2" aria-controls="p-2" aria-selected="false" tabindex="-1">Atualizar da 0.3</button>
+    <button role="tab" id="aba-3" aria-controls="p-3" aria-selected="false" tabindex="-1">Global, sem .github</button>
+    <button role="tab" id="aba-4" aria-controls="p-4" aria-selected="false" tabindex="-1">BFF + front juntos</button>
+  </div>
+
+  <div class="painel ativo" id="p-1" role="tabpanel" aria-labelledby="aba-1">
+    <h3 class="titulo-painel">Repositório novo</h3>
+    <ol class="passos">
+      <li><strong>Abra o Git Bash na raiz do repositório.</strong>
+        No VS Code: <em>Terminal → New Terminal</em> e escolha o perfil Git Bash.
+        <div class="cod"><div class="rot"><span>terminal</span><button class="copiar" type="button">Copiar</button></div><pre><code>cd "/c/Users/&lt;seu-usuario&gt;/Documents/Projetos/&lt;seu-repo&gt;"
+git status   <span class="cm"># de preferência com a árvore limpa</span></code></pre></div></li>
+      <li><strong>Veja o plano sem gravar nada.</strong>
+        <div class="cod"><div class="rot"><span>terminal</span><button class="copiar" type="button">Copiar</button></div><pre><code>bash "&lt;pasta-do-pacote&gt;/instalar.sh" repo . --dry-run</code></pre></div></li>
+      <li><strong>Instale.</strong>
+        <div class="cod"><div class="rot"><span>terminal</span><button class="copiar" type="button">Copiar</button></div><pre><code>bash "&lt;pasta-do-pacote&gt;/instalar.sh" repo .</code></pre></div>
+        <details class="arq"><summary>Saída esperada <span class="caminho">instalação do zero</span></summary><div class="corpo"><div class="cod"><div class="rot"><span>saída</span><button class="copiar" type="button">Copiar</button></div><pre><code>sdd-toolkit (não instalado) -&gt; 0.4.1  alvo: repo /c/Users/&lt;seu-usuario&gt;/Documents/Projetos/&lt;seu-repo&gt;
+  criar           .github/agents/sdd-archive.agent.md
+  criar           .github/agents/sdd-implement.agent.md
+  criar           .github/agents/sdd-plan.agent.md
+  criar           .github/agents/sdd-review.agent.md
+  criar           .github/skills/sdd-archive/SKILL.md
+  criar           .github/skills/sdd-implement/SKILL.md
+  criar           .github/skills/sdd-plan/SKILL.md
+  criar           .github/skills/sdd-review/SKILL.md
+  criar           .github/skills/sdd-workflow/SKILL.md
+  criar           .github/skills/sdd-workflow/references/decisoes.md
+  criar           .github/skills/sdd-workflow/references/eixos-de-revisao.md
+  criar           .github/skills/sdd-workflow/references/moldes-artefatos.md
+  criar           .github/skills/sdd-workflow/references/specs-e-deltas.md
+  criar           .sdd/changes/.gitkeep
+  criar           .sdd/decisoes/index.md
+  criar           .sdd/padroes.md
+  criar           .sdd/sdd.mjs
+  criar           .sdd/specs/index.md
+  criar           .sdd/verificacao.json
+  criar           .sdd/verificar.mjs
+  criar           docs/sdd-toolkit/README.md
+  criar           docs/briefings/EXEMPLO/briefing.md
+  criar           docs/guia-contexto-e-modelos.md
+
+Instalado 0.4.1. Lock: .sdd/toolkit.lock.json
+PENDENTE edite .sdd/verificacao.json: camadas e comandos vieram do molde de MFE Angular.
+
+Validador nas mudanças abertas:
+  Nenhuma mudança aberta em .sdd/changes/. Nada a validar.</code></pre></div></div></details></li>
+      <li><strong>Ajuste o <code>.sdd/verificacao.json</code>.</strong> Ele vem com as camadas de um MFE Angular em Clean Architecture. Use o prompt da <a href="#verificacao">seção 3</a> para o Copilot adaptá-lo ao seu projeto.</li>
+      <li><strong>Commite a instalação</strong>, com o lock, que diz ao time qual versão o repositório usa.
+        <div class="cod"><div class="rot"><span>terminal</span><button class="copiar" type="button">Copiar</button></div><pre><code>git add .github .sdd docs
+git commit -m "chore: instala SDD toolkit v0.4.1"</code></pre></div></li>
+      <li><strong>Recarregue o VS Code</strong> (<em>Ctrl+Shift+P → Developer: Reload Window</em>), abra o chat no harness Copilot e confira os quatro agentes no seletor.</li>
+    </ol>
+  </div>
+
+  <div class="painel" id="p-2" role="tabpanel" aria-labelledby="aba-2">
+    <h3 class="titulo-painel">Atualizar da 0.3</h3>
+    <ol class="passos">
+      <li><strong>Rode o plano primeiro.</strong> A 0.3 é reconhecida pela assinatura dos arquivos, mesmo sem lock.
+        <div class="cod"><div class="rot"><span>terminal</span><button class="copiar" type="button">Copiar</button></div><pre><code>cd "/c/Users/&lt;seu-usuario&gt;/Documents/Projetos/&lt;seu-repo&gt;"
+bash "&lt;pasta-do-pacote&gt;/instalar.sh" repo . --dry-run</code></pre></div>
+        <details class="arq"><summary>Saída real de um repositório na 0.3 <span class="caminho">--dry-run</span></summary><div class="corpo"><div class="cod"><div class="rot"><span>saída</span><button class="copiar" type="button">Copiar</button></div><pre><code>sdd-toolkit 0.3 (por assinatura) -&gt; 0.4.1  alvo: repo /c/Users/&lt;seu-usuario&gt;/Documents/Projetos/&lt;seu-repo&gt;  [dry-run]
+  remover         .github/prompts/sdd-plan.prompt.md
+  remover         .github/prompts/sdd-implement.prompt.md
+  remover         .github/prompts/sdd-review.prompt.md
+  remover         .github/prompts/sdd-archive.prompt.md
+  atualizar       .github/skills/sdd-workflow/SKILL.md
+  atualizar       .github/skills/sdd-workflow/references/eixos-de-revisao.md
+  atualizar       .github/skills/sdd-workflow/references/moldes-artefatos.md
+  atualizar       .sdd/sdd.mjs
+  criar           .github/agents/sdd-archive.agent.md
+  criar           .github/agents/sdd-implement.agent.md
+  criar           .github/agents/sdd-plan.agent.md
+  criar           .github/agents/sdd-review.agent.md
+  criar           .github/skills/sdd-archive/SKILL.md
+  criar           .github/skills/sdd-implement/SKILL.md
+  criar           .github/skills/sdd-plan/SKILL.md
+  criar           .github/skills/sdd-review/SKILL.md
+  criar           .sdd/verificacao.json
+  criar           .sdd/verificar.mjs
+  criar           docs/sdd-toolkit/README.md
+  igual           3 arquivo(s) já na versão do pacote
+  manter          5 semente(s) que já existiam: são suas, não são tocadas
+
+dry-run: nada foi escrito.</code></pre></div></div></details></li>
+      <li><strong>Leia o plano.</strong>
+        <span class="etiqueta r">atualizar / criar</span> agentes, skills e scripts do toolkit.
+        <span class="etiqueta">manter</span> sementes que já existem, como <code>padroes.md</code>: são do time e não são tocadas.
+        <span class="etiqueta">remover</span> os <code>.prompt.md</code> da 0.3, só se estiverem intactos.
+        <span class="etiqueta r">CONFLITO</span> arquivo do toolkit alterado à mão: nada é gravado até você decidir.</li>
+      <li><strong>Se houver conflito</strong>, compare o arquivo com o do pacote e guarde o que importa. Para aceitar a versão do pacote, com backup em <code>.sdd/.toolkit-backup/</code>:
+        <div class="cod"><div class="rot"><span>terminal</span><button class="copiar" type="button">Copiar</button></div><pre><code>bash "&lt;pasta-do-pacote&gt;/instalar.sh" repo . --forcar</code></pre></div></li>
+      <li><strong>Instale.</strong> No fim, o instalador roda o validador nas mudanças abertas.
+        <div class="cod"><div class="rot"><span>terminal</span><button class="copiar" type="button">Copiar</button></div><pre><code>bash "&lt;pasta-do-pacote&gt;/instalar.sh" repo .</code></pre></div></li>
+      <li><strong>Ajuste as mudanças abertas.</strong> Mudanças criadas na 0.3 não têm <code>Escopo:</code>. Acrescente no agrupamento de Verificação de cada <code>tarefas.md</code> e troque os comandos de lint e teste pelo verificador:
+        <div class="cod"><div class="rot"><span>tarefas.md</span><button class="copiar" type="button">Copiar</button></div><pre><code>### 4. Verificação
+Escopo: domain, feature
+Bloqueado por: todos
+- [ ] 4.1 `node .sdd/verificar.mjs &lt;change-id&gt;` sem achado BLOQUEANTE</code></pre></div>
+        <div class="cod"><div class="rot"><span>terminal</span><button class="copiar" type="button">Copiar</button></div><pre><code>node .sdd/sdd.mjs validate &lt;change-id&gt;</code></pre></div>
+        Essas mudanças não terão linha de base, porque a branch já tem commits; a classificação de tipos fica aproximada, e o verificador avisa.</li>
+      <li><strong>Edite o <code>verificacao.json</code> e commite</strong> tudo, incluindo <code>.sdd/toolkit.lock.json</code>.</li>
+    </ol>
+  </div>
+
+  <div class="painel" id="p-3" role="tabpanel" aria-labelledby="aba-3">
+    <h3 class="titulo-painel">Global, sem .github</h3>
+    <div class="nota vermelha"><p><strong>Use só quando o repositório proíbe commitar <code>.github/</code>.</strong> No modo global, cada pessoa tem a sua cópia dos agentes, e o time pode ficar em versões diferentes do contrato. Combine a versão e reinstale a cada release.</p></div>
+    <ol class="passos">
+      <li><strong>Instale agentes e skills no seu usuário.</strong> Vão para <code>~/.copilot</code> (ou <code>$COPILOT_HOME</code>), com os caminhos do contrato reescritos para essa pasta.
+        <div class="cod"><div class="rot"><span>terminal</span><button class="copiar" type="button">Copiar</button></div><pre><code>bash "&lt;pasta-do-pacote&gt;/instalar.sh" global --dry-run
+bash "&lt;pasta-do-pacote&gt;/instalar.sh" global</code></pre></div></li>
+      <li><strong>Em cada repositório, instale só <code>.sdd/</code> e <code>docs/</code>.</strong>
+        <div class="cod"><div class="rot"><span>terminal</span><button class="copiar" type="button">Copiar</button></div><pre><code>cd "/c/Users/&lt;seu-usuario&gt;/Documents/Projetos/&lt;seu-repo&gt;"
+bash "&lt;pasta-do-pacote&gt;/instalar.sh" repo . --sem-github --dry-run
+bash "&lt;pasta-do-pacote&gt;/instalar.sh" repo . --sem-github</code></pre></div></li>
+      <li><strong>Apague cópias antigas no repositório.</strong> O <code>--sem-github</code> não toca em <code>.github/</code>. Se o repositório ainda tiver <code>.github/prompts/sdd-*.prompt.md</code> ou <code>.github/skills/sdd-workflow/</code>, apague à mão: junto com a instalação global, eles aparecem duplicados. O instalador avisa quando encontra.</li>
+      <li><strong>Commite <code>.sdd/</code> e <code>docs/</code></strong> e recarregue o VS Code.</li>
+    </ol>
+  </div>
+
+  <div class="painel" id="p-4" role="tabpanel" aria-labelledby="aba-4">
+    <h3 class="titulo-painel">BFF + front juntos</h3>
+    <p>Para o plano ser fiel, o agente precisa ler os dois códigos. Abra os dois repositórios no mesmo workspace do VS Code. A regra que não muda: <strong>cada repositório tem o seu <code>.sdd/</code> e a sua mudança</strong>, ligadas pelo mesmo <code>Ticket:</code>, e o contrato (OpenAPI) é tratado isoladamente em cada camada. O front nunca importa arquivo do repositório do BFF; ele lê o contrato como referência e mantém a própria cópia gerada.</p>
+    <ol class="passos">
+      <li><strong>Instale o toolkit nos dois repositórios</strong>, com a aba "Repositório novo" ou "Global" em cada um.</li>
+      <li><strong>Crie um workspace com as duas pastas.</strong> Salve o arquivo fora dos dois repositórios e coloque <strong>primeiro</strong> o repositório onde você vai rodar o agente.
+        <div class="cod"><div class="rot"><span>&lt;ticket&gt;.code-workspace</span><button class="copiar" type="button">Copiar</button></div><pre><code>{
+  "folders": [
+    { "name": "front", "path": "/c/Users/&lt;seu-usuario&gt;/Documents/Projetos/&lt;seu-repo-front&gt;" },
+    { "name": "bff",   "path": "/c/Users/&lt;seu-usuario&gt;/Documents/Projetos/&lt;seu-repo-bff&gt;" }
+  ]
+}</code></pre></div>
+        Ou pelo menu: <em>File → Add Folder to Workspace…</em> e depois <em>File → Save Workspace As…</em>. Abra com <em>File → Open Workspace from File…</em>.</li>
+      <li><strong>Confira que os agentes aparecem.</strong> O suporte a várias pastas nos agentes ainda é recente no VS Code. Se o seletor não mostrar os agentes, ou mostrar os do repositório errado, deixe como primeira pasta o repositório em que você vai trabalhar e recarregue a janela.</li>
+      <li><strong>Mande o outro repositório como contexto de leitura</strong>, com <code>#</code> e o nome do arquivo, ou arrastando o arquivo do Explorer para o chat.</li>
+    </ol>
+
+    <div class="duas" style="margin-top:12px">
+      <div class="bloco">
+        <span class="etiqueta r">Full</span>
+        <h3>Mudança no BFF e no front</h3>
+        <p>Há contrato novo entre as camadas, então o rigor é Full nas duas mudanças. A ordem é <strong>BFF primeiro</strong>: o front planeja contra o contrato que o BFF já planejou.</p>
+        <div class="cod"><div class="rot"><span>chat 1: workspace com o BFF primeiro, agente sdd-plan</span><button class="copiar" type="button">Copiar</button></div><pre><code>docs/briefings/limite-pix-noturno/briefing.md
+contexto, só leitura, do front: #limites-pix.component.ts #limites.api.ts</code></pre></div>
+        <div class="cod"><div class="rot"><span>chat 2: workspace com o front primeiro, agente sdd-plan</span><button class="copiar" type="button">Copiar</button></div><pre><code>docs/briefings/limite-pix-noturno/briefing.md
+contexto, só leitura, do BFF: #openapi.yaml #LimitesController.java
+mesmo ticket da mudança do BFF; consumir o contrato que ela planejou, sem importar arquivo do BFF</code></pre></div>
+      </div>
+      <div class="bloco">
+        <span class="etiqueta v">Lite</span>
+        <h3>Front consumindo endpoint pronto</h3>
+        <p>O BFF já entrega o dado. Planeje só no front, com o contrato do BFF como contexto de leitura. É Lite, a não ser que o contrato precise mudar.</p>
+        <div class="cod"><div class="rot"><span>workspace com o front primeiro, agente sdd-plan</span><button class="copiar" type="button">Copiar</button></div><pre><code>docs/briefings/exibir-limite-noturno/briefing.md
+contexto, só leitura, do BFF: #openapi.yaml #LimitesController.java
+o GET /limites/pix já está em produção e não muda</code></pre></div>
+        <p>Saída esperada: <code>.sdd/changes/exibir-limite-noturno/</code> só no front, com <code>proposta.md</code> e <code>tarefas.md</code>, sem <code>design.md</code>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="verificacao" class="wrap">
+  <span class="secao-num">3</span>
+  <h2>Configurar o verificacao.json</h2>
+  <p class="intro">Este arquivo diz ao toolkit o que é camada no seu projeto e qual comando roda em cada uma. Com ele, a revisão verifica só a camada que a mudança tocou: erro que já existia é contado e não bloqueia; erro que a mudança criou, bloqueia.</p>
+  <div class="duas">
+    <div class="bloco revela">
+      <h3>O que cada campo faz</h3>
+      <dl style="margin:0">
+        <dt><code>camadas.&lt;nome&gt;.arquivos</code></dt><dd style="margin:2px 0 10px;color:var(--muted)">globs da camada, como <code>src/app/feature/**</code>. O primeiro que casar vence.</dd>
+        <dt><code>camadas.&lt;nome&gt;.verificacoes</code></dt><dd style="margin:2px 0 10px;color:var(--muted)">nomes das verificações que valem para ela.</dd>
+        <dt><code>comando</code></dt><dd style="margin:2px 0 10px;color:var(--muted)">com <code>{arquivos}</code> roda só nos arquivos tocados; sem ele roda uma vez.</dd>
+        <dt><code>formato</code></dt><dd style="margin:2px 0 10px;color:var(--muted)"><code>eslint-json</code>, <code>jest-json</code> ou <code>linhas</code> (este exige <code>padrao</code> com os grupos <code>arquivo</code>, <code>linha</code> e <code>mensagem</code>).</dd>
+        <dt><code>classificacao</code></dt><dd style="margin:2px 0 0;color:var(--muted)"><code>base-stdin</code> (lint, exato), <code>baseline</code> (tipos e testes, exato com linha de base) ou <code>linhas-alteradas</code> (aproximado).</dd>
+      </dl>
+    </div>
+    <div class="revela">
+      <details class="arq" open><summary>Molde que vem no pacote <span class="caminho">.sdd/verificacao.json</span></summary><div class="corpo"><div class="cod"><div class="rot"><span>verificacao.json</span><button class="copiar" type="button">Copiar</button></div><pre><code>{
+  "verificacoes": {
+    "lint": {
+      "comando": "npx eslint -f json {arquivos}",
+      "comandoBase": "npx eslint -f json --stdin --stdin-filename {arquivo}",
+      "extensoes": [".ts", ".html"],
+      "formato": "eslint-json",
+      "classificacao": "base-stdin"
+    },
+    "tipos": {
+      "comando": "npx tsc --noEmit --pretty false -p tsconfig.app.json",
+      "formato": "linhas",
+      "padrao": "^(?&lt;arquivo&gt;[^\\s(][^(]*)\\((?&lt;linha&gt;\\d+),\\d+\\): error (?&lt;mensagem&gt;.+)$",
+      "regra": "tsc",
+      "classificacao": "baseline"
+    },
+    "testes": {
+      "comando": "npx jest --ci --passWithNoTests --json --outputFile={saida} --findRelatedTests {arquivos}",
+      "comandoBaseline": "npx jest --ci --passWithNoTests --json --outputFile={saida} {raizes}",
+      "extensoes": [".ts"],
+      "formato": "jest-json",
+      "classificacao": "baseline"
+    }
+  },
+  "camadas": {
+    "core": { "arquivos": ["src/app/core/**"], "verificacoes": ["lint", "tipos", "testes"] },
+    "domain": { "arquivos": ["src/app/domain/**"], "verificacoes": ["lint", "tipos", "testes"] },
+    "feature": { "arquivos": ["src/app/feature/**"], "verificacoes": ["lint", "tipos", "testes"] },
+    "shared": { "arquivos": ["src/app/shared/**"], "verificacoes": ["lint", "tipos", "testes"] }
+  }
+}</code></pre></div></div></details>
+    </div>
+  </div>
+
+  <h3 style="margin:36px 0 8px">Peça para o Copilot adaptar ao seu projeto</h3>
+  <p style="color:var(--muted)">Chat novo, agente padrão <strong>Agent</strong>, na raiz do repositório. Cole o prompt inteiro.</p>
+  <div class="cod"><div class="rot"><span>prompt para o Copilot</span><button class="copiar" type="button">Copiar</button></div><pre><code>Reescreva somente o arquivo .sdd/verificacao.json deste repositório. Não altere nenhum outro arquivo.
+
+1. Leia angular.json (ou project.json), os tsconfig*.json, a configuração do ESLint (eslint.config.* ou .eslintrc*), a do Jest (jest.config.* ou a seção jest do package.json) e a estrutura de pastas de src/app/.
+
+2. Mantenha exatamente o schema atual do arquivo:
+   - "verificacoes": cada entrada tem "comando", "formato" (eslint-json, jest-json ou linhas) e "classificacao" (base-stdin, baseline ou linhas-alteradas).
+     O lint usa "comandoBase" com {arquivo} e --stdin --stdin-filename.
+     O formato linhas exige "padrao", uma regex com os grupos nomeados arquivo, linha e mensagem.
+     Testes com classificacao baseline usam "comandoBaseline" com {raizes} e --outputFile={saida}.
+   - "camadas": cada camada tem "arquivos" (lista de globs) e "verificacoes" (lista de nomes).
+
+3. Crie uma camada para cada pasta real da arquitetura (por exemplo core, domain, feature, shared). Não crie camada para pasta que não existe.
+
+4. Use as ferramentas que o projeto já tem, via npx, e o tsconfig real da aplicação. Se uma ferramenta não existir, remova a verificação dela e diga por quê. Não instale nada.
+
+5. Confirme que funciona:
+   - rode node -e "JSON.parse(require('fs').readFileSync('.sdd/verificacao.json','utf8'))"
+   - rode cada "comando" trocando {arquivos} por um arquivo real de cada camada e mostre que ele executa.
+
+6. Termine com uma tabela: camada, globs, verificações. Depois liste o que precisa da minha confirmação.</code></pre></div>
+  <div class="nota verde"><p>Revise o diff e commite. A partir daí, o <code>sdd-plan</code> lê este arquivo para declarar o <code>Escopo:</code> de cada mudança, e o validador recusa camada que não existe nele.</p></div>
+</section>
+
+<section id="fluxo" class="wrap">
+  <span class="secao-num">4</span>
+  <h2>O fluxo, etapa por etapa</h2>
+  <p class="intro">Cada etapa roda num <strong>chat novo</strong>. Selecione o agente no seletor e escreva o pedido, com ou sem o <code>/sdd-…</code> na frente. Se você digitar <code>/sdd-plan</code> com outro agente selecionado, ele não executa: pede para trocar de agente.</p>
+
+  <div class="fluxo">
+    <nav class="trilho-lateral" aria-label="Etapas do fluxo">
+      <ol>
+        <li><a href="#e-briefing">Briefing<span class="q">você</span></a></li>
+        <li><a href="#e-plan">sdd-plan<span class="q">Claude Opus 5</span></a></li>
+        <li><a href="#e-implement">sdd-implement<span class="q">Claude Sonnet 5</span></a></li>
+        <li><a href="#e-commit">Revisar e commitar<span class="q">você</span></a></li>
+        <li><a href="#e-review">sdd-review<span class="q">Claude Opus 5</span></a></li>
+        <li><a href="#e-archive">sdd-archive<span class="q">Claude Sonnet 5</span></a></li>
+      </ol>
+    </nav>
+
+    <div>
+      <article class="etapa" id="e-briefing">
+        <header><h3>Briefing</h3><span class="etiqueta">você escreve</span></header>
+        <p>Uma página em português comum: o problema, o que se espera, o que não pode ser feito e o que está fora do escopo. Pergunta sem resposta fica marcada como <code>[NÃO RESPONDIDO]</code>. Não escreva critério de aceite: isso é trabalho do plano.</p>
+        <details class="arq"><summary>Exemplo <span class="caminho">docs/briefings/confirmacao-duplicada/briefing.md</span></summary><div class="corpo"><div class="cod"><div class="rot"><span>briefing.md</span><button class="copiar" type="button">Copiar</button></div><pre><code># Briefing - Pix confirmado duas vezes em rede lenta
+
+## Problema
+
+Em conexão lenta, o cliente toca em "Confirmar" mais de uma vez na tela de confirmação de Pix
+e o BFF recebe duas transferências iguais. A Ouvidoria registrou reclamações de débito em dobro.
+
+## O que se espera
+
+Um toque a mais em "Confirmar" não pode gerar uma segunda transferência.
+
+## Restrições
+
+- O layout da tela de confirmação não muda: foi aprovado por UX e Compliance.
+- O contrato do endpoint POST /pix/transferencias no BFF não muda nesta entrega.
+- Nenhum dado de conta ou chave Pix vai para log.
+
+## Fora do escopo
+
+- Pix agendado e Pix Saque.
+- Reenvio automático em caso de timeout.
+
+## Contexto útil
+
+O BFF já aceita o header Idempotency-Key no POST /pix/transferencias (ver docs/openapi.yaml do BFF).
+
+## Prazo e ticket
+
+PIX-482. Por quanto tempo a chave de idempotência vale no BFF? [NÃO RESPONDIDO]</code></pre></div></div></details>
+      </article>
+
+      <article class="etapa" id="e-plan">
+        <header><h3>sdd-plan</h3><span class="etiqueta r">Claude Opus 5</span><span class="etiqueta">read, search, edit, execute</span></header>
+        <p>Transforma o briefing num acordo escrito antes de qualquer linha de código: proposta, tarefas em fatias verticais e, quando preciso, design e deltas de especificação. Lê o Git para descobrir branch e base, e nunca escreve nele.</p>
+        <div class="grade">
+          <div class="sim"><h4>Use quando</h4><ul><li>há um briefing novo para planejar;</li><li>a revisão reprovou e é preciso um agrupamento que corrija o achado;</li><li>a implementação encontrou uma decisão durável que o plano não previu.</li></ul></div>
+          <div class="nao"><h4>Não use para</h4><ul><li>escrever código ou corrigir bug sem briefing;</li><li>criar ou trocar de branch;</li><li>refazer o plano de uma mudança sem dizer qual: ele pede o change-id.</li></ul></div>
+        </div>
+        <div class="cod"><div class="rot"><span>mensagem no chat, agente sdd-plan</span><button class="copiar" type="button">Copiar</button></div><pre><code>docs/briefings/confirmacao-duplicada/briefing.md</code></pre></div>
+        <div class="cod"><div class="rot"><span>replanejar depois de um REPROVADO</span><button class="copiar" type="button">Copiar</button></div><pre><code>docs/briefings/confirmacao-duplicada/briefing.md replanejar: evitar-confirmacao-duplicada</code></pre></div>
+        <p><strong>No exemplo do Pix,</strong> ele copia as restrições do briefing sem parafrasear, lê o índice de specs e só a capacidade <code>pagamentos-pix</code>, classifica como <strong>Full</strong> (a decisão sobre a chave de idempotência é durável) e declara o escopo de verificação <code>domain, core, feature</code>. Se a ambiguidade impedir um critério verificável, ele <strong>para e lista as perguntas</strong> em vez de supor.</p>
+      </article>
+
+      <article class="etapa" id="e-implement">
+        <header><h3>sdd-implement</h3><span class="etiqueta r">Claude Sonnet 5</span><span class="etiqueta">read, search, edit, execute</span></header>
+        <p><strong>Uma fatia por sessão.</strong> Ele executa um agrupamento de tarefas, por exemplo 1.1 e 1.2, e para. Não começa o agrupamento 2 nem que você peça "continua" no mesmo chat: a fatia passa pela sua revisão e pelo seu commit antes. Na sessão seguinte, se houver alteração não commitada fora da pasta da mudança, ele recusa começar.</p>
+        <div class="grade">
+          <div class="sim"><h4>O que ele faz</h4><ul><li>confere que você está na branch declarada na proposta;</li><li>grava a linha de base de erros antes da primeira edição;</li><li>faz a menor mudança por tarefa e roda o verificador;</li><li>marca <code>[x]</code> só sem achado BLOQUEANTE.</li></ul></div>
+          <div class="nao"><h4>O que ele não faz</h4><ul><li>trocar de branch ou commitar;</li><li>corrigir erro que já existia, mesmo no arquivo que editou;</li><li>editar proposta, design, deltas, specs ou decisões;</li><li>seguir para a próxima fatia.</li></ul></div>
+        </div>
+        <div class="cod"><div class="rot"><span>mensagem no chat, agente sdd-implement</span><button class="copiar" type="button">Copiar</button></div><pre><code>evitar-confirmacao-duplicada</code></pre></div>
+        <details class="arq"><summary>Como a sessão termina <span class="caminho">saída do sdd-implement</span></summary><div class="corpo"><div class="cod"><div class="rot"><span>saída</span><button class="copiar" type="button">Copiar</button></div><pre><code>Branch conferida: feature/PIX-482-confirmacao-duplicada
+Agrupamento 1 fechado: duas confirmações da mesma intenção levam a mesma chave.
+Tarefas: 1.1 IntencaoPagamento com chave única por intenção; 1.2 teste do critério 2
+Arquivos: src/app/domain/pagamento/intencao-pagamento.ts (novo), intencao-pagamento.spec.ts (novo)
+Linha de base: gravada em .sdd/changes/evitar-confirmacao-duplicada/baseline.json
+Validador: ok; Verificador: 0 bloqueante(s), 0 pré-existente(s)
+
+Revise a fatia 1 antes de seguir:
+  git diff --stat
+  git diff
+Se estiver de acordo:
+  git add src/app/domain/pagamento/ .sdd/changes/evitar-confirmacao-duplicada/
+  git commit -m "feat(pagamento): chave de idempotência por intenção de Pix [PIX-482]"
+Depois, num chat novo: agente sdd-implement, evitar-confirmacao-duplicada   ← próximo: agrupamento 2</code></pre></div></div></details>
+        <p><strong>Divergência</strong>: se um critério se mostrar errado, ou o verificador apontar uma camada fora do <code>Escopo:</code>, ele para e descreve. Mudar o plano é com o <code>sdd-plan</code>.</p>
+      </article>
+
+      <article class="etapa" id="e-commit">
+        <header><h3>Revisar e commitar a fatia</h3><span class="etiqueta">você</span></header>
+        <p>Este passo é seu, e é o que mantém o controle: cada agrupamento vira um commit que você leu. O toolkit nunca escreve no Git.</p>
+        <div class="cod"><div class="rot"><span>terminal</span><button class="copiar" type="button">Copiar</button></div><pre><code>git diff --stat
+git diff
+git add src/app/domain/pagamento/ .sdd/changes/evitar-confirmacao-duplicada/
+git commit -m "feat(pagamento): chave de idempotência por intenção de Pix [PIX-482]"</code></pre></div>
+        <p>Depois, chat novo com o <code>sdd-implement</code> para o agrupamento seguinte. Quando todos estiverem <code>[x]</code>, siga para a revisão.</p>
+      </article>
+
+      <article class="etapa" id="e-review">
+        <header><h3>sdd-review</h3><span class="etiqueta r">Claude Opus 5</span><span class="etiqueta">read, search, execute, edit</span></header>
+        <p>Audita a mudança em dois eixos independentes e grava um veredito por eixo: APROVADO ou REPROVADO, sem meio-termo. Exige árvore limpa e compara o diff entre base e branch.</p>
+        <div class="grade">
+          <div><h4>Eixo de padrões</h4><ul><li>roda primeiro, <strong>sem ler a proposta</strong>;</li><li>julga só as linhas que a mudança alterou, contra <code>.sdd/padroes.md</code> e as instructions do projeto;</li><li>sugere promover achados recorrentes a regra de lint.</li></ul></div>
+          <div><h4>Eixo de especificação</h4><ul><li>critério contra código e teste: código sem teste é cobertura parcial;</li><li>toda tarefa <code>[x]</code> precisa de evidência;</li><li>roda o validador e o verificador por escopo.</li></ul></div>
+        </div>
+        <div class="cod"><div class="rot"><span>mensagens no chat, agente sdd-review (um chat por eixo em mudança grande)</span><button class="copiar" type="button">Copiar</button></div><pre><code>evitar-confirmacao-duplicada eixo=padroes
+
+evitar-confirmacao-duplicada eixo=spec</code></pre></div>
+        <details class="arq"><summary>Veredito reprovado <span class="caminho">.sdd/changes/evitar-confirmacao-duplicada/revisao/spec-4e1a9c2.md</span></summary><div class="corpo"><div class="cod"><div class="rot"><span>veredito.md</span><button class="copiar" type="button">Copiar</button></div><pre><code># spec - REPROVADO
+Commit revisado: 4e1a9c2
+Achados: 2
+Verificação: 0 bloqueante(s), 3 pré-existente(s), classificação exato/baseline
+
+1. Critério 2, segundo cenário: coberto parcialmente. O interceptor reaproveita a chave,
+   mas nenhum teste confirma a mesma chave depois de um erro.
+2. Tarefa 2.2 marcada [x] sem evidência: não há teste de reenvio em idempotencia.interceptor.spec.ts.
+
+Para aprovar: teste cobrindo o reenvio após erro com a mesma chave.</code></pre></div></div></details>
+        <p>Reprovou? O caminho é o <code>sdd-plan</code> com o briefing e <code>replanejar:</code>, que acrescenta um agrupamento para o achado. Não é o <code>sdd-implement</code> direto.</p>
+      </article>
+
+      <article class="etapa" id="e-archive">
+        <header><h3>sdd-archive</h3><span class="etiqueta r">Claude Sonnet 5</span><span class="etiqueta">read, search, edit, execute</span></header>
+        <p>Fecha a mudança: aplica os deltas em <code>.sdd/specs/</code> exatamente como foram escritos, promove as decisões permanentes para <code>.sdd/decisoes/</code>, atualiza os índices e move a pasta para <code>.sdd/changes/archive/</code>.</p>
+        <div class="grade">
+          <div class="sim"><h4>Só arquiva quando</h4><ul><li>os dois eixos estão APROVADO no commit atual;</li><li>todas as tarefas estão <code>[x]</code>;</li><li>a árvore está limpa, exceto <code>revisao/</code>.</li></ul></div>
+          <div class="nao"><h4>Para antes de gravar se</h4><ul><li>houve commit depois da aprovação;</li><li>falta algum alvo dos deltas;</li><li>alguma precondição falhou: nada é escrito pela metade.</li></ul></div>
+        </div>
+        <div class="cod"><div class="rot"><span>mensagem no chat, agente sdd-archive</span><button class="copiar" type="button">Copiar</button></div><pre><code>evitar-confirmacao-duplicada</code></pre></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="arquivos" class="wrap">
+  <span class="secao-num">5</span>
+  <h2>Os arquivos de uma mudança</h2>
+  <p class="intro">Todos do mesmo exemplo e todos validados com <code>node .sdd/sdd.mjs validate</code>. Abra só o que precisar.</p>
+  <details class="arq revela"><summary>proposta.md <span class="caminho">o acordo: metadados, escopo, restrições e critérios</span></summary><div class="corpo"><div class="cod"><div class="rot"><span>proposta.md</span><button class="copiar" type="button">Copiar</button></div><pre><code># Evitar confirmação duplicada de Pix
+
+Ticket: PIX-482
+Branch: feature/PIX-482-confirmacao-duplicada
+Base: develop
+
+## Intenção
+
+Clientes em rede lenta tocam em "Confirmar" mais de uma vez e geram duas transferências Pix
+iguais. A mudança garante que uma intenção de pagamento gere no máximo uma transferência,
+usando o header Idempotency-Key que o BFF já aceita.
+
+## Escopo
+
+Dentro:
+- Bloqueio do botão Confirmar enquanto a transferência está em envio.
+- Envio do header Idempotency-Key, estável por intenção de pagamento.
+
+Fora:
+- Pix agendado e Pix Saque.
+- Reenvio automático em caso de timeout.
+- Qualquer alteração no BFF.
+
+## Restrições
+
+- O layout da tela de confirmação não muda: foi aprovado por UX e Compliance.
+- O contrato do endpoint POST /pix/transferencias no BFF não muda nesta entrega.
+- Nenhum dado de conta ou chave Pix vai para log.
+
+## Critérios de aceite
+
+1. Um segundo toque em Confirmar MUST NOT gerar uma segunda transferência.
+   - dado uma transferência em envio, quando o cliente toca de novo em Confirmar, então nenhuma nova requisição é enviada.
+   - dado que o envio falhou, quando o cliente toca em Confirmar, então a transferência é enviada de novo com a mesma chave.
+2. Toda confirmação de Pix MUST enviar uma chave de idempotência estável por intenção de pagamento.
+   - dado uma nova intenção de pagamento, quando o cliente confirma, então a requisição leva uma chave nova.
+   - dado a mesma intenção, quando o cliente confirma de novo após erro, então a chave é a mesma da primeira tentativa.</code></pre></div></div></details>
+  <details class="arq revela"><summary>design.md <span class="caminho">só em rigor Full: cada decisão com Durabilidade</span></summary><div class="corpo"><div class="cod"><div class="rot"><span>design.md</span><button class="copiar" type="button">Copiar</button></div><pre><code># Design - evitar confirmação duplicada de Pix
+
+## Abordagem
+
+A chave de idempotência nasce no front quando a tela de confirmação abre e acompanha a
+intenção de pagamento até o fim. Um interceptor HTTP anexa o header só nas chamadas de
+transferência. O componente bloqueia o botão enquanto há envio em andamento, sem mudar o layout.
+
+## Decisões
+
+### Chave de idempotência gerada no front por intenção de pagamento
+Durabilidade: permanente
+Capacidades: pagamentos-pix
+
+Restrição: o contrato do BFF não muda, e ele já aceita Idempotency-Key.
+Escolha: gerar a chave ao abrir a confirmação e reaproveitá-la em toda nova tentativa da mesma intenção.
+Alternativas descartadas: chave por sessão no BFF, porque não distingue duas intenções legítimas seguidas; bloqueio só no botão, porque não cobre requisição repetida pela rede.
+Consequência aceita: recarregar a página cria uma intenção nova e, portanto, uma chave nova.
+
+### Bloqueio do botão pelo estado do componente
+Durabilidade: local
+
+Restrição: o layout não muda.
+Escolha: desabilitar o botão existente durante o envio, usando o indicador de carregamento que a tela já tem.
+Alternativas descartadas: overlay de carregamento, porque altera o layout aprovado.
+Consequência aceita: o bloqueio vale só para esta tela.
+
+## Arquivos afetados
+
+- src/app/domain/pagamento/intencao-pagamento.ts (novo)
+- src/app/core/http/idempotencia.interceptor.ts (novo)
+- src/app/feature/pix/confirmacao-pix.component.ts (alterado)</code></pre></div></div></details>
+  <details class="arq revela"><summary>tarefas.md <span class="caminho">fatias verticais, Demonstra, Bloqueado por e Escopo</span></summary><div class="corpo"><div class="cod"><div class="rot"><span>tarefas.md</span><button class="copiar" type="button">Copiar</button></div><pre><code># Tarefas - evitar-confirmacao-duplicada
+
+### 1. Chave estável por intenção de pagamento
+Demonstra: duas confirmações da mesma intenção levam a mesma chave; uma intenção nova leva outra.
+Bloqueado por: nenhum
+- [ ] 1.1 Criar IntencaoPagamento com a chave gerada uma vez por intenção
+- [ ] 1.2 Teste unitário cobrindo o critério 2 nos dois cenários
+
+### 2. Header enviado nas transferências
+Demonstra: o POST de transferência sai com Idempotency-Key, e as outras chamadas não.
+Bloqueado por: 1
+- [ ] 2.1 Interceptor que anexa o header só em POST /pix/transferencias
+- [ ] 2.2 Teste do interceptor com reenvio após erro reaproveitando a chave
+
+### 3. Botão bloqueado durante o envio
+Demonstra: dois toques rápidos em Confirmar geram uma única requisição.
+Bloqueado por: 2
+- [ ] 3.1 Desabilitar o botão existente durante o envio, sem mudar o layout
+- [ ] 3.2 Teste de componente cobrindo o critério 1 nos dois cenários
+
+### 4. Verificação
+Escopo: domain, core, feature
+Bloqueado por: todos
+- [ ] 4.1 `node .sdd/verificar.mjs evitar-confirmacao-duplicada` sem achado BLOQUEANTE
+- [ ] 4.2 Cada critério de aceite mapeado para ao menos um teste</code></pre></div></div></details>
+  <details class="arq revela"><summary>deltas.md <span class="caminho">texto final que o archive copia para specs/</span></summary><div class="corpo"><div class="cod"><div class="rot"><span>deltas.md</span><button class="copiar" type="button">Copiar</button></div><pre><code># Deltas - evitar-confirmacao-duplicada
+
+## pagamentos-pix
+
+Operação: SUBSTITUIR
+Capacidade: pagamentos-pix
+Alvo: REQ-pagamentos-pix-001
+Texto:
+O botão Confirmar envia a transferência uma única vez por intenção de pagamento e fica bloqueado enquanto o envio está em andamento.
+- dado uma transferência em envio, quando o cliente toca de novo em Confirmar, então nenhuma nova transferência é enviada.
+- dado que o envio falhou, quando o cliente toca em Confirmar, então a transferência é enviada de novo.
+
+Operação: ADICIONAR
+Capacidade: pagamentos-pix
+Alvo: novo
+Texto:
+Toda transferência Pix é enviada com uma chave de idempotência estável por intenção de pagamento.
+- dado uma nova intenção de pagamento, quando o cliente confirma, então a transferência leva uma chave nova.
+- dado a mesma intenção, quando o cliente confirma de novo após erro, então a chave é a mesma da primeira tentativa.</code></pre></div></div></details>
+  <details class="arq revela"><summary>Saída do verificador <span class="caminho">node .sdd/verificar.mjs evitar-confirmacao-duplicada</span></summary><div class="corpo"><p>Saída real: dois erros novos bloqueiam; três que já existiam no arquivo são contados e não bloqueiam.</p><div class="cod"><div class="rot"><span>saída</span><button class="copiar" type="button">Copiar</button></div><pre><code>verificar evitar-confirmacao-duplicada — base develop (merge-base f707c03), HEAD f707c03, árvore: 3 alteração(ões) não commitada(s)
+Escopo declarado: domain, core, feature | camadas tocadas: feature, domain
+Arquivos no diff: 2
+
+  lint     BLOQUEANTE 2 | pré-existente 3 | classificação exato
+  tipos    BLOQUEANTE 0 | pré-existente 0 | classificação -
+  testes   BLOQUEANTE 0 | pré-existente 0 | classificação - | 1 teste(s) executado(s)
+
+BLOQUEANTES (2):
+  src/app/feature/pix/confirmacao-pix.component.ts:7  lint  @typescript-eslint/no-unused-vars  'extra' is defined but never used.
+  src/app/feature/pix/confirmacao-pix.component.ts:7  lint  @typescript-eslint/no-explicit-any  Unexpected any. Specify a different type.
+
+Pré-existentes por arquivo (não bloqueiam; --todos para detalhar): src/app/feature/pix/confirmacao-pix.component.ts 3
+
+RESULTADO: REPROVA (2 bloqueante(s))</code></pre></div></div></details>
+</section>
+
+<section id="guardrails" class="guard">
+  <div class="wrap">
+    <span class="secao-num">6</span>
+    <h2>Guardrails: o que impede o fluxo de sair dos trilhos</h2>
+    <p class="intro">Regra que cabe em código está em código. O resto é contrato, e o contrato diz onde termina.</p>
+    <div class="guard-grupos">
+      <div class="guard-grupo revela">
+        <h3><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6z" fill="none" stroke="#f36279" stroke-width="2"/></svg>Controle</h3>
+        <dl>
+          <dt>Uma fatia por sessão</dt><dd>O implement fecha um agrupamento e para. A próxima sessão recusa começar com alteração não commitada.</dd>
+          <dt>Git só leitura</dt><dd>Nenhuma etapa cria branch, commita ou abre PR. O implement recusa a branch errada.</dd>
+          <dt>Modelo fixo por etapa</dt><dd>Opus para planejar e revisar, Sonnet para implementar e arquivar, declarado em cada agente.</dd>
+          <dt>Ferramentas mínimas</dt><dd>Cada agente declara só o que usa, e nenhum é acionado por outro agente sem você escolher.</dd>
+        </dl>
+      </div>
+      <div class="guard-grupo revela">
+        <h3><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l5 5 9-10" fill="none" stroke="#f36279" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Qualidade</h3>
+        <dl>
+          <dt>Para em vez de supor</dt><dd>Ambiguidade que impede um critério verificável vira pergunta, não palpite.</dd>
+          <dt>Dois eixos de revisão</dt><dd>Padrões sem ler a proposta, especificação depois. Um não compensa o outro.</dd>
+          <dt>Aprovação presa ao commit</dt><dd>O veredito leva o commit no nome. Codou depois de aprovar, revisa de novo.</dd>
+          <dt>Verificação por escopo</dt><dd>Bloqueia o que a mudança criou, camada fora do escopo e ferramenta que falhou. Dívida antiga é contada, não corrigida às escondidas.</dd>
+        </dl>
+      </div>
+      <div class="guard-grupo revela">
+        <h3><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2" fill="none" stroke="#f36279" stroke-width="2"/><path d="M8 10V7a4 4 0 018 0v3" fill="none" stroke="#f36279" stroke-width="2"/></svg>Segurança da instalação</h3>
+        <dl>
+          <dt>Plano antes de gravar</dt><dd><code>--dry-run</code> mostra cada arquivo e a ação.</dd>
+          <dt>Dados do time intocáveis</dt><dd>Mudanças, specs, decisões e briefings nem são lidos.</dd>
+          <dt>Edição local protegida</dt><dd>Arquivo do toolkit alterado à mão vira CONFLITO, provado por hash; <code>--forcar</code> faz backup antes.</dd>
+          <dt>Sem rede, sem npm</dt><dd>Node puro, finais de linha LF garantidos para o Git Bash.</dd>
+        </dl>
+      </div>
+    </div>
+    <div class="nota vermelha riscos revela">
+      <p><strong>O que continua dependendo de disciplina.</strong> No harness Copilot, a ferramenta de edição não separa criar de editar, então "a revisão só cria o arquivo de veredito" é regra de contrato. Se a revisão editar código, o archive pega, porque exige árvore limpa. E o terminal que os agentes usam permite <code>git commit</code>: o que fecha isso é a allowlist de comandos da organização.</p>
+    </div>
+  </div>
+</section>
+
+<section id="dia" class="wrap">
+  <span class="secao-num">7</span>
+  <h2>Um dia de trabalho</h2>
+  <p class="intro">A mudança do Pix duplicado, do briefing ao arquivamento.</p>
+  <div class="tempo" id="tempo">
+    <div class="vivo"></div>
+    <div class="momento"><time>09:00</time><h3>Briefing</h3><p>Você escreve o briefing com o PO e marca como <code>[NÃO RESPONDIDO]</code> a validade da chave no BFF.</p></div>
+    <div class="momento"><time>09:20</time><h3>Plano (chat 1)</h3><p>O <code>sdd-plan</code> conclui que a validade não impede critério verificável, planeja quatro agrupamentos em rigor Full e devolve a pergunta. Validador ok.</p></div>
+    <div class="momento"><time>09:50</time><h3>Branch e primeira fatia (chat 2)</h3><p>Você cria <code>feature/PIX-482-confirmacao-duplicada</code>. O implement grava a linha de base, fecha o agrupamento 1 e para com o bloco de revisão. Você lê o diff e commita.</p></div>
+    <div class="momento"><time>11:00</time><h3>Fatias 2 e 3 (chats 3 e 4)</h3><p>Um chat por fatia. Na 3, o verificador acusa um <code>any</code> novo: bloqueia, é corrigido. Os três erros antigos do componente ficam contados e intocados. Um commit por fatia.</p></div>
+    <div class="momento"><time>13:30</time><h3>Verificação (chat 5)</h3><p>O agrupamento 4 roda o verificador sem bloqueante. Commit.</p></div>
+    <div class="momento"><time>14:00</time><h3>Revisão (chats 6 e 7)</h3><p>Padrões: APROVADO. Especificação: REPROVADO, falta o teste de reenvio com a mesma chave.</p></div>
+    <div class="momento"><time>14:30</time><h3>Replanejar e corrigir (chats 8 e 9)</h3><p><code>sdd-plan</code> com o briefing e <code>replanejar: evitar-confirmacao-duplicada</code> acrescenta o agrupamento 5. O implement fecha, você commita.</p></div>
+    <div class="momento"><time>15:30</time><h3>Revisão de novo</h3><p>Os dois eixos aprovam no commit atual, em arquivos de veredito novos. O reprovado continua no histórico.</p></div>
+    <div class="momento"><time>16:00</time><h3>Arquivamento</h3><p>Os deltas entram em <code>specs/pagamentos-pix</code>, a decisão da chave vira um registro em <code>decisoes/</code> e a pasta vai para <code>archive/</code>. Você commita e abre o PR.</p></div>
+  </div>
+</section>
+
+<section id="problemas" class="wrap faq">
+  <span class="secao-num">8</span>
+  <h2>Quando algo dá errado</h2>
+  <details class="arq"><summary>Os agentes não aparecem no seletor</summary><div class="corpo"><p>Confira se o chat está no harness Copilot, se os arquivos estão em <code>.github/agents/</code> na raiz do workspace (ou em <code>~/.copilot/agents</code> na instalação global) e recarregue a janela. Com várias pastas no workspace, deixe primeiro o repositório onde você vai trabalhar.</p></div></details>
+  <details class="arq"><summary>Digitei /sdd-plan e ele pediu para trocar de agente</summary><div class="corpo"><p>É o comportamento esperado. O comando só roda com o agente da etapa, que fixa modelo e ferramentas. Abra um chat novo, selecione <code>sdd-plan</code> e envie o mesmo pedido.</p></div></details>
+  <details class="arq"><summary>O implement recusou começar: "alteração não commitada"</summary><div class="corpo"><p>A fatia anterior ainda não foi commitada, ou há trabalho de fora da mudança na árvore. Revise e commite a fatia; se for outra coisa, guarde com <code>git stash</code> e rode de novo.</p></div></details>
+  <details class="arq"><summary>O implement diz que a branch é diferente da declarada</summary><div class="corpo"><p>Ele nunca troca de branch. Troque você e rode de novo:</p><div class="cod"><div class="rot"><span>terminal</span><button class="copiar" type="button">Copiar</button></div><pre><code>git switch &lt;branch-da-proposta&gt;</code></pre></div></div></details>
+  <details class="arq"><summary>"node: command not found" ou versão abaixo de 18</summary><div class="corpo"><p>Instale o Node LTS, feche e reabra o Git Bash e o VS Code, e confira:</p><div class="cod"><div class="rot"><span>terminal</span><button class="copiar" type="button">Copiar</button></div><pre><code>node --version
+which node</code></pre></div></div></details>
+  <details class="arq"><summary>Erro <code>pipefail\r: invalid option</code> ao rodar o instalador</summary><div class="corpo"><p>O <code>instalar.sh</code> foi salvo com final de linha do Windows. Rode direto pelo Node, que não depende disso:</p><div class="cod"><div class="rot"><span>terminal</span><button class="copiar" type="button">Copiar</button></div><pre><code>node "&lt;pasta-do-pacote&gt;/instalar.mjs" repo . --dry-run</code></pre></div></div></details>
+  <details class="arq"><summary>O instalador acusou CONFLITO</summary><div class="corpo"><p>Um arquivo do toolkit foi alterado à mão, e nada foi gravado. Compare com o pacote, leve o que importa para outro lugar, e aceite a versão do pacote com backup:</p><div class="cod"><div class="rot"><span>terminal</span><button class="copiar" type="button">Copiar</button></div><pre><code>bash "&lt;pasta-do-pacote&gt;/instalar.sh" repo . --forcar</code></pre></div></div></details>
+  <details class="arq"><summary>O verificador diz "camada alterada fora do Escopo declarado"</summary><div class="corpo"><p>A mudança mexeu numa camada que o plano não previu. Ou o arquivo não deveria ter mudado, ou o plano precisa ser ampliado com o <code>sdd-plan</code> e <code>replanejar:</code>.</p></div></details>
+  <details class="arq"><summary>O verificador diz "FALHOU ao executar"</summary><div class="corpo"><p>O comando dessa verificação no <code>verificacao.json</code> não roda no seu projeto. Rode-o à mão com um arquivo real, corrija e tente de novo. Ferramenta que não roda bloqueia: verificação que não aconteceu não aprova nada.</p></div></details>
+  <details class="arq"><summary>O archive recusou mesmo com os dois APROVADO</summary><div class="corpo"><p>Houve commit depois da revisão, então o veredito não vale para o commit atual. Rode os dois eixos de novo.</p></div></details>
+</section>
+
+</main>
+
+<footer><div class="wrap"><svg width="24" height="24" aria-hidden="true"><use href="#logo"/></svg>SDD toolkit v0.4.1. Uso interno do time.</div></footer>
+
+<script>
+(function () {
+  var reduz = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // copiar
+  document.querySelectorAll('.cod').forEach(function (bloco) {
+    var btn = bloco.querySelector('.copiar');
+    var pre = bloco.querySelector('pre');
+    if (!btn || !pre) return;
+    btn.addEventListener('click', function () {
+      var texto = pre.innerText.replace(/\n$/, '');
+      var feito = function () {
+        btn.textContent = 'Copiado';
+        btn.classList.add('feito');
+        setTimeout(function () { btn.textContent = 'Copiar'; btn.classList.remove('feito'); }, 1500);
+      };
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(texto).then(feito, function () { reserva(texto); feito(); });
+      } else { reserva(texto); feito(); }
+    });
+  });
+  function reserva(t) {
+    var ta = document.createElement('textarea');
+    ta.value = t; ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select();
+    try { document.execCommand('copy'); } catch (e) {}
+    ta.remove();
+  }
+
+  // abas
+  var abas = Array.prototype.slice.call(document.querySelectorAll('.abas [role=tab]'));
+  function ativa(aba, foco) {
+    abas.forEach(function (a) {
+      var sel = a === aba;
+      a.setAttribute('aria-selected', sel ? 'true' : 'false');
+      a.tabIndex = sel ? 0 : -1;
+      document.getElementById(a.getAttribute('aria-controls')).classList.toggle('ativo', sel);
+    });
+    if (foco) aba.focus();
+  }
+  abas.forEach(function (a, i) {
+    a.addEventListener('click', function () { ativa(a); });
+    a.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowRight') ativa(abas[(i + 1) % abas.length], true);
+      if (e.key === 'ArrowLeft') ativa(abas[(i - 1 + abas.length) % abas.length], true);
+    });
+  });
+
+  // conversor de caminho
+  var entrada = document.getElementById('caminho-win');
+  var alvo = entrada && entrada.parentNode.querySelector('.saida pre');
+  if (entrada && alvo) {
+    entrada.addEventListener('input', function () {
+      var v = entrada.value.trim().replace(/^"|"$/g, '');
+      if (!v) { alvo.textContent = '"/c/Users/seu-usuario/Documents/Projetos/minha pasta/sdd-toolkit-v0.4"'; return; }
+      var m = v.match(/^([A-Za-z]):[\\\/]?(.*)$/);
+      var p = m ? '/' + m[1].toLowerCase() + '/' + m[2] : v;
+      alvo.textContent = '"' + p.replace(/\\/g, '/').replace(/\/+$/, '') + '"';
+    });
+  }
+
+  // revelar
+  if ('IntersectionObserver' in window && !reduz) {
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('visivel'); io.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.revela').forEach(function (el) { io.observe(el); });
+  } else {
+    document.querySelectorAll('.revela').forEach(function (el) { el.classList.add('visivel'); });
+  }
+
+  // esteira do topo
+  var esteira = document.getElementById('esteira');
+  var estacoes = esteira ? esteira.querySelectorAll('.est') : [];
+  if (esteira) {
+    if (reduz) { estacoes.forEach(function (s) { s.classList.add('on'); }); }
+    else {
+      esteira.classList.add('rodando');
+      estacoes.forEach(function (s, i) { setTimeout(function () { s.classList.add('on'); }, 250 + i * 420); });
+    }
+  }
+
+  // navegação, progresso, trilho lateral e linha do tempo
+  var links = Array.prototype.slice.call(document.querySelectorAll('.top nav a'));
+  var secoes = links.map(function (a) { return document.querySelector(a.getAttribute('href')); });
+  var trilho = Array.prototype.slice.call(document.querySelectorAll('.trilho-lateral a'));
+  var etapas = trilho.map(function (a) { return document.querySelector(a.getAttribute('href')); });
+  var barra = document.getElementById('progresso');
+  var tempo = document.getElementById('tempo');
+  var vivo = tempo && tempo.querySelector('.vivo');
+  var momentos = tempo ? tempo.querySelectorAll('.momento') : [];
+  var pendente = false;
+
+  function atual(lista, linha) {
+    var idx = -1;
+    lista.forEach(function (el, i) { if (el && el.getBoundingClientRect().top < linha) idx = i; });
+    return idx;
+  }
+  function quadro() {
+    pendente = false;
+    var h = document.documentElement.scrollHeight - innerHeight;
+    if (barra) barra.style.transform = 'scaleX(' + (h > 0 ? scrollY / h : 0) + ')';
+    var s = atual(secoes, innerHeight * 0.3);
+    links.forEach(function (a, i) { a.classList.toggle('ativo', i === s); });
+    var e = atual(etapas, innerHeight * 0.45);
+    trilho.forEach(function (a, i) { a.classList.toggle('ativo', i === e); });
+    if (tempo && vivo) {
+      var r = tempo.getBoundingClientRect();
+      var p = Math.min(1, Math.max(0, (innerHeight * 0.65 - r.top) / r.height));
+      vivo.style.height = (p * 100) + '%';
+      var limite = r.top + p * r.height;
+      momentos.forEach(function (m) { m.classList.toggle('passou', m.getBoundingClientRect().top + 8 <= limite); });
+    }
+  }
+  addEventListener('scroll', function () { if (!pendente) { pendente = true; requestAnimationFrame(quadro); } }, { passive: true });
+  addEventListener('resize', quadro);
+  quadro();
+})();
+</script>
+</body>
+</html>
