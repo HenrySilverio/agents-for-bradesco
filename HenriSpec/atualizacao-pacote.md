@@ -1,29 +1,34 @@
-Os comandos abaixo partem destes caminhos. Antes de rodar, uma observação importante: o pacote completo tem o plugin, mas os dois plugins têm nomes de pasta diferentes do que você listou (`recr-cmn-henrispec` e `recr-cmn-henrispec-discovery`). Pelo que você descreveu, os dois se referem ao mesmo lugar: a cópia do conteúdo de `plugin-repositorio` dentro de `AI_plugins`.
+Se você vai rodar direto nas pastas de destino, o cuidado muda. Os comandos de cópia e de `mv` que passei assumem que você está numa cópia de trabalho. Nas pastas finais, eles sobrescrevem o que estiver lá sem te avisar. Antes de começar, faça uma cópia de segurança do que já existe.
 
-Por isso o plano é:
-- copiar o conteúdo de `plugin-repositorio` para `AI_plugins\recr-cmn-henrispec` (o repositório que contém os dois plugins);
-- atualizar os pacotes zip em `recr-cmn-docs`;
-- atualizar cada repositório de produto pelo instalador.
-
-## 1. Atualizar o repositório do plugin
-
-No Git Bash:
+## Antes de tudo: backup
 
 ```bash
-ORIGEM="/c/Users/i459249/Documents/Projetos/Harness/zips/henrispec_atualizacao/henrispec-pacote-completo"
+cd "/c/Users/i459249/Documents/Projetos"
+cp -r recr-cmn-docs "recr-cmn-docs.bak-$(date +%Y%m%d-%H%M)"
+cp -r AI_plugins "AI_plugins.bak-$(date +%Y%m%d-%H%M)"
+```
+
+Se algum repositório de produto for alterado, o `instalar.sh` já cria backup dos arquivos do toolkit em `.sdd/.toolkit-backup/`, mas o backup das pastas acima é o que te protege de um erro na cópia.
+
+## 1. Plugin (`AI_plugins\recr-cmn-henrispec`)
+
+Essa pasta é a de destino, então confira o que vai mudar antes de copiar:
+
+```bash
+ORIGEM="/c/Users/i459249/Documents/Projetos/Harness/zips/henrispec_atualizacao/henrispec-pacote-completo/plugin-repositorio"
 PLUGINS="/c/Users/i459249/Documents/Projetos/AI_plugins/recr-cmn-henrispec"
 
-# Veja o que muda antes de copiar
-diff -rq "$ORIGEM/plugin-repositorio" "$PLUGINS" -x .git | head -80
+diff -rq "$ORIGEM" "$PLUGINS" -x .git | head -80
+```
 
-# Copia por cima, sem apagar nada que já exista no destino
-cp -r "$ORIGEM/plugin-repositorio/." "$PLUGINS/"
+Se a lista estiver de acordo, copie. O `cp -r` sobrescreve os arquivos com o mesmo nome e não apaga nada que só existe no destino:
 
-# Valide
+```bash
+cp -r "$ORIGEM/." "$PLUGINS/"
 cd "$PLUGINS" && node ferramentas/validar.mjs
 ```
 
-Depois, apague os arquivos que saíram. Estão listados na seção "Para apagar" do `MAPA.md`. Para o plugin, são os agentes `sdd-*` e `discovery-*`:
+Depois apague os arquivos antigos, que são os agentes e atalhos com os nomes `sdd-*` e `discovery-*`:
 
 ```bash
 cd "$PLUGINS"
@@ -35,50 +40,40 @@ rm -rf plugins/henrispec-discovery/skills/grill plugins/henrispec-discovery/skil
        plugins/henrispec-discovery/skills/prototipo plugins/henrispec-discovery/skills/rota
 ```
 
-Os atalhos novos (`init`, `plan`…) já vieram com o pacote e não são apagados. Os `rm -f` e `rm -rf` não dão erro se o arquivo não existir.
-
-Teste:
+Teste e depois commite:
 
 ```bash
 node ferramentas/testar-mcp.mjs "<um repositório de teste>"
-node ferramentas/testar-mcp.mjs "<um repositório de teste>" henrispec-discovery
-```
-
-Commite e crie a tag:
-
-```bash
+git status --short
 git add -A
 git commit -m "feat: agentes e atalhos com nome do produto, commits, PR e evidência manual"
-git tag v1.0.0   # ou v1.1.0 se a 1.0.0 já tiver sido publicada
-git push origin main --tags
 ```
 
-## 2. Atualizar os pacotes zip em `recr-cmn-docs`
+Só crie a tag depois de testar no seu VS Code. Se a 1.0.0 já estiver publicada, use `v1.1.0` e suba a versão nos arquivos como descrito no `MAPA.md`.
 
-Hoje você tem `henrispec-v0.4.x` e `henrispec-discovery-v0.3.0` ali. Substitua pelas versões novas:
+## 2. Pacotes zip (`recr-cmn-docs`)
+
+Aqui você está na pasta final, então o `mv` das antigas pode ser feito direto:
 
 ```bash
 ORIGEM="/c/Users/i459249/Documents/Projetos/Harness/zips/henrispec_atualizacao/henrispec-pacote-completo"
 DOCS="/c/Users/i459249/Documents/Projetos/recr-cmn-docs"
 
-# Mova as pastas antigas para uma pasta de arquivo, sem apagar
 mkdir -p "$DOCS/_anteriores"
 mv "$DOCS"/henrispec-v0.4.* "$DOCS/_anteriores/" 2>/dev/null
 mv "$DOCS"/henrispec-discovery-v0.3.* "$DOCS/_anteriores/" 2>/dev/null
 
-# Copie as novas
 cp -r "$ORIGEM/henrispec-v0.4.5" "$DOCS/"
 cp -r "$ORIGEM/henrispec-discovery-v0.3.1" "$DOCS/"
 
-# Confira
 ls "$DOCS"
 ```
 
-Quando tiver certeza de que tudo funciona, apague `_anteriores` à mão.
+Não apague `_anteriores` até os repositórios de produto estarem atualizados.
 
-## 3. Atualizar cada repositório de produto
+## 3. Repositórios de produto
 
-Rode o instalador nos repositórios que usam o toolkit. Troque o caminho do repositório:
+Esse passo não muda, e é o que mais importa: o instalador faz o backup, mostra o plano e não aplica nada sem o `--dry-run` antes:
 
 ```bash
 DOCS="/c/Users/i459249/Documents/Projetos/recr-cmn-docs"
@@ -91,16 +86,8 @@ bash "$DOCS/henrispec-discovery-v0.3.1/instalar.sh" repo . --dry-run
 bash "$DOCS/henrispec-discovery-v0.3.1/instalar.sh" repo .
 ```
 
-Leia o `--dry-run` antes de aplicar:
-- `CONFLITO` em arquivo que você não alterou à mão: pare e me avise antes de usar `--forcar`;
-- `CONFLITO` nos agentes de review e archive, se você colou as versões que mandei no chat: o conteúdo é o mesmo do pacote, então `--forcar` é seguro.
+Se aparecer `CONFLITO` em algo que você não alterou, pare e me mostre a saída antes de usar `--forcar`.
 
-Depois, nos repositórios de produto, não precisa commitar `.sdd/`: o instalador já coloca os arquivos gerados em `.git/info/exclude` e cria `.sdd/henrispec.json` com `versionarArtefatos: false`.
+## Ao final
 
-Para repetir em outro repositório, troque só o caminho de `REPO`.
-
-## 4. Recarregue o VS Code
-
-`Ctrl+Shift+P` → *Developer: Reload Window*. Confira no seletor que os agentes aparecem com o nome novo: `henrispec-plan`, `henrispec-implement`, `henrispec-review`, `henrispec-archive` e os `henrispec-discovery-*`.
-
-Se aparecerem duplicados (o agente do repositório e o do plugin ao mesmo tempo), é a cópia antiga que ficou no `.github/`. Rode `/henrispec:init` no repositório, ou apague à mão as que sobraram.
+Quando tudo estiver validado, apague as duas cópias de segurança e a pasta `_anteriores`. Enquanto elas existirem, você tem para onde voltar.
