@@ -1,0 +1,127 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="dg-multi" viewBox="0 0 1000 360" role="img" aria-label="Mudança no BFF e no front com contrato isolado"><title>Mudança no BFF e no front com contrato isolado</title>
+<style>
+.dg-multi text{font-family:"Segoe UI Variable Text","Segoe UI",system-ui,-apple-system,Helvetica,Arial,sans-serif}
+.dg-multi .t{font-size:14px;font-weight:650;fill:#f0f1f5}
+.dg-multi .st{font-size:11.5px;font-family:"Cascadia Mono",Consolas,monospace}
+.dg-multi .el{font-size:11.5px;fill:#a7a8ac;font-family:"Cascadia Mono",Consolas,monospace}
+.dg-multi .ln{fill:none;stroke-width:2;stroke-dasharray:1;stroke-dashoffset:1}
+.dg-multi .tracejada .ln{stroke-dasharray:.02 .015;stroke-dashoffset:0;animation:none!important}
+.dg-multi .pulso{animation:dg-multipulse 2.4s ease-in-out infinite}
+@keyframes dg-multipulse{0%,100%{stroke:#cc092f;filter:none}50%{stroke:#ff6b86;filter:drop-shadow(0 0 6px rgba(225,23,63,.75))}}
+.dg-multi .pulso-a{animation:dg-multipulsea 2.4s ease-in-out infinite}
+@keyframes dg-multipulsea{0%,100%{stroke:#e1173f}50%{stroke:#ffbc00;filter:drop-shadow(0 0 6px rgba(255,188,0,.6))}}
+@keyframes dg-multia0{0%,4.0%{opacity:0;transform:translateY(6px)}9.0%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg-multid0{0%,4.0%{stroke-dashoffset:1}12.0%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg-multi .s0{animation:dg-multia0 11s ease-in-out infinite both}
+.dg-multi .s0 .ln{animation:dg-multid0 11s ease-in-out infinite both}
+@keyframes dg-multia1{0%,12.9%{opacity:0;transform:translateY(6px)}17.9%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg-multid1{0%,12.9%{stroke-dashoffset:1}20.9%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg-multi .s1{animation:dg-multia1 11s ease-in-out infinite both}
+.dg-multi .s1 .ln{animation:dg-multid1 11s ease-in-out infinite both}
+@keyframes dg-multia2{0%,21.7%{opacity:0;transform:translateY(6px)}26.7%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg-multid2{0%,21.7%{stroke-dashoffset:1}29.7%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg-multi .s2{animation:dg-multia2 11s ease-in-out infinite both}
+.dg-multi .s2 .ln{animation:dg-multid2 11s ease-in-out infinite both}
+@keyframes dg-multia3{0%,30.6%{opacity:0;transform:translateY(6px)}35.6%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg-multid3{0%,30.6%{stroke-dashoffset:1}38.6%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg-multi .s3{animation:dg-multia3 11s ease-in-out infinite both}
+.dg-multi .s3 .ln{animation:dg-multid3 11s ease-in-out infinite both}
+@keyframes dg-multia4{0%,39.4%{opacity:0;transform:translateY(6px)}44.4%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg-multid4{0%,39.4%{stroke-dashoffset:1}47.4%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg-multi .s4{animation:dg-multia4 11s ease-in-out infinite both}
+.dg-multi .s4 .ln{animation:dg-multid4 11s ease-in-out infinite both}
+@keyframes dg-multia5{0%,48.3%{opacity:0;transform:translateY(6px)}53.3%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg-multid5{0%,48.3%{stroke-dashoffset:1}56.3%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg-multi .s5{animation:dg-multia5 11s ease-in-out infinite both}
+.dg-multi .s5 .ln{animation:dg-multid5 11s ease-in-out infinite both}
+@keyframes dg-multia6{0%,57.1%{opacity:0;transform:translateY(6px)}62.1%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg-multid6{0%,57.1%{stroke-dashoffset:1}65.1%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg-multi .s6{animation:dg-multia6 11s ease-in-out infinite both}
+.dg-multi .s6 .ln{animation:dg-multid6 11s ease-in-out infinite both}
+@keyframes dg-multia7{0%,66.0%{opacity:0;transform:translateY(6px)}71.0%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg-multid7{0%,66.0%{stroke-dashoffset:1}74.0%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg-multi .s7{animation:dg-multia7 11s ease-in-out infinite both}
+.dg-multi .s7 .ln{animation:dg-multid7 11s ease-in-out infinite both}
+@media (prefers-reduced-motion:reduce){.dg-multi *{animation:none!important}.dg-multi .ln{stroke-dashoffset:0}.dg-multi .pac{display:none}}
+</style>
+<defs>
+<marker id="dg-multi-mr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#cc092f"/></marker>
+<marker id="dg-multi-ma" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#ffbc00"/></marker>
+<marker id="dg-multi-mc" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#5b5c61"/></marker>
+<marker id="dg-multi-mb" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#3b69ff"/></marker>
+<marker id="dg-multi-mg" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#09ab47"/></marker>
+<marker id="dg-multi-mx" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#e1173f"/></marker>
+</defs>
+<rect width="1000" height="360" rx="18" fill="#121212"/>
+<g class="s1">
+<path id="dg-multi-e0" class="ln" pathLength="1" d="M85 150V69H188" stroke="#cc092f" marker-end="url(#dg-multi-mr)"/>
+<circle class="pac" r="3.6" fill="#cc092f"><animateMotion dur="2.2s" begin="0.00s" repeatCount="indefinite"><mpath href="#dg-multi-e0"/></animateMotion></circle>
+</g>
+<g class="s4">
+<path id="dg-multi-e1" class="ln" pathLength="1" d="M85 208V289H188" stroke="#cc092f" marker-end="url(#dg-multi-mr)"/>
+<circle class="pac" r="3.6" fill="#cc092f"><animateMotion dur="2.2s" begin="0.35s" repeatCount="indefinite"><mpath href="#dg-multi-e1"/></animateMotion></circle>
+</g>
+<g class="s2">
+<path id="dg-multi-e2" class="ln" pathLength="1" d="M340 69.0H378" stroke="#3b69ff" marker-end="url(#dg-multi-mb)"/>
+<circle class="pac" r="3.6" fill="#3b69ff"><animateMotion dur="2.2s" begin="0.70s" repeatCount="indefinite"><mpath href="#dg-multi-e2"/></animateMotion></circle>
+</g>
+<g class="s3">
+<path id="dg-multi-e3" class="ln" pathLength="1" d="M550 69.0H588" stroke="#cc092f" marker-end="url(#dg-multi-mr)"/>
+<circle class="pac" r="3.6" fill="#cc092f"><animateMotion dur="2.2s" begin="1.05s" repeatCount="indefinite"><mpath href="#dg-multi-e3"/></animateMotion></circle>
+</g>
+<g class="s4 tracejada">
+<path id="dg-multi-e4" class="ln" pathLength="1" d="M465 98V180H265V258" stroke="#3b69ff" marker-end="url(#dg-multi-mb)"/>
+<text class="el" x="365" y="172" text-anchor="middle">só leitura, #openapi.yaml</text>
+</g>
+<g class="s5">
+<path id="dg-multi-e5" class="ln" pathLength="1" d="M340 289.0H378" stroke="#cc092f" marker-end="url(#dg-multi-mr)"/>
+<circle class="pac" r="3.6" fill="#cc092f"><animateMotion dur="2.2s" begin="0.00s" repeatCount="indefinite"><mpath href="#dg-multi-e5"/></animateMotion></circle>
+</g>
+<g class="s6">
+<path id="dg-multi-e6" class="ln" pathLength="1" d="M550 289.0H588" stroke="#cc092f" marker-end="url(#dg-multi-mr)"/>
+<circle class="pac" r="3.6" fill="#cc092f"><animateMotion dur="2.2s" begin="0.35s" repeatCount="indefinite"><mpath href="#dg-multi-e6"/></animateMotion></circle>
+</g>
+<g class="s0">
+<rect x="20" y="150" width="130" height="58" rx="12" fill="#2b2207" stroke="#ffbc00" stroke-width="1.8"/>
+<text class="t" x="85.0" y="176.0" text-anchor="middle">Ticket</text>
+<text class="st" x="85.0" y="194.0" text-anchor="middle" fill="#ffcf4d">mesmo nas duas</text>
+</g>
+<g class="s1">
+<rect class="pulso" x="190" y="40" width="150" height="58" rx="12" fill="#2a0c13" stroke="#cc092f" stroke-width="1.8"/>
+<text class="t" x="265.0" y="66.0" text-anchor="middle">BFF: sdd-plan</text>
+<text class="st" x="265.0" y="84.0" text-anchor="middle" fill="#f36279">Full, contrato novo</text>
+</g>
+<g class="s2">
+<rect x="380" y="40" width="170" height="58" rx="12" fill="#0e1a33" stroke="#3b69ff" stroke-width="1.8"/>
+<text class="t" x="465.0" y="66.0" text-anchor="middle">openapi.yaml</text>
+<text class="st" x="465.0" y="84.0" text-anchor="middle" fill="#8fb0ff">contrato do BFF</text>
+</g>
+<g class="s3">
+<rect class="pulso" x="590" y="40" width="180" height="58" rx="12" fill="#2a0c13" stroke="#cc092f" stroke-width="1.8"/>
+<text class="t" x="680.0" y="66.0" text-anchor="middle">implement → review</text>
+<text class="st" x="680.0" y="84.0" text-anchor="middle" fill="#f36279">archive no BFF</text>
+</g>
+<g class="s4">
+<rect class="pulso" x="190" y="260" width="150" height="58" rx="12" fill="#2a0c13" stroke="#cc092f" stroke-width="1.8"/>
+<text class="t" x="265.0" y="286.0" text-anchor="middle">Front: sdd-plan</text>
+<text class="st" x="265.0" y="304.0" text-anchor="middle" fill="#f36279">lê o contrato</text>
+</g>
+<g class="s5">
+<rect x="380" y="260" width="170" height="58" rx="12" fill="#1c1c1e" stroke="#5b5c61" stroke-width="1.8"/>
+<text class="t" x="465.0" y="286.0" text-anchor="middle">cliente gerado</text>
+<text class="st" x="465.0" y="304.0" text-anchor="middle" fill="#a7a8ac">cópia do front</text>
+</g>
+<g class="s6">
+<rect class="pulso" x="590" y="260" width="180" height="58" rx="12" fill="#2a0c13" stroke="#cc092f" stroke-width="1.8"/>
+<text class="t" x="680.0" y="286.0" text-anchor="middle">implement → review</text>
+<text class="st" x="680.0" y="304.0" text-anchor="middle" fill="#f36279">archive no front</text>
+</g>
+<g class="s7">
+<rect class="pulso-a" x="790" y="150" width="200" height="58" rx="12" fill="#2e0a12" stroke="#e1173f" stroke-width="1.8" stroke-dasharray="6 5"/>
+<text class="t" x="890.0" y="176.0" text-anchor="middle">contrato compartilhado</text>
+<text class="st" x="890.0" y="194.0" text-anchor="middle" fill="#ff8197">proibido</text>
+<path d="M798 158L982 200M982 158L798 200" stroke="#e1173f" stroke-width="2.5" opacity=".85"/>
+</g>
+<g class="s1"><text x="190" y="24" class="el" text-anchor="start" fill="#a7a8ac" style="fill:#a7a8ac">repositório BFF, primeira pasta do workspace no chat 1</text></g>
+<g class="s4"><text x="190" y="346" class="el" text-anchor="start" fill="#a7a8ac" style="fill:#a7a8ac">repositório front, primeira pasta do workspace no chat 2</text></g>
+</svg>

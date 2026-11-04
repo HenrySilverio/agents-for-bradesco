@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="dg-inst" viewBox="0 0 1000 270" role="img" aria-label="Instalação e atualização do HenriSpec"><title>Instalação e atualização do HenriSpec</title>
+<style>
+.dg-inst text{font-family:"Segoe UI Variable Text","Segoe UI",system-ui,-apple-system,Helvetica,Arial,sans-serif}
+.dg-inst .t{font-size:14px;font-weight:650;fill:#f0f1f5}
+.dg-inst .st{font-size:11.5px;font-family:"Cascadia Mono",Consolas,monospace}
+.dg-inst .el{font-size:11.5px;fill:#a7a8ac;font-family:"Cascadia Mono",Consolas,monospace}
+.dg-inst .ln{fill:none;stroke-width:2;stroke-dasharray:1;stroke-dashoffset:1}
+.dg-inst .tracejada .ln{stroke-dasharray:.02 .015;stroke-dashoffset:0;animation:none!important}
+.dg-inst .pulso{animation:dg-instpulse 2.4s ease-in-out infinite}
+@keyframes dg-instpulse{0%,100%{stroke:#cc092f;filter:none}50%{stroke:#ff6b86;filter:drop-shadow(0 0 6px rgba(225,23,63,.75))}}
+.dg-inst .pulso-a{animation:dg-instpulsea 2.4s ease-in-out infinite}
+@keyframes dg-instpulsea{0%,100%{stroke:#e1173f}50%{stroke:#ffbc00;filter:drop-shadow(0 0 6px rgba(255,188,0,.6))}}
+@keyframes dg-insta0{0%,4.0%{opacity:0;transform:translateY(6px)}9.0%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg-instd0{0%,4.0%{stroke-dashoffset:1}12.0%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg-inst .s0{animation:dg-insta0 11s ease-in-out infinite both}
+.dg-inst .s0 .ln{animation:dg-instd0 11s ease-in-out infinite both}
+@keyframes dg-insta1{0%,14.3%{opacity:0;transform:translateY(6px)}19.3%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg-instd1{0%,14.3%{stroke-dashoffset:1}22.3%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg-inst .s1{animation:dg-insta1 11s ease-in-out infinite both}
+.dg-inst .s1 .ln{animation:dg-instd1 11s ease-in-out infinite both}
+@keyframes dg-insta2{0%,24.7%{opacity:0;transform:translateY(6px)}29.7%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg-instd2{0%,24.7%{stroke-dashoffset:1}32.7%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg-inst .s2{animation:dg-insta2 11s ease-in-out infinite both}
+.dg-inst .s2 .ln{animation:dg-instd2 11s ease-in-out infinite both}
+@keyframes dg-insta3{0%,35.0%{opacity:0;transform:translateY(6px)}40.0%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg-instd3{0%,35.0%{stroke-dashoffset:1}43.0%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg-inst .s3{animation:dg-insta3 11s ease-in-out infinite both}
+.dg-inst .s3 .ln{animation:dg-instd3 11s ease-in-out infinite both}
+@keyframes dg-insta4{0%,45.3%{opacity:0;transform:translateY(6px)}50.3%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg-instd4{0%,45.3%{stroke-dashoffset:1}53.3%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg-inst .s4{animation:dg-insta4 11s ease-in-out infinite both}
+.dg-inst .s4 .ln{animation:dg-instd4 11s ease-in-out infinite both}
+@keyframes dg-insta5{0%,55.7%{opacity:0;transform:translateY(6px)}60.7%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg-instd5{0%,55.7%{stroke-dashoffset:1}63.7%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg-inst .s5{animation:dg-insta5 11s ease-in-out infinite both}
+.dg-inst .s5 .ln{animation:dg-instd5 11s ease-in-out infinite both}
+@keyframes dg-insta6{0%,66.0%{opacity:0;transform:translateY(6px)}71.0%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg-instd6{0%,66.0%{stroke-dashoffset:1}74.0%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg-inst .s6{animation:dg-insta6 11s ease-in-out infinite both}
+.dg-inst .s6 .ln{animation:dg-instd6 11s ease-in-out infinite both}
+@media (prefers-reduced-motion:reduce){.dg-inst *{animation:none!important}.dg-inst .ln{stroke-dashoffset:0}.dg-inst .pac{display:none}}
+</style>
+<defs>
+<marker id="dg-inst-mr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#cc092f"/></marker>
+<marker id="dg-inst-ma" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#ffbc00"/></marker>
+<marker id="dg-inst-mc" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#5b5c61"/></marker>
+<marker id="dg-inst-mb" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#3b69ff"/></marker>
+<marker id="dg-inst-mg" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#09ab47"/></marker>
+<marker id="dg-inst-mx" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#e1173f"/></marker>
+</defs>
+<rect width="1000" height="270" rx="18" fill="#121212"/>
+<g class="s1">
+<path id="dg-inst-e0" class="ln" pathLength="1" d="M170 139.0H208" stroke="#cc092f" marker-end="url(#dg-inst-mr)"/>
+<circle class="pac" r="3.6" fill="#cc092f"><animateMotion dur="2.2s" begin="0.00s" repeatCount="indefinite"><mpath href="#dg-inst-e0"/></animateMotion></circle>
+</g>
+<g class="s2">
+<path id="dg-inst-e1" class="ln" pathLength="1" d="M350 139H370V59H388" stroke="#e1173f" marker-end="url(#dg-inst-mx)"/>
+<circle class="pac" r="3.6" fill="#e1173f"><animateMotion dur="2.2s" begin="0.35s" repeatCount="indefinite"><mpath href="#dg-inst-e1"/></animateMotion></circle>
+</g>
+<g class="s2">
+<path id="dg-inst-e2" class="ln" pathLength="1" d="M350 139H370V219H388" stroke="#cc092f" marker-end="url(#dg-inst-mr)"/>
+<text class="el" x="300" y="240" text-anchor="middle">sem conflito</text>
+<circle class="pac" r="3.6" fill="#cc092f"><animateMotion dur="2.2s" begin="0.70s" repeatCount="indefinite"><mpath href="#dg-inst-e2"/></animateMotion></circle>
+</g>
+<g class="s3">
+<path id="dg-inst-e3" class="ln" pathLength="1" d="M580 59.0H608" stroke="#ffbc00" marker-end="url(#dg-inst-ma)"/>
+<circle class="pac" r="3.6" fill="#ffbc00"><animateMotion dur="2.2s" begin="1.05s" repeatCount="indefinite"><mpath href="#dg-inst-e3"/></animateMotion></circle>
+</g>
+<g class="s3">
+<path id="dg-inst-e4" class="ln" pathLength="1" d="M685 88V140H485V188" stroke="#ffbc00" marker-end="url(#dg-inst-ma)"/>
+<circle class="pac" r="3.6" fill="#ffbc00"><animateMotion dur="2.2s" begin="1.40s" repeatCount="indefinite"><mpath href="#dg-inst-e4"/></animateMotion></circle>
+</g>
+<g class="s4">
+<path id="dg-inst-e5" class="ln" pathLength="1" d="M580 219.0H608" stroke="#cc092f" marker-end="url(#dg-inst-mr)"/>
+<circle class="pac" r="3.6" fill="#cc092f"><animateMotion dur="2.2s" begin="0.00s" repeatCount="indefinite"><mpath href="#dg-inst-e5"/></animateMotion></circle>
+</g>
+<g class="s5">
+<path id="dg-inst-e6" class="ln" pathLength="1" d="M760 219.0H778" stroke="#cc092f" marker-end="url(#dg-inst-mr)"/>
+<circle class="pac" r="3.6" fill="#cc092f"><animateMotion dur="2.2s" begin="0.35s" repeatCount="indefinite"><mpath href="#dg-inst-e6"/></animateMotion></circle>
+</g>
+<g class="s6">
+<path id="dg-inst-e7" class="ln" pathLength="1" d="M880 190V90" stroke="#09ab47" marker-end="url(#dg-inst-mg)"/>
+<circle class="pac" r="3.6" fill="#09ab47"><animateMotion dur="2.2s" begin="0.70s" repeatCount="indefinite"><mpath href="#dg-inst-e7"/></animateMotion></circle>
+</g>
+<g class="s0">
+<rect x="20" y="110" width="150" height="58" rx="12" fill="#1c1c1e" stroke="#5b5c61" stroke-width="1.8"/>
+<text class="t" x="95.0" y="136.0" text-anchor="middle">pacote HenriSpec</text>
+<text class="st" x="95.0" y="154.0" text-anchor="middle" fill="#a7a8ac">baixado na máquina</text>
+</g>
+<g class="s1">
+<rect x="210" y="110" width="140" height="58" rx="12" fill="#2b2207" stroke="#ffbc00" stroke-width="1.8"/>
+<text class="t" x="280.0" y="136.0" text-anchor="middle">--dry-run</text>
+<text class="st" x="280.0" y="154.0" text-anchor="middle" fill="#ffcf4d">plano, sem gravar</text>
+</g>
+<g class="s2">
+<rect class="pulso-a" x="390" y="30" width="190" height="58" rx="12" fill="#2e0a12" stroke="#e1173f" stroke-width="1.8"/>
+<text class="t" x="485.0" y="56.0" text-anchor="middle">CONFLITO</text>
+<text class="st" x="485.0" y="74.0" text-anchor="middle" fill="#ff8197">alterado à mão</text>
+</g>
+<g class="s3">
+<rect x="610" y="30" width="150" height="58" rx="12" fill="#2b2207" stroke="#ffbc00" stroke-width="1.8"/>
+<text class="t" x="685.0" y="56.0" text-anchor="middle">--forcar</text>
+<text class="st" x="685.0" y="74.0" text-anchor="middle" fill="#ffcf4d">backup antes</text>
+</g>
+<g class="s2">
+<rect class="pulso" x="390" y="190" width="190" height="58" rx="12" fill="#2a0c13" stroke="#cc092f" stroke-width="1.8"/>
+<text class="t" x="485.0" y="216.0" text-anchor="middle">instalar</text>
+<text class="st" x="485.0" y="234.0" text-anchor="middle" fill="#f36279">cria, atualiza, remove</text>
+</g>
+<g class="s4">
+<rect x="610" y="190" width="150" height="58" rx="12" fill="#0e1a33" stroke="#3b69ff" stroke-width="1.8"/>
+<text class="t" x="685.0" y="216.0" text-anchor="middle">lock + validador</text>
+<text class="st" x="685.0" y="234.0" text-anchor="middle" fill="#8fb0ff">toolkit.lock.json</text>
+</g>
+<g class="s5">
+<rect x="780" y="190" width="200" height="58" rx="12" fill="#2b2207" stroke="#ffbc00" stroke-width="1.8"/>
+<text class="t" x="880.0" y="216.0" text-anchor="middle">verificacao.json</text>
+<text class="st" x="880.0" y="234.0" text-anchor="middle" fill="#ffcf4d">prompt para o Copilot</text>
+</g>
+<g class="s6">
+<rect x="780" y="30" width="200" height="58" rx="12" fill="#0c2016" stroke="#09ab47" stroke-width="1.8"/>
+<text class="t" x="880.0" y="56.0" text-anchor="middle">commit</text>
+<text class="st" x="880.0" y="74.0" text-anchor="middle" fill="#57d98b">.github .sdd docs</text>
+</g>
+</svg>

@@ -1,0 +1,102 @@
+{
+ "titulo": "As três fases, todas no pacote",
+ "grade": {
+  "col": 270,
+  "lin": 110,
+  "x0": 20,
+  "y0": 30
+ },
+ "altura": 230,
+ "nos": [
+  {
+   "id": "f1",
+   "col": 0,
+   "lin": 0,
+   "w": 240,
+   "t": "Fase 1",
+   "s": "agentes e skills no plugin",
+   "step": 0,
+   "destaque": true
+  },
+  {
+   "id": "f2",
+   "col": 1,
+   "lin": 0,
+   "w": 240,
+   "t": "Fase 2",
+   "s": "servidor MCP no plugin",
+   "step": 2,
+   "destaque": true
+  },
+  {
+   "id": "f3",
+   "col": 2,
+   "lin": 0,
+   "w": 240,
+   "t": "Fase 3",
+   "s": "hook com habilitação gerenciada",
+   "step": 4,
+   "destaque": true
+  },
+  {
+   "id": "b1",
+   "col": 0,
+   "lin": 1,
+   "w": 240,
+   "t": "uma versão para todos",
+   "s": "sem cópia por repositório",
+   "k": "ok",
+   "step": 1
+  },
+  {
+   "id": "b2",
+   "col": 1,
+   "lin": 1,
+   "w": 240,
+   "t": "sem terminal",
+   "s": "plan, review e archive",
+   "k": "ok",
+   "step": 3
+  },
+  {
+   "id": "b3",
+   "col": 2,
+   "lin": 1,
+   "w": 240,
+   "t": "registros imutáveis",
+   "s": "veredito e archive",
+   "k": "ok",
+   "step": 5
+  }
+ ],
+ "arestas": [
+  {
+   "de": "f1",
+   "para": "f2",
+   "step": 2
+  },
+  {
+   "de": "f2",
+   "para": "f3",
+   "step": 4
+  },
+  {
+   "de": "f1",
+   "para": "b1",
+   "step": 1,
+   "cor": "g"
+  },
+  {
+   "de": "f2",
+   "para": "b2",
+   "step": 3,
+   "cor": "g"
+  },
+  {
+   "de": "f3",
+   "para": "b3",
+   "step": 5,
+   "cor": "g"
+  }
+ ]
+}

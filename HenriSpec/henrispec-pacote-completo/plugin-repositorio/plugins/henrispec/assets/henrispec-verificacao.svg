@@ -1,0 +1,134 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="dg-verif" viewBox="0 0 1000 320" role="img" aria-label="Verificação com escopo da mudança"><title>Verificação com escopo da mudança</title>
+<style>
+.dg-verif text{font-family:"Segoe UI Variable Text","Segoe UI",system-ui,-apple-system,Helvetica,Arial,sans-serif}
+.dg-verif .t{font-size:14px;font-weight:650;fill:#f0f1f5}
+.dg-verif .st{font-size:11.5px;font-family:"Cascadia Mono",Consolas,monospace}
+.dg-verif .el{font-size:11.5px;fill:#a7a8ac;font-family:"Cascadia Mono",Consolas,monospace}
+.dg-verif .ln{fill:none;stroke-width:2;stroke-dasharray:1;stroke-dashoffset:1}
+.dg-verif .tracejada .ln{stroke-dasharray:.02 .015;stroke-dashoffset:0;animation:none!important}
+.dg-verif .pulso{animation:dg-verifpulse 2.4s ease-in-out infinite}
+@keyframes dg-verifpulse{0%,100%{stroke:#cc092f;filter:none}50%{stroke:#ff6b86;filter:drop-shadow(0 0 6px rgba(225,23,63,.75))}}
+.dg-verif .pulso-a{animation:dg-verifpulsea 2.4s ease-in-out infinite}
+@keyframes dg-verifpulsea{0%,100%{stroke:#e1173f}50%{stroke:#ffbc00;filter:drop-shadow(0 0 6px rgba(255,188,0,.6))}}
+@keyframes dg-verifa0{0%,4.0%{opacity:0;transform:translateY(6px)}9.0%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg-verifd0{0%,4.0%{stroke-dashoffset:1}12.0%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg-verif .s0{animation:dg-verifa0 11s ease-in-out infinite both}
+.dg-verif .s0 .ln{animation:dg-verifd0 11s ease-in-out infinite both}
+@keyframes dg-verifa1{0%,16.4%{opacity:0;transform:translateY(6px)}21.4%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg-verifd1{0%,16.4%{stroke-dashoffset:1}24.4%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg-verif .s1{animation:dg-verifa1 11s ease-in-out infinite both}
+.dg-verif .s1 .ln{animation:dg-verifd1 11s ease-in-out infinite both}
+@keyframes dg-verifa2{0%,28.8%{opacity:0;transform:translateY(6px)}33.8%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg-verifd2{0%,28.8%{stroke-dashoffset:1}36.8%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg-verif .s2{animation:dg-verifa2 11s ease-in-out infinite both}
+.dg-verif .s2 .ln{animation:dg-verifd2 11s ease-in-out infinite both}
+@keyframes dg-verifa3{0%,41.2%{opacity:0;transform:translateY(6px)}46.2%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg-verifd3{0%,41.2%{stroke-dashoffset:1}49.2%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg-verif .s3{animation:dg-verifa3 11s ease-in-out infinite both}
+.dg-verif .s3 .ln{animation:dg-verifd3 11s ease-in-out infinite both}
+@keyframes dg-verifa4{0%,53.6%{opacity:0;transform:translateY(6px)}58.6%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg-verifd4{0%,53.6%{stroke-dashoffset:1}61.6%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg-verif .s4{animation:dg-verifa4 11s ease-in-out infinite both}
+.dg-verif .s4 .ln{animation:dg-verifd4 11s ease-in-out infinite both}
+@keyframes dg-verifa5{0%,66.0%{opacity:0;transform:translateY(6px)}71.0%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg-verifd5{0%,66.0%{stroke-dashoffset:1}74.0%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg-verif .s5{animation:dg-verifa5 11s ease-in-out infinite both}
+.dg-verif .s5 .ln{animation:dg-verifd5 11s ease-in-out infinite both}
+@media (prefers-reduced-motion:reduce){.dg-verif *{animation:none!important}.dg-verif .ln{stroke-dashoffset:0}.dg-verif .pac{display:none}}
+</style>
+<defs>
+<marker id="dg-verif-mr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#cc092f"/></marker>
+<marker id="dg-verif-ma" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#ffbc00"/></marker>
+<marker id="dg-verif-mc" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#5b5c61"/></marker>
+<marker id="dg-verif-mb" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#3b69ff"/></marker>
+<marker id="dg-verif-mg" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#09ab47"/></marker>
+<marker id="dg-verif-mx" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#e1173f"/></marker>
+</defs>
+<rect width="1000" height="320" rx="18" fill="#121212"/>
+<g class="s1">
+<path id="dg-verif-e0" class="ln" pathLength="1" d="M160 149.0H198" stroke="#cc092f" marker-end="url(#dg-verif-mr)"/>
+<circle class="pac" r="3.6" fill="#cc092f"><animateMotion dur="2.2s" begin="0.00s" repeatCount="indefinite"><mpath href="#dg-verif-e0"/></animateMotion></circle>
+</g>
+<g class="s2">
+<path id="dg-verif-e1" class="ln" pathLength="1" d="M350 149H370V59H388" stroke="#cc092f" marker-end="url(#dg-verif-mr)"/>
+<circle class="pac" r="3.6" fill="#cc092f"><animateMotion dur="2.2s" begin="0.35s" repeatCount="indefinite"><mpath href="#dg-verif-e1"/></animateMotion></circle>
+</g>
+<g class="s2">
+<path id="dg-verif-e2" class="ln" pathLength="1" d="M350 149.0H388" stroke="#cc092f" marker-end="url(#dg-verif-mr)"/>
+<circle class="pac" r="3.6" fill="#cc092f"><animateMotion dur="2.2s" begin="0.70s" repeatCount="indefinite"><mpath href="#dg-verif-e2"/></animateMotion></circle>
+</g>
+<g class="s2">
+<path id="dg-verif-e3" class="ln" pathLength="1" d="M350 149H370V239H388" stroke="#cc092f" marker-end="url(#dg-verif-mr)"/>
+<circle class="pac" r="3.6" fill="#cc092f"><animateMotion dur="2.2s" begin="1.05s" repeatCount="indefinite"><mpath href="#dg-verif-e3"/></animateMotion></circle>
+</g>
+<g class="s3">
+<path id="dg-verif-e4" class="ln" pathLength="1" d="M540 59H560V149H578" stroke="#cc092f" marker-end="url(#dg-verif-mr)"/>
+<circle class="pac" r="3.6" fill="#cc092f"><animateMotion dur="2.2s" begin="1.40s" repeatCount="indefinite"><mpath href="#dg-verif-e4"/></animateMotion></circle>
+</g>
+<g class="s3">
+<path id="dg-verif-e5" class="ln" pathLength="1" d="M540 149.0H578" stroke="#cc092f" marker-end="url(#dg-verif-mr)"/>
+<circle class="pac" r="3.6" fill="#cc092f"><animateMotion dur="2.2s" begin="0.00s" repeatCount="indefinite"><mpath href="#dg-verif-e5"/></animateMotion></circle>
+</g>
+<g class="s3">
+<path id="dg-verif-e6" class="ln" pathLength="1" d="M540 239H560V149H578" stroke="#cc092f" marker-end="url(#dg-verif-mr)"/>
+<circle class="pac" r="3.6" fill="#cc092f"><animateMotion dur="2.2s" begin="0.35s" repeatCount="indefinite"><mpath href="#dg-verif-e6"/></animateMotion></circle>
+</g>
+<g class="s4">
+<path id="dg-verif-e7" class="ln" pathLength="1" d="M730 149H750V79H768" stroke="#e1173f" marker-end="url(#dg-verif-mx)"/>
+<circle class="pac" r="3.6" fill="#e1173f"><animateMotion dur="2.2s" begin="0.70s" repeatCount="indefinite"><mpath href="#dg-verif-e7"/></animateMotion></circle>
+</g>
+<g class="s4">
+<path id="dg-verif-e8" class="ln" pathLength="1" d="M730 149H750V219H768" stroke="#ffbc00" marker-end="url(#dg-verif-ma)"/>
+<circle class="pac" r="3.6" fill="#ffbc00"><animateMotion dur="2.2s" begin="1.05s" repeatCount="indefinite"><mpath href="#dg-verif-e8"/></animateMotion></circle>
+</g>
+<g class="s5">
+<path id="dg-verif-e9" class="ln" pathLength="1" d="M275.0 178V248" stroke="#e1173f" marker-end="url(#dg-verif-mx)"/>
+<text class="el" x="330" y="228" text-anchor="middle">também bloqueia</text>
+<circle class="pac" r="3.6" fill="#e1173f"><animateMotion dur="2.2s" begin="1.40s" repeatCount="indefinite"><mpath href="#dg-verif-e9"/></animateMotion></circle>
+</g>
+<g class="s0">
+<rect x="20" y="120" width="140" height="58" rx="12" fill="#1c1c1e" stroke="#5b5c61" stroke-width="1.8"/>
+<text class="t" x="90.0" y="146.0" text-anchor="middle">diff da mudança</text>
+<text class="st" x="90.0" y="164.0" text-anchor="middle" fill="#a7a8ac">merge-base..árvore</text>
+</g>
+<g class="s1">
+<rect x="200" y="120" width="150" height="58" rx="12" fill="#0e1a33" stroke="#3b69ff" stroke-width="1.8"/>
+<text class="t" x="275.0" y="146.0" text-anchor="middle">camadas tocadas</text>
+<text class="st" x="275.0" y="164.0" text-anchor="middle" fill="#8fb0ff">feature, domain</text>
+</g>
+<g class="s2">
+<rect x="390" y="30" width="150" height="58" rx="12" fill="#2a0c13" stroke="#cc092f" stroke-width="1.8"/>
+<text class="t" x="465.0" y="56.0" text-anchor="middle">lint</text>
+<text class="st" x="465.0" y="74.0" text-anchor="middle" fill="#f36279">base via git show</text>
+</g>
+<g class="s2">
+<rect x="390" y="120" width="150" height="58" rx="12" fill="#2a0c13" stroke="#cc092f" stroke-width="1.8"/>
+<text class="t" x="465.0" y="146.0" text-anchor="middle">tipos</text>
+<text class="st" x="465.0" y="164.0" text-anchor="middle" fill="#f36279">baseline.json</text>
+</g>
+<g class="s2">
+<rect x="390" y="210" width="150" height="58" rx="12" fill="#2a0c13" stroke="#cc092f" stroke-width="1.8"/>
+<text class="t" x="465.0" y="236.0" text-anchor="middle">testes</text>
+<text class="st" x="465.0" y="254.0" text-anchor="middle" fill="#f36279">related + baseline</text>
+</g>
+<g class="s3">
+<rect x="580" y="120" width="150" height="58" rx="12" fill="#1c1c1e" stroke="#5b5c61" stroke-width="1.8"/>
+<text class="t" x="655.0" y="146.0" text-anchor="middle">classificação</text>
+<text class="st" x="655.0" y="164.0" text-anchor="middle" fill="#a7a8ac">mecânica</text>
+</g>
+<g class="s4">
+<rect class="pulso-a" x="770" y="50" width="210" height="58" rx="12" fill="#2e0a12" stroke="#e1173f" stroke-width="1.8"/>
+<text class="t" x="875.0" y="76.0" text-anchor="middle">BLOQUEANTE</text>
+<text class="st" x="875.0" y="94.0" text-anchor="middle" fill="#ff8197">a mudança introduziu</text>
+</g>
+<g class="s4">
+<rect x="770" y="190" width="210" height="58" rx="12" fill="#2b2207" stroke="#ffbc00" stroke-width="1.8"/>
+<text class="t" x="875.0" y="216.0" text-anchor="middle">PRÉ-EXISTENTE</text>
+<text class="st" x="875.0" y="234.0" text-anchor="middle" fill="#ffcf4d">contado, não bloqueia</text>
+</g>
+<g class="s5">
+<rect x="200" y="250" width="150" height="58" rx="12" fill="#2e0a12" stroke="#e1173f" stroke-width="1.8" stroke-dasharray="6 5"/>
+<text class="t" x="275.0" y="276.0" text-anchor="middle">fora do Escopo</text>
+<text class="st" x="275.0" y="294.0" text-anchor="middle" fill="#ff8197">camada não declarada</text>
+</g>
+</svg>

@@ -1,0 +1,31 @@
+{
+  "verificacoes": {
+    "lint": {
+      "comando": "npx eslint -f json {arquivos}",
+      "comandoBase": "npx eslint -f json --stdin --stdin-filename {arquivo}",
+      "extensoes": [".ts", ".html"],
+      "formato": "eslint-json",
+      "classificacao": "base-stdin"
+    },
+    "tipos": {
+      "comando": "npx tsc --noEmit --pretty false -p tsconfig.app.json",
+      "formato": "linhas",
+      "padrao": "^(?<arquivo>[^\\s(][^(]*)\\((?<linha>\\d+),\\d+\\): error (?<mensagem>.+)$",
+      "regra": "tsc",
+      "classificacao": "baseline"
+    },
+    "testes": {
+      "comando": "npx jest --ci --passWithNoTests --json --outputFile={saida} --findRelatedTests {arquivos}",
+      "comandoBaseline": "npx jest --ci --passWithNoTests --json --outputFile={saida} {raizes}",
+      "extensoes": [".ts"],
+      "formato": "jest-json",
+      "classificacao": "baseline"
+    }
+  },
+  "camadas": {
+    "core": { "arquivos": ["src/app/core/**"], "verificacoes": ["lint", "tipos", "testes"] },
+    "domain": { "arquivos": ["src/app/domain/**"], "verificacoes": ["lint", "tipos", "testes"] },
+    "feature": { "arquivos": ["src/app/feature/**"], "verificacoes": ["lint", "tipos", "testes"] },
+    "shared": { "arquivos": ["src/app/shared/**"], "verificacoes": ["lint", "tipos", "testes"] }
+  }
+}

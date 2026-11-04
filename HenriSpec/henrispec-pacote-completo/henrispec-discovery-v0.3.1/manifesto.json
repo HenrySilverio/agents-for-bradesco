@@ -1,0 +1,152 @@
+{
+  "toolkit": "henrispec-discovery",
+  "nome": "HenriSpec Discovery",
+  "versao": "0.3.1",
+  "lock": "docs/henrispec-discovery/toolkit.lock.json",
+  "backup": "docs/henrispec-discovery/.backup",
+  "lockGlobal": "henrispec-discovery.lock.json",
+  "backupGlobal": ".henrispec-discovery-backup",
+  "pendencias": {},
+  "excluir": [
+    "/.github/agents/henrispec-discovery-*.agent.md",
+    "/.github/skills/henrispec-discovery-*/",
+    "/.github/skills/discovery-workflow/",
+    "/docs/briefings/",
+    "/docs/prototipos/",
+    "/docs/henrispec-discovery/"
+  ],
+  "instrucoes": {
+    "arquivo": "instrucoes/henrispec-discovery.md",
+    "marcador": "henrispec-discovery"
+  },
+  "ignorar": [
+    "onboarding/**",
+    "instrucoes/**"
+  ],
+  "regras": [
+    {
+      "origem": ".github/agents/henrispec-discovery-*.agent.md",
+      "tipo": "gerenciado",
+      "global": true
+    },
+    {
+      "origem": ".github/skills/discovery-*/**",
+      "tipo": "gerenciado",
+      "global": true
+    },
+    {
+      "origem": ".github/skills/henrispec-discovery-*/**",
+      "tipo": "gerenciado",
+      "global": true
+    },
+    {
+      "origem": "README.md",
+      "tipo": "gerenciado",
+      "destino": "docs/henrispec-discovery/README.md"
+    },
+    {
+      "origem": "assets/**",
+      "tipo": "gerenciado",
+      "destino": "docs/henrispec-discovery/"
+    },
+    {
+      "origem": "docs/prototipos/README.md",
+      "tipo": "semente"
+    },
+    {
+      "origem": "docs/briefings/EXEMPLO-confirmacao-duplicada/briefing.md",
+      "tipo": "semente"
+    }
+  ],
+  "removidos": [
+    ".github/agents/discovery-grill.agent.md",
+    ".github/agents/discovery-prototipo.agent.md",
+    ".github/agents/discovery-rota.agent.md",
+    ".github/agents/discovery-triagem.agent.md",
+    ".github/prompts/discovery-grill.prompt.md",
+    ".github/prompts/discovery-prototipo.prompt.md",
+    ".github/prompts/discovery-rota.prompt.md",
+    ".github/prompts/discovery-triagem.prompt.md",
+    ".github/skills/discovery-grill/SKILL.md",
+    ".github/skills/discovery-prototipo/SKILL.md",
+    ".github/skills/discovery-rota/SKILL.md",
+    ".github/skills/discovery-triagem/SKILL.md"
+  ],
+  "conhecidos": {
+    ".github/prompts/discovery-grill.prompt.md": {
+      "efad6068d64281dd971e9d72ac57163f5c6e20beabd948782dcca7731b6ceb36": "0.1,0.2"
+    },
+    ".github/prompts/discovery-prototipo.prompt.md": {
+      "d66c51574d8b43b32e1a9708038d764efe20935a5cda48c85046b26e50f0026a": "0.1,0.2"
+    },
+    ".github/prompts/discovery-rota.prompt.md": {
+      "ec8860595482092fe7397c7b17166042bd2613fba6425215a8cceb8e0df049a9": "0.1,0.2"
+    },
+    ".github/prompts/discovery-triagem.prompt.md": {
+      "ac962e1cb505158a5ae76964473eef783c8008e0af5edb746adc9f61cab104d7": "0.1,0.2"
+    },
+    ".github/skills/discovery-workflow/SKILL.md": {
+      "1e79cecbd83ecb4e8b74b070dad0a19bd8c571af0bd003ae7f9f3f79a649680d": "0.1",
+      "6b588f21a9114457750c386ad9e7c12f980334d3a391adbe3b730642a45279cb": "0.2",
+      "d332964b6d51fb6569f38f2dc289e6d4330c7d593f1435d23182e948e83106b8": "0.3.0"
+    },
+    ".github/skills/discovery-workflow/references/modos-prototipo.md": {
+      "a83b6694b51b1a934c866f01f85f8fcbb2c0057def9380c984b02e5e0835c760": "0.1,0.2,0.3.0"
+    },
+    ".github/skills/discovery-workflow/references/molde-briefing.md": {
+      "c9d940864733d7b1363ac14d927a9886720afce00d0190a89da1bae943293107": "0.1",
+      "2b570ec0db3defe99a7d4f0f4146b78414734c9bbeefd8b78584ee3e5887ae6a": "0.2,0.3.0"
+    },
+    ".github/skills/discovery-workflow/references/tecnica-grilling.md": {
+      "495b8a4603be46a206b61cf826de6fabf0236549a6262a19fce3a9a1ff3a6ce6": "0.1,0.2,0.3.0"
+    },
+    ".github/agents/discovery-grill.agent.md": {
+      "6f5dc2352e2536de10556fb12d958d54f2e0866d951b0bcce4f35beacffc9afe": "0.3.0"
+    },
+    ".github/agents/discovery-prototipo.agent.md": {
+      "ce579e86fc906d95c25eac81222511c345ff043dd363f1f641ec181b1ccb3cb7": "0.3.0"
+    },
+    ".github/agents/discovery-rota.agent.md": {
+      "facb2cea6eb77a716586c8014ae2a392fc8200bae8ccab3038e081b40d5ed7e5": "0.3.0"
+    },
+    ".github/agents/discovery-triagem.agent.md": {
+      "808c60104e252180c000a34d9098ab7588ee301101fbe3f8f63ca9ff6717a70e": "0.3.0"
+    },
+    ".github/skills/discovery-grill/SKILL.md": {
+      "876685bef73377ed569df34e1bf4f8c31ad5c9e8ac6369f78ca80e48a926e25e": "0.3.0"
+    },
+    ".github/skills/discovery-prototipo/SKILL.md": {
+      "caf0c65966f4fe8d76e26dfa9b6a52970aa1644d1b41a8ca9faa63ba2938def7": "0.3.0"
+    },
+    ".github/skills/discovery-rota/SKILL.md": {
+      "4831649c2b8069f2bda073a588ab0aa63aec835289e697c0415a92c2010fbf26": "0.3.0"
+    },
+    ".github/skills/discovery-triagem/SKILL.md": {
+      "b2686d91019d9dbcc838a7aa20a956eb11f1b733592a12beaf22dc34f28ba353": "0.3.0"
+    },
+    "docs/henrispec-discovery/README.md": {
+      "ccf5d5da61bf8e9f19108902895fecb6a9ed40125ed377978d5fa37dd5ddffb1": "0.3.0"
+    },
+    "docs/henrispec-discovery/assets/henrispec-discovery-ciclo.svg": {
+      "8537ee8db54e3a6a14a6c88b589148d9e94ecd75b0955fa4afb009d34c06a078": "0.3.0"
+    },
+    "docs/henrispec-discovery/assets/henrispec-discovery-fluxo.svg": {
+      "9425339a145dd266f3b839be857f302759a1e619459f1dc98a3a0123bc20a9a5": "0.3.0"
+    },
+    "docs/henrispec-discovery/assets/henrispec-discovery-grill.svg": {
+      "7e7b952a4b9b2e226f6a32137496edeef157e52141a5b09fc4ae175d86dc229d": "0.3.0"
+    },
+    "docs/henrispec-discovery/assets/henrispec-discovery-logo.svg": {
+      "2527bea6d6af9a3247814fed385b096767a1b35b08720702d029d8f903fd190c": "0.3.0"
+    },
+    "docs/henrispec-discovery/assets/henrispec-discovery-prototipo.svg": {
+      "44fdfb2a88eb110bac9beb0f004a7487bf0d7f33aa92198c40684868f46cca63": "0.3.0"
+    },
+    "docs/henrispec-discovery/assets/henrispec-discovery-rota.svg": {
+      "f6c07756f21fdc311e6ca8d49cd77537eb3d8c365aa731957356b9ceba696369": "0.3.0"
+    },
+    "docs/henrispec-discovery/assets/henrispec-discovery-triagem.svg": {
+      "03fb6b008fe697cab6f7990b1d5601b9b22a79ca1cbddd7f96da179fd5b8f121": "0.3.0"
+    }
+  }
+}

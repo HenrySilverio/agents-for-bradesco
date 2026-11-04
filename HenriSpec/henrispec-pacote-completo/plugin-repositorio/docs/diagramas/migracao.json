@@ -1,0 +1,104 @@
+{
+ "titulo": "Repositório com cópia antiga do toolkit migrando para o plugin",
+ "grade": {
+  "col": 200,
+  "lin": 110,
+  "x0": 20,
+  "y0": 30
+ },
+ "altura": 230,
+ "nos": [
+  {
+   "id": "a",
+   "col": 0,
+   "lin": 0,
+   "w": 170,
+   "t": "repositório",
+   "s": "cópia 0.3 ou 0.4",
+   "k": "arquivo",
+   "step": 0
+  },
+  {
+   "id": "i",
+   "col": 1,
+   "lin": 0,
+   "w": 170,
+   "t": "/henrispec:init",
+   "s": "plano, sem gravar",
+   "step": 1,
+   "destaque": true
+  },
+  {
+   "id": "c",
+   "col": 1,
+   "lin": 1,
+   "w": 170,
+   "t": "CONFLITO",
+   "s": "alterado à mão",
+   "k": "alerta",
+   "step": 2,
+   "destaque": true
+  },
+  {
+   "id": "r",
+   "col": 2,
+   "lin": 0,
+   "w": 170,
+   "t": "remove cópias",
+   "s": "intactas, com backup",
+   "step": 2
+  },
+  {
+   "id": "l",
+   "col": 3,
+   "lin": 0,
+   "w": 170,
+   "t": "lock",
+   "s": "formato 1",
+   "k": "dado",
+   "step": 3
+  },
+  {
+   "id": "g",
+   "col": 4,
+   "lin": 0,
+   "w": 170,
+   "t": "commit",
+   "s": "você",
+   "k": "voce",
+   "step": 4
+  }
+ ],
+ "arestas": [
+  {
+   "de": "a",
+   "para": "i",
+   "step": 1
+  },
+  {
+   "de": "i",
+   "para": "c",
+   "step": 2,
+   "cor": "x",
+   "rotulo": "você decide",
+   "rx": 300,
+   "ry": 120
+  },
+  {
+   "de": "i",
+   "para": "r",
+   "step": 2
+  },
+  {
+   "de": "r",
+   "para": "l",
+   "step": 3
+  },
+  {
+   "de": "l",
+   "para": "g",
+   "step": 4,
+   "cor": "a"
+  }
+ ]
+}

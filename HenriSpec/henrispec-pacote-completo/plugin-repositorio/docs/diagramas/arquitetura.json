@@ -1,0 +1,101 @@
+{
+ "titulo": "Do seu repositório ao repositório do produto",
+ "grade": {
+  "col": 230,
+  "lin": 110,
+  "x0": 20,
+  "y0": 30
+ },
+ "altura": 230,
+ "nos": [
+  {
+   "id": "r",
+   "col": 0,
+   "lin": 0,
+   "w": 200,
+   "t": "seu repositório",
+   "s": "plugins/ + ferramentas/",
+   "k": "dado",
+   "step": 0
+  },
+  {
+   "id": "t",
+   "col": 1,
+   "lin": 0,
+   "w": 200,
+   "t": "tag v1.0.0",
+   "s": "release imutável",
+   "k": "arquivo",
+   "step": 1
+  },
+  {
+   "id": "m",
+   "col": 2,
+   "lin": 0,
+   "w": 200,
+   "t": "marketplace do banco",
+   "s": "entrada com ref",
+   "k": "arquivo",
+   "step": 2
+  },
+  {
+   "id": "v",
+   "col": 3,
+   "lin": 0,
+   "w": 200,
+   "t": "VS Code do dev",
+   "s": "instala o plugin",
+   "k": "voce",
+   "step": 3
+  },
+  {
+   "id": "p",
+   "col": 3,
+   "lin": 1,
+   "w": 200,
+   "t": "plugin instalado",
+   "s": "agentes, skills, MCP",
+   "step": 4,
+   "destaque": true
+  },
+  {
+   "id": "w",
+   "col": 1,
+   "lin": 1,
+   "w": 430,
+   "t": "repositório do produto",
+   "s": ".sdd/ e docs/briefings/: só dados, sem script",
+   "k": "ok",
+   "step": 5
+  }
+ ],
+ "arestas": [
+  {
+   "de": "r",
+   "para": "t",
+   "step": 1
+  },
+  {
+   "de": "t",
+   "para": "m",
+   "step": 2
+  },
+  {
+   "de": "m",
+   "para": "v",
+   "step": 3
+  },
+  {
+   "de": "v",
+   "para": "p",
+   "step": 4
+  },
+  {
+   "de": "p",
+   "para": "w",
+   "step": 5,
+   "cor": "g",
+   "d": "M710 169H682"
+  }
+ ]
+}

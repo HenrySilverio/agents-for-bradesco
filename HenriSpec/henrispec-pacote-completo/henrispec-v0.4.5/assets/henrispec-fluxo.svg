@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="dg-fluxo" viewBox="0 0 1000 290" role="img" aria-label="Fluxo HenriSpec do briefing ao arquivamento"><title>Fluxo HenriSpec do briefing ao arquivamento</title>
+<style>
+.dg-fluxo text{font-family:"Segoe UI Variable Text","Segoe UI",system-ui,-apple-system,Helvetica,Arial,sans-serif}
+.dg-fluxo .t{font-size:14px;font-weight:650;fill:#f0f1f5}
+.dg-fluxo .st{font-size:11.5px;font-family:"Cascadia Mono",Consolas,monospace}
+.dg-fluxo .el{font-size:11.5px;fill:#a7a8ac;font-family:"Cascadia Mono",Consolas,monospace}
+.dg-fluxo .ln{fill:none;stroke-width:2;stroke-dasharray:1;stroke-dashoffset:1}
+.dg-fluxo .tracejada .ln{stroke-dasharray:.02 .015;stroke-dashoffset:0;animation:none!important}
+.dg-fluxo .pulso{animation:dg-fluxopulse 2.4s ease-in-out infinite}
+@keyframes dg-fluxopulse{0%,100%{stroke:#cc092f;filter:none}50%{stroke:#ff6b86;filter:drop-shadow(0 0 6px rgba(225,23,63,.75))}}
+.dg-fluxo .pulso-a{animation:dg-fluxopulsea 2.4s ease-in-out infinite}
+@keyframes dg-fluxopulsea{0%,100%{stroke:#e1173f}50%{stroke:#ffbc00;filter:drop-shadow(0 0 6px rgba(255,188,0,.6))}}
+@keyframes dg-fluxoa0{0%,4.0%{opacity:0;transform:translateY(6px)}9.0%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg-fluxod0{0%,4.0%{stroke-dashoffset:1}12.0%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg-fluxo .s0{animation:dg-fluxoa0 11s ease-in-out infinite both}
+.dg-fluxo .s0 .ln{animation:dg-fluxod0 11s ease-in-out infinite both}
+@keyframes dg-fluxoa1{0%,12.9%{opacity:0;transform:translateY(6px)}17.9%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg-fluxod1{0%,12.9%{stroke-dashoffset:1}20.9%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg-fluxo .s1{animation:dg-fluxoa1 11s ease-in-out infinite both}
+.dg-fluxo .s1 .ln{animation:dg-fluxod1 11s ease-in-out infinite both}
+@keyframes dg-fluxoa2{0%,21.7%{opacity:0;transform:translateY(6px)}26.7%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg-fluxod2{0%,21.7%{stroke-dashoffset:1}29.7%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg-fluxo .s2{animation:dg-fluxoa2 11s ease-in-out infinite both}
+.dg-fluxo .s2 .ln{animation:dg-fluxod2 11s ease-in-out infinite both}
+@keyframes dg-fluxoa3{0%,30.6%{opacity:0;transform:translateY(6px)}35.6%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg-fluxod3{0%,30.6%{stroke-dashoffset:1}38.6%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg-fluxo .s3{animation:dg-fluxoa3 11s ease-in-out infinite both}
+.dg-fluxo .s3 .ln{animation:dg-fluxod3 11s ease-in-out infinite both}
+@keyframes dg-fluxoa4{0%,39.4%{opacity:0;transform:translateY(6px)}44.4%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg-fluxod4{0%,39.4%{stroke-dashoffset:1}47.4%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg-fluxo .s4{animation:dg-fluxoa4 11s ease-in-out infinite both}
+.dg-fluxo .s4 .ln{animation:dg-fluxod4 11s ease-in-out infinite both}
+@keyframes dg-fluxoa5{0%,48.3%{opacity:0;transform:translateY(6px)}53.3%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg-fluxod5{0%,48.3%{stroke-dashoffset:1}56.3%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg-fluxo .s5{animation:dg-fluxoa5 11s ease-in-out infinite both}
+.dg-fluxo .s5 .ln{animation:dg-fluxod5 11s ease-in-out infinite both}
+@keyframes dg-fluxoa6{0%,57.1%{opacity:0;transform:translateY(6px)}62.1%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg-fluxod6{0%,57.1%{stroke-dashoffset:1}65.1%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg-fluxo .s6{animation:dg-fluxoa6 11s ease-in-out infinite both}
+.dg-fluxo .s6 .ln{animation:dg-fluxod6 11s ease-in-out infinite both}
+@keyframes dg-fluxoa7{0%,66.0%{opacity:0;transform:translateY(6px)}71.0%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg-fluxod7{0%,66.0%{stroke-dashoffset:1}74.0%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg-fluxo .s7{animation:dg-fluxoa7 11s ease-in-out infinite both}
+.dg-fluxo .s7 .ln{animation:dg-fluxod7 11s ease-in-out infinite both}
+@media (prefers-reduced-motion:reduce){.dg-fluxo *{animation:none!important}.dg-fluxo .ln{stroke-dashoffset:0}.dg-fluxo .pac{display:none}}
+</style>
+<defs>
+<marker id="dg-fluxo-mr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#cc092f"/></marker>
+<marker id="dg-fluxo-ma" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#ffbc00"/></marker>
+<marker id="dg-fluxo-mc" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#5b5c61"/></marker>
+<marker id="dg-fluxo-mb" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#3b69ff"/></marker>
+<marker id="dg-fluxo-mg" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#09ab47"/></marker>
+<marker id="dg-fluxo-mx" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#e1173f"/></marker>
+</defs>
+<rect width="1000" height="290" rx="18" fill="#121212"/>
+<g class="s1">
+<path id="dg-fluxo-e0" class="ln" pathLength="1" d="M140 99.0H178" stroke="#cc092f" marker-end="url(#dg-fluxo-mr)"/>
+<circle class="pac" r="3.6" fill="#cc092f"><animateMotion dur="2.2s" begin="0.00s" repeatCount="indefinite"><mpath href="#dg-fluxo-e0"/></animateMotion></circle>
+</g>
+<g class="s2">
+<path id="dg-fluxo-e1" class="ln" pathLength="1" d="M320 99.0H358" stroke="#cc092f" marker-end="url(#dg-fluxo-mr)"/>
+<circle class="pac" r="3.6" fill="#cc092f"><animateMotion dur="2.2s" begin="0.35s" repeatCount="indefinite"><mpath href="#dg-fluxo-e1"/></animateMotion></circle>
+</g>
+<g class="s3">
+<path id="dg-fluxo-e2" class="ln" pathLength="1" d="M520 99.0H558" stroke="#ffbc00" marker-end="url(#dg-fluxo-ma)"/>
+<circle class="pac" r="3.6" fill="#ffbc00"><animateMotion dur="2.2s" begin="0.70s" repeatCount="indefinite"><mpath href="#dg-fluxo-e2"/></animateMotion></circle>
+</g>
+<g class="s4">
+<path id="dg-fluxo-e3" class="ln" pathLength="1" d="M650 128V168H440V130" stroke="#ffbc00" marker-end="url(#dg-fluxo-ma)"/>
+<text class="el" x="545" y="186" text-anchor="middle">próximo agrupamento, chat novo</text>
+<circle class="pac" r="3.6" fill="#ffbc00"><animateMotion dur="2.2s" begin="1.05s" repeatCount="indefinite"><mpath href="#dg-fluxo-e3"/></animateMotion></circle>
+</g>
+<g class="s5">
+<path id="dg-fluxo-e4" class="ln" pathLength="1" d="M740 99.0H818" stroke="#cc092f" marker-end="url(#dg-fluxo-mr)"/>
+<text class="el" x="780" y="88" text-anchor="middle">todos [x]</text>
+<circle class="pac" r="3.6" fill="#cc092f"><animateMotion dur="2.2s" begin="1.40s" repeatCount="indefinite"><mpath href="#dg-fluxo-e4"/></animateMotion></circle>
+</g>
+<g class="s6">
+<path id="dg-fluxo-e5" class="ln" pathLength="1" d="M900.0 128V204" stroke="#cc092f" marker-end="url(#dg-fluxo-mr)"/>
+<text class="el" x="858" y="172" text-anchor="middle">2 x APROVADO</text>
+<circle class="pac" r="3.6" fill="#cc092f"><animateMotion dur="2.2s" begin="0.00s" repeatCount="indefinite"><mpath href="#dg-fluxo-e5"/></animateMotion></circle>
+</g>
+<g class="s7">
+<path id="dg-fluxo-e6" class="ln" pathLength="1" d="M820 235.0H742" stroke="#3b69ff" marker-end="url(#dg-fluxo-mb)"/>
+<circle class="pac" r="3.6" fill="#3b69ff"><animateMotion dur="2.2s" begin="0.35s" repeatCount="indefinite"><mpath href="#dg-fluxo-e6"/></animateMotion></circle>
+</g>
+<g class="s0">
+<rect x="20" y="70" width="120" height="58" rx="12" fill="#2b2207" stroke="#ffbc00" stroke-width="1.8"/>
+<text class="t" x="80.0" y="96.0" text-anchor="middle">briefing</text>
+<text class="st" x="80.0" y="114.0" text-anchor="middle" fill="#ffcf4d">você</text>
+</g>
+<g class="s1">
+<rect class="pulso" x="180" y="70" width="140" height="58" rx="12" fill="#2a0c13" stroke="#cc092f" stroke-width="1.8"/>
+<text class="t" x="250.0" y="96.0" text-anchor="middle">sdd-plan</text>
+<text class="st" x="250.0" y="114.0" text-anchor="middle" fill="#f36279">Opus</text>
+</g>
+<g class="s2">
+<rect class="pulso" x="360" y="70" width="160" height="58" rx="12" fill="#2a0c13" stroke="#cc092f" stroke-width="1.8"/>
+<text class="t" x="440.0" y="96.0" text-anchor="middle">sdd-implement</text>
+<text class="st" x="440.0" y="114.0" text-anchor="middle" fill="#f36279">uma fatia</text>
+</g>
+<g class="s3">
+<rect x="560" y="70" width="180" height="58" rx="12" fill="#2b2207" stroke="#ffbc00" stroke-width="1.8"/>
+<text class="t" x="650.0" y="96.0" text-anchor="middle">revisar e commitar</text>
+<text class="st" x="650.0" y="114.0" text-anchor="middle" fill="#ffcf4d">você</text>
+</g>
+<g class="s5">
+<rect class="pulso" x="820" y="70" width="160" height="58" rx="12" fill="#2a0c13" stroke="#cc092f" stroke-width="1.8"/>
+<text class="t" x="900.0" y="96.0" text-anchor="middle">sdd-review</text>
+<text class="st" x="900.0" y="114.0" text-anchor="middle" fill="#f36279">dois eixos</text>
+</g>
+<g class="s6">
+<rect class="pulso" x="820" y="206" width="160" height="58" rx="12" fill="#2a0c13" stroke="#cc092f" stroke-width="1.8"/>
+<text class="t" x="900.0" y="232.0" text-anchor="middle">sdd-archive</text>
+<text class="st" x="900.0" y="250.0" text-anchor="middle" fill="#f36279">Sonnet</text>
+</g>
+<g class="s7">
+<rect x="560" y="206" width="180" height="58" rx="12" fill="#0e1a33" stroke="#3b69ff" stroke-width="1.8"/>
+<text class="t" x="650.0" y="232.0" text-anchor="middle">specs + decisões</text>
+<text class="st" x="650.0" y="250.0" text-anchor="middle" fill="#8fb0ff">estado atual</text>
+</g>
+</svg>

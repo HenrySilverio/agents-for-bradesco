@@ -1,0 +1,34 @@
+{
+  "$comentario": "Entradas para colar no array \"plugins\" do marketplace.json do banco. Use a variante github para github.com e a variante url para GitHub Enterprise ou outro Git. Troque <dono>/<repo>, a URL e o ref pela tag publicada.",
+  "variante-github": [
+    {
+      "name": "henrispec",
+      "description": "Spec-Driven Development para o GitHub Copilot: quatro agentes com modelo fixo, uma fatia por sessão, revisão em dois eixos e verificação só na camada alterada.",
+      "version": "1.0.0",
+      "source": { "source": "github", "repo": "<dono>/<repo>", "ref": "v1.0.0", "path": "plugins/henrispec" }
+    },
+    {
+      "name": "henrispec-discovery",
+      "description": "Da necessidade crua ao briefing pronto para o HenriSpec: entrevista, triagem de ticket, protótipo descartável e roteamento.",
+      "version": "1.0.0",
+      "source": { "source": "github", "repo": "<dono>/<repo>", "ref": "v1.0.0", "path": "plugins/henrispec-discovery" }
+    }
+  ],
+  "variante-url": [
+    {
+      "name": "henrispec",
+      "version": "1.0.0",
+      "source": { "source": "url", "url": "https://<seu-git-enterprise>/<dono>/<repo>.git", "ref": "v1.0.0", "path": "plugins/henrispec" }
+    },
+    {
+      "name": "henrispec-discovery",
+      "version": "1.0.0",
+      "source": { "source": "url", "url": "https://<seu-git-enterprise>/<dono>/<repo>.git", "ref": "v1.0.0", "path": "plugins/henrispec-discovery" }
+    }
+  ],
+  "configuracao-gerenciada": {
+    "$comentario": "Só se a organização quiser os hooks do HenriSpec ativos: hook de plugin só roda com o plugin habilitado por entrada gerenciada quando allowManagedHooksOnly está ligado. O nome depois do @ é o name do marketplace do banco.",
+    "enabledPlugins": { "henrispec@<marketplace-do-banco>": true },
+    "allowManagedHooksOnly": true
+  }
+}

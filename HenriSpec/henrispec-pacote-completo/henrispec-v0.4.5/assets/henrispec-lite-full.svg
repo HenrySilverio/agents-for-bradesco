@@ -1,0 +1,134 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="dg-litefull" viewBox="0 0 1000 360" role="img" aria-label="Rigor Lite e Full"><title>Rigor Lite e Full</title>
+<style>
+.dg-litefull text{font-family:"Segoe UI Variable Text","Segoe UI",system-ui,-apple-system,Helvetica,Arial,sans-serif}
+.dg-litefull .t{font-size:14px;font-weight:650;fill:#f0f1f5}
+.dg-litefull .st{font-size:11.5px;font-family:"Cascadia Mono",Consolas,monospace}
+.dg-litefull .el{font-size:11.5px;fill:#a7a8ac;font-family:"Cascadia Mono",Consolas,monospace}
+.dg-litefull .ln{fill:none;stroke-width:2;stroke-dasharray:1;stroke-dashoffset:1}
+.dg-litefull .tracejada .ln{stroke-dasharray:.02 .015;stroke-dashoffset:0;animation:none!important}
+.dg-litefull .pulso{animation:dg-litefullpulse 2.4s ease-in-out infinite}
+@keyframes dg-litefullpulse{0%,100%{stroke:#cc092f;filter:none}50%{stroke:#ff6b86;filter:drop-shadow(0 0 6px rgba(225,23,63,.75))}}
+.dg-litefull .pulso-a{animation:dg-litefullpulsea 2.4s ease-in-out infinite}
+@keyframes dg-litefullpulsea{0%,100%{stroke:#e1173f}50%{stroke:#ffbc00;filter:drop-shadow(0 0 6px rgba(255,188,0,.6))}}
+@keyframes dg-litefulla0{0%,4.0%{opacity:0;transform:translateY(6px)}9.0%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg-litefulld0{0%,4.0%{stroke-dashoffset:1}12.0%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg-litefull .s0{animation:dg-litefulla0 11s ease-in-out infinite both}
+.dg-litefull .s0 .ln{animation:dg-litefulld0 11s ease-in-out infinite both}
+@keyframes dg-litefulla1{0%,14.3%{opacity:0;transform:translateY(6px)}19.3%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg-litefulld1{0%,14.3%{stroke-dashoffset:1}22.3%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg-litefull .s1{animation:dg-litefulla1 11s ease-in-out infinite both}
+.dg-litefull .s1 .ln{animation:dg-litefulld1 11s ease-in-out infinite both}
+@keyframes dg-litefulla2{0%,24.7%{opacity:0;transform:translateY(6px)}29.7%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg-litefulld2{0%,24.7%{stroke-dashoffset:1}32.7%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg-litefull .s2{animation:dg-litefulla2 11s ease-in-out infinite both}
+.dg-litefull .s2 .ln{animation:dg-litefulld2 11s ease-in-out infinite both}
+@keyframes dg-litefulla3{0%,35.0%{opacity:0;transform:translateY(6px)}40.0%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg-litefulld3{0%,35.0%{stroke-dashoffset:1}43.0%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg-litefull .s3{animation:dg-litefulla3 11s ease-in-out infinite both}
+.dg-litefull .s3 .ln{animation:dg-litefulld3 11s ease-in-out infinite both}
+@keyframes dg-litefulla4{0%,45.3%{opacity:0;transform:translateY(6px)}50.3%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg-litefulld4{0%,45.3%{stroke-dashoffset:1}53.3%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg-litefull .s4{animation:dg-litefulla4 11s ease-in-out infinite both}
+.dg-litefull .s4 .ln{animation:dg-litefulld4 11s ease-in-out infinite both}
+@keyframes dg-litefulla5{0%,55.7%{opacity:0;transform:translateY(6px)}60.7%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg-litefulld5{0%,55.7%{stroke-dashoffset:1}63.7%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg-litefull .s5{animation:dg-litefulla5 11s ease-in-out infinite both}
+.dg-litefull .s5 .ln{animation:dg-litefulld5 11s ease-in-out infinite both}
+@keyframes dg-litefulla6{0%,66.0%{opacity:0;transform:translateY(6px)}71.0%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg-litefulld6{0%,66.0%{stroke-dashoffset:1}74.0%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg-litefull .s6{animation:dg-litefulla6 11s ease-in-out infinite both}
+.dg-litefull .s6 .ln{animation:dg-litefulld6 11s ease-in-out infinite both}
+@media (prefers-reduced-motion:reduce){.dg-litefull *{animation:none!important}.dg-litefull .ln{stroke-dashoffset:0}.dg-litefull .pac{display:none}}
+</style>
+<defs>
+<marker id="dg-litefull-mr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#cc092f"/></marker>
+<marker id="dg-litefull-ma" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#ffbc00"/></marker>
+<marker id="dg-litefull-mc" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#5b5c61"/></marker>
+<marker id="dg-litefull-mb" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#3b69ff"/></marker>
+<marker id="dg-litefull-mg" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#09ab47"/></marker>
+<marker id="dg-litefull-mx" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#e1173f"/></marker>
+</defs>
+<rect width="1000" height="360" rx="18" fill="#121212"/>
+<g class="s1">
+<path id="dg-litefull-e0" class="ln" pathLength="1" d="M140 159.0H178" stroke="#cc092f" marker-end="url(#dg-litefull-mr)"/>
+<circle class="pac" r="3.6" fill="#cc092f"><animateMotion dur="2.2s" begin="0.00s" repeatCount="indefinite"><mpath href="#dg-litefull-e0"/></animateMotion></circle>
+</g>
+<g class="s2">
+<path id="dg-litefull-e1" class="ln" pathLength="1" d="M330 159H365V69H398" stroke="#cc092f" marker-end="url(#dg-litefull-mr)"/>
+<text class="el" x="300" y="82" text-anchor="middle">sem gatilho</text>
+<circle class="pac" r="3.6" fill="#cc092f"><animateMotion dur="2.2s" begin="0.35s" repeatCount="indefinite"><mpath href="#dg-litefull-e1"/></animateMotion></circle>
+</g>
+<g class="s3">
+<path id="dg-litefull-e2" class="ln" pathLength="1" d="M330 159H365V249H398" stroke="#cc092f" marker-end="url(#dg-litefull-mr)"/>
+<text class="el" x="300" y="262" text-anchor="middle">com gatilho</text>
+<circle class="pac" r="3.6" fill="#cc092f"><animateMotion dur="2.2s" begin="0.70s" repeatCount="indefinite"><mpath href="#dg-litefull-e2"/></animateMotion></circle>
+</g>
+<g class="s3 tracejada">
+<path id="dg-litefull-e3" class="ln" pathLength="1" d="M490.0 300V289.0H490.0V280" stroke="#e1173f" marker-end="url(#dg-litefull-mx)"/>
+</g>
+<g class="s4">
+<path id="dg-litefull-e4" class="ln" pathLength="1" d="M580 69.0H618" stroke="#cc092f" marker-end="url(#dg-litefull-mr)"/>
+<circle class="pac" r="3.6" fill="#cc092f"><animateMotion dur="2.2s" begin="1.40s" repeatCount="indefinite"><mpath href="#dg-litefull-e4"/></animateMotion></circle>
+</g>
+<g class="s4">
+<path id="dg-litefull-e5" class="ln" pathLength="1" d="M580 249H600V130H710V100" stroke="#cc092f" marker-end="url(#dg-litefull-mr)"/>
+<circle class="pac" r="3.6" fill="#cc092f"><animateMotion dur="2.2s" begin="0.00s" repeatCount="indefinite"><mpath href="#dg-litefull-e5"/></animateMotion></circle>
+</g>
+<g class="s5">
+<path id="dg-litefull-e6" class="ln" pathLength="1" d="M800 69H820V159H838" stroke="#cc092f" marker-end="url(#dg-litefull-mr)"/>
+<circle class="pac" r="3.6" fill="#cc092f"><animateMotion dur="2.2s" begin="0.35s" repeatCount="indefinite"><mpath href="#dg-litefull-e6"/></animateMotion></circle>
+</g>
+<g class="s6">
+<path id="dg-litefull-e7" class="ln" pathLength="1" d="M910.0 188V248" stroke="#3b69ff" marker-end="url(#dg-litefull-mb)"/>
+<circle class="pac" r="3.6" fill="#3b69ff"><animateMotion dur="2.2s" begin="0.70s" repeatCount="indefinite"><mpath href="#dg-litefull-e7"/></animateMotion></circle>
+</g>
+<g class="s6">
+<path id="dg-litefull-e8" class="ln" pathLength="1" d="M910.0 130V101.0H910.0V74" stroke="#3b69ff" marker-end="url(#dg-litefull-mb)"/>
+<circle class="pac" r="3.6" fill="#3b69ff"><animateMotion dur="2.2s" begin="1.05s" repeatCount="indefinite"><mpath href="#dg-litefull-e8"/></animateMotion></circle>
+</g>
+<g class="s0">
+<rect x="20" y="130" width="120" height="58" rx="12" fill="#2b2207" stroke="#ffbc00" stroke-width="1.8"/>
+<text class="t" x="80.0" y="156.0" text-anchor="middle">briefing</text>
+<text class="st" x="80.0" y="174.0" text-anchor="middle" fill="#ffcf4d">você</text>
+</g>
+<g class="s1">
+<rect class="pulso" x="180" y="130" width="150" height="58" rx="12" fill="#2a0c13" stroke="#cc092f" stroke-width="1.8"/>
+<text class="t" x="255.0" y="156.0" text-anchor="middle">sdd-plan</text>
+<text class="st" x="255.0" y="174.0" text-anchor="middle" fill="#f36279">classifica rigor</text>
+</g>
+<g class="s2">
+<rect x="400" y="40" width="180" height="58" rx="12" fill="#1c1c1e" stroke="#5b5c61" stroke-width="1.8"/>
+<text class="t" x="490.0" y="66.0" text-anchor="middle">Lite</text>
+<text class="st" x="490.0" y="84.0" text-anchor="middle" fill="#a7a8ac">proposta + tarefas</text>
+</g>
+<g class="s3">
+<rect x="400" y="220" width="180" height="58" rx="12" fill="#1c1c1e" stroke="#5b5c61" stroke-width="1.8"/>
+<text class="t" x="490.0" y="246.0" text-anchor="middle">Full</text>
+<text class="st" x="490.0" y="264.0" text-anchor="middle" fill="#a7a8ac">+ design + deltas</text>
+</g>
+<g class="s3">
+<rect x="400" y="300" width="180" height="46" rx="12" fill="#2e0a12" stroke="#e1173f" stroke-width="1.8"/>
+<text class="t" x="490.0" y="320.0" text-anchor="middle">gatilho</text>
+<text class="st" x="490.0" y="338.0" text-anchor="middle" fill="#ff8197">contrato, regra, decisão</text>
+</g>
+<g class="s4">
+<rect class="pulso" x="620" y="40" width="180" height="58" rx="12" fill="#2a0c13" stroke="#cc092f" stroke-width="1.8"/>
+<text class="t" x="710.0" y="66.0" text-anchor="middle">implement → review</text>
+<text class="st" x="710.0" y="84.0" text-anchor="middle" fill="#f36279">mesmo fluxo</text>
+</g>
+<g class="s5">
+<rect class="pulso" x="840" y="130" width="140" height="58" rx="12" fill="#2a0c13" stroke="#cc092f" stroke-width="1.8"/>
+<text class="t" x="910.0" y="156.0" text-anchor="middle">sdd-archive</text>
+<text class="st" x="910.0" y="174.0" text-anchor="middle" fill="#f36279">aplica e promove</text>
+</g>
+<g class="s6">
+<rect x="840" y="250" width="140" height="58" rx="12" fill="#0e1a33" stroke="#3b69ff" stroke-width="1.8"/>
+<text class="t" x="910.0" y="276.0" text-anchor="middle">specs/</text>
+<text class="st" x="910.0" y="294.0" text-anchor="middle" fill="#8fb0ff">deltas literais</text>
+</g>
+<g class="s6">
+<rect x="840" y="14" width="140" height="58" rx="12" fill="#0e1a33" stroke="#3b69ff" stroke-width="1.8"/>
+<text class="t" x="910.0" y="40.0" text-anchor="middle">decisoes/</text>
+<text class="st" x="910.0" y="58.0" text-anchor="middle" fill="#8fb0ff">DEC permanentes</text>
+</g>
+</svg>

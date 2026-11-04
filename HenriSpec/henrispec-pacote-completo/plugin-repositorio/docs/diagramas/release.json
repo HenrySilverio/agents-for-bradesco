@@ -1,0 +1,101 @@
+{
+ "titulo": "Publicar uma versão nova",
+ "grade": {
+  "col": 200,
+  "lin": 110,
+  "x0": 20,
+  "y0": 30
+ },
+ "altura": 230,
+ "nos": [
+  {
+   "id": "m",
+   "col": 0,
+   "lin": 0,
+   "w": 170,
+   "t": "mudança",
+   "s": "no seu repositório",
+   "k": "voce",
+   "step": 0
+  },
+  {
+   "id": "v",
+   "col": 1,
+   "lin": 0,
+   "w": 170,
+   "t": "versão",
+   "s": "plugin + marketplace",
+   "k": "arquivo",
+   "step": 1
+  },
+  {
+   "id": "t",
+   "col": 2,
+   "lin": 0,
+   "w": 170,
+   "t": "validar",
+   "s": "validar + testar-mcp",
+   "step": 2,
+   "destaque": true
+  },
+  {
+   "id": "g",
+   "col": 3,
+   "lin": 0,
+   "w": 170,
+   "t": "tag",
+   "s": "vX.Y.Z",
+   "k": "arquivo",
+   "step": 3
+  },
+  {
+   "id": "p",
+   "col": 4,
+   "lin": 0,
+   "w": 170,
+   "t": "PR no marketplace",
+   "s": "ref nova",
+   "k": "voce",
+   "step": 4
+  },
+  {
+   "id": "d",
+   "col": 4,
+   "lin": 1,
+   "w": 170,
+   "t": "devs atualizados",
+   "s": "em até 24h",
+   "k": "ok",
+   "step": 5
+  }
+ ],
+ "arestas": [
+  {
+   "de": "m",
+   "para": "v",
+   "step": 1
+  },
+  {
+   "de": "v",
+   "para": "t",
+   "step": 2
+  },
+  {
+   "de": "t",
+   "para": "g",
+   "step": 3
+  },
+  {
+   "de": "g",
+   "para": "p",
+   "step": 4,
+   "cor": "a"
+  },
+  {
+   "de": "p",
+   "para": "d",
+   "step": 5,
+   "cor": "g"
+  }
+ ]
+}

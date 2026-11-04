@@ -1,0 +1,11 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/mcp.schema.json",
+  "mcpServers": {
+    "henrispec": {
+      "type": "stdio",
+      "command": "node",
+      "args": ["${PLUGIN_ROOT}/mcp/servidor.mjs", "--perfil", "henrispec"],
+      "cwd": "${PLUGIN_ROOT}"
+    }
+  }
+}

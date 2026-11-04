@@ -1,0 +1,126 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="dg-reprovado" viewBox="0 0 1000 310" role="img" aria-label="Revisão reprovada e replanejamento"><title>Revisão reprovada e replanejamento</title>
+<style>
+.dg-reprovado text{font-family:"Segoe UI Variable Text","Segoe UI",system-ui,-apple-system,Helvetica,Arial,sans-serif}
+.dg-reprovado .t{font-size:14px;font-weight:650;fill:#f0f1f5}
+.dg-reprovado .st{font-size:11.5px;font-family:"Cascadia Mono",Consolas,monospace}
+.dg-reprovado .el{font-size:11.5px;fill:#a7a8ac;font-family:"Cascadia Mono",Consolas,monospace}
+.dg-reprovado .ln{fill:none;stroke-width:2;stroke-dasharray:1;stroke-dashoffset:1}
+.dg-reprovado .tracejada .ln{stroke-dasharray:.02 .015;stroke-dashoffset:0;animation:none!important}
+.dg-reprovado .pulso{animation:dg-reprovadopulse 2.4s ease-in-out infinite}
+@keyframes dg-reprovadopulse{0%,100%{stroke:#cc092f;filter:none}50%{stroke:#ff6b86;filter:drop-shadow(0 0 6px rgba(225,23,63,.75))}}
+.dg-reprovado .pulso-a{animation:dg-reprovadopulsea 2.4s ease-in-out infinite}
+@keyframes dg-reprovadopulsea{0%,100%{stroke:#e1173f}50%{stroke:#ffbc00;filter:drop-shadow(0 0 6px rgba(255,188,0,.6))}}
+@keyframes dg-reprovadoa0{0%,4.0%{opacity:0;transform:translateY(6px)}9.0%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg-reprovadod0{0%,4.0%{stroke-dashoffset:1}12.0%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg-reprovado .s0{animation:dg-reprovadoa0 11s ease-in-out infinite both}
+.dg-reprovado .s0 .ln{animation:dg-reprovadod0 11s ease-in-out infinite both}
+@keyframes dg-reprovadoa1{0%,12.9%{opacity:0;transform:translateY(6px)}17.9%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg-reprovadod1{0%,12.9%{stroke-dashoffset:1}20.9%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg-reprovado .s1{animation:dg-reprovadoa1 11s ease-in-out infinite both}
+.dg-reprovado .s1 .ln{animation:dg-reprovadod1 11s ease-in-out infinite both}
+@keyframes dg-reprovadoa2{0%,21.7%{opacity:0;transform:translateY(6px)}26.7%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg-reprovadod2{0%,21.7%{stroke-dashoffset:1}29.7%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg-reprovado .s2{animation:dg-reprovadoa2 11s ease-in-out infinite both}
+.dg-reprovado .s2 .ln{animation:dg-reprovadod2 11s ease-in-out infinite both}
+@keyframes dg-reprovadoa3{0%,30.6%{opacity:0;transform:translateY(6px)}35.6%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg-reprovadod3{0%,30.6%{stroke-dashoffset:1}38.6%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg-reprovado .s3{animation:dg-reprovadoa3 11s ease-in-out infinite both}
+.dg-reprovado .s3 .ln{animation:dg-reprovadod3 11s ease-in-out infinite both}
+@keyframes dg-reprovadoa4{0%,39.4%{opacity:0;transform:translateY(6px)}44.4%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg-reprovadod4{0%,39.4%{stroke-dashoffset:1}47.4%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg-reprovado .s4{animation:dg-reprovadoa4 11s ease-in-out infinite both}
+.dg-reprovado .s4 .ln{animation:dg-reprovadod4 11s ease-in-out infinite both}
+@keyframes dg-reprovadoa5{0%,48.3%{opacity:0;transform:translateY(6px)}53.3%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg-reprovadod5{0%,48.3%{stroke-dashoffset:1}56.3%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg-reprovado .s5{animation:dg-reprovadoa5 11s ease-in-out infinite both}
+.dg-reprovado .s5 .ln{animation:dg-reprovadod5 11s ease-in-out infinite both}
+@keyframes dg-reprovadoa6{0%,57.1%{opacity:0;transform:translateY(6px)}62.1%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg-reprovadod6{0%,57.1%{stroke-dashoffset:1}65.1%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg-reprovado .s6{animation:dg-reprovadoa6 11s ease-in-out infinite both}
+.dg-reprovado .s6 .ln{animation:dg-reprovadod6 11s ease-in-out infinite both}
+@keyframes dg-reprovadoa7{0%,66.0%{opacity:0;transform:translateY(6px)}71.0%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg-reprovadod7{0%,66.0%{stroke-dashoffset:1}74.0%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg-reprovado .s7{animation:dg-reprovadoa7 11s ease-in-out infinite both}
+.dg-reprovado .s7 .ln{animation:dg-reprovadod7 11s ease-in-out infinite both}
+@media (prefers-reduced-motion:reduce){.dg-reprovado *{animation:none!important}.dg-reprovado .ln{stroke-dashoffset:0}.dg-reprovado .pac{display:none}}
+</style>
+<defs>
+<marker id="dg-reprovado-mr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#cc092f"/></marker>
+<marker id="dg-reprovado-ma" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#ffbc00"/></marker>
+<marker id="dg-reprovado-mc" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#5b5c61"/></marker>
+<marker id="dg-reprovado-mb" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#3b69ff"/></marker>
+<marker id="dg-reprovado-mg" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#09ab47"/></marker>
+<marker id="dg-reprovado-mx" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#e1173f"/></marker>
+</defs>
+<rect width="1000" height="310" rx="18" fill="#121212"/>
+<g class="s1">
+<path id="dg-reprovado-e0" class="ln" pathLength="1" d="M190 99.0H228" stroke="#cc092f" marker-end="url(#dg-reprovado-mr)"/>
+<circle class="pac" r="3.6" fill="#cc092f"><animateMotion dur="2.2s" begin="0.00s" repeatCount="indefinite"><mpath href="#dg-reprovado-e0"/></animateMotion></circle>
+</g>
+<g class="s2">
+<path id="dg-reprovado-e1" class="ln" pathLength="1" d="M400 99.0H438" stroke="#e1173f" marker-end="url(#dg-reprovado-mx)"/>
+<circle class="pac" r="3.6" fill="#e1173f"><animateMotion dur="2.2s" begin="0.35s" repeatCount="indefinite"><mpath href="#dg-reprovado-e1"/></animateMotion></circle>
+</g>
+<g class="s3">
+<path id="dg-reprovado-e2" class="ln" pathLength="1" d="M660 99.0H738" stroke="#e1173f" marker-end="url(#dg-reprovado-mx)"/>
+<text class="el" x="700" y="46" text-anchor="middle">não volta direto ao implement</text>
+<circle class="pac" r="3.6" fill="#e1173f"><animateMotion dur="2.2s" begin="0.70s" repeatCount="indefinite"><mpath href="#dg-reprovado-e2"/></animateMotion></circle>
+</g>
+<g class="s4">
+<path id="dg-reprovado-e3" class="ln" pathLength="1" d="M860.0 128V208" stroke="#cc092f" marker-end="url(#dg-reprovado-mr)"/>
+<circle class="pac" r="3.6" fill="#cc092f"><animateMotion dur="2.2s" begin="1.05s" repeatCount="indefinite"><mpath href="#dg-reprovado-e3"/></animateMotion></circle>
+</g>
+<g class="s5">
+<path id="dg-reprovado-e4" class="ln" pathLength="1" d="M740 239.0H662" stroke="#cc092f" marker-end="url(#dg-reprovado-mr)"/>
+<circle class="pac" r="3.6" fill="#cc092f"><animateMotion dur="2.2s" begin="1.40s" repeatCount="indefinite"><mpath href="#dg-reprovado-e4"/></animateMotion></circle>
+</g>
+<g class="s6">
+<path id="dg-reprovado-e5" class="ln" pathLength="1" d="M440 239.0H402" stroke="#ffbc00" marker-end="url(#dg-reprovado-ma)"/>
+<circle class="pac" r="3.6" fill="#ffbc00"><animateMotion dur="2.2s" begin="0.00s" repeatCount="indefinite"><mpath href="#dg-reprovado-e5"/></animateMotion></circle>
+</g>
+<g class="s7">
+<path id="dg-reprovado-e6" class="ln" pathLength="1" d="M230 239.0H192" stroke="#09ab47" marker-end="url(#dg-reprovado-mg)"/>
+<text class="el" x="210" y="292" text-anchor="middle">review de novo</text>
+<circle class="pac" r="3.6" fill="#09ab47"><animateMotion dur="2.2s" begin="0.35s" repeatCount="indefinite"><mpath href="#dg-reprovado-e6"/></animateMotion></circle>
+</g>
+<g class="s0">
+<rect class="pulso" x="20" y="70" width="170" height="58" rx="12" fill="#2a0c13" stroke="#cc092f" stroke-width="1.8"/>
+<text class="t" x="105.0" y="96.0" text-anchor="middle">sdd-implement</text>
+<text class="st" x="105.0" y="114.0" text-anchor="middle" fill="#f36279">fatias fechadas</text>
+</g>
+<g class="s1">
+<rect class="pulso" x="230" y="70" width="170" height="58" rx="12" fill="#2a0c13" stroke="#cc092f" stroke-width="1.8"/>
+<text class="t" x="315.0" y="96.0" text-anchor="middle">sdd-review</text>
+<text class="st" x="315.0" y="114.0" text-anchor="middle" fill="#f36279">eixo spec</text>
+</g>
+<g class="s2">
+<rect class="pulso-a" x="440" y="70" width="220" height="58" rx="12" fill="#2e0a12" stroke="#e1173f" stroke-width="1.8"/>
+<text class="t" x="550.0" y="96.0" text-anchor="middle">REPROVADO</text>
+<text class="st" x="550.0" y="114.0" text-anchor="middle" fill="#ff8197">revisao/spec-4e1a9c2.md</text>
+</g>
+<g class="s3">
+<rect class="pulso" x="740" y="70" width="240" height="58" rx="12" fill="#2a0c13" stroke="#cc092f" stroke-width="1.8"/>
+<text class="t" x="860.0" y="96.0" text-anchor="middle">sdd-plan</text>
+<text class="st" x="860.0" y="114.0" text-anchor="middle" fill="#f36279">briefing + replanejar:</text>
+</g>
+<g class="s4">
+<rect x="740" y="210" width="240" height="58" rx="12" fill="#1c1c1e" stroke="#5b5c61" stroke-width="1.8"/>
+<text class="t" x="860.0" y="236.0" text-anchor="middle">agrupamento 5</text>
+<text class="st" x="860.0" y="254.0" text-anchor="middle" fill="#a7a8ac">motivo em Divergências</text>
+</g>
+<g class="s5">
+<rect class="pulso" x="440" y="210" width="220" height="58" rx="12" fill="#2a0c13" stroke="#cc092f" stroke-width="1.8"/>
+<text class="t" x="550.0" y="236.0" text-anchor="middle">sdd-implement</text>
+<text class="st" x="550.0" y="254.0" text-anchor="middle" fill="#f36279">só o agrupamento 5</text>
+</g>
+<g class="s6">
+<rect x="230" y="210" width="170" height="58" rx="12" fill="#2b2207" stroke="#ffbc00" stroke-width="1.8"/>
+<text class="t" x="315.0" y="236.0" text-anchor="middle">commit</text>
+<text class="st" x="315.0" y="254.0" text-anchor="middle" fill="#ffcf4d">você</text>
+</g>
+<g class="s7">
+<rect x="20" y="210" width="170" height="58" rx="12" fill="#0c2016" stroke="#09ab47" stroke-width="1.8"/>
+<text class="t" x="105.0" y="236.0" text-anchor="middle">APROVADO</text>
+<text class="st" x="105.0" y="254.0" text-anchor="middle" fill="#57d98b">veredito novo</text>
+</g>
+</svg>

@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="dg1" viewBox="0 0 1010 230" role="img" aria-label="Repositório com cópia antiga do toolkit migrando para o plugin"><title>Repositório com cópia antiga do toolkit migrando para o plugin</title>
+<style>.dg1 text{font-family:"Segoe UI Variable Text","Segoe UI",system-ui,Helvetica,Arial,sans-serif}
+.dg1 .t{font-size:14px;font-weight:650;fill:#f0f1f5}
+.dg1 .st{font-size:11.5px;font-family:"Cascadia Mono",Consolas,monospace}
+.dg1 .el{font-size:11.5px;fill:#a7a8ac;font-family:"Cascadia Mono",Consolas,monospace}
+.dg1 .ln{fill:none;stroke-width:2;stroke-dasharray:1;stroke-dashoffset:1}
+.dg1 .tracejada .ln{stroke-dasharray:.02 .015;stroke-dashoffset:0;animation:none!important}
+.dg1 .pulso{animation:dg1pulse 2.4s ease-in-out infinite}
+@keyframes dg1pulse{0%,100%{stroke:#cc092f}50%{stroke:#ff6b86;filter:drop-shadow(0 0 6px rgba(225,23,63,.75))}}
+.dg1 .pulso-a{animation:dg1pulsea 2.4s ease-in-out infinite}
+@keyframes dg1pulsea{0%,100%{stroke:#e1173f}50%{stroke:#ffbc00;filter:drop-shadow(0 0 6px rgba(255,188,0,.6))}}
+@keyframes dg1a0{0%,4.0%{opacity:0;transform:translateY(6px)}9.0%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg1d0{0%,4.0%{stroke-dashoffset:1}12.0%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg1 .s0{animation:dg1a0 11s ease-in-out infinite both}
+.dg1 .s0 .ln{animation:dg1d0 11s ease-in-out infinite both}
+@keyframes dg1a1{0%,19.5%{opacity:0;transform:translateY(6px)}24.5%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg1d1{0%,19.5%{stroke-dashoffset:1}27.5%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg1 .s1{animation:dg1a1 11s ease-in-out infinite both}
+.dg1 .s1 .ln{animation:dg1d1 11s ease-in-out infinite both}
+@keyframes dg1a2{0%,35.0%{opacity:0;transform:translateY(6px)}40.0%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg1d2{0%,35.0%{stroke-dashoffset:1}43.0%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg1 .s2{animation:dg1a2 11s ease-in-out infinite both}
+.dg1 .s2 .ln{animation:dg1d2 11s ease-in-out infinite both}
+@keyframes dg1a3{0%,50.5%{opacity:0;transform:translateY(6px)}55.5%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg1d3{0%,50.5%{stroke-dashoffset:1}58.5%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg1 .s3{animation:dg1a3 11s ease-in-out infinite both}
+.dg1 .s3 .ln{animation:dg1d3 11s ease-in-out infinite both}
+@keyframes dg1a4{0%,66.0%{opacity:0;transform:translateY(6px)}71.0%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg1d4{0%,66.0%{stroke-dashoffset:1}74.0%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg1 .s4{animation:dg1a4 11s ease-in-out infinite both}
+.dg1 .s4 .ln{animation:dg1d4 11s ease-in-out infinite both}
+@media (prefers-reduced-motion:reduce){.dg1 *{animation:none!important}.dg1 .ln{stroke-dashoffset:0}.dg1 .pac{display:none}}</style><defs>
+<marker id="dg1-mr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#cc092f"/></marker>
+<marker id="dg1-ma" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#ffbc00"/></marker>
+<marker id="dg1-mc" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#5b5c61"/></marker>
+<marker id="dg1-mb" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#3b69ff"/></marker>
+<marker id="dg1-mg" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#09ab47"/></marker>
+<marker id="dg1-mx" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#e1173f"/></marker>
+</defs>
+<rect width="1010" height="230" rx="18" fill="#121212"/>
+<g class="s1">
+<path id="dg1-e0" class="ln" pathLength="1" d="M190 59H218" stroke="#cc092f" marker-end="url(#dg1-mr)"/>
+<circle class="pac" r="3.6" fill="#cc092f"><animateMotion dur="2.2s" begin="0.00s" repeatCount="indefinite"><mpath href="#dg1-e0"/></animateMotion></circle>
+</g>
+<g class="s2">
+<path id="dg1-e1" class="ln" pathLength="1" d="M305 88V138" stroke="#e1173f" marker-end="url(#dg1-mx)"/>
+<text class="el" x="300" y="120" text-anchor="middle">você decide</text>
+<circle class="pac" r="3.6" fill="#e1173f"><animateMotion dur="2.2s" begin="0.35s" repeatCount="indefinite"><mpath href="#dg1-e1"/></animateMotion></circle>
+</g>
+<g class="s2">
+<path id="dg1-e2" class="ln" pathLength="1" d="M390 59H418" stroke="#cc092f" marker-end="url(#dg1-mr)"/>
+<circle class="pac" r="3.6" fill="#cc092f"><animateMotion dur="2.2s" begin="0.70s" repeatCount="indefinite"><mpath href="#dg1-e2"/></animateMotion></circle>
+</g>
+<g class="s3">
+<path id="dg1-e3" class="ln" pathLength="1" d="M590 59H618" stroke="#cc092f" marker-end="url(#dg1-mr)"/>
+<circle class="pac" r="3.6" fill="#cc092f"><animateMotion dur="2.2s" begin="1.05s" repeatCount="indefinite"><mpath href="#dg1-e3"/></animateMotion></circle>
+</g>
+<g class="s4">
+<path id="dg1-e4" class="ln" pathLength="1" d="M790 59H818" stroke="#ffbc00" marker-end="url(#dg1-ma)"/>
+<circle class="pac" r="3.6" fill="#ffbc00"><animateMotion dur="2.2s" begin="1.40s" repeatCount="indefinite"><mpath href="#dg1-e4"/></animateMotion></circle>
+</g>
+<g class="s0">
+<rect x="20" y="30" width="170" height="58" rx="12" fill="#1c1c1e" stroke="#5b5c61" stroke-width="1.8"/>
+<text class="t" x="105" y="56" text-anchor="middle">repositório</text>
+<text class="st" x="105" y="74" text-anchor="middle" fill="#a7a8ac">cópia 0.3 ou 0.4</text>
+</g>
+<g class="s1">
+<rect class="pulso" x="220" y="30" width="170" height="58" rx="12" fill="#2a0c13" stroke="#cc092f" stroke-width="1.8"/>
+<text class="t" x="305" y="56" text-anchor="middle">/henrispec:init</text>
+<text class="st" x="305" y="74" text-anchor="middle" fill="#f36279">plano, sem gravar</text>
+</g>
+<g class="s2">
+<rect class="pulso-a" x="220" y="140" width="170" height="58" rx="12" fill="#2e0a12" stroke="#e1173f" stroke-width="1.8"/>
+<text class="t" x="305" y="166" text-anchor="middle">CONFLITO</text>
+<text class="st" x="305" y="184" text-anchor="middle" fill="#ff8197">alterado à mão</text>
+</g>
+<g class="s2">
+<rect x="420" y="30" width="170" height="58" rx="12" fill="#2a0c13" stroke="#cc092f" stroke-width="1.8"/>
+<text class="t" x="505" y="56" text-anchor="middle">remove cópias</text>
+<text class="st" x="505" y="74" text-anchor="middle" fill="#f36279">intactas, com backup</text>
+</g>
+<g class="s3">
+<rect x="620" y="30" width="170" height="58" rx="12" fill="#0e1a33" stroke="#3b69ff" stroke-width="1.8"/>
+<text class="t" x="705" y="56" text-anchor="middle">lock</text>
+<text class="st" x="705" y="74" text-anchor="middle" fill="#8fb0ff">formato 1</text>
+</g>
+<g class="s4">
+<rect x="820" y="30" width="170" height="58" rx="12" fill="#2b2207" stroke="#ffbc00" stroke-width="1.8"/>
+<text class="t" x="905" y="56" text-anchor="middle">commit</text>
+<text class="st" x="905" y="74" text-anchor="middle" fill="#ffcf4d">você</text>
+</g>
+</svg>

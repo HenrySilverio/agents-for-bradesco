@@ -1,0 +1,259 @@
+{
+  "toolkit": "henrispec",
+  "nome": "HenriSpec",
+  "versao": "0.4.5",
+  "lock": ".sdd/toolkit.lock.json",
+  "backup": ".sdd/.toolkit-backup",
+  "lockGlobal": "henrispec.lock.json",
+  "lockGlobalAntigo": "sdd-toolkit.lock.json",
+  "backupGlobal": ".henrispec-backup",
+  "pendencias": {
+    ".sdd/verificacao.json": "edite .sdd/verificacao.json: camadas e comandos vieram do molde de MFE Angular."
+  },
+  "posInstalacao": {
+    "script": ".sdd/sdd.mjs",
+    "args": [
+      "validate"
+    ],
+    "titulo": "Validador nas mudanças abertas",
+    "seFalhar": "mudanças abertas de versão anterior precisam dos campos novos: veja docs/henrispec/README.md, seção 14."
+  },
+  "excluir": [
+    "/.sdd/",
+    "/docs/henrispec/",
+    "/docs/briefings/",
+    "/docs/guia-contexto-e-modelos.md",
+    "/.github/agents/henrispec-*.agent.md",
+    "/.github/skills/henrispec-*/",
+    "/.github/skills/sdd-workflow/"
+  ],
+  "instrucoes": {
+    "arquivo": "instrucoes/henrispec.md",
+    "marcador": "henrispec"
+  },
+  "ignorar": [
+    "instrucoes/**"
+  ],
+  "regras": [
+    {
+      "origem": ".github/agents/henrispec-*.agent.md",
+      "tipo": "gerenciado",
+      "global": true
+    },
+    {
+      "origem": ".github/skills/sdd-*/**",
+      "tipo": "gerenciado",
+      "global": true
+    },
+    {
+      "origem": ".github/skills/henrispec-*/**",
+      "tipo": "gerenciado",
+      "global": true
+    },
+    {
+      "origem": ".sdd/sdd.mjs",
+      "tipo": "gerenciado"
+    },
+    {
+      "origem": ".sdd/verificar.mjs",
+      "tipo": "gerenciado"
+    },
+    {
+      "origem": "docs/guia-contexto-e-modelos.md",
+      "tipo": "gerenciado"
+    },
+    {
+      "origem": "README.md",
+      "tipo": "gerenciado",
+      "destino": "docs/henrispec/README.md"
+    },
+    {
+      "origem": "assets/**",
+      "tipo": "gerenciado",
+      "destino": "docs/henrispec/"
+    },
+    {
+      "origem": ".sdd/verificacao.json",
+      "tipo": "semente"
+    },
+    {
+      "origem": ".sdd/padroes.md",
+      "tipo": "semente"
+    },
+    {
+      "origem": ".sdd/specs/index.md",
+      "tipo": "semente"
+    },
+    {
+      "origem": ".sdd/decisoes/index.md",
+      "tipo": "semente"
+    },
+    {
+      "origem": ".sdd/changes/.gitkeep",
+      "tipo": "semente"
+    },
+    {
+      "origem": "docs/briefings/EXEMPLO/briefing.md",
+      "tipo": "semente"
+    },
+    {
+      "origem": ".sdd/henrispec.json",
+      "tipo": "semente"
+    }
+  ],
+  "removidos": [
+    ".github/agents/sdd-archive.agent.md",
+    ".github/agents/sdd-implement.agent.md",
+    ".github/agents/sdd-plan.agent.md",
+    ".github/agents/sdd-review.agent.md",
+    ".github/prompts/sdd-archive.prompt.md",
+    ".github/prompts/sdd-implement.prompt.md",
+    ".github/prompts/sdd-plan.prompt.md",
+    ".github/prompts/sdd-review.prompt.md",
+    ".github/skills/sdd-archive/SKILL.md",
+    ".github/skills/sdd-implement/SKILL.md",
+    ".github/skills/sdd-plan/SKILL.md",
+    ".github/skills/sdd-review/SKILL.md",
+    "docs/sdd-toolkit/README.md"
+  ],
+  "conhecidos": {
+    ".github/agents/henrispec-archive.agent.md": {
+      "034e477f66d4c741d4a5e45ea683b31542dd8fb971836e8335bfa08ffbda68f8": "0.4.3",
+      "45104855dd65a7c81db7caedaca4d71dd2a30a9c8dfa5b60b0394eb5d0289b2b": "0.4.4"
+    },
+    ".github/agents/henrispec-implement.agent.md": {
+      "9ee363b31cfa6296ecd47aec975c197791425643fa73c49c70c1241805f382d4": "0.4.3",
+      "a359e60f9a8e9af63343b38030522b1dbf6c570e59a4ad83174c58f11bffcb65": "0.4.4"
+    },
+    ".github/agents/henrispec-plan.agent.md": {
+      "ea61165683c20abf6f9cd211825870f9d7a0b2677d4a6d82e495656bb7524b92": "0.4.3",
+      "3ccde55c2afe120217cf428894e1de9f4a35f98ae5a598896b582b30e15afb6c": "0.4.4"
+    },
+    ".github/agents/henrispec-review.agent.md": {
+      "763e9e5ec77ce591b20de18d3b734735eeb94f394d50f57372bf21cf2c896191": "0.4.3",
+      "f138d6bd5f802b25db92503d3b5d86d82d8ed8e4a28f8f89f3bc67a3dac21b88": "0.4.4"
+    },
+    ".github/agents/sdd-archive.agent.md": {
+      "7327f62b96abcac4776e38a136277e598fc05b0823c86d70e03dbe50680613bb": "0.4.0,0.4.1,0.4.2"
+    },
+    ".github/agents/sdd-implement.agent.md": {
+      "8978b8f7fcc99465c389465a21419547a8644c824dd9b94fde508c146c59439a": "0.4.0",
+      "be0d3532c49e60139a3197071a17a57a9b492befb58e951564b365612d9afd68": "0.4.1,0.4.2"
+    },
+    ".github/agents/sdd-plan.agent.md": {
+      "832bc916af502f5a78210ae445125662a02f3a472fb47689ff4e0dcd1c15d499": "0.4.0,0.4.1,0.4.2"
+    },
+    ".github/agents/sdd-review.agent.md": {
+      "ca18604d326004f86840bd45f933393a24472a1c4200efa3050bb32565a7880e": "0.4.0,0.4.1,0.4.2"
+    },
+    ".github/prompts/sdd-archive.prompt.md": {
+      "dfa241180b88919757bdd8754a294f637858e065652062d3e6ca1bd5b120c613": "0.3"
+    },
+    ".github/prompts/sdd-implement.prompt.md": {
+      "e5b190cd6d418901b9d55bf3484848ce1e5452a8f64aa70a1ff383017559cc6d": "0.3"
+    },
+    ".github/prompts/sdd-plan.prompt.md": {
+      "92f77e2a247f71c0a2525d3d4d7b892969f804eb811ab06133124be442a48386": "0.3"
+    },
+    ".github/prompts/sdd-review.prompt.md": {
+      "24e96558f9976a35656252ed172e44286cb7f3807474f29d3437556f40968972": "0.3"
+    },
+    ".github/skills/henrispec-archive/SKILL.md": {
+      "05cbeadb46fe9997b92bd7d203294f2c64d1b09b52d5d89f1ce322395f3bae13": "0.4.3,0.4.4"
+    },
+    ".github/skills/henrispec-implement/SKILL.md": {
+      "fdb2c7368bf41c84cc564d19aa557b505623854331fed7433f7fc8f1c92197cc": "0.4.3,0.4.4"
+    },
+    ".github/skills/henrispec-plan/SKILL.md": {
+      "f70952dc14b2e9752e60b40d0bc76777eee1c0a1b25e6ff1c814202617c4704c": "0.4.3,0.4.4"
+    },
+    ".github/skills/henrispec-review/SKILL.md": {
+      "7fb0e7831c7579f36242370d17070e67d9aa2a00fc2e648234c899b2d7fbcaea": "0.4.3,0.4.4"
+    },
+    ".github/skills/sdd-archive/SKILL.md": {
+      "69abfed375a7f57c786209e014265798822031ad75268fb1f15f1ccbd9e7d448": "0.4.0,0.4.1,0.4.2"
+    },
+    ".github/skills/sdd-implement/SKILL.md": {
+      "6ebefcd690a3f26cb7712c0c7c5794154fdaf8959124aa74b6512fcc60654495": "0.4.0,0.4.1,0.4.2"
+    },
+    ".github/skills/sdd-plan/SKILL.md": {
+      "82b61450985e7688890aee9d6596c3478fd0f660deb86550d8dddcd2368380d0": "0.4.0,0.4.1,0.4.2"
+    },
+    ".github/skills/sdd-review/SKILL.md": {
+      "b6cd62879ab392e138599584d0e36293907cdf15c5e633d36b95cc9f169d2172": "0.4.0,0.4.1,0.4.2"
+    },
+    ".github/skills/sdd-workflow/SKILL.md": {
+      "3b4ee72d24e54fb00681be4d47c43904e2a72454baa0ea317c475ad20ae451c6": "0.3",
+      "2366aef4c8afd8bf07be9ea4052f532aa6fa1ebe2ccec3163aacb7810977b63c": "0.4.0",
+      "e0394cc26ef9a5e9392d9ba75acce0b8df0f68aac10839b51884b7213ddac514": "0.4.1,0.4.2",
+      "49ac29cc4d7f052fdc0176dd9914cb41452b9aa1988f801a919dc102fe0b7773": "0.4.3",
+      "76b68706bdc55ecd1c5e4f5ec78cb414038d64189c915768b36397c3928371b8": "0.4.4"
+    },
+    ".github/skills/sdd-workflow/references/decisoes.md": {
+      "b9f2163b20796991560c0cb21d1eab2b92d3975dc14c464fa0c2ab566069d6d3": "0.3,0.4.0,0.4.1,0.4.2",
+      "c0e67dd21f7bd35488786129a1082fbc7739288c1a0e1a84c32058776a6b00d2": "0.4.3,0.4.4"
+    },
+    ".github/skills/sdd-workflow/references/eixos-de-revisao.md": {
+      "6b32802b21dee83ea2eaab3a5ec6c238a433e2eff833b0bf90bdf67775bd5962": "0.3",
+      "c21b6cb47218a18e4335bbb3d8757f4a7b2522b2a5d7abc74f613669293932bb": "0.4.0,0.4.1,0.4.2",
+      "8701ac15bf0ca11d9d2111b965461a96edc1f58cdf938e11db5744f485553317": "0.4.3",
+      "7fbc303a016dc10b40e89a13add8d4aec2ee86c82538ab8ca89acf12e2f91daf": "0.4.4"
+    },
+    ".github/skills/sdd-workflow/references/moldes-artefatos.md": {
+      "2fd2366eba1dbc3fc581222bae7b9f430f3a7e12ba9e8668b5026705700dbf6e": "0.3",
+      "fb7671730f55c660b9962b75d281cf4a689033a001b8774cb27c3610f6cbfe5a": "0.4.0,0.4.1,0.4.2",
+      "ac44e234086a35ac7cfa72a74f7fa200d4224990f1fceb67aff0e2ecea72b96c": "0.4.3",
+      "910bc4215e3efcc0c508f812203fabb253bbc3577ffe67571563e6f41e96546c": "0.4.4"
+    },
+    ".github/skills/sdd-workflow/references/specs-e-deltas.md": {
+      "fb2a80ac632db3046e5cf8731f6a63f39ed498482b5684471e93321e8c5a5762": "0.3,0.4.0,0.4.1,0.4.2",
+      "2c3e309243534fac17c0b8cae3812eccfa4ced54a6ce0f0387348ad38f77db76": "0.4.3,0.4.4"
+    },
+    ".sdd/sdd.mjs": {
+      "37e5ef3319b415f589c1ac342acd7fc67093820b89ef5548d7e15541f37dfdb5": "0.3",
+      "1de60682756b22f3062c75776b94074e803d302f2aa0200f3ca00711be0a595d": "0.4.0,0.4.1,0.4.2,0.4.3",
+      "47df40b50ff2a33b7ac3a4f49fbaa369944d6167fa25fec097afcecd041a86e9": "0.4.4"
+    },
+    ".sdd/verificar.mjs": {
+      "0e363d5f52e99d6dc9255c2c98e7456ff9a1c406c86cf08b51ac8e47eb61b620": "0.4.0,0.4.1,0.4.2,0.4.3",
+      "6591d96fbc678b3b8d3133c32cda2852a43d8a081d6392bb17e8bd81a72f999e": "0.4.4"
+    },
+    "docs/guia-contexto-e-modelos.md": {
+      "660dc6f2b43ebdf501cb3c6787b84060cf83ee550bccd34f94e7149061dfbbee": "0.3,0.4.0,0.4.1,0.4.2,0.4.3,0.4.4"
+    },
+    "docs/henrispec/README.md": {
+      "16fb28d8c9165ce4871665d751a0a182fa786215ad3d32fb1dce0aed714ff767": "0.4.2,0.4.3,0.4.4"
+    },
+    "docs/henrispec/assets/henrispec-bff-front.svg": {
+      "d936280d69f734bcddf558d44ebe5dec19314114b13124e42fbe3b0a599ee3a5": "0.4.2,0.4.3,0.4.4"
+    },
+    "docs/henrispec/assets/henrispec-fluxo.svg": {
+      "c3f482a039cf3d11d74a07f7d34cb18653450833f3f4935e3f27c53ca528f4d3": "0.4.2,0.4.3,0.4.4"
+    },
+    "docs/henrispec/assets/henrispec-front-consome.svg": {
+      "a3d5878e5819c21df3172a97c9b86115108e951a985949f5bd1270ad34299db0": "0.4.2,0.4.3,0.4.4"
+    },
+    "docs/henrispec/assets/henrispec-instalacao.svg": {
+      "618123e06a6b43fe26b0e42f1399becff016f6726747847371b80c3c99953507": "0.4.2,0.4.3,0.4.4"
+    },
+    "docs/henrispec/assets/henrispec-lite-full.svg": {
+      "130f74dfc7deaa01c835976d810bbac6a1b8e77b2ae567adf4b392247e1829dc": "0.4.2,0.4.3,0.4.4"
+    },
+    "docs/henrispec/assets/henrispec-logo.svg": {
+      "610ece22776e365e3136b8b72cc0985448af84d40ec160a99b26025cb26b522a": "0.4.2,0.4.3,0.4.4"
+    },
+    "docs/henrispec/assets/henrispec-reprovado.svg": {
+      "befe59c7fb398e4717788293b5316b0ea61bc42c6a593f0c6183d91da6abb1b2": "0.4.2,0.4.3,0.4.4"
+    },
+    "docs/henrispec/assets/henrispec-verificacao.svg": {
+      "918117ed092a30f7fa50de5f88a346e55d8245f043af6d328dcad2d258298190": "0.4.2,0.4.3,0.4.4"
+    },
+    "docs/henrispec/assets/henrispec-wordmark.svg": {
+      "133a14d8b0a8eabe1bb07113cec3837bd313e065ffea2755efc28f7a5e90b895": "0.4.2,0.4.3,0.4.4"
+    },
+    "docs/sdd-toolkit/README.md": {
+      "97351f840f52a2be60ba4da495aff634beebe69956ac98fd4d49e1800eb4b5b1": "0.4.0",
+      "cc8fd22427feb2593f6a5cbea6dcfae4d7a404f0ea543f5c6cb2ecc7d34bc1c7": "0.4.1"
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "henrispec-discovery",
+  "version": "1.0.0",
+  "description": "HenriSpec Discovery: da necessidade crua ao briefing pronto para o HenriSpec. Entrevista em rodadas, triagem de ticket, protótipo descartável e roteamento.",
+  "author": { "name": "HenrySilverio", "url": "https://github.com/HenrySilverio" },
+  "homepage": "https://github.com/HenrySilverio/henrispec",
+  "repository": "https://github.com/HenrySilverio/henrispec",
+  "license": "UNLICENSED",
+  "keywords": ["discovery", "briefing", "grilling", "triagem", "prototipo"]
+}

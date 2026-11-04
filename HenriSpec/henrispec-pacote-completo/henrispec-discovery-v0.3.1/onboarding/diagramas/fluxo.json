@@ -1,0 +1,138 @@
+{
+ "titulo": "Discovery: da necessidade ao briefing",
+ "grade": {
+  "col": 220,
+  "lin": 100,
+  "x0": 20,
+  "y0": 30
+ },
+ "altura": 330,
+ "nos": [
+  {
+   "id": "n",
+   "col": 0,
+   "lin": 1,
+   "w": 185,
+   "t": "necessidade",
+   "s": "você",
+   "k": "voce",
+   "step": 0
+  },
+  {
+   "id": "ro",
+   "col": 0,
+   "lin": 0,
+   "w": 185,
+   "t": "discovery-rota",
+   "s": "consulta e para",
+   "step": 1,
+   "tracejado": true
+  },
+  {
+   "id": "g",
+   "col": 1,
+   "lin": 0,
+   "w": 185,
+   "t": "discovery-grill",
+   "s": "entrevista",
+   "step": 2,
+   "destaque": true
+  },
+  {
+   "id": "t",
+   "col": 1,
+   "lin": 1,
+   "w": 185,
+   "t": "discovery-triagem",
+   "s": "ticket já escrito",
+   "step": 2,
+   "destaque": true
+  },
+  {
+   "id": "p",
+   "col": 1,
+   "lin": 2,
+   "w": 185,
+   "t": "discovery-prototipo",
+   "s": "pergunta visual",
+   "step": 3
+  },
+  {
+   "id": "b",
+   "col": 2,
+   "lin": 1,
+   "w": 185,
+   "t": "briefing.md",
+   "s": "docs/briefings",
+   "k": "arquivo",
+   "step": 4
+  },
+  {
+   "id": "sp",
+   "col": 3,
+   "lin": 1,
+   "w": 185,
+   "t": "sdd-plan",
+   "s": "HenriSpec",
+   "k": "dado",
+   "step": 5
+  }
+ ],
+ "arestas": [
+  {
+   "de": "n",
+   "para": "ro",
+   "step": 1,
+   "cor": "c",
+   "tracejada": true
+  },
+  {
+   "de": "n",
+   "para": "g",
+   "step": 2
+  },
+  {
+   "de": "n",
+   "para": "t",
+   "step": 2
+  },
+  {
+   "de": "n",
+   "para": "p",
+   "step": 3,
+   "cor": "a"
+  },
+  {
+   "de": "g",
+   "para": "b",
+   "step": 4
+  },
+  {
+   "de": "t",
+   "para": "b",
+   "step": 4
+  },
+  {
+   "de": "b",
+   "para": "sp",
+   "step": 5,
+   "cor": "b"
+  }
+ ],
+ "legenda": [
+  {
+   "x": 240,
+   "y": 312,
+   "texto": "o protótipo responde e a evidência volta para o grill",
+   "step": 3,
+   "cor": "#ffcf4d"
+  },
+  {
+   "x": 680,
+   "y": 220,
+   "texto": "chat novo, outro toolkit",
+   "step": 5,
+   "cor": "#8fb0ff"
+  }
+ ]
+}

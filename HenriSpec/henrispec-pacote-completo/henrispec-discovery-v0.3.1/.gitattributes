@@ -1,0 +1,3 @@
+# O instalador roda no Git Bash: CRLF quebra o .sh ("pipefail\r: invalid option").
+*.sh  text eol=lf
+*.mjs text eol=lf

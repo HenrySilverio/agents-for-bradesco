@@ -1,0 +1,152 @@
+{
+ "titulo": "Discovery e HenriSpec: o ciclo completo",
+ "grade": {
+  "col": 140,
+  "lin": 110,
+  "x0": 20,
+  "y0": 30
+ },
+ "altura": 230,
+ "nos": [
+  {
+   "id": "n",
+   "col": 0,
+   "lin": 0,
+   "w": 120,
+   "t": "necessidade",
+   "s": "você",
+   "k": "voce",
+   "step": 0
+  },
+  {
+   "id": "g",
+   "col": 1,
+   "lin": 0,
+   "w": 120,
+   "t": "grill",
+   "s": "ou triagem",
+   "step": 1,
+   "destaque": true
+  },
+  {
+   "id": "b",
+   "col": 2,
+   "lin": 0,
+   "w": 120,
+   "t": "briefing",
+   "s": "o elo",
+   "k": "arquivo",
+   "step": 2
+  },
+  {
+   "id": "p",
+   "col": 3,
+   "lin": 0,
+   "w": 120,
+   "t": "sdd-plan",
+   "s": "proposta",
+   "k": "dado",
+   "step": 3
+  },
+  {
+   "id": "i",
+   "col": 4,
+   "lin": 0,
+   "w": 120,
+   "t": "implement",
+   "s": "uma fatia",
+   "k": "dado",
+   "step": 4
+  },
+  {
+   "id": "c",
+   "col": 5,
+   "lin": 0,
+   "w": 120,
+   "t": "commit",
+   "s": "você",
+   "k": "voce",
+   "step": 5
+  },
+  {
+   "id": "r",
+   "col": 6,
+   "lin": 0,
+   "w": 120,
+   "t": "review",
+   "s": "2 eixos",
+   "k": "dado",
+   "step": 6
+  },
+  {
+   "id": "a",
+   "col": 6,
+   "lin": 1,
+   "w": 120,
+   "t": "archive",
+   "s": "specs",
+   "k": "ok",
+   "step": 7
+  }
+ ],
+ "arestas": [
+  {
+   "de": "n",
+   "para": "g",
+   "step": 1
+  },
+  {
+   "de": "g",
+   "para": "b",
+   "step": 2
+  },
+  {
+   "de": "b",
+   "para": "p",
+   "step": 3,
+   "cor": "b"
+  },
+  {
+   "de": "p",
+   "para": "i",
+   "step": 4,
+   "cor": "b"
+  },
+  {
+   "de": "i",
+   "para": "c",
+   "step": 5,
+   "cor": "a"
+  },
+  {
+   "de": "c",
+   "para": "i",
+   "step": 5,
+   "cor": "a",
+   "d": "M790 88V112H640V90",
+   "rotulo": "próximo agrupamento",
+   "rx": 715,
+   "ry": 130
+  },
+  {
+   "de": "c",
+   "para": "r",
+   "step": 6,
+   "cor": "b"
+  },
+  {
+   "de": "r",
+   "para": "a",
+   "step": 7,
+   "cor": "g"
+  }
+ ],
+ "legenda": [
+  {
+   "x": 20,
+   "y": 205,
+   "texto": "discovery: vermelho e âmbar  |  HenriSpec: azul  |  cada nó é um chat novo",
+   "step": 7
+  }
+ ]
+}

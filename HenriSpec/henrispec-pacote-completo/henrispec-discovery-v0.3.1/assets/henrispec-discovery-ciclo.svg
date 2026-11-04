@@ -1,0 +1,127 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="dg1" viewBox="0 0 1000 230" role="img" aria-label="Discovery e HenriSpec: o ciclo completo"><title>Discovery e HenriSpec: o ciclo completo</title>
+<style>.dg1 text{font-family:"Segoe UI Variable Text","Segoe UI",system-ui,Helvetica,Arial,sans-serif}
+.dg1 .t{font-size:14px;font-weight:650;fill:#f0f1f5}
+.dg1 .st{font-size:11.5px;font-family:"Cascadia Mono",Consolas,monospace}
+.dg1 .el{font-size:11.5px;fill:#a7a8ac;font-family:"Cascadia Mono",Consolas,monospace}
+.dg1 .ln{fill:none;stroke-width:2;stroke-dasharray:1;stroke-dashoffset:1}
+.dg1 .tracejada .ln{stroke-dasharray:.02 .015;stroke-dashoffset:0;animation:none!important}
+.dg1 .pulso{animation:dg1pulse 2.4s ease-in-out infinite}
+@keyframes dg1pulse{0%,100%{stroke:#cc092f}50%{stroke:#ff6b86;filter:drop-shadow(0 0 6px rgba(225,23,63,.75))}}
+.dg1 .pulso-a{animation:dg1pulsea 2.4s ease-in-out infinite}
+@keyframes dg1pulsea{0%,100%{stroke:#e1173f}50%{stroke:#ffbc00;filter:drop-shadow(0 0 6px rgba(255,188,0,.6))}}
+@keyframes dg1a0{0%,4.0%{opacity:0;transform:translateY(6px)}9.0%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg1d0{0%,4.0%{stroke-dashoffset:1}12.0%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg1 .s0{animation:dg1a0 11s ease-in-out infinite both}
+.dg1 .s0 .ln{animation:dg1d0 11s ease-in-out infinite both}
+@keyframes dg1a1{0%,12.9%{opacity:0;transform:translateY(6px)}17.9%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg1d1{0%,12.9%{stroke-dashoffset:1}20.9%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg1 .s1{animation:dg1a1 11s ease-in-out infinite both}
+.dg1 .s1 .ln{animation:dg1d1 11s ease-in-out infinite both}
+@keyframes dg1a2{0%,21.7%{opacity:0;transform:translateY(6px)}26.7%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg1d2{0%,21.7%{stroke-dashoffset:1}29.7%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg1 .s2{animation:dg1a2 11s ease-in-out infinite both}
+.dg1 .s2 .ln{animation:dg1d2 11s ease-in-out infinite both}
+@keyframes dg1a3{0%,30.6%{opacity:0;transform:translateY(6px)}35.6%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg1d3{0%,30.6%{stroke-dashoffset:1}38.6%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg1 .s3{animation:dg1a3 11s ease-in-out infinite both}
+.dg1 .s3 .ln{animation:dg1d3 11s ease-in-out infinite both}
+@keyframes dg1a4{0%,39.4%{opacity:0;transform:translateY(6px)}44.4%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg1d4{0%,39.4%{stroke-dashoffset:1}47.4%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg1 .s4{animation:dg1a4 11s ease-in-out infinite both}
+.dg1 .s4 .ln{animation:dg1d4 11s ease-in-out infinite both}
+@keyframes dg1a5{0%,48.3%{opacity:0;transform:translateY(6px)}53.3%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg1d5{0%,48.3%{stroke-dashoffset:1}56.3%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg1 .s5{animation:dg1a5 11s ease-in-out infinite both}
+.dg1 .s5 .ln{animation:dg1d5 11s ease-in-out infinite both}
+@keyframes dg1a6{0%,57.1%{opacity:0;transform:translateY(6px)}62.1%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg1d6{0%,57.1%{stroke-dashoffset:1}65.1%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg1 .s6{animation:dg1a6 11s ease-in-out infinite both}
+.dg1 .s6 .ln{animation:dg1d6 11s ease-in-out infinite both}
+@keyframes dg1a7{0%,66.0%{opacity:0;transform:translateY(6px)}71.0%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg1d7{0%,66.0%{stroke-dashoffset:1}74.0%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg1 .s7{animation:dg1a7 11s ease-in-out infinite both}
+.dg1 .s7 .ln{animation:dg1d7 11s ease-in-out infinite both}
+@media (prefers-reduced-motion:reduce){.dg1 *{animation:none!important}.dg1 .ln{stroke-dashoffset:0}.dg1 .pac{display:none}}</style><defs>
+<marker id="dg1-mr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#cc092f"/></marker>
+<marker id="dg1-ma" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#ffbc00"/></marker>
+<marker id="dg1-mc" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#5b5c61"/></marker>
+<marker id="dg1-mb" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#3b69ff"/></marker>
+<marker id="dg1-mg" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#09ab47"/></marker>
+<marker id="dg1-mx" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#e1173f"/></marker>
+</defs>
+<rect width="1000" height="230" rx="18" fill="#121212"/>
+<g class="s1">
+<path id="dg1-e0" class="ln" pathLength="1" d="M140 59H158" stroke="#cc092f" marker-end="url(#dg1-mr)"/>
+<circle class="pac" r="3.6" fill="#cc092f"><animateMotion dur="2.2s" begin="0.00s" repeatCount="indefinite"><mpath href="#dg1-e0"/></animateMotion></circle>
+</g>
+<g class="s2">
+<path id="dg1-e1" class="ln" pathLength="1" d="M280 59H298" stroke="#cc092f" marker-end="url(#dg1-mr)"/>
+<circle class="pac" r="3.6" fill="#cc092f"><animateMotion dur="2.2s" begin="0.35s" repeatCount="indefinite"><mpath href="#dg1-e1"/></animateMotion></circle>
+</g>
+<g class="s3">
+<path id="dg1-e2" class="ln" pathLength="1" d="M420 59H438" stroke="#3b69ff" marker-end="url(#dg1-mb)"/>
+<circle class="pac" r="3.6" fill="#3b69ff"><animateMotion dur="2.2s" begin="0.70s" repeatCount="indefinite"><mpath href="#dg1-e2"/></animateMotion></circle>
+</g>
+<g class="s4">
+<path id="dg1-e3" class="ln" pathLength="1" d="M560 59H578" stroke="#3b69ff" marker-end="url(#dg1-mb)"/>
+<circle class="pac" r="3.6" fill="#3b69ff"><animateMotion dur="2.2s" begin="1.05s" repeatCount="indefinite"><mpath href="#dg1-e3"/></animateMotion></circle>
+</g>
+<g class="s5">
+<path id="dg1-e4" class="ln" pathLength="1" d="M700 59H718" stroke="#ffbc00" marker-end="url(#dg1-ma)"/>
+<circle class="pac" r="3.6" fill="#ffbc00"><animateMotion dur="2.2s" begin="1.40s" repeatCount="indefinite"><mpath href="#dg1-e4"/></animateMotion></circle>
+</g>
+<g class="s5">
+<path id="dg1-e5" class="ln" pathLength="1" d="M790 88V112H640V90" stroke="#ffbc00" marker-end="url(#dg1-ma)"/>
+<text class="el" x="715" y="130" text-anchor="middle">próximo agrupamento</text>
+<circle class="pac" r="3.6" fill="#ffbc00"><animateMotion dur="2.2s" begin="0.00s" repeatCount="indefinite"><mpath href="#dg1-e5"/></animateMotion></circle>
+</g>
+<g class="s6">
+<path id="dg1-e6" class="ln" pathLength="1" d="M840 59H858" stroke="#3b69ff" marker-end="url(#dg1-mb)"/>
+<circle class="pac" r="3.6" fill="#3b69ff"><animateMotion dur="2.2s" begin="0.35s" repeatCount="indefinite"><mpath href="#dg1-e6"/></animateMotion></circle>
+</g>
+<g class="s7">
+<path id="dg1-e7" class="ln" pathLength="1" d="M920 88V138" stroke="#09ab47" marker-end="url(#dg1-mg)"/>
+<circle class="pac" r="3.6" fill="#09ab47"><animateMotion dur="2.2s" begin="0.70s" repeatCount="indefinite"><mpath href="#dg1-e7"/></animateMotion></circle>
+</g>
+<g class="s0">
+<rect x="20" y="30" width="120" height="58" rx="12" fill="#2b2207" stroke="#ffbc00" stroke-width="1.8"/>
+<text class="t" x="80" y="56" text-anchor="middle">necessidade</text>
+<text class="st" x="80" y="74" text-anchor="middle" fill="#ffcf4d">você</text>
+</g>
+<g class="s1">
+<rect class="pulso" x="160" y="30" width="120" height="58" rx="12" fill="#2a0c13" stroke="#cc092f" stroke-width="1.8"/>
+<text class="t" x="220" y="56" text-anchor="middle">grill</text>
+<text class="st" x="220" y="74" text-anchor="middle" fill="#f36279">ou triagem</text>
+</g>
+<g class="s2">
+<rect x="300" y="30" width="120" height="58" rx="12" fill="#1c1c1e" stroke="#5b5c61" stroke-width="1.8"/>
+<text class="t" x="360" y="56" text-anchor="middle">briefing</text>
+<text class="st" x="360" y="74" text-anchor="middle" fill="#a7a8ac">o elo</text>
+</g>
+<g class="s3">
+<rect x="440" y="30" width="120" height="58" rx="12" fill="#0e1a33" stroke="#3b69ff" stroke-width="1.8"/>
+<text class="t" x="500" y="56" text-anchor="middle">sdd-plan</text>
+<text class="st" x="500" y="74" text-anchor="middle" fill="#8fb0ff">proposta</text>
+</g>
+<g class="s4">
+<rect x="580" y="30" width="120" height="58" rx="12" fill="#0e1a33" stroke="#3b69ff" stroke-width="1.8"/>
+<text class="t" x="640" y="56" text-anchor="middle">implement</text>
+<text class="st" x="640" y="74" text-anchor="middle" fill="#8fb0ff">uma fatia</text>
+</g>
+<g class="s5">
+<rect x="720" y="30" width="120" height="58" rx="12" fill="#2b2207" stroke="#ffbc00" stroke-width="1.8"/>
+<text class="t" x="780" y="56" text-anchor="middle">commit</text>
+<text class="st" x="780" y="74" text-anchor="middle" fill="#ffcf4d">você</text>
+</g>
+<g class="s6">
+<rect x="860" y="30" width="120" height="58" rx="12" fill="#0e1a33" stroke="#3b69ff" stroke-width="1.8"/>
+<text class="t" x="920" y="56" text-anchor="middle">review</text>
+<text class="st" x="920" y="74" text-anchor="middle" fill="#8fb0ff">2 eixos</text>
+</g>
+<g class="s7">
+<rect x="860" y="140" width="120" height="58" rx="12" fill="#0c2016" stroke="#09ab47" stroke-width="1.8"/>
+<text class="t" x="920" y="166" text-anchor="middle">archive</text>
+<text class="st" x="920" y="184" text-anchor="middle" fill="#57d98b">specs</text>
+</g>
+<g class="s7"><text x="20" y="205" class="el" text-anchor="start" style="fill:#a7a8ac">discovery: vermelho e âmbar  |  HenriSpec: azul  |  cada nó é um chat novo</text></g>
+</svg>

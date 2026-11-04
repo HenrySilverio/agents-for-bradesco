@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="dg-consome" viewBox="0 0 1000 250" role="img" aria-label="Front consumindo endpoint pronto do BFF"><title>Front consumindo endpoint pronto do BFF</title>
+<style>
+.dg-consome text{font-family:"Segoe UI Variable Text","Segoe UI",system-ui,-apple-system,Helvetica,Arial,sans-serif}
+.dg-consome .t{font-size:14px;font-weight:650;fill:#f0f1f5}
+.dg-consome .st{font-size:11.5px;font-family:"Cascadia Mono",Consolas,monospace}
+.dg-consome .el{font-size:11.5px;fill:#a7a8ac;font-family:"Cascadia Mono",Consolas,monospace}
+.dg-consome .ln{fill:none;stroke-width:2;stroke-dasharray:1;stroke-dashoffset:1}
+.dg-consome .tracejada .ln{stroke-dasharray:.02 .015;stroke-dashoffset:0;animation:none!important}
+.dg-consome .pulso{animation:dg-consomepulse 2.4s ease-in-out infinite}
+@keyframes dg-consomepulse{0%,100%{stroke:#cc092f;filter:none}50%{stroke:#ff6b86;filter:drop-shadow(0 0 6px rgba(225,23,63,.75))}}
+.dg-consome .pulso-a{animation:dg-consomepulsea 2.4s ease-in-out infinite}
+@keyframes dg-consomepulsea{0%,100%{stroke:#e1173f}50%{stroke:#ffbc00;filter:drop-shadow(0 0 6px rgba(255,188,0,.6))}}
+@keyframes dg-consomea0{0%,4.0%{opacity:0;transform:translateY(6px)}9.0%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg-consomed0{0%,4.0%{stroke-dashoffset:1}12.0%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg-consome .s0{animation:dg-consomea0 11s ease-in-out infinite both}
+.dg-consome .s0 .ln{animation:dg-consomed0 11s ease-in-out infinite both}
+@keyframes dg-consomea1{0%,16.4%{opacity:0;transform:translateY(6px)}21.4%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg-consomed1{0%,16.4%{stroke-dashoffset:1}24.4%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg-consome .s1{animation:dg-consomea1 11s ease-in-out infinite both}
+.dg-consome .s1 .ln{animation:dg-consomed1 11s ease-in-out infinite both}
+@keyframes dg-consomea2{0%,28.8%{opacity:0;transform:translateY(6px)}33.8%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg-consomed2{0%,28.8%{stroke-dashoffset:1}36.8%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg-consome .s2{animation:dg-consomea2 11s ease-in-out infinite both}
+.dg-consome .s2 .ln{animation:dg-consomed2 11s ease-in-out infinite both}
+@keyframes dg-consomea3{0%,41.2%{opacity:0;transform:translateY(6px)}46.2%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg-consomed3{0%,41.2%{stroke-dashoffset:1}49.2%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg-consome .s3{animation:dg-consomea3 11s ease-in-out infinite both}
+.dg-consome .s3 .ln{animation:dg-consomed3 11s ease-in-out infinite both}
+@keyframes dg-consomea4{0%,53.6%{opacity:0;transform:translateY(6px)}58.6%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg-consomed4{0%,53.6%{stroke-dashoffset:1}61.6%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg-consome .s4{animation:dg-consomea4 11s ease-in-out infinite both}
+.dg-consome .s4 .ln{animation:dg-consomed4 11s ease-in-out infinite both}
+@keyframes dg-consomea5{0%,66.0%{opacity:0;transform:translateY(6px)}71.0%,88%{opacity:1;transform:none}96%,100%{opacity:0;transform:none}}
+@keyframes dg-consomed5{0%,66.0%{stroke-dashoffset:1}74.0%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:0}}
+.dg-consome .s5{animation:dg-consomea5 11s ease-in-out infinite both}
+.dg-consome .s5 .ln{animation:dg-consomed5 11s ease-in-out infinite both}
+@media (prefers-reduced-motion:reduce){.dg-consome *{animation:none!important}.dg-consome .ln{stroke-dashoffset:0}.dg-consome .pac{display:none}}
+</style>
+<defs>
+<marker id="dg-consome-mr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#cc092f"/></marker>
+<marker id="dg-consome-ma" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#ffbc00"/></marker>
+<marker id="dg-consome-mc" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#5b5c61"/></marker>
+<marker id="dg-consome-mb" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#3b69ff"/></marker>
+<marker id="dg-consome-mg" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#09ab47"/></marker>
+<marker id="dg-consome-mx" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#e1173f"/></marker>
+</defs>
+<rect width="1000" height="250" rx="18" fill="#121212"/>
+<g class="s2 tracejada">
+<path id="dg-consome-e0" class="ln" pathLength="1" d="M200 69H225V125H248" stroke="#3b69ff" marker-end="url(#dg-consome-mb)"/>
+<text class="el" x="330" y="92" text-anchor="middle">contexto só leitura</text>
+</g>
+<g class="s2">
+<path id="dg-consome-e1" class="ln" pathLength="1" d="M200 199H225V145H248" stroke="#cc092f" marker-end="url(#dg-consome-mr)"/>
+<circle class="pac" r="3.6" fill="#cc092f"><animateMotion dur="2.2s" begin="0.35s" repeatCount="indefinite"><mpath href="#dg-consome-e1"/></animateMotion></circle>
+</g>
+<g class="s3">
+<path id="dg-consome-e2" class="ln" pathLength="1" d="M410 134.0H458" stroke="#cc092f" marker-end="url(#dg-consome-mr)"/>
+<circle class="pac" r="3.6" fill="#cc092f"><animateMotion dur="2.2s" begin="0.70s" repeatCount="indefinite"><mpath href="#dg-consome-e2"/></animateMotion></circle>
+</g>
+<g class="s4">
+<path id="dg-consome-e3" class="ln" pathLength="1" d="M620 134.0H668" stroke="#cc092f" marker-end="url(#dg-consome-mr)"/>
+<circle class="pac" r="3.6" fill="#cc092f"><animateMotion dur="2.2s" begin="1.05s" repeatCount="indefinite"><mpath href="#dg-consome-e3"/></animateMotion></circle>
+</g>
+<g class="s5">
+<path id="dg-consome-e4" class="ln" pathLength="1" d="M800 134.0H848" stroke="#cc092f" marker-end="url(#dg-consome-mr)"/>
+<circle class="pac" r="3.6" fill="#cc092f"><animateMotion dur="2.2s" begin="1.40s" repeatCount="indefinite"><mpath href="#dg-consome-e4"/></animateMotion></circle>
+</g>
+<g class="s0">
+<rect x="20" y="40" width="180" height="58" rx="12" fill="#0e1a33" stroke="#3b69ff" stroke-width="1.8"/>
+<text class="t" x="110.0" y="66.0" text-anchor="middle">BFF em produção</text>
+<text class="st" x="110.0" y="84.0" text-anchor="middle" fill="#8fb0ff">GET /limites/pix</text>
+</g>
+<g class="s1">
+<rect x="20" y="170" width="180" height="58" rx="12" fill="#2b2207" stroke="#ffbc00" stroke-width="1.8"/>
+<text class="t" x="110.0" y="196.0" text-anchor="middle">briefing</text>
+<text class="st" x="110.0" y="214.0" text-anchor="middle" fill="#ffcf4d">exibir limite noturno</text>
+</g>
+<g class="s2">
+<rect class="pulso" x="250" y="105" width="160" height="58" rx="12" fill="#2a0c13" stroke="#cc092f" stroke-width="1.8"/>
+<text class="t" x="330.0" y="131.0" text-anchor="middle">sdd-plan</text>
+<text class="st" x="330.0" y="149.0" text-anchor="middle" fill="#f36279">Lite, só no front</text>
+</g>
+<g class="s3">
+<rect class="pulso" x="460" y="105" width="160" height="58" rx="12" fill="#2a0c13" stroke="#cc092f" stroke-width="1.8"/>
+<text class="t" x="540.0" y="131.0" text-anchor="middle">sdd-implement</text>
+<text class="st" x="540.0" y="149.0" text-anchor="middle" fill="#f36279">fatia a fatia</text>
+</g>
+<g class="s4">
+<rect class="pulso" x="670" y="105" width="130" height="58" rx="12" fill="#2a0c13" stroke="#cc092f" stroke-width="1.8"/>
+<text class="t" x="735.0" y="131.0" text-anchor="middle">review</text>
+<text class="st" x="735.0" y="149.0" text-anchor="middle" fill="#f36279">2 eixos</text>
+</g>
+<g class="s5">
+<rect class="pulso" x="850" y="105" width="130" height="58" rx="12" fill="#2a0c13" stroke="#cc092f" stroke-width="1.8"/>
+<text class="t" x="915.0" y="131.0" text-anchor="middle">archive</text>
+<text class="st" x="915.0" y="149.0" text-anchor="middle" fill="#f36279">só no front</text>
+</g>
+<g class="s5"><text x="250" y="210" class="el" text-anchor="start" fill="#57d98b" style="fill:#57d98b">BFF não muda: sem design.md, sem mudança no outro repositório</text></g>
+</svg>

@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "hooks": {
+    "preToolUse": [
+      {
+        "type": "command",
+        "bash": "node \"${PLUGIN_ROOT}/hooks/guarda.mjs\" || true",
+        "powershell": "node \"$env:PLUGIN_ROOT/hooks/guarda.mjs\"; exit 0",
+        "timeoutSec": 10
+      }
+    ]
+  }
+}

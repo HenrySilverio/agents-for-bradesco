@@ -1,0 +1,134 @@
+{
+ "titulo": "Triagem: o ticket mapeado por seção",
+ "grade": {
+  "col": 220,
+  "lin": 100,
+  "x0": 20,
+  "y0": 30
+ },
+ "altura": 330,
+ "nos": [
+  {
+   "id": "tk",
+   "col": 0,
+   "lin": 1,
+   "w": 190,
+   "t": "ticket",
+   "s": "caminho ou texto colado",
+   "k": "arquivo",
+   "step": 0
+  },
+  {
+   "id": "m",
+   "col": 1,
+   "lin": 1,
+   "w": 190,
+   "t": "mapear seções",
+   "s": "antes de perguntar",
+   "step": 1,
+   "destaque": true
+  },
+  {
+   "id": "c",
+   "col": 2,
+   "lin": 0,
+   "w": 190,
+   "t": "coberta",
+   "s": "cita o trecho",
+   "k": "ok",
+   "step": 2
+  },
+  {
+   "id": "pa",
+   "col": 2,
+   "lin": 1,
+   "w": 190,
+   "t": "parcial",
+   "s": "vira pergunta",
+   "k": "voce",
+   "step": 2
+  },
+  {
+   "id": "au",
+   "col": 2,
+   "lin": 2,
+   "w": 190,
+   "t": "ausente",
+   "s": "Restrições sempre",
+   "k": "alerta",
+   "step": 2
+  },
+  {
+   "id": "e",
+   "col": 3,
+   "lin": 1,
+   "w": 190,
+   "t": "entrevista",
+   "s": "só lacunas, 3 rodadas",
+   "step": 3,
+   "destaque": true
+  },
+  {
+   "id": "b",
+   "col": 4,
+   "lin": 1,
+   "w": 190,
+   "t": "briefing.md",
+   "s": "origem por seção",
+   "k": "ok",
+   "step": 4
+  }
+ ],
+ "arestas": [
+  {
+   "de": "tk",
+   "para": "m",
+   "step": 1
+  },
+  {
+   "de": "m",
+   "para": "c",
+   "step": 2,
+   "cor": "g"
+  },
+  {
+   "de": "m",
+   "para": "pa",
+   "step": 2,
+   "cor": "a"
+  },
+  {
+   "de": "m",
+   "para": "au",
+   "step": 2,
+   "cor": "x"
+  },
+  {
+   "de": "pa",
+   "para": "e",
+   "step": 3,
+   "cor": "a"
+  },
+  {
+   "de": "au",
+   "para": "e",
+   "step": 3,
+   "cor": "x"
+  },
+  {
+   "de": "e",
+   "para": "b",
+   "step": 4
+  },
+  {
+   "de": "c",
+   "para": "b",
+   "step": 4,
+   "cor": "g",
+   "d": "M650 59H995V128",
+   "rotulo": "transcrito, não parafraseado",
+   "rx": 822,
+   "ry": 50
+  }
+ ]
+}

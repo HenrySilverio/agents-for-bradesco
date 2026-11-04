@@ -1,0 +1,366 @@
+<meta-doc titulo="HenriSpec Discovery v0.3.0: onboarding" marca="HenriSpec Discovery" marca-destaque="Discovery" versao="v0.3.0" logo="henrispec-discovery-logo.svg" descricao="Da necessidade crua ao briefing pronto para o HenriSpec." rodape="HenriSpec Discovery v0.3.0. O que acontece antes do briefing existir. Uso interno do time.">
+
+<header class="hero">
+  <div class="marca-hero"><svg class="logo-vivo" width="64" height="64" aria-hidden="true"><use href="#logo"/></svg><span>HenriSpec <b>Discovery</b></span></div>
+  <h1>Da dor ao briefing, sem inventar nada.</h1>
+  <p class="sub">O HenriSpec começa quando o briefing existe. O Discovery cobre o trecho anterior: entrevista a necessidade, aproveita o ticket que já foi escrito e constrói um protótipo descartável quando a pergunta não se resolve conversando.</p>
+  <div class="acoes">
+    <a class="btn" href="#instalar">Instalar no meu repositório</a>
+    <a class="btn sec" href="#trava">Ver a trava e os guardrails</a>
+  </div>
+  <script type="application/x-diagrama" src="diagramas/fluxo.json"></script>
+</header>
+
+<section id="antes" data-nav="Requisitos">
+  <h2>Antes de começar</h2>
+  <p class="intro">As mesmas quatro coisas do HenriSpec. Os comandos desta página rodam no <strong>Git Bash</strong>.</p>
+  <div class="duas">
+    <div class="bloco"><h3>VS Code com Copilot</h3><p>Chat no harness <strong>Copilot</strong>. É nele que os agentes <code>discovery-grill</code>, <code>discovery-triagem</code>, <code>discovery-prototipo</code> e <code>discovery-rota</code> aparecem no seletor.</p></div>
+    <div class="bloco"><h3>Git Bash, Git e Node 18 ou mais</h3><p>O Node só roda o instalador. O fluxo em si é markdown puro: nenhum agente do Discovery usa terminal.</p></div>
+  </div>
+  <script type="text/x-codigo" data-lang="bash" data-rotulo="bash">
+    node --version   # precisa ser v18 ou mais
+    git --version
+  </script>
+  <div class="nota"><p>O HenriSpec é opcional. Sem ele, o Discovery continua produzindo um briefing legível por qualquer pessoa. Com ele, o briefing vira a entrada do <code>sdd-plan</code>.</p></div>
+</section>
+
+<section id="instalar" data-nav="Instalação">
+  <h2>Instalação</h2>
+  <p class="intro">O mesmo instalador do HenriSpec, com manifesto e lock próprios. Ele mostra o plano antes de escrever e <span class="chave">nunca toca nos seus briefings nem nos seus protótipos</span>.</p>
+  <script type="application/x-diagrama" src="diagramas/instalacao.json"></script>
+  <div class="abas-grupo">
+    <div class="painel" data-aba="Repositório novo">
+      <ol class="passos">
+        <li><strong>Na raiz do repositório, veja o plano.</strong>
+          <script type="text/x-codigo" data-lang="bash" data-rotulo="bash">
+            cd "/c/Users/<seu-usuario>/Documents/Projetos/<seu-repo>"
+            bash "<pasta-do-pacote>/instalar.sh" repo . --dry-run
+          </script></li>
+        <li><strong>Instale.</strong>
+          <script type="text/x-codigo" data-lang="bash" data-rotulo="bash">
+            bash "<pasta-do-pacote>/instalar.sh" repo .
+          </script>
+          <details class="arq"><summary>Saída real <span class="caminho">instalação do zero</span></summary><div class="corpo">
+            <script type="text/x-codigo" data-lang="saida" data-rotulo="TERMINAL">HenriSpec Discovery (não instalado) -> 0.3.0  alvo: repo /c/Users/<seu-usuario>/Documents/Projetos/<seu-repo>
+  criar           .github/agents/discovery-grill.agent.md
+  criar           .github/agents/discovery-prototipo.agent.md
+  criar           .github/agents/discovery-rota.agent.md
+  criar           .github/agents/discovery-triagem.agent.md
+  criar           .github/skills/discovery-grill/SKILL.md
+  criar           .github/skills/discovery-prototipo/SKILL.md
+  criar           .github/skills/discovery-rota/SKILL.md
+  criar           .github/skills/discovery-triagem/SKILL.md
+  criar           .github/skills/discovery-workflow/SKILL.md
+  criar           .github/skills/discovery-workflow/references/modos-prototipo.md
+  criar           .github/skills/discovery-workflow/references/molde-briefing.md
+  criar           .github/skills/discovery-workflow/references/tecnica-grilling.md
+  criar           docs/henrispec-discovery/README.md
+  criar           docs/henrispec-discovery/assets/henrispec-discovery-ciclo.svg
+  criar           docs/henrispec-discovery/assets/henrispec-discovery-fluxo.svg
+  criar           docs/henrispec-discovery/assets/henrispec-discovery-grill.svg
+  criar           docs/henrispec-discovery/assets/henrispec-discovery-logo.svg
+  criar           docs/henrispec-discovery/assets/henrispec-discovery-prototipo.svg
+  criar           docs/henrispec-discovery/assets/henrispec-discovery-rota.svg
+  criar           docs/henrispec-discovery/assets/henrispec-discovery-triagem.svg
+  criar           docs/briefings/EXEMPLO-confirmacao-duplicada/briefing.md
+  criar           docs/prototipos/README.md
+
+Instalado 0.3.0. Lock: docs/henrispec-discovery/toolkit.lock.json
+</script>
+          </div></details></li>
+        <li><strong>Commite.</strong> O lock fica em <code>docs/henrispec-discovery/toolkit.lock.json</code>.
+          <script type="text/x-codigo" data-lang="bash" data-rotulo="bash">
+            git add .github docs
+            git commit -m "chore: instala HenriSpec Discovery v0.3.0"
+          </script></li>
+        <li><strong>Recarregue o VS Code</strong> e confira os quatro agentes <code>discovery-*</code> no seletor do harness Copilot.</li>
+      </ol>
+    </div><!-- /painel -->
+    <div class="painel" data-aba="Atualizar da 0.1 ou 0.2">
+      <ol class="passos">
+        <li><strong>Rode o plano.</strong> A versão antiga é reconhecida pela assinatura dos arquivos, sem lock.
+          <script type="text/x-codigo" data-lang="bash" data-rotulo="bash">
+            bash "<pasta-do-pacote>/instalar.sh" repo . --dry-run
+          </script>
+          <details class="arq"><summary>Saída real de um repositório na 0.2 <span class="caminho">--dry-run</span></summary><div class="corpo">
+            <script type="text/x-codigo" data-lang="saida" data-rotulo="TERMINAL">HenriSpec Discovery 0.2 (por assinatura) -> 0.3.0  alvo: repo /c/Users/<seu-usuario>/Documents/Projetos/<seu-repo>  [dry-run]
+  remover         .github/prompts/discovery-grill.prompt.md
+  remover         .github/prompts/discovery-triagem.prompt.md
+  remover         .github/prompts/discovery-prototipo.prompt.md
+  remover         .github/prompts/discovery-rota.prompt.md
+  atualizar       .github/skills/discovery-workflow/SKILL.md
+  criar           .github/agents/discovery-grill.agent.md
+  criar           .github/agents/discovery-prototipo.agent.md
+  criar           .github/agents/discovery-rota.agent.md
+  criar           .github/agents/discovery-triagem.agent.md
+  criar           .github/skills/discovery-grill/SKILL.md
+  criar           .github/skills/discovery-prototipo/SKILL.md
+  criar           .github/skills/discovery-rota/SKILL.md
+  criar           .github/skills/discovery-triagem/SKILL.md
+  criar           docs/henrispec-discovery/README.md
+  criar           docs/henrispec-discovery/assets/henrispec-discovery-ciclo.svg
+  criar           docs/henrispec-discovery/assets/henrispec-discovery-fluxo.svg
+  criar           docs/henrispec-discovery/assets/henrispec-discovery-grill.svg
+  criar           docs/henrispec-discovery/assets/henrispec-discovery-logo.svg
+  criar           docs/henrispec-discovery/assets/henrispec-discovery-prototipo.svg
+  criar           docs/henrispec-discovery/assets/henrispec-discovery-rota.svg
+  criar           docs/henrispec-discovery/assets/henrispec-discovery-triagem.svg
+  igual           3 arquivo(s) já na versão do pacote
+  manter          2 semente(s) que já existiam: são suas, não são tocadas
+
+dry-run: nada foi escrito.
+</script>
+          </div></details></li>
+        <li><strong>Leia o plano.</strong> <span class="etiqueta r">remover</span> os <code>.prompt.md</code> antigos, só se estiverem intactos. <span class="etiqueta">manter</span> o briefing de exemplo e o README de protótipos, que já são seus. <span class="etiqueta r">CONFLITO</span> arquivo alterado à mão: nada é gravado até você decidir, e <code>--forcar</code> sobrescreve com backup.</li>
+        <li><strong>Instale e commite.</strong>
+          <script type="text/x-codigo" data-lang="bash" data-rotulo="bash">
+            bash "<pasta-do-pacote>/instalar.sh" repo .
+            git add .github docs
+            git commit -m "chore: atualiza HenriSpec Discovery para v0.3.0"
+          </script></li>
+      </ol>
+    </div><!-- /painel -->
+    <div class="painel" data-aba="Global, sem .github">
+      <div class="nota vermelha"><p><strong>Só quando o repositório proíbe commitar <code>.github/</code>.</strong> Cada pessoa fica com a sua cópia dos agentes, e o time pode divergir de versão.</p></div>
+      <script type="text/x-codigo" data-lang="bash" data-rotulo="bash">
+        bash "<pasta-do-pacote>/instalar.sh" global
+        cd "/c/Users/<seu-usuario>/Documents/Projetos/<seu-repo>"
+        bash "<pasta-do-pacote>/instalar.sh" repo . --sem-github
+      </script>
+      <p>Apague à mão os <code>.github/prompts/discovery-*.prompt.md</code> e a <code>.github/skills/discovery-workflow/</code> que ainda estiverem no repositório: junto com a instalação global, eles aparecem duplicados. O instalador avisa quando encontra.</p>
+    </div><!-- /painel -->
+    <div class="painel" data-aba="Junto com o HenriSpec">
+      <p>Os dois pacotes convivem no mesmo repositório, em qualquer ordem. Cada um tem o seu lock e só mexe nos próprios arquivos: agentes e skills do Discovery começam com <code>discovery-</code>, e <code>docs/briefings/</code> é compartilhado de propósito, porque é a saída daqui e a entrada de lá.</p>
+      <script type="text/x-codigo" data-lang="bash" data-rotulo="bash">
+        bash "<pasta-do-henrispec>/instalar.sh" repo .
+        bash "<pasta-do-discovery>/instalar.sh" repo .
+        git add .github .sdd docs
+        git commit -m "chore: instala HenriSpec e HenriSpec Discovery"
+      </script>
+      <div class="nota verde"><p>Rodar um instalador de novo não remove nada do outro. Testado nas duas ordens.</p></div>
+    </div><!-- /painel -->
+  </div><!-- /abas-grupo -->
+</section>
+
+<section id="qual" data-nav="Qual agente">
+  <h2>Qual agente usar</h2>
+  <p class="intro vivo">Cada etapa roda num <strong>chat novo</strong>, com o agente selecionado no seletor. A entrevista é longa: ela não pode entrar no contexto do planejamento. O briefing existe para ser a única coisa que atravessa.</p>
+  <div class="duas">
+    <div class="bloco"><span class="etiqueta">nada escrito</span><h3>Tenho uma dor ou uma ideia</h3><p><code>discovery-grill</code>: entrevista do zero, em rodadas.</p></div>
+    <div class="bloco"><span class="etiqueta">ticket pronto</span><h3>Tenho ticket, chamado ou bug escrito</h3><p><code>discovery-triagem</code>: aproveita o texto e pergunta só o que falta.</p></div>
+    <div class="bloco"><span class="etiqueta">decisão visual</span><h3>Não consigo decidir sem ver funcionando</h3><p><code>discovery-prototipo</code>: a pergunta não é entrevistável.</p></div>
+    <div class="bloco"><span class="etiqueta">perdido</span><h3>Não sei em que ponto estou</h3><p><code>discovery-rota</code>: diz o próximo agente e para.</p></div>
+  </div>
+  <p>Com o briefing pronto, a descoberta acabou: o próximo é o <code>sdd-plan</code> do HenriSpec.</p>
+</section>
+
+<section id="agentes" data-nav="Os agentes">
+  <h2>Os agentes, um por um</h2>
+  <div class="etapas">
+    <article class="etapa" id="e-grill" data-rotulo="discovery-grill" data-sub="Claude Opus 5">
+      <header><h3>discovery-grill</h3><span class="etiqueta r">Claude Opus 5</span><span class="etiqueta">read, edit</span></header>
+      <p>Transforma uma dor em briefing, perguntando. Nada é inferido. A sessão inteira é a entrevista: a primeira mensagem é a necessidade, as seguintes são as respostas.</p>
+      <script type="application/x-diagrama" src="diagramas/grill.json"></script>
+      <div class="grade">
+        <div class="sim"><h4>Use quando</h4><ul><li>existe uma dor e nada escrito;</li><li>o <code>sdd-plan</code> devolveu perguntas e não gravou nada: só sobre essas perguntas.</li></ul></div>
+        <div class="nao"><h4>Ele não faz</h4><ul><li>ler código ou buscar no repositório: não tem ferramenta para isso;</li><li>escrever critério de aceite;</li><li>chamar o <code>sdd-plan</code> ao terminar.</li></ul></div>
+      </div>
+      <script type="text/x-codigo" data-lang="chat" data-rotulo="chat novo, agente discovery-grill">
+        Clientes reclamam que a renegociação às vezes gera dois acordos para o mesmo contrato.
+      </script>
+      <details class="arq"><summary>Como é uma rodada <span class="caminho">até cinco perguntas, numeradas</span></summary><div class="corpo">
+        <script type="text/x-codigo" data-lang="chat" data-rotulo="resposta do agente, rodada 1">
+          1. Quem percebe o acordo duplicado hoje: o cliente, o backoffice ou os dois?
+          2. Com que frequência acontece, e o que alguém faz quando acontece?
+          3. O que deveria acontecer quando o cliente confirma de novo?
+          4. Existe algo que não pode mudar nesta entrega: contrato de API, fluxo de assinatura, prazo?
+          5. Isso acontece também no aplicativo, ou só no navegador?
+        </script>
+      </div></details>
+    </article>
+
+    <article class="etapa" id="e-triagem" data-rotulo="discovery-triagem" data-sub="Claude Opus 5">
+      <header><h3>discovery-triagem</h3><span class="etiqueta r">Claude Opus 5</span><span class="etiqueta">read, edit</span></header>
+      <p>A demanda quase nunca chega como página em branco: chega como ticket escrito com pressa. A triagem mapeia o que o ticket já responde, mostra o mapa, e pergunta só o que falta, em até três rodadas.</p>
+      <script type="application/x-diagrama" src="diagramas/triagem.json"></script>
+      <div class="nota vermelha vivo"><p><strong>Duas armadilhas contam como ausente.</strong> Ticket que abre com "criar endpoint de idempotência" traz a solução no lugar do problema: o texto vai para <code>Contexto útil</code>. Passos de reprodução descrevem o defeito, não o esperado.</p></div>
+      <script type="text/x-codigo" data-lang="chat" data-rotulo="chat novo, agente discovery-triagem">
+        #INC-4472.md
+      </script>
+      <details class="arq"><summary>O mapa, antes de qualquer pergunta <span class="caminho">no máximo seis linhas</span></summary><div class="corpo">
+        <script type="text/x-codigo" data-lang="saida" data-rotulo="resposta do agente">
+          Problema          coberta   "cliente consegue clicar em confirmar mais de uma vez"
+          O que se espera   ausente   o ticket traz passos de reprodução, não o resultado desejado
+          Restrições        ausente   nada sobre o que não pode mudar
+          Fora do escopo    ausente
+          Contexto útil     parcial   "criar endpoint de idempotência" é solução já cogitada
+          Prazo e ticket    coberta   INC-4472
+        </script>
+      </div></details>
+    </article>
+
+    <article class="etapa" id="e-prototipo" data-rotulo="discovery-prototipo" data-sub="Claude Sonnet 5">
+      <header><h3>discovery-prototipo</h3><span class="etiqueta r">Claude Sonnet 5</span><span class="etiqueta">read, edit</span></header>
+      <p>Responde uma pergunta com código que será apagado. O produto é a resposta, não o código. Ele não tem terminal de propósito: protótipo que precisa de build ou servidor não vai ser aberto por quem precisa decidir.</p>
+      <script type="application/x-diagrama" src="diagramas/prototipo.json"></script>
+      <div class="grade">
+        <div class="sim"><h4>Use quando</h4><ul><li>a dúvida é sobre estados, ordem de eventos ou disposição da tela;</li><li>a conversa travou e precisa ver para decidir.</li></ul></div>
+        <div class="nao"><h4>Não use para</h4><ul><li>pergunta que se resolve conversando: ele recomenda o grill;</li><li>código de produção: nada em <code>docs/prototipos/</code> vai para <code>src/</code>.</li></ul></div>
+      </div>
+      <script type="text/x-codigo" data-lang="chat" data-rotulo="chat novo, agente discovery-prototipo">
+        Depois do segundo clique, o cliente vê o acordo já criado ou uma mensagem de "processando"?
+        contexto: #acordo-exemplo.json
+      </script>
+    </article>
+
+    <article class="etapa" id="e-rota" data-rotulo="discovery-rota" data-sub="Claude Sonnet 5">
+      <header><h3>discovery-rota</h3><span class="etiqueta r">Claude Sonnet 5</span><span class="etiqueta">search</span></header>
+      <p>Você descreve a situação, ele devolve o próximo agente e o que digitar, e para. Não entrevista, não grava e não executa o que recomendou. Só lista nomes de pasta quando você não sabe onde está.</p>
+      <script type="application/x-diagrama" src="diagramas/rota.json"></script>
+      <script type="text/x-codigo" data-lang="chat" data-rotulo="chat novo, agente discovery-rota">
+        o sdd-review reprovou o eixo spec da mudança evitar-confirmacao-duplicada
+      </script>
+      <details class="arq"><summary>Resposta <span class="caminho">no máximo seis linhas</span></summary><div class="corpo">
+        <script type="text/x-codigo" data-lang="saida" data-rotulo="resposta do agente">
+          Você está depois de uma revisão reprovada no eixo spec.
+          Próximo: chat novo, agente sdd-plan, com
+            docs/briefings/confirmacao-duplicada/briefing.md replanejar: evitar-confirmacao-duplicada
+          Não é o sdd-implement direto: o achado precisa virar agrupamento no plano.
+          Depois: sdd-implement, commit da fatia, sdd-review de novo.
+        </script>
+      </div></details>
+    </article>
+  </div><!-- /etapas -->
+</section>
+
+<section id="arquivos" data-nav="O briefing">
+  <h2>O briefing que sai daqui</h2>
+  <p class="intro">Uma pasta por necessidade em <code>docs/briefings/</code>, nomeada pela dor e não pela solução. É o contrato com o HenriSpec: as seções e a ordem são as que o <code>sdd-plan</code> espera.</p>
+  <div class="duas">
+    <div class="bloco"><h3>Seções obrigatórias</h3><p><code>Problema</code>, <code>O que se espera</code>, <code>Restrições</code> e <code>Fora do escopo</code>. Opcionais: <code>Contexto útil</code> e <code>Prazo e ticket</code>.</p></div>
+    <div class="bloco"><h3>Duas convenções</h3><p><strong>Lacuna</strong>: <code>**[NÃO RESPONDIDO]**</code> com a pergunta exata, na seção da resposta. <strong>Origem</strong>: texto copiado de ticket vem em citação, precedido de <code>&gt; Origem:</code>.</p></div>
+  </div>
+  <details class="arq"><summary>Exemplo real <span class="caminho">docs/briefings/EXEMPLO-confirmacao-duplicada/briefing.md</span></summary><div class="corpo">
+    <script type="text/x-codigo" data-lang="markdown" data-rotulo="briefing.md"># Briefing - Segunda confirmação de renegociação gera acordo duplicado
+
+<!--
+Exemplo de saída real do /discovery-triagem, a partir do chamado INC-4472. Existe para
+mostrar três coisas que o molde em branco não mostra: o tamanho certo, a convenção de origem
+e a convenção de lacuna. Não copie o conteúdo.
+-->
+
+## Problema
+
+> Origem: INC-4472, campo Descrição, com os passos de reprodução removidos.
+>
+> O cliente que chega na tela de confirmação de renegociação consegue clicar em confirmar
+> mais de uma vez enquanto a resposta não volta. Quando isso acontece, o backoffice recebe
+> dois acordos para o mesmo contrato e precisa cancelar um à mão.
+
+Acontece com mais frequência em rede móvel lenta. O time de backoffice relata entre quatro e
+seis casos por semana, e cada cancelamento manual leva cerca de vinte minutos.
+
+## O que se espera
+
+Uma segunda confirmação do mesmo contrato não gera um segundo acordo. O cliente vê o acordo
+que já foi criado, e não uma mensagem de erro: do ponto de vista dele, o clique repetido foi
+insistência, não uma tentativa nova.
+
+O backoffice deixa de receber duplicatas e para de fazer cancelamento manual.
+
+**[NÃO RESPONDIDO]** Se o cliente fechar o navegador entre o primeiro clique e a resposta, e
+voltar depois, ele deve ver o acordo criado ou começar de novo?
+
+## Restrições
+
+- O contrato da API de efetivação não pode mudar nesta entrega.
+- Não alterar o fluxo de assinatura, que está em homologação regulatória até dezembro.
+- Precisa continuar funcionando em navegador sem suporte a armazenamento local.
+- O tempo até a tela de sucesso não pode piorar. Hoje fica entre dois e três segundos.
+
+## Fora do escopo
+
+- Cancelamento automático das duplicatas que já existem em produção. É limpeza de base e tem
+  dono diferente.
+- O mesmo problema no aplicativo móvel nativo. O time confirmou que lá o botão já é bloqueado.
+- Qualquer mudança na tela de listagem de acordos.
+
+## Contexto útil
+
+- Tela: `src/app/renegociacao/confirmacao/`
+- O chamado sugere "criar um endpoint de idempotência no BFF". É uma solução já cogitada por
+  quem abriu, não uma decisão. A escolha técnica é do planejamento.
+- Dono do backoffice: célula Recuperação de Crédito, Marina.
+- O time de assinatura precisa ser avisado antes do deploy, mesmo sem alteração no fluxo deles.
+
+## Prazo e ticket
+
+INC-4472. Sem prazo formal; o backoffice pediu prioridade para o fechamento do trimestre.
+</script>
+  </div></details>
+</section>
+
+<section id="trava" class="faixa guard" data-nav="Guardrails">
+  <h2>A trava e os guardrails</h2>
+  <p class="intro"><span class="chave">Escreva no briefing apenas o que foi respondido.</span> Um briefing que parece completo esconde ambiguidade, e ambiguidade invisível é pior que ambiguidade declarada.</p>
+  <div class="guard-grupos">
+    <div class="guard-grupo"><h3>Rastro</h3><dl>
+      <dt>Toda linha tem origem</dt><dd>Uma resposta da conversa, um material entregue ou um protótipo concluído. Sem origem, a linha não entra.</dd>
+      <dt>Lacuna não vira suposição</dt><dd>Vira marcador com a pergunta exata.</dd>
+      <dt>Lacuna bloqueante não grava</dt><dd>Sem sintoma ou sem resultado esperado não existe briefing: existe uma lista de perguntas.</dd>
+    </dl></div>
+    <div class="guard-grupo"><h3>Ferramentas mínimas</h3><dl>
+      <dt>Grill e triagem sem busca</dt><dd>Código lido antes de o problema estar claro enviesa a entrevista para o que já existe.</dd>
+      <dt>Protótipo sem terminal</dt><dd>Abre direto no navegador de quem decide.</dd>
+      <dt>Rota sem leitura</dt><dd>Nome de pasta basta para orientar.</dd>
+      <dt>Modelo fixo por etapa</dt><dd>Opus onde há julgamento, Sonnet onde há consulta ou construção.</dd>
+    </dl></div>
+    <div class="guard-grupo"><h3>Escopo</h3><dl>
+      <dt>Só dois lugares de escrita</dt><dd><code>docs/briefings/</code> e <code>docs/prototipos/</code>. Em <code>.sdd/</code>, nunca.</dd>
+      <dt>Orçamento de rodadas</dt><dd>Até cinco perguntas por rodada; quatro rodadas no grill, três na triagem.</dd>
+      <dt>Sem critério de aceite</dt><dd>Critério exige olhar o código, e isso é do <code>sdd-plan</code>.</dd>
+      <dt>Para e recomenda</dt><dd>Nenhum agente encadeia o próximo no mesmo chat.</dd>
+    </dl></div>
+  </div>
+  <div class="nota vermelha riscos"><p><strong>O que depende de disciplina.</strong> No harness Copilot a ferramenta de edição não separa criar de editar: "o protótipo só cria arquivo novo" é regra do contrato. E o mapa do <code>discovery-rota</code> é mantido à mão: se o HenriSpec mudar de agente, ele aponta para o lugar errado sem quebrar.</p></div>
+</section>
+
+<section id="integracao" data-nav="Integração">
+  <h2>Com o HenriSpec</h2>
+  <p class="intro">Um chat novo por etapa, inclusive entre os dois toolkits.</p>
+  <script type="application/x-diagrama" src="diagramas/ciclo.json"></script>
+  <div class="duas">
+    <div class="bloco"><h3>Ponto de contato 1: o briefing</h3><p>Todos os agentes dependem do formato dele. Se mudar, o <code>sdd-plan</code> deixa de consumir a saída.</p></div>
+    <div class="bloco"><h3>Ponto de contato 2: o mapa do rota</h3><p>Cita agentes e pastas do HenriSpec 0.4.2. Falha em silêncio: revise-o a cada versão do HenriSpec.</p></div>
+  </div>
+</section>
+
+<section id="dia" data-nav="Um dia">
+  <h2>Um dia de trabalho</h2>
+  <p class="intro">Um chamado chega na segunda de manhã.</p>
+  <div class="tempo" id="tempo"><div class="linha-viva"></div>
+    <div class="momento"><time>09:00</time><h3>O chamado chega</h3><p>INC-4472: "criar endpoint de idempotência na confirmação de renegociação".</p></div>
+    <div class="momento"><time>09:10</time><h3>Triagem (chat 1)</h3><p>O mapa mostra que o ticket traz solução no lugar do problema e nada sobre restrições.</p></div>
+    <div class="momento"><time>09:20</time><h3>Duas rodadas</h3><p>Restrições na primeira rodada, como sempre. O PO responde; uma pergunta de borda fica marcada.</p></div>
+    <div class="momento"><time>10:00</time><h3>Protótipo (chat 2)</h3><p>A dúvida "acordo criado ou processando?" não se resolve conversando. O protótipo abre no navegador; o PO escolhe.</p></div>
+    <div class="momento"><time>10:40</time><h3>Briefing gravado</h3><p>A escolha entra em <code>Contexto útil</code>. Você revisa e commita <code>docs/briefings/confirmacao-duplicada/</code>.</p></div>
+    <div class="momento"><time>11:00</time><h3>Para o HenriSpec (chat 3)</h3><p>Chat novo, agente <code>sdd-plan</code>, com o caminho do briefing.</p></div>
+  </div>
+</section>
+
+<section id="problemas" data-nav="Problemas">
+  <h2>Quando algo dá errado</h2>
+  <details class="arq"><summary>Os agentes discovery-* não aparecem no seletor</summary><div class="corpo"><p>Confira o harness Copilot, os arquivos em <code>.github/agents/</code> na raiz do workspace (ou em <code>~/.copilot/agents</code> na instalação global) e recarregue a janela.</p></div></details>
+  <details class="arq"><summary>Digitei /discovery-grill e ele pediu para trocar de agente</summary><div class="corpo"><p>Esperado: o atalho só roda com o agente da etapa, que fixa modelo e ferramentas. Chat novo, agente <code>discovery-grill</code>, mesmo pedido.</p></div></details>
+  <details class="arq"><summary>O grill não gravou nada e devolveu perguntas</summary><div class="corpo"><p>Ficou lacuna bloqueante: sem sintoma ou sem resultado esperado não há briefing. Responda as perguntas no mesmo chat, ou leve-as a quem sabe.</p></div></details>
+  <details class="arq"><summary>O briefing ficou com [NÃO RESPONDIDO]</summary><div class="corpo"><p>É lacuna de borda, e está certo ficar marcada. Se ela impedir um critério verificável, o <code>sdd-plan</code> vai parar e perguntar: volte ao grill só sobre ela.</p></div></details>
+  <details class="arq"><summary>O instalador acusou CONFLITO</summary><div class="corpo"><p>Um arquivo do Discovery foi alterado à mão, e nada foi gravado. Compare, guarde o que importa e aceite a versão do pacote com backup:</p>
+    <script type="text/x-codigo" data-lang="bash" data-rotulo="bash">
+      bash "<pasta-do-pacote>/instalar.sh" repo . --forcar
+    </script></div></details>
+  <details class="arq"><summary>Erro pipefail\r ao rodar o instalador</summary><div class="corpo"><p>O <code>.sh</code> foi salvo com final de linha do Windows. Rode pelo Node:</p>
+    <script type="text/x-codigo" data-lang="bash" data-rotulo="bash">
+      node "<pasta-do-pacote>/instalar.mjs" repo . --dry-run
+    </script></div></details>
+</section>

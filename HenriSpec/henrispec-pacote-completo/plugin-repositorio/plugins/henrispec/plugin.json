@@ -1,0 +1,11 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "henrispec",
+  "version": "1.0.0",
+  "description": "HenriSpec: Spec-Driven Development para o GitHub Copilot. Quatro agentes com modelo fixo (plan, implement, review, archive), uma fatia por sessão, revisão em dois eixos e verificação só na camada alterada.",
+  "author": { "name": "HenrySilverio", "url": "https://github.com/HenrySilverio" },
+  "homepage": "https://github.com/HenrySilverio/henrispec",
+  "repository": "https://github.com/HenrySilverio/henrispec",
+  "license": "UNLICENSED",
+  "keywords": ["sdd", "spec-driven-development", "agents", "review", "copilot"]
+}

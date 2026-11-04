@@ -1,0 +1,108 @@
+{
+ "titulo": "Instalação do HenriSpec Discovery",
+ "grade": {
+  "col": 200,
+  "lin": 110,
+  "x0": 20,
+  "y0": 30
+ },
+ "altura": 230,
+ "nos": [
+  {
+   "id": "pk",
+   "col": 0,
+   "lin": 0,
+   "t": "pacote",
+   "s": "baixado na máquina",
+   "k": "arquivo",
+   "step": 0
+  },
+  {
+   "id": "dr",
+   "col": 1,
+   "lin": 0,
+   "t": "--dry-run",
+   "s": "plano, sem gravar",
+   "k": "voce",
+   "step": 1
+  },
+  {
+   "id": "cf",
+   "col": 1,
+   "lin": 1,
+   "t": "CONFLITO",
+   "s": "alterado à mão",
+   "k": "alerta",
+   "step": 2,
+   "destaque": true
+  },
+  {
+   "id": "in",
+   "col": 2,
+   "lin": 0,
+   "t": "instalar",
+   "s": "cria, atualiza, remove",
+   "step": 2,
+   "destaque": true,
+   "w": 180
+  },
+  {
+   "id": "lk",
+   "col": 3,
+   "lin": 0,
+   "t": "lock próprio",
+   "s": "não toca no HenriSpec",
+   "k": "dado",
+   "step": 3,
+   "w": 180
+  },
+  {
+   "id": "cm",
+   "col": 4,
+   "lin": 0,
+   "t": "commit",
+   "s": ".github docs",
+   "k": "ok",
+   "step": 4
+  }
+ ],
+ "arestas": [
+  {
+   "de": "pk",
+   "para": "dr",
+   "step": 1
+  },
+  {
+   "de": "dr",
+   "para": "cf",
+   "step": 2,
+   "cor": "x"
+  },
+  {
+   "de": "dr",
+   "para": "in",
+   "step": 2
+  },
+  {
+   "de": "cf",
+   "para": "in",
+   "step": 2,
+   "cor": "a",
+   "rotulo": "--forcar, com backup",
+   "d": "M340 169H500V90",
+   "rx": 440,
+   "ry": 186
+  },
+  {
+   "de": "in",
+   "para": "lk",
+   "step": 3
+  },
+  {
+   "de": "lk",
+   "para": "cm",
+   "step": 4,
+   "cor": "g"
+  }
+ ]
+}

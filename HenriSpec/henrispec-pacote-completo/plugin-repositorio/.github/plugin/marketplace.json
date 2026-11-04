@@ -1,0 +1,22 @@
+{
+  "name": "henrispec",
+  "owner": { "name": "HenrySilverio" },
+  "metadata": {
+    "description": "HenriSpec: Spec-Driven Development para o GitHub Copilot. Marketplace de teste do próprio repositório.",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "henrispec",
+      "description": "Quatro agentes com modelo fixo para planejar, implementar uma fatia por vez, revisar em dois eixos e arquivar. Verificação só na camada alterada.",
+      "version": "1.0.0",
+      "source": "./plugins/henrispec"
+    },
+    {
+      "name": "henrispec-discovery",
+      "description": "Da necessidade crua ao briefing pronto para o HenriSpec: entrevista, triagem de ticket, protótipo descartável e roteamento.",
+      "version": "1.0.0",
+      "source": "./plugins/henrispec-discovery"
+    }
+  ]
+}
