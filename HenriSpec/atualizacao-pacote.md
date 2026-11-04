@@ -91,3 +91,62 @@ Se aparecer `CONFLITO` em algo que você não alterou, pare e me mostre a saída
 ## Ao final
 
 Quando tudo estiver validado, apague as duas cópias de segurança e a pasta `_anteriores`. Enquanto elas existirem, você tem para onde voltar.
+
+Entendi. Então `recr-cmn-henrispec` é um clone do repositório do git, e o conteúdo do plugin está dentro dele. Os comandos anteriores copiavam por cima da pasta inteira, o que é diferente do que você descreveu.
+
+Antes de copiar, confirme que é um clone e veja o que o Git já rastreia:
+
+```bash
+cd "/c/Users/i459249/Documents/Projetos/AI_plugins/recr-cmn-henrispec"
+git status --short
+git remote -v
+git log --oneline -3
+```
+
+- Se `git status` estiver vazio, o clone está limpo e a cópia é segura.
+- Se aparecer alteração, pare e me mostre a lista antes de copiar.
+
+Como o repositório é um clone, o backup certo é mais simples: o próprio histórico do Git. Se algo der errado, `git checkout -- .` ou `git reset --hard` voltam à versão commitada. Então o backup da pasta inteira não é necessário nesse caso. O backup que importa é garantir que nada esteja sem commit antes de começar.
+
+Agora, o procedimento só com o conteúdo do plugin:
+
+```bash
+ORIGEM="/c/Users/i459249/Documents/Projetos/Harness/zips/henrispec_atualizacao/henrispec-pacote-completo/plugin-repositorio"
+PLUGINS="/c/Users/i459249/Documents/Projetos/AI_plugins/recr-cmn-henrispec"
+
+# Veja o que muda, ignorando a pasta .git
+diff -rq "$ORIGEM" "$PLUGINS" -x .git
+```
+
+Se a lista estiver de acordo, copie só o conteúdo, mantendo o `.git`:
+
+```bash
+cp -r "$ORIGEM/." "$PLUGINS/"
+```
+
+O `cp` não toca no `.git`, porque o pacote não tem essa pasta. Depois, apague os arquivos antigos, que são os de nome `sdd-*` e `discovery-*`:
+
+```bash
+cd "$PLUGINS"
+rm -f plugins/henrispec/com.github.copilot/agents/sdd-*.agent.md
+rm -f plugins/henrispec-discovery/com.github.copilot/agents/discovery-*.agent.md
+rm -rf plugins/henrispec/skills/plan plugins/henrispec/skills/implement \
+       plugins/henrispec/skills/review plugins/henrispec/skills/archive
+rm -rf plugins/henrispec-discovery/skills/grill plugins/henrispec-discovery/skills/triagem \
+       plugins/henrispec-discovery/skills/prototipo plugins/henrispec-discovery/skills/rota
+
+node ferramentas/validar.mjs
+git status --short
+```
+
+Os `rm` não apagam nada do Git: removem só arquivos que o repositório rastreia como antigos, e o `git status` mostra cada um. Antes de commitar, confira que a lista contém só o que você espera.
+
+Para o outro clone, `recr-cmn-henrispec-discovery`, o procedimento é igual. O conteúdo do pacote de discovery tem a mesma estrutura e vem da mesma pasta `plugin-repositorio`. Confirme primeiro se o clone é da mesma origem:
+
+```bash
+cd "/c/Users/i459249/Documents/Projetos/AI_plugins/recr-cmn-henrispec-discovery"
+git remote -v
+git status --short
+```
+
+Se os dois clones apontam para o mesmo repositório, é o mesmo conteúdo em duas cópias, e você só precisa atualizar um deles. Me confirme a saída de `git remote -v` dos dois antes de copiar para o segundo.
