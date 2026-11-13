@@ -98,9 +98,69 @@ bash henrispec-suite/instalar.sh repo . --so=depuracao-sistematica --dry-run
 
 # o que está instalado, em cada alvo
 bash henrispec-suite/instalar.sh status .
+
+# confere agentes e skills (serve ao VS Code e ao IntelliJ)
+bash henrispec-suite/instalar.sh verificar repo .
+bash henrispec-suite/instalar.sh verificar global
 ```
 
 No Windows sem Git Bash, use `node henrispec-suite/instalar.mjs` com os mesmos argumentos.
+
+## VS Code e IntelliJ
+
+Os mesmos arquivos, nos mesmos caminhos, servem aos dois IDEs. O Copilot do IntelliJ lê agentes
+`.agent.md` de `.github/agents/` (projeto) e de `~/.copilot/agents/` (global), skills de
+`.github/skills/` e `~/.copilot/skills/`, e o `AGENTS.md` da raiz. Por isso a instalação é a
+mesma, e o `repo` e o `global` funcionam para os dois.
+
+| | VS Code | IntelliJ (e outros IDEs JetBrains) |
+| --- | --- | --- |
+| Escolher o agente | Chat no modo Agent, seletor de agentes | Chat do Copilot, seletor de agentes |
+| Ver o que foi carregado | Seletor de agentes e a lista de skills | Customizations, no ícone de configurações do chat (abas Workspace e Personal) |
+| Ligar nas configurações | Já vem ligado | Settings > GitHub Copilot: Agent mode, Custom Agent e Skills |
+| Agente global | `~/.copilot/agents` | `~/.copilot/agents` (desde maio de 2026) |
+| Skills | `.github/skills`, `~/.copilot/skills` | `.github/skills`, `~/.copilot/skills` (plugin 1.10.0 ou mais novo) |
+
+Para usar no IntelliJ:
+
+1. Atualize o plugin GitHub Copilot. Skills pedem a versão 1.10.0 ou mais nova.
+2. Em Settings > GitHub Copilot, deixe ligados Agent mode, Custom Agent e Skills.
+3. Se o seu Copilot é Business ou Enterprise, o administrador pode precisar habilitar a política
+   **Editor preview features**.
+4. Abra como projeto a pasta que contém o `.github/` (a raiz do repositório). Num monorepo aberto
+   por uma subpasta, o IDE não enxerga o `.github/` da raiz.
+5. Garanta que o `node` está no PATH **do IntelliJ**, não só do seu terminal. Quem abre o IDE pelo
+   menu de aplicativos pode ter um PATH menor. O `.sdd/sdd.mjs` e o `verificar.mjs` do HenriSpec
+   rodam pelo terminal do IDE.
+6. Rode `instalar.sh verificar repo .` e confira em Customizations se os agentes apareceram.
+
+O comando `verificar` checa, para cada agente e skill, o que os dois IDEs exigem: frontmatter
+válido, `name` igual ao nome do arquivo ou da pasta, `description` preenchida, tamanho abaixo do
+limite de 30.000 caracteres do perfil de agente, skills citadas existindo, e **agentes de somente
+leitura (`depurar`, `henrispec-discovery-rota`) sem ferramenta de edição**. Ele não prova que o IDE
+carregou: isso quem mostra é a tela Customizations.
+
+### O que não foi confirmado no IntelliJ
+
+Estes pontos não aparecem na documentação pública do Copilot para JetBrains e precisam de um teste
+na sua máquina:
+
+- **Ferramentas do `depurar`.** O agente declara `tools: ["read", "search", "execute"]`. Se o
+  IntelliJ não reconhecer esses nomes, ele pode liberar outras ferramentas. Teste: selecione o
+  `depurar` e peça "edite o arquivo X". Se ele conseguir editar, o agente não está somente leitura
+  nesse IDE: avise antes de usá-lo em código real.
+- **Skill global por caminho absoluto.** Na instalação global, os agentes leem a skill em
+  `~/.copilot/skills/...`, fora do projeto. Se o IntelliJ bloquear leitura fora do projeto, use a
+  instalação local (`repo`), onde os caminhos são relativos ao projeto.
+- **`AGENTS.md` fora do Git.** O instalador coloca o `AGENTS.md` em `.git/info/exclude`. Confira em
+  Customizations se o IntelliJ o lista mesmo assim.
+- **Maturidade.** O changelog do GitHub dá agentes personalizados como disponíveis para todos no
+  JetBrains desde março de 2026 e skills desde o plugin 1.10.0, mas algumas páginas da
+  documentação ainda os marcam como preview. Se algo não aparecer, comece pelo plugin e pela
+  política do administrador.
+
+Referências: changelog do GitHub de 11/03/2026 (agentes e `AGENTS.md`), de 13/05/2026
+(`~/.copilot/agents`) e a issue de skills do `copilot-intellij-feedback`.
 
 ## Atualizando
 
@@ -121,7 +181,7 @@ arquivo que saiu do toolkit. Na primeira atualização sobre uma cópia manual a
 
 | Pasta ou arquivo | O que contém |
 | --- | --- |
-| `instalar.sh`, `instalar.mjs` | O instalador único. Escolhe alvo e componentes e chama o motor de cada um |
+| `instalar.sh`, `instalar.mjs` | O instalador único. Escolhe alvo e componentes, chama o motor de cada um e traz o `verificar` |
 | `suite.json` | A lista de componentes da suite |
 | `componentes/henrispec/` | HenriSpec 0.4.5, com o seu próprio instalador, manifesto e documentação |
 | `componentes/henrispec-discovery/` | HenriSpec Discovery 0.3.1, idem |
@@ -142,8 +202,8 @@ relatório, e a correção acontece em outra conversa.
 ## Limites
 
 - O instalador só lê e escreve no disco local: não usa rede, não faz commit nem push.
-- A instalação global grava em `~/.copilot/`. Confirme que o seu VS Code lê agentes e skills desse
-  lugar antes de contar com ela em todos os repositórios.
+- A instalação global grava em `~/.copilot/`. Confirme que o seu IDE (VS Code ou IntelliJ) lê agentes
+  e skills desse lugar antes de contar com ela em todos os repositórios.
 - Não há comando de desinstalação. O arquivo `toolkit.lock.json` de cada componente lista o que foi
   instalado, e o `.git/info/exclude` tem o bloco de cada um.
 - Os READMEs, os guias e os diagramas dentro de `componentes/henrispec*` ainda citam nomes e
