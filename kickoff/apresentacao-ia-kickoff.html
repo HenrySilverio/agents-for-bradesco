@@ -1,0 +1,1276 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>IA no desenvolvimento: o básico para começar bem</title>
+  <style>
+/* Tokens: identidade Bradesco (vermelho da marca). Sem web fonts (rede corporativa + CSP). */
+:root {
+  --red: #cc092f;
+  --red-deep: #9b0623;
+  --ink: #1b1c21;
+  --muted: #5a5e6a;
+  --paper: #f6f7f9;
+  --card: #ffffff;
+  --line: #d8dbe2;
+  --font: "Segoe UI Variable Display", "Segoe UI Variable Text", "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  --h2: clamp(1.9rem, 4.2vw, 3.6rem);
+  --body: clamp(1.05rem, 1.55vw, 1.45rem);
+  color-scheme: light;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; font-size: clamp(16px, 1.25vw + 3px, 24px); }
+body { margin: 0; background: var(--paper); color: var(--ink); font: 400 var(--body)/1.5 var(--font); }
+h1, h2, h3, p, ul, ol, dl, dd { margin: 0; padding: 0; }
+ul, ol { list-style: none; }
+:focus-visible { outline: 3px solid var(--red); outline-offset: 3px; }
+
+/* ---------- Estrutura base (sem JS: slides empilhados, tudo legível) ---------- */
+.slide { position: relative; min-height: 100vh; display: flex; align-items: center; padding: clamp(2rem, 6vh, 4rem) clamp(1.5rem, 6vw, 6rem); border-bottom: 1px solid var(--line); }
+.slide__inner { width: min(100%, 74rem); margin-inline: auto; display: grid; gap: clamp(1rem, 2.6vh, 1.8rem); }
+.notes { display: none; }
+.hud, .progress { display: none; }
+
+h1 { font-size: clamp(2.4rem, 6.4vw, 5.6rem); font-weight: 800; letter-spacing: -0.04em; line-height: 1.02; max-width: 20ch; }
+h2 { font-size: var(--h2); font-weight: 800; letter-spacing: -0.035em; line-height: 1.06; max-width: 22ch; }
+h3 { font-size: clamp(1.2rem, 1.8vw, 1.6rem); font-weight: 700; letter-spacing: -0.01em; }
+p { max-width: 62ch; }
+strong, b { font-weight: 700; }
+.muted { color: var(--muted); }
+.fine { font-size: 0.85em; color: var(--muted); }
+.body { font-size: var(--body); max-width: 52ch; }
+.lede { font-size: clamp(1.2rem, 2vw, 1.8rem); }
+.takeaway { font-size: clamp(1.15rem, 1.8vw, 1.6rem); font-weight: 600; max-width: 46ch; padding-left: 1rem; border-left: 4px solid var(--red); }
+.tag { display: inline-flex; align-items: center; gap: .6rem; font-size: .95rem; font-weight: 600; color: var(--muted); }
+.tag::before { content: ""; width: .7rem; height: .7rem; background: var(--red); }
+.ver { font-size: .38em; font-weight: 700; letter-spacing: 0; color: var(--red); border: 2px solid var(--red); border-radius: 999px; padding: .15em .7em; vertical-align: middle; margin-left: .4em; white-space: nowrap; }
+.split { grid-template-columns: 1fr; align-items: center; }
+.split > div { display: grid; gap: clamp(.8rem, 2vh, 1.4rem); align-content: center; }
+h2.name { font-size: clamp(1.9rem, 3.6vw, 3.2rem); max-width: none; }
+.sub { font-weight: 700; margin-bottom: .6rem; }
+
+/* ---------- Slides vermelhos ---------- */
+.slide--red { background: var(--red); color: #fff; overflow: hidden; }
+.slide--red::after { content: ""; position: absolute; right: -14vmin; bottom: -14vmin; width: 62vmin; height: 62vmin; border: 2.2vmin solid rgba(255,255,255,.14); border-radius: 50%; pointer-events: none; }
+.slide--red .ctx { font-weight: 600; opacity: .9; }
+.slide--red .lede { max-width: 40ch; }
+.hint { font-size: .9rem; opacity: .75; margin-top: 1rem; }
+.slide--divider h2 { font-size: clamp(2.8rem, 8vw, 7rem); }
+.next { display: grid; gap: .7rem; max-width: 52ch; }
+.next li { padding-left: 1.4rem; position: relative; font-size: clamp(1.1rem, 1.7vw, 1.55rem); }
+.next li::before { content: ""; position: absolute; left: 0; top: .6em; width: .6rem; height: .6rem; background: #fff; }
+.slide--end .lede { font-weight: 800; font-size: clamp(2rem, 4vw, 3.4rem); margin-top: .8rem; letter-spacing: -0.03em; }
+
+/* ---------- Colunas (roteiro) ---------- */
+.cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: clamp(1.2rem, 3vw, 3rem); margin-top: 1rem; }
+.col { border-top: 4px solid var(--red); padding-top: 1rem; display: grid; gap: .5rem; align-content: start; }
+.col p { color: var(--muted); font-size: clamp(1rem, 1.4vw, 1.3rem); }
+
+/* ---------- LLM ---------- */
+.llm { display: grid; gap: 1rem; }
+.slot { font-size: clamp(1.3rem, 2.4vw, 2.1rem); font-weight: 600; letter-spacing: -0.01em; max-width: none; }
+.slot__blank { display: inline-block; min-width: 4.5em; border-bottom: 4px solid var(--red); text-align: center; }
+.slot__word { display: inline-block; color: var(--red); font-weight: 800; }
+.probs { display: grid; gap: .55rem; max-width: 40rem; }
+.probs li { display: grid; grid-template-columns: 6rem 1fr 3.2rem; align-items: center; gap: 1rem; font-size: clamp(1rem, 1.4vw, 1.25rem); }
+.probs__track { height: .9rem; background: #e6e8ee; border-radius: 99px; overflow: hidden; }
+.probs__fill { display: block; height: 100%; background: var(--red); border-radius: 99px; transform-origin: left; }
+.probs li:nth-child(n+2) .probs__fill { background: #8b91a1; }
+.probs__pct { font-variant-numeric: tabular-nums; font-weight: 700; text-align: right; }
+
+/* ---------- Janela de contexto ---------- */
+.ctxbar { display: flex; gap: .5rem; margin: .6rem 0 .4rem; }
+.ctxbar__seg { position: relative; overflow: hidden; background: var(--card); border: 2px solid var(--ink); border-radius: .4rem; padding: 1.1rem 1rem 1rem; display: grid; gap: .2rem; align-content: end; min-height: clamp(7rem, 20vh, 10rem); min-width: 0; }
+.ctxbar__seg b { position: relative; font-size: clamp(1rem, 1.6vw, 1.4rem); }
+.ctxbar__seg small { position: relative; color: var(--muted); font-size: clamp(.78rem, 1vw, .95rem); line-height: 1.25; }
+.ctxbar__fill { position: absolute; inset: 0; background: rgba(204, 9, 47, .12); transform-origin: left; }
+.ctxbar__seg:last-child { border-color: var(--red); }
+.ctxbar__seg:last-child .ctxbar__fill { background: rgba(204, 9, 47, .2); }
+.pair { display: grid; grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr)); gap: 1.2rem 3rem; margin-top: .6rem; }
+.pair p { font-size: clamp(1rem, 1.5vw, 1.35rem); }
+
+/* ---------- Ciclo do agente ---------- */
+.loop { position: relative; width: min(100%, 30rem); aspect-ratio: 1; margin-inline: auto; }
+.loop svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.loop__ring { fill: none; stroke: var(--red); stroke-width: 5; stroke-linecap: round; }
+.loop__node { position: absolute; transform: translate(-50%, -50%); background: var(--card); border: 2px solid var(--ink); border-radius: 99px; padding: .45em .9em; font-weight: 600; font-size: clamp(.8rem, 1.1vw, 1rem); text-align: center; line-height: 1.2; width: 8.6em; }
+.loop__node.n1 { left: 50%; top: 12.5%; }
+.loop__node.n2 { left: 87.5%; top: 50%; }
+.loop__node.n3 { left: 50%; top: 87.5%; }
+.loop__node.n4 { left: 12.5%; top: 50%; }
+.loop__core { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; font-weight: 700; color: var(--muted); padding: 33%; line-height: 1.2; font-size: clamp(.85rem, 1.1vw, 1rem); }
+@keyframes beat { 0%, 20%, 100% { background: var(--card); color: var(--ink); } 5%, 15% { background: var(--red); color: #fff; } }
+.is-active .loop__node { animation: beat 6s infinite; }
+.is-active .loop__node.n2 { animation-delay: 1.5s; }
+.is-active .loop__node.n3 { animation-delay: 3s; }
+.is-active .loop__node.n4 { animation-delay: 4.5s; }
+
+/* ---------- Harness (camadas) ---------- */
+.layers { display: grid; gap: 1rem; }
+.layer { border-radius: 1rem; padding: 1rem; display: grid; gap: .8rem; }
+.layer__name { font-weight: 700; font-size: clamp(.95rem, 1.3vw, 1.2rem); }
+.layer--out { background: var(--ink); color: #fff; padding: 1.2rem 1.4rem 1.4rem; }
+.layer--mid { background: var(--card); color: var(--ink); border: 2px solid var(--red); }
+.layer--in { background: var(--red); color: #fff; padding: 1.4rem 1rem; text-align: center; }
+.layers__legend { display: grid; gap: .25rem; color: var(--muted); font-size: clamp(.95rem, 1.3vw, 1.15rem); }
+.layers__legend li { padding-left: 1.1rem; position: relative; }
+.layers__legend li::before { content: ""; position: absolute; left: 0; top: .6em; width: .45rem; height: .45rem; background: var(--red); }
+
+/* ---------- Definições ---------- */
+.defs { display: grid; gap: 0; margin-top: .4rem; }
+.defs > div { display: grid; grid-template-columns: 9.5rem 1fr auto; gap: 1.2rem; align-items: baseline; padding: .85rem 0; border-top: 1px solid var(--line); }
+.defs > div:last-child { border-bottom: 1px solid var(--line); }
+.defs dt { font-weight: 800; font-size: clamp(1.1rem, 1.7vw, 1.5rem); color: var(--red); }
+.defs dd { font-size: clamp(.98rem, 1.4vw, 1.25rem); }
+.chip { font-size: .8rem; font-weight: 700; padding: .2em .8em; border-radius: 99px; background: var(--red); color: #fff; white-space: nowrap; }
+.chip--alt { background: transparent; color: var(--muted); border: 1.5px solid var(--line); }
+
+/* ---------- Comparação ---------- */
+.versus { display: grid; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); gap: 1rem; }
+.versus p { display: grid; gap: .3rem; padding: 1rem 1.2rem; border-radius: .6rem; font-size: clamp(1rem, 1.45vw, 1.3rem); max-width: none; }
+.versus strong { font-size: 1.15em; }
+.versus__a { background: #e9eaef; color: var(--muted); }
+.versus__b { background: var(--card); border: 2px solid var(--red); }
+.versus__b strong { color: var(--red); }
+
+/* ---------- Passos em linha (5) ---------- */
+.steps5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0; margin-top: .6rem; position: relative; }
+.steps5 li { position: relative; padding: 1.4rem .8rem 0 0; display: grid; gap: .3rem; align-content: start; }
+.steps5 li::before { content: ""; position: absolute; left: 0; top: 0; width: .9rem; height: .9rem; background: var(--red); border-radius: 50%; z-index: 1; }
+.steps5 li::after { content: ""; position: absolute; left: .9rem; right: 0; top: calc(.45rem - 1.5px); height: 3px; background: var(--red); transform-origin: left; }
+.steps5 li:last-child::after { display: none; }
+.steps5 b { font-size: clamp(1.05rem, 1.6vw, 1.4rem); }
+.steps5 span { color: var(--muted); font-size: clamp(.88rem, 1.2vw, 1.08rem); line-height: 1.35; }
+
+/* ---------- Cuidados ---------- */
+.rules { display: grid; gap: .7rem; margin-top: .4rem; }
+.rules li { display: grid; grid-template-columns: 2.2rem 1fr; gap: 1rem; align-items: start; font-size: clamp(1.05rem, 1.6vw, 1.45rem); }
+.rules svg { width: 2.2rem; height: 2.2rem; fill: none; stroke: var(--ink); stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; background: #e9eaef; border-radius: 50%; padding: .45rem; }
+.rules li:first-child svg { stroke: #fff; background: var(--red); }
+.rules li:not(:first-child) svg { stroke: var(--red); }
+
+/* ---------- Fluxo ---------- */
+.flow { display: flex; align-items: flex-end; gap: 0; flex-wrap: wrap; margin-top: .6rem; }
+.flow__group { display: grid; gap: .5rem; }
+.flow__label { font-weight: 700; font-size: clamp(.9rem, 1.2vw, 1.1rem); }
+.flow__label em { font-style: normal; color: var(--red); margin-left: .35rem; }
+.flow__group--spec { padding: .9rem 1rem 1rem; border: 2px dashed var(--red); border-radius: .8rem; }
+.flow__row { display: flex; align-items: center; }
+.flow__node { background: var(--ink); color: #fff; padding: .7em 1.1em; border-radius: .5rem; font-weight: 700; font-size: clamp(1.05rem, 1.7vw, 1.5rem); }
+.flow__group--disc .flow__node { background: var(--card); color: var(--ink); border: 2px solid var(--ink); }
+.flow__conn { width: clamp(1rem, 3vw, 2.6rem); height: 3px; background: var(--red); transform-origin: left; flex: none; margin-bottom: 1.2rem; }
+.flow__row .flow__conn { margin-bottom: 0; }
+.flow__debug { margin-top: 1rem; padding: .9rem 1.2rem; background: var(--card); border-left: 4px solid var(--red); border-radius: 0 .5rem .5rem 0; font-size: clamp(1rem, 1.5vw, 1.3rem); }
+.flow__debug strong { color: var(--red); }
+
+/* ---------- Etapas (henrispec) ---------- */
+.stages { display: grid; grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr)); gap: 1rem; }
+.stages li { background: var(--card); border: 2px solid var(--line); border-top: 5px solid var(--red); border-radius: .5rem; padding: 1rem 1.1rem; display: grid; gap: .4rem; align-content: start; }
+.stages b { font-size: clamp(1.1rem, 1.7vw, 1.5rem); }
+.stages span { color: var(--muted); font-size: clamp(.9rem, 1.25vw, 1.1rem); line-height: 1.35; }
+.bullets { display: grid; gap: .6rem; }
+.bullets li { position: relative; padding-left: 1.4rem; font-size: clamp(1.05rem, 1.6vw, 1.4rem); }
+.bullets li::before { content: ""; position: absolute; left: 0; top: .6em; width: .6rem; height: .6rem; background: var(--red); }
+
+/* ---------- Agentes: cartões de etapa detalhados ---------- */
+code { font-family: ui-monospace, "Cascadia Code", "Segoe UI Mono", Consolas, monospace; font-size: .82em; color: var(--red-deep); background: #f3e4e8; padding: .1em .45em; border-radius: .3em; overflow-wrap: anywhere; }
+.stages code { width: fit-content; }
+.stages--rich { grid-template-columns: repeat(4, 1fr); gap: .8rem; }
+@media (max-width: 900px) { .stages--rich { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 520px) { .stages--rich { grid-template-columns: 1fr; } }
+.stages .stage__out { margin-top: .3rem; padding-top: .6rem; border-top: 1px dashed var(--line); font-size: clamp(.85rem, 1.15vw, 1.02rem); line-height: 1.35; max-width: none; }
+.stages .stage__out em { display: block; font-style: normal; font-weight: 700; font-size: .78em; letter-spacing: .08em; text-transform: uppercase; color: var(--red); margin-bottom: .15rem; }
+.cols--4 { grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr)); gap: clamp(1rem, 2.4vw, 2.2rem); margin-top: .2rem; }
+.cols--4 p { font-size: clamp(.92rem, 1.25vw, 1.12rem); }
+.defs--wide > div { grid-template-columns: 13rem 1fr auto; }
+
+/* ---------- Discovery: modos e briefing ---------- */
+.modes { display: grid; gap: .65rem; }
+.modes li { display: grid; gap: .15rem; padding: .55rem 0 .55rem 1.1rem; border-left: 4px solid var(--red); justify-items: start; }
+.modes b { font-size: clamp(1.05rem, 1.6vw, 1.4rem); }
+.modes span { color: var(--muted); font-size: clamp(.92rem, 1.3vw, 1.15rem); line-height: 1.35; }
+.modes code { font-size: clamp(.72rem, .95vw, .88rem); }
+.brief { background: var(--card); border: 2px solid var(--ink); border-radius: .6rem; padding: 1.1rem 1.3rem 1.3rem; display: grid; gap: .8rem; }
+.brief__head { font-size: .85rem; font-weight: 700; color: var(--muted); letter-spacing: .06em; text-transform: uppercase; }
+.brief ul { display: grid; gap: .5rem; font-family: ui-monospace, "Cascadia Code", "Segoe UI Mono", Consolas, monospace; font-size: clamp(.85rem, 1.2vw, 1.08rem); line-height: 1.4; }
+.brief li b { display: block; font-weight: 700; color: var(--muted); font-size: .85em; }
+.brief mark { background: var(--red); color: #fff; padding: .05em .5em; border-radius: .3em; font-weight: 700; }
+@keyframes flag { 0%, 100% { box-shadow: 0 0 0 0 rgba(204, 9, 47, 0); } 50% { box-shadow: 0 0 0 .4rem rgba(204, 9, 47, .28); } }
+.is-active .brief mark { animation: flag 2.4s ease-in-out 1.2s 2; }
+
+/* ---------- Depuração e adoção ---------- */
+.iron { padding: .85rem 1.2rem; background: var(--ink); color: #fff; border-radius: .5rem; font-weight: 700; font-size: clamp(1.05rem, 1.6vw, 1.45rem); max-width: none; }
+.iron span { display: inline-block; margin-right: .6rem; padding: .1em .65em; background: var(--red); border-radius: 99px; font-size: .75em; letter-spacing: .04em; text-transform: uppercase; }
+.steps5--4 { grid-template-columns: repeat(4, 1fr); }
+.steps5--3 { grid-template-columns: repeat(3, 1fr); }
+code { white-space: normal; }
+
+/* ---------- Modo apresentação (JS ligado) ---------- */
+html.motion-ready, html.motion-ready body { height: 100%; overflow: hidden; }
+html.motion-ready .deck { position: fixed; inset: 0; }
+html.motion-ready .slide { position: absolute; inset: 0; min-height: 0; overflow: auto; border: 0; visibility: hidden; opacity: 0; transition: opacity .35s ease, visibility 0s .35s; }
+html.motion-ready .slide.is-active { visibility: visible; opacity: 1; transition: opacity .35s ease, visibility 0s; }
+html.motion-ready .slide:not(.slide--red) { background: var(--paper); }
+html.motion-ready .slide--red { overflow: hidden; }
+html.motion-ready .split { grid-template-columns: 1.05fr 1fr; gap: clamp(1.5rem, 5vw, 5rem); }
+
+html.motion-ready .progress { display: block; position: fixed; inset: 0 0 auto; height: 4px; z-index: 20; background: rgba(0,0,0,.08); }
+html.motion-ready .progress__bar { display: block; height: 100%; background: var(--red); transform-origin: left; scale: 0 1; transition: scale .4s ease; }
+html.motion-ready .hud { display: flex; align-items: center; gap: .4rem; position: fixed; right: 1rem; bottom: .8rem; z-index: 20; font-size: .9rem; color: var(--muted); background: rgba(255,255,255,.85); border-radius: 99px; padding: .2rem .5rem; opacity: .55; transition: opacity .2s; }
+html.motion-ready .hud:hover, html.motion-ready .hud:focus-within { opacity: 1; }
+.hud__btn { border: 0; background: transparent; font: inherit; font-size: 1.5rem; line-height: 1; width: 2rem; height: 2rem; border-radius: 50%; cursor: pointer; color: var(--ink); }
+.hud__btn:hover { background: var(--line); }
+.hud__count { min-width: 4.2rem; text-align: center; font-variant-numeric: tabular-nums; }
+html.motion-ready .notes { position: fixed; left: 1rem; right: 1rem; bottom: 3.4rem; z-index: 19; background: rgba(27,28,33,.94); color: #fff; padding: .9rem 1.2rem; border-radius: .6rem; font-size: clamp(.95rem, 1.3vw, 1.15rem); line-height: 1.4; max-width: 60rem; margin-inline: auto; }
+html.motion-ready:not(.notes-on) .notes { display: none; }
+html.motion-ready.notes-on .slide:not(.is-active) .notes { display: none; }
+html.motion-ready.notes-on .slide.is-active .notes { display: block; }
+
+@media (max-width: 52rem) {
+  html.motion-ready .split { grid-template-columns: 1fr; }
+  .steps5 { grid-template-columns: 1fr; gap: .8rem; }
+  .steps5 li { padding: 0 0 0 1.6rem; }
+  .steps5 li::before { top: .35rem; }
+  .steps5 li::after { display: none; }
+  .defs > div { grid-template-columns: 1fr; gap: .2rem; }
+  .ctxbar { flex-direction: column; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  html.motion-ready .slide, html.motion-ready .progress__bar { transition: none; }
+  .is-active .loop__node { animation: none; }
+  .is-active .brief mark { animation: none; }
+}
+
+</style>
+  <script>/* motion-lite.js */
+/*! motion-lite 1.0.0 — zero-dependency animation helper on top of the Web Animations API.
+ *  API mirrors a subset of GSAP (to/from/fromTo/set/timeline/stagger/utils) so code ports both ways.
+ *  No eval, no inline-script requirement, no network. Safe under strict CSP (script-src 'self').
+ *  License: MIT (generated by the html-motion skill). */
+(function (global) {
+  'use strict';
+
+  var doc = global.document;
+  var mqReduce = global.matchMedia ? global.matchMedia('(prefers-reduced-motion: reduce)') : { matches: false };
+
+  var config = { respectReducedMotion: true, defaults: { duration: 0.5, ease: 'power1.out' } };
+
+  // ---------- easing -------------------------------------------------------
+  var BEZ = {
+    linear: 'linear', none: 'linear',
+    'power1.in': 'cubic-bezier(0.55,0.085,0.68,0.53)', 'power1.out': 'cubic-bezier(0.25,0.46,0.45,0.94)', 'power1.inOut': 'cubic-bezier(0.455,0.03,0.515,0.955)',
+    'power2.in': 'cubic-bezier(0.55,0.055,0.675,0.19)', 'power2.out': 'cubic-bezier(0.215,0.61,0.355,1)', 'power2.inOut': 'cubic-bezier(0.645,0.045,0.355,1)',
+    'power3.in': 'cubic-bezier(0.895,0.03,0.685,0.22)', 'power3.out': 'cubic-bezier(0.165,0.84,0.44,1)', 'power3.inOut': 'cubic-bezier(0.77,0,0.175,1)',
+    'power4.in': 'cubic-bezier(0.755,0.05,0.855,0.06)', 'power4.out': 'cubic-bezier(0.23,1,0.32,1)', 'power4.inOut': 'cubic-bezier(0.86,0,0.07,1)',
+    'expo.in': 'cubic-bezier(0.95,0.05,0.795,0.035)', 'expo.out': 'cubic-bezier(0.19,1,0.22,1)', 'expo.inOut': 'cubic-bezier(1,0,0,1)',
+    'sine.in': 'cubic-bezier(0.47,0,0.745,0.715)', 'sine.out': 'cubic-bezier(0.39,0.575,0.565,1)', 'sine.inOut': 'cubic-bezier(0.445,0.05,0.55,0.95)',
+    'circ.in': 'cubic-bezier(0.6,0.04,0.98,0.335)', 'circ.out': 'cubic-bezier(0.075,0.82,0.165,1)', 'circ.inOut': 'cubic-bezier(0.785,0.135,0.15,0.86)',
+    'back.in': 'cubic-bezier(0.6,-0.28,0.735,0.045)', 'back.out': 'cubic-bezier(0.175,0.885,0.32,1.275)', 'back.inOut': 'cubic-bezier(0.68,-0.55,0.265,1.55)'
+  };
+  var JS_EASE = {
+    linear: function (t) { return t; },
+    in: function (p) { return function (t) { return Math.pow(t, p); }; },
+    out: function (p) { return function (t) { return 1 - Math.pow(1 - t, p); }; },
+    inOut: function (p) { return function (t) { return t < 0.5 ? Math.pow(2 * t, p) / 2 : 1 - Math.pow(2 - 2 * t, p) / 2; }; }
+  };
+  function bounceOut(t) {
+    var n = 7.5625, d = 2.75;
+    if (t < 1 / d) return n * t * t;
+    if (t < 2 / d) return n * (t -= 1.5 / d) * t + 0.75;
+    if (t < 2.5 / d) return n * (t -= 2.25 / d) * t + 0.9375;
+    return n * (t -= 2.625 / d) * t + 0.984375;
+  }
+  function elasticOut(t) { return t === 0 || t === 1 ? t : Math.pow(2, -10 * t) * Math.sin((t * 10 - 0.75) * (2 * Math.PI / 3)) + 1; }
+  var supportsLinear = !!(global.CSS && CSS.supports && CSS.supports('animation-timing-function', 'linear(0, 1)'));
+  function sampled(fn) {
+    var pts = []; for (var i = 0; i <= 40; i++) pts.push(+fn(i / 40).toFixed(4));
+    return 'linear(' + pts.join(', ') + ')';
+  }
+  function normEase(name) {
+    if (!name) name = config.defaults.ease;
+    if (name.indexOf('(') > -1) return name;                 // raw CSS easing passes through
+    if (name.indexOf('.') === -1 && BEZ[name + '.out']) name += '.out'; // "power2" === "power2.out" (GSAP rule)
+    return name;
+  }
+  function cssEase(name) {
+    name = normEase(name);
+    if (BEZ[name]) return BEZ[name];
+    if (name === 'bounce.out') return supportsLinear ? sampled(bounceOut) : BEZ['power2.out'];
+    if (name === 'elastic.out') return supportsLinear ? sampled(elasticOut) : BEZ['back.out'];
+    if (name.indexOf('(') > -1) return name;
+    return BEZ['power1.out'];
+  }
+  function jsEase(name) {
+    name = normEase(name);
+    if (name === 'linear' || name === 'none') return JS_EASE.linear;
+    if (name === 'bounce.out') return bounceOut;
+    if (name === 'elastic.out') return elasticOut;
+    var m = /^power(\d)\.(in|out|inOut)$/.exec(name);
+    if (m) return JS_EASE[m[2]](+m[1] + 1);
+    if (/^expo\./.test(name)) return JS_EASE[name.split('.')[1]](5);
+    return JS_EASE.out(2);
+  }
+
+  // ---------- helpers -----------------------------------------------------
+  function toArray(t, scope) {
+    if (t == null) return [];
+    if (typeof t === 'string') return Array.prototype.slice.call((scope || doc).querySelectorAll(t));
+    if (t.length != null && !t.nodeType && t !== global) return Array.prototype.slice.call(t);
+    return [t];
+  }
+  var UNITLESS = { opacity: 1, zIndex: 1, fontWeight: 1, lineHeight: 1, flexGrow: 1, flexShrink: 1, order: 1, fillOpacity: 1, strokeOpacity: 1 };
+  var TRANSFORM_KEYS = { x: 1, y: 1, scale: 1, scaleX: 1, scaleY: 1, rotation: 1, rotate: 1 };
+  var CONTROL = { duration: 1, delay: 1, ease: 1, stagger: 1, repeat: 1, yoyo: 1, onComplete: 1, onStart: 1, paused: 1, force: 1, autoAlpha: 1, id: 1 };
+  var states = new WeakMap();
+  function getState(el) {
+    var s = states.get(el);
+    if (!s) { s = { x: '0px', y: '0px', sx: 1, sy: 1, r: '0deg' }; states.set(el, s); }
+    return s;
+  }
+  function px(v) { return typeof v === 'number' ? v + 'px' : v; }
+  function deg(v) { return typeof v === 'number' ? v + 'deg' : v; }
+  function resolve(v, i, el, all) { return typeof v === 'function' ? v(i, el, all) : v; }
+
+  // Build a CSS keyframe from GSAP-like vars, advancing the element's transform state.
+  function frameFor(el, vars, i, all, state) {
+    var f = {}, s = state || getState(el), touchedT = false, touchedS = false, touchedR = false;
+    for (var k in vars) {
+      if (CONTROL[k]) continue;
+      var v = resolve(vars[k], i, el, all);
+      if (k === 'x') { s.x = px(v); touchedT = true; }
+      else if (k === 'y') { s.y = px(v); touchedT = true; }
+      else if (k === 'scale') { s.sx = s.sy = v; touchedS = true; }
+      else if (k === 'scaleX') { s.sx = v; touchedS = true; }
+      else if (k === 'scaleY') { s.sy = v; touchedS = true; }
+      else if (k === 'rotation' || k === 'rotate') { s.r = deg(v); touchedR = true; }
+      else f[k] = (typeof v === 'number' && !UNITLESS[k]) ? v + 'px' : String(v);
+    }
+    if ('autoAlpha' in vars) {
+      var a = resolve(vars.autoAlpha, i, el, all);
+      f.opacity = String(a); f.visibility = +a === 0 ? 'hidden' : 'visible';
+    }
+    if (touchedT) f.translate = s.x + ' ' + s.y;
+    if (touchedS) f.scale = s.sx + ' ' + s.sy;
+    if (touchedR) f.rotate = s.r;
+    return f;
+  }
+  function cloneState(s) { return { x: s.x, y: s.y, sx: s.sx, sy: s.sy, r: s.r }; }
+  function currentFrameFor(el, keys) {
+    // Values to return to for from(): read from computed style for the keys being animated.
+    var cs = global.getComputedStyle(el), f = {}, s = getState(el);
+    keys.forEach(function (k) {
+      if (k === 'translate') f.translate = s.x + ' ' + s.y;
+      else if (k === 'scale') f.scale = s.sx + ' ' + s.sy;
+      else if (k === 'rotate') f.rotate = s.r;
+      else f[k] = cs[k];
+    });
+    return f;
+  }
+
+  function staggerDelays(n, stagger) {
+    var out = [], i;
+    if (!stagger) { for (i = 0; i < n; i++) out.push(0); return out; }
+    var cfg = typeof stagger === 'number' ? { each: stagger } : stagger;
+    var each = cfg.amount != null ? (n > 1 ? cfg.amount / (n - 1) : 0) : (cfg.each || 0);
+    var from = cfg.from || 'start';
+    for (i = 0; i < n; i++) {
+      var origin = from === 'end' ? n - 1 : from === 'center' ? (n - 1) / 2 : typeof from === 'number' ? from : 0;
+      out.push(from === 'random' ? Math.random() * each * (n - 1) : Math.abs(i - origin) * each);
+    }
+    return out;
+  }
+
+  function reduced(vars) { return config.respectReducedMotion && mqReduce.matches && !(vars && vars.force); }
+
+  // ---------- tween descriptor (shared by standalone tweens and timelines) --------
+  // type: 'to' | 'from' | 'fromTo'
+  function describe(type, targets, a, b) {
+    var vars = type === 'fromTo' ? b : a;
+    var els = toArray(targets);
+    var dur = vars.duration != null ? vars.duration : config.defaults.duration;
+    var rm = reduced(vars);
+    if (rm) dur = 0;
+    var delays = staggerDelays(els.length, rm ? 0 : vars.stagger);
+    var repeat = rm ? 0 : (vars.repeat || 0);
+    var items = els.map(function (el, i) {
+      var kf;
+      if (type === 'to') {
+        kf = [frameFor(el, vars, i, els)];                         // implicit "from" = underlying value
+      } else if (type === 'from') {
+        var before = cloneState(getState(el));
+        var fromF = frameFor(el, a, i, els, cloneState(before));
+        var toF = currentFrameFor(el, Object.keys(fromF).filter(function (k) { return k !== 'visibility'; }));
+        if ('autoAlpha' in a) toF.visibility = 'visible';
+        states.set(el, before);
+        kf = [fromF, toF];
+      } else {
+        var f0 = frameFor(el, a, i, els, cloneState(getState(el)));
+        var f1 = frameFor(el, b, i, els);
+        kf = [f0, f1];
+      }
+      return { el: el, keyframes: kf, delay: delays[i] };
+    });
+    var maxDelay = delays.length ? Math.max.apply(null, delays) : 0;
+    var iterations = repeat < 0 ? Infinity : repeat + 1;
+    return {
+      items: items, duration: dur, ease: cssEase(vars.ease), iterations: iterations,
+      direction: vars.yoyo ? 'alternate' : 'normal', delay: rm ? 0 : (vars.delay || 0),
+      total: (vars.delay || 0) * (rm ? 0 : 1) + maxDelay + dur * (iterations === Infinity ? 1 : iterations),
+      vars: vars
+    };
+  }
+
+  function Tween(d) {
+    var self = this, started = false;
+    this.animations = d.items.map(function (it) {
+      var anim = it.el.animate(it.keyframes, {
+        duration: d.duration * 1000, delay: (d.delay + it.delay) * 1000, easing: d.ease,
+        iterations: d.iterations, direction: d.direction, fill: 'both'
+      });
+      anim.pause();
+      return anim;
+    });
+    this.finished = Promise.all(this.animations.map(function (a) { return a.finished; })).then(function () {
+      // Bake final values into inline style and drop the animation (no stacking, no leaks).
+      self.animations.forEach(function (a) { try { a.commitStyles(); a.cancel(); } catch (e) { /* element detached */ } });
+      if (d.vars.onComplete) d.vars.onComplete();
+      // Resolve with undefined: resolving with `self` (a thenable) would recurse forever under `await`.
+    }, function () { /* cancelled */ });
+    this.play = function () {
+      if (!started && d.vars.onStart) d.vars.onStart(); started = true;
+      self.animations.forEach(function (a) { a.play(); }); return self;
+    };
+    this.pause = function () { self.animations.forEach(function (a) { a.pause(); }); return self; };
+    this.reverse = function () { self.animations.forEach(function (a) { a.reverse(); }); return self; };
+    this.kill = function () { self.animations.forEach(function (a) { a.cancel(); }); return self; };
+    this.progress = function (p) {
+      var end = d.total * 1000;
+      self.animations.forEach(function (a) { a.currentTime = Math.min(end, p * end); }); return self;
+    };
+    this.then = function (r, j) { return self.finished.then(r, j); };
+    if (!d.vars.paused) Promise.resolve().then(function () { if (!started) self.play(); });
+  }
+
+  // ---------- timeline ----------------------------------------------------
+  function Timeline(opts) {
+    opts = opts || {};
+    var self = this, children = [], labels = {}, lastStart = 0, lastEnd = 0, end = 0;
+    var anims = null, repeatLeft = opts.repeat || 0, started = false;
+    var tlDefaults = opts.defaults || {};
+
+    function parsePos(pos) {
+      if (pos == null) return end;
+      if (typeof pos === 'number') return pos;
+      var m = /^([<>])?([a-zA-Z_][\w-]*)?([+-]=?)?(-?[\d.]+)?$/.exec(String(pos).trim());
+      if (!m) return end;
+      var base;
+      if (m[1] === '<') base = lastStart; else if (m[1] === '>') base = lastEnd;
+      else if (m[2] && labels[m[2]] != null) base = labels[m[2]];
+      else base = end;
+      var n = m[4] ? parseFloat(m[4]) : 0;
+      if (m[3] && m[3][0] === '-') n = -n;
+      if (m[1] && !m[3] && m[4]) n = parseFloat(m[4]);            // "<0.2" / ">-0.1"
+      return Math.max(0, base + n);
+    }
+    function add(type, targets, a, b, pos) {
+      var merged = function (v) { var o = {}, k; for (k in tlDefaults) o[k] = tlDefaults[k]; for (k in v) o[k] = v[k]; o.paused = true; return o; };
+      if (type === 'fromTo') b = merged(b); else a = merged(a);
+      var start = parsePos(pos);
+      var d = describe(type, targets, a, b);
+      if (d.iterations === Infinity) { d.iterations = 1; if (global.console) console.warn('motion-lite: repeat:-1 is not allowed inside a timeline; use timeline({repeat:-1}).'); }
+      d.total = d.delay + Math.max.apply(null, d.items.map(function (i) { return i.delay; }).concat(0)) + d.duration * d.iterations;
+      children.push({ start: start, d: d });
+      lastStart = start; lastEnd = start + d.total; end = Math.max(end, lastEnd);
+      return self;
+    }
+    function build() {
+      if (anims) return anims;
+      anims = [];
+      children.forEach(function (c) {
+        c.d.items.forEach(function (it) {
+          var delay = c.start + c.d.delay + it.delay;
+          var active = c.d.duration * c.d.iterations;
+          var a = it.el.animate(it.keyframes, {
+            duration: c.d.duration * 1000, delay: delay * 1000, endDelay: Math.max(0, end - delay - active) * 1000,
+            easing: c.d.ease, iterations: c.d.iterations, direction: c.d.direction, fill: 'both'
+          });
+          a.pause();
+          if (a.persist) a.persist();   // block browser auto-removal of replaced fill animations (breaks reverse/seek)
+          anims.push(a);
+        });
+      });
+      if (anims.length) anims[0].onfinish = onFinish;
+      return anims;
+    }
+    function onFinish() {
+      var rate = anims[0].playbackRate;
+      if (rate > 0 && opts.onComplete && !repeatLeft) opts.onComplete();
+      if (repeatLeft !== 0) {
+        if (repeatLeft > 0) repeatLeft--;
+        if (opts.yoyo) self.reverse(); else self.restart();
+      }
+    }
+    this.to = function (t, v, p) { return add('to', t, v, null, p); };
+    this.from = function (t, v, p) { return add('from', t, v, null, p); };
+    this.fromTo = function (t, a, b, p) { return add('fromTo', t, a, b, p); };
+    this.set = function (t, v, p) { var o = {}, k; for (k in v) o[k] = v[k]; o.duration = 0; return add('to', t, o, null, p); };
+    this.addLabel = function (name, pos) { labels[name] = parsePos(pos); return self; };
+    var callbacks = [];
+    // call(): fires once, forward playback only, wall-clock based (not seek-aware). Document this limit.
+    this.call = function (fn, pos) { var at = parsePos(pos); callbacks.push({ at: at, fn: fn }); end = Math.max(end, at); return self; };
+    function scheduleCallbacks() { callbacks.forEach(function (c) { setTimeout(c.fn, c.at * 1000); }); }
+    this.play = function () { build(); if (!started) { started = true; if (opts.onStart) opts.onStart(); scheduleCallbacks(); } anims.forEach(function (a) { if (a.playbackRate < 0) a.playbackRate = 1; a.play(); }); return self; };
+    this.pause = function () { build().forEach(function (a) { a.pause(); }); return self; };
+    this.reverse = function () { build().forEach(function (a) { a.reverse(); }); return self; };
+    this.restart = function () { build().forEach(function (a) { a.playbackRate = 1; a.currentTime = 0; a.play(); }); return self; };
+    this.seek = function (t) { if (typeof t === 'string') t = labels[t] || 0; build().forEach(function (a) { a.currentTime = t * 1000; }); return self; };
+    this.progress = function (p) { if (p == null) { build(); return anims.length ? anims[0].currentTime / (end * 1000) : 0; } return self.seek(p * end); };
+    this.duration = function () { return end; };
+    this.kill = function () { build().forEach(function (a) { a.cancel(); }); anims = []; return self; };
+    this.then = function (r, j) { build(); return Promise.all(anims.map(function (a) { return a.finished; })).then(function () { /* not self: thenable recursion */ }).then(r, j); };
+    if (!opts.paused) Promise.resolve().then(function () { if (!started) self.play(); });
+  }
+
+  // ---------- scroll: reveal (IntersectionObserver) -----------------------
+  function reveal(targets, fromVars, opts) {
+    opts = opts || {};
+    var els = toArray(targets), each = opts.stagger != null ? opts.stagger : 0.08;
+    if (!('IntersectionObserver' in global) || reduced(fromVars)) return [];
+    var tweens = new Map();
+    els.forEach(function (el) { var v = {}, k; for (k in fromVars) v[k] = fromVars[k]; v.paused = true; tweens.set(el, new Tween(describe('from', el, v))); });
+    var io = new IntersectionObserver(function (entries) {
+      var batch = entries.filter(function (e) { return e.isIntersecting; }).map(function (e) { return e.target; });
+      batch.forEach(function (el, i) {
+        var tw = tweens.get(el); if (!tw) return;
+        tw.animations.forEach(function (a) { a.effect.updateTiming({ delay: (fromVars.delay || 0) * 1000 + i * each * 1000 }); });
+        tw.play();
+        if (opts.once !== false) { io.unobserve(el); tweens.delete(el); }
+      });
+      if (opts.once === false) entries.filter(function (e) { return !e.isIntersecting; }).forEach(function (e) { var tw = tweens.get(e.target); if (tw) tw.reverse(); });
+    }, { threshold: opts.threshold != null ? opts.threshold : 0.15, rootMargin: opts.rootMargin || '0px 0px -10% 0px' });
+    els.forEach(function (el) { io.observe(el); });
+    return io;
+  }
+
+  // ---------- scroll: scrub (native ScrollTimeline/ViewTimeline + rAF fallback) ----
+  function scrub(targets, fromVars, toVars, opts) {
+    opts = opts || {};
+    var els = toArray(targets);
+    if (reduced(toVars)) { els.forEach(function (el, i) { Object.assign(el.style, frameFor(el, toVars, i, els)); }); return; }
+    var source = opts.source || 'view';               // 'view' = element crossing the viewport, 'page' = whole-page progress
+    var hasView = 'ViewTimeline' in global, hasScroll = 'ScrollTimeline' in global;
+    els.forEach(function (el, i) {
+      var kf = [frameFor(el, fromVars, i, els, cloneState(getState(el))), frameFor(el, toVars, i, els)];
+      var trigger = opts.trigger ? toArray(opts.trigger)[0] : el;
+      if (source === 'page' && hasScroll) {
+        el.animate(kf, { timeline: new ScrollTimeline({ source: doc.documentElement, axis: 'block' }), fill: 'both', easing: 'linear' });
+      } else if (source === 'view' && hasView) {
+        el.animate(kf, { timeline: new ViewTimeline({ subject: trigger, axis: 'block' }), rangeStart: opts.rangeStart || 'cover 0%', rangeEnd: opts.rangeEnd || 'cover 100%', fill: 'both', easing: 'linear' });
+      } else {
+        var a = el.animate(kf, { duration: 1000, fill: 'both', easing: 'linear' }); a.pause();
+        var ticking = false;
+        var update = function () {
+          ticking = false;
+          var p;
+          if (source === 'page') { var max = doc.documentElement.scrollHeight - global.innerHeight; p = max > 0 ? global.scrollY / max : 0; }
+          else { var r = trigger.getBoundingClientRect(), vh = global.innerHeight; p = (vh - r.top) / (vh + r.height); }
+          a.currentTime = Math.min(1, Math.max(0, p)) * 1000;
+        };
+        var onScroll = function () { if (!ticking) { ticking = true; global.requestAnimationFrame(update); } };
+        global.addEventListener('scroll', onScroll, { passive: true });
+        global.addEventListener('resize', onScroll, { passive: true });
+        update();
+      }
+    });
+  }
+
+  // ---------- text / numbers / svg ---------------------------------------
+  function splitText(target, opts) {
+    opts = opts || {};
+    var type = opts.type || 'words,chars';
+    var out = { chars: [], words: [], lines: [], elements: [] };
+    toArray(target).forEach(function (el) {
+      var original = el.innerHTML, text = el.textContent;
+      el.setAttribute('aria-label', text.trim());
+      el.innerHTML = '';
+      text.split(/(\s+)/).forEach(function (part) {
+        if (!part) return;
+        if (/^\s+$/.test(part)) { el.appendChild(doc.createTextNode(' ')); return; }
+        var w = doc.createElement('span');
+        w.className = 'ml-word'; w.setAttribute('aria-hidden', 'true');
+        w.style.display = 'inline-block';
+        if (type.indexOf('chars') > -1) {
+          Array.from(part).forEach(function (ch) {
+            var c = doc.createElement('span'); c.className = 'ml-char'; c.style.display = 'inline-block'; c.textContent = ch;
+            w.appendChild(c); out.chars.push(c);
+          });
+        } else w.textContent = part;
+        el.appendChild(w); out.words.push(w);
+      });
+      if (type.indexOf('lines') > -1) {
+        var lines = [], lastTop = null;
+        Array.prototype.slice.call(el.querySelectorAll('.ml-word')).forEach(function (w) {
+          if (w.offsetTop !== lastTop) { lines.push([]); lastTop = w.offsetTop; }
+          lines[lines.length - 1].push(w);
+        });
+        el.innerHTML = '';
+        lines.forEach(function (ws) {
+          var l = doc.createElement('span'); l.className = 'ml-line'; l.style.display = 'block'; l.setAttribute('aria-hidden', 'true');
+          ws.forEach(function (w, j) { l.appendChild(w); if (j < ws.length - 1) l.appendChild(doc.createTextNode(' ')); });
+          el.appendChild(l); out.lines.push(l);
+        });
+      }
+      out.elements.push({ el: el, original: original });
+    });
+    out.revert = function () { out.elements.forEach(function (o) { o.el.innerHTML = o.original; o.el.removeAttribute('aria-label'); }); };
+    return out;
+  }
+
+  function counter(target, opts) {
+    opts = opts || {};
+    toArray(target).forEach(function (el) {
+      var to = opts.to != null ? +opts.to : parseFloat(el.getAttribute('data-to') || el.textContent.replace(/[^\d.,-]/g, '').replace(/\./g, '').replace(',', '.'));
+      var from = opts.from || 0, dur = (opts.duration != null ? opts.duration : 1.5) * 1000, ease = jsEase(opts.ease || 'power2.out');
+      var decimals = opts.decimals != null ? opts.decimals : +(el.getAttribute('data-decimals') || 0);
+      var fmt = new Intl.NumberFormat(opts.locale || 'pt-BR', { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
+      var pre = opts.prefix != null ? opts.prefix : (el.getAttribute('data-prefix') || ''), suf = opts.suffix != null ? opts.suffix : (el.getAttribute('data-suffix') || '');
+      var render = function (v) { el.textContent = pre + fmt.format(v) + suf; };
+      if (reduced(opts)) { render(to); return; }
+      var t0 = null;
+      var step = function (now) {
+        if (t0 === null) t0 = now;
+        var p = Math.min(1, (now - t0) / dur);
+        render(from + (to - from) * ease(p));
+        if (p < 1) global.requestAnimationFrame(step);
+      };
+      global.setTimeout(function () { global.requestAnimationFrame(step); }, (opts.delay || 0) * 1000);
+    });
+  }
+
+  function drawSVG(target, vars) {
+    vars = vars || {};
+    var els = toArray(target);
+    els.forEach(function (el) {
+      var len = el.getTotalLength ? el.getTotalLength() : 0;
+      el.style.strokeDasharray = len + ' ' + len;
+      el.style.strokeDashoffset = (vars.reverse ? -len : len) + 'px';
+    });
+    var v = {}, k; for (k in vars) if (k !== 'reverse') v[k] = vars[k];
+    v.strokeDashoffset = 0;
+    return new Tween(describe('to', els, v));
+  }
+
+  // ---------- utils (GSAP-compatible signatures) --------------------------
+  var utils = {
+    toArray: toArray,
+    clamp: function (min, max, v) { return v === undefined ? function (x) { return Math.min(max, Math.max(min, x)); } : Math.min(max, Math.max(min, v)); },
+    mapRange: function (a, b, c, d, v) { var f = function (x) { return c + (x - a) * (d - c) / (b - a); }; return v === undefined ? f : f(v); },
+    normalize: function (a, b, v) { return utils.mapRange(a, b, 0, 1, v); },
+    interpolate: function (a, b, p) { return a + (b - a) * p; },
+    random: function (min, max, snap) { var r = min + Math.random() * (max - min); return snap ? Math.round(r / snap) * snap : r; },
+    snap: function (inc, v) { var f = function (x) { return Math.round(x / inc) * inc; }; return v === undefined ? f : f(v); },
+    wrap: function (min, max, v) { var r = max - min, f = function (x) { return ((((x - min) % r) + r) % r) + min; }; return v === undefined ? f : f(v); },
+    pipe: function () { var fns = arguments; return function (x) { for (var i = 0; i < fns.length; i++) x = fns[i](x); return x; }; }
+  };
+
+  function matchMedia(query, fn) {
+    if (!global.matchMedia) return;
+    var mq = global.matchMedia(query), cleanup = null;
+    var run = function () { if (cleanup) { cleanup(); cleanup = null; } if (mq.matches) cleanup = fn() || null; };
+    if (mq.addEventListener) mq.addEventListener('change', run); run();
+  }
+
+  global.Motion = {
+    version: '1.0.0',
+    config: function (o) { for (var k in o) if (k === 'defaults') { for (var j in o.defaults) config.defaults[j] = o.defaults[j]; } else config[k] = o[k]; return config; },
+    to: function (t, v) { return new Tween(describe('to', t, v)); },
+    from: function (t, v) { return new Tween(describe('from', t, v)); },
+    fromTo: function (t, a, b) { return new Tween(describe('fromTo', t, a, b)); },
+    set: function (t, v) { var els = toArray(t); els.forEach(function (el, i) { Object.assign(el.style, frameFor(el, v, i, els)); }); },
+    timeline: function (o) { return new Timeline(o); },
+    reveal: reveal, scrub: scrub, splitText: splitText, counter: counter, drawSVG: drawSVG,
+    matchMedia: matchMedia, utils: utils,
+    reducedMotion: function () { return !!mqReduce.matches; },
+    ease: { css: cssEase, js: jsEase }
+  };
+})(typeof window !== 'undefined' ? window : this);
+
+</script>
+  <script>
+document.addEventListener('DOMContentLoaded', function () {
+/* Apresentação: motion-lite (nativo). Cada slide faz uma entrada própria quando fica ativo.
+   Sem JS ou sem a engine, os slides ficam empilhados e legíveis. */
+(function () {
+  'use strict';
+  var M = window.Motion;
+  var root = document.documentElement;
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  if (!slides.length) return;
+  root.classList.add('motion-ready');
+
+  // Controles criados por JS: sem JS, a página fica só com o conteúdo.
+  var hud = document.createElement('nav');
+  hud.className = 'hud';
+  hud.setAttribute('aria-label', 'Navegação da apresentação');
+  hud.innerHTML = '<button type="button" class="hud__btn hud__prev" aria-label="Slide anterior">\u2039</button>' +
+    '<span class="hud__count" aria-live="polite"></span>' +
+    '<button type="button" class="hud__btn hud__next" aria-label="Próximo slide">\u203a</button>';
+  document.body.appendChild(hud);
+
+  var cur = -1;
+  var countEl = hud.querySelector('.hud__count');
+  var bar = document.querySelector('.progress__bar');
+  var titleSplit = M ? M.splitText('.slide--title h1', { type: 'words' }) : null;
+
+  function arr(list) { return Array.prototype.slice.call(list); }
+  function isCurrent(slide) { return slides[cur] === slide; }
+
+  /* Entradas específicas (além do reveal genérico em [data-in]) */
+  var enters = {
+    title: function (s) {
+      if (!titleSplit) return;
+      M.set(titleSplit.words, { opacity: 1, y: 0 });
+      M.from(titleSplit.words, { y: 50, opacity: 0, duration: 0.8, ease: 'power3.out', stagger: 0.09 });
+    },
+    llm: function (s) {
+      var bars = arr(s.querySelectorAll('.probs__fill'));
+      M.set(bars, { scaleX: 1 });
+      M.from(bars, { scaleX: 0, duration: 0.9, ease: 'power3.out', stagger: 0.12, delay: 0.5 });
+      var word = s.querySelector('.slot__word');
+      M.set(word, { opacity: 1, y: 0 });
+      M.from(word, { opacity: 0, y: 12, duration: 0.5, ease: 'power2.out', delay: 1.5 });
+      arr(s.querySelectorAll('[data-count]')).forEach(function (el, i) {
+        setTimeout(function () { if (isCurrent(s)) M.counter(el, { duration: 0.9, ease: 'power2.out' }); }, 500 + i * 120);
+      });
+    },
+    context: function (s) {
+      var fills = arr(s.querySelectorAll('.ctxbar__fill'));
+      M.set(fills, { scaleX: 1 });
+      M.from(fills, { scaleX: 0, duration: 0.8, ease: 'power3.out', stagger: 0.3, delay: 0.3 });
+      var segs = arr(s.querySelectorAll('.ctxbar__seg'));
+      M.set(segs, { opacity: 1, y: 0 });
+      M.from(segs, { opacity: 0, y: 18, duration: 0.5, ease: 'power2.out', stagger: 0.1, delay: 0.15 });
+    },
+    agent: function (s) {
+      var ring = s.querySelector('.loop__ring');
+      var len = ring.getTotalLength();
+      ring.style.strokeDasharray = len + ' ' + len;
+      M.fromTo(ring, { strokeDashoffset: len }, { strokeDashoffset: 0, duration: 1.4, ease: 'power2.inOut', delay: 0.3 });
+      var nodes = arr(s.querySelectorAll('.loop__node'));
+      M.set(nodes, { opacity: 1, scale: 1 });
+      M.from(nodes, { opacity: 0, scale: 0.8, duration: 0.45, ease: 'back.out', stagger: 0.3, delay: 0.4 });
+    },
+    harness: function (s) {
+      var layers = arr(s.querySelectorAll('.layer'));
+      M.set(layers, { opacity: 1, scale: 1 });
+      M.from(layers, { opacity: 0, scale: 0.9, duration: 0.6, ease: 'power3.out', stagger: 0.25, delay: 0.2 });
+    },
+    steps: function (s) {
+      var lines = arr(s.querySelectorAll('.steps5 li'));
+      lines.forEach(function (li, i) {
+        // a linha entre os passos cresce em sequência; o ponto aparece com o texto
+        li.style.setProperty('--n', i);
+      });
+      var rail = arr(s.querySelectorAll('.steps5 li'));
+      M.set(rail, { opacity: 1, y: 0 });
+      M.from(rail, { opacity: 0, y: 16, duration: 0.5, ease: 'power2.out', stagger: 0.18, delay: 0.5 });
+    },
+    stages: function (s) {
+      // os cartões entram em sequência, na ordem do fluxo Plan > Implement > Review > Archive
+      var cards = arr(s.querySelectorAll('.stages li'));
+      M.set(cards, { opacity: 1, y: 0 });
+      M.from(cards, { opacity: 0, y: 18, duration: 0.5, ease: 'power2.out', stagger: 0.2, delay: 0.45 });
+    },
+    flow: function (s) {
+      var conns = arr(s.querySelectorAll('.flow__conn'));
+      M.set(conns, { scaleX: 1 });
+      M.from(conns, { scaleX: 0, duration: 0.35, ease: 'power2.out', stagger: 0.25, delay: 0.5 });
+      var nodes = arr(s.querySelectorAll('.flow__node'));
+      M.set(nodes, { opacity: 1, y: 0 });
+      M.from(nodes, { opacity: 0, y: 14, duration: 0.45, ease: 'power2.out', stagger: 0.22, delay: 0.3 });
+    }
+  };
+
+  function enter(slide) {
+    if (!M) return;
+    var kind = slide.getAttribute('data-enter');
+    var items = arr(slide.querySelectorAll('[data-in]'));
+    if (kind === 'steps' || kind === 'flow' || kind === 'stages') {
+      // nesses slides, os blocos internos têm entrada própria
+      items = items.filter(function (el) { return !el.closest('.steps5') && !el.closest('.flow') && !el.closest('.stages'); });
+    }
+    M.set(items, { opacity: 1, y: 0 });
+    M.from(items, { opacity: 0, y: 22, duration: 0.6, ease: 'power2.out', stagger: 0.09, delay: 0.15 });
+    if (kind && enters[kind]) enters[kind](slide);
+  }
+
+  function go(i) {
+    i = Math.max(0, Math.min(slides.length - 1, i));
+    if (i === cur) return;
+    if (cur >= 0) { slides[cur].classList.remove('is-active'); slides[cur].inert = true; slides[cur].setAttribute('aria-hidden', 'true'); }
+    cur = i;
+    var s = slides[i];
+    s.classList.add('is-active'); s.inert = false; s.removeAttribute('aria-hidden'); s.scrollTop = 0;
+    if (countEl) countEl.textContent = (i + 1) + ' / ' + slides.length;
+    if (bar) bar.style.scale = (slides.length > 1 ? i / (slides.length - 1) : 1) + ' 1';
+    try { history.replaceState(null, '', '#s' + (i + 1)); } catch (e) { /* file:// restrito: ignora */ }
+    enter(s);
+  }
+
+  slides.forEach(function (s) { s.inert = true; s.setAttribute('aria-hidden', 'true'); });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.ctrlKey || e.metaKey || e.altKey) return;
+    var k = e.key;
+    if (k === 'ArrowRight' || k === 'PageDown' || k === 'ArrowDown' || (k === ' ' && !e.shiftKey) || k === 'Enter') { e.preventDefault(); go(cur + 1); }
+    else if (k === 'ArrowLeft' || k === 'PageUp' || k === 'ArrowUp' || (k === ' ' && e.shiftKey) || k === 'Backspace') { e.preventDefault(); go(cur - 1); }
+    else if (k === 'Home') { e.preventDefault(); go(0); }
+    else if (k === 'End') { e.preventDefault(); go(slides.length - 1); }
+    else if (k === 'n' || k === 'N') { root.classList.toggle('notes-on'); }
+    else if (k === 'f' || k === 'F') {
+      try { if (document.fullscreenElement) document.exitFullscreen(); else root.requestFullscreen(); } catch (err) { /* sem tela cheia */ }
+    }
+  });
+  hud.querySelector('.hud__next').addEventListener('click', function () { go(cur + 1); });
+  hud.querySelector('.hud__prev').addEventListener('click', function () { go(cur - 1); });
+
+  var x0 = null;
+  document.addEventListener('touchstart', function (e) { x0 = e.changedTouches[0].clientX; }, { passive: true });
+  document.addEventListener('touchend', function (e) {
+    if (x0 === null) return;
+    var dx = e.changedTouches[0].clientX - x0; x0 = null;
+    if (Math.abs(dx) > 50) go(cur + (dx < 0 ? 1 : -1));
+  }, { passive: true });
+
+  var m = /^#s(\d+)$/.exec(location.hash);
+  go(m ? parseInt(m[1], 10) - 1 : 0);
+})();
+
+});
+</script>
+</head>
+<body>
+  <div class="progress" aria-hidden="true"><span class="progress__bar"></span></div>
+
+  <main class="deck" id="deck">
+
+    <!-- 1 · Abertura -->
+    <section class="slide slide--red slide--title" id="s1" data-enter="title" aria-label="Abertura">
+      <div class="slide__inner">
+        <p class="ctx" data-in>Kickoff de IA da squad</p>
+        <h1 data-split>IA no desenvolvimento: o&nbsp;básico para começar&nbsp;bem</h1>
+        <p class="lede" data-in>O que é, por que importa e como vamos usar no dia a dia.</p>
+        <p class="hint" data-in>Setas para navegar. N mostra as notas. F abre a tela cheia.</p>
+      </div>
+      <aside class="notes">Boas-vindas. Objetivo de hoje: alinhar o vocabulário, combinar como trabalhar com IA e apresentar os três agentes que vamos usar. Nada de teoria pesada.</aside>
+    </section>
+
+    <!-- 2 · Roteiro -->
+    <section class="slide" id="s2" aria-label="Roteiro">
+      <div class="slide__inner">
+        <p class="tag" data-in>Roteiro</p>
+        <h2 data-in>Três blocos, uma ideia: a IA é uma ferramenta que você conduz.</h2>
+        <div class="cols">
+          <div class="col" data-in><h3>Conceitos</h3><p>O que é a IA que escreve código, o que é um agente e o que é um harness.</p></div>
+          <div class="col" data-in><h3>Como trabalhar</h3><p>Especificar antes de gerar, revisar sempre e os cuidados de quem trabalha em banco.</p></div>
+          <div class="col" data-in><h3>Nossos agentes</h3><p>henrispec, henrispec-discovery e depuracao-sistematica: o que cada um faz, quando usar e por que adotar.</p></div>
+        </div>
+      </div>
+      <aside class="notes">Mostrar o mapa da conversa. A frase do título é a tese: IA acelera, quem conduz é a pessoa.</aside>
+    </section>
+
+    <!-- 3 · LLM -->
+    <section class="slide" id="s3" data-enter="llm" aria-label="Como a IA funciona">
+      <div class="slide__inner">
+        <p class="tag" data-in>Conceitos</p>
+        <h2 data-in>A IA prevê o próximo pedaço de texto. Faz isso muito bem.</h2>
+        <div class="llm">
+          <p class="slot" data-in>“O cliente quer renegociar a <span class="slot__blank"><span class="slot__word">dívida</span></span>”</p>
+          <ul class="probs" aria-label="Exemplo ilustrativo de palavras candidatas">
+            <li><span class="probs__word">dívida</span><span class="probs__track"><span class="probs__fill" style="width:62%"></span></span><span class="probs__pct" data-count data-to="62" data-suffix="%">62%</span></li>
+            <li><span class="probs__word">parcela</span><span class="probs__track"><span class="probs__fill" style="width:21%"></span></span><span class="probs__pct" data-count data-to="21" data-suffix="%">21%</span></li>
+            <li><span class="probs__word">fatura</span><span class="probs__track"><span class="probs__fill" style="width:9%"></span></span><span class="probs__pct" data-count data-to="9" data-suffix="%">9%</span></li>
+            <li><span class="probs__word">conta</span><span class="probs__track"><span class="probs__fill" style="width:3%"></span></span><span class="probs__pct" data-count data-to="3" data-suffix="%">3%</span></li>
+          </ul>
+          <p class="fine" data-in>Valores ilustrativos, só para mostrar a ideia.</p>
+        </div>
+        <p class="takeaway" data-in>Ela não “sabe” a resposta: calcula o que costuma vir depois. Por isso pode errar com muita confiança.</p>
+      </div>
+      <aside class="notes">Modelo de linguagem = previsão do próximo token. Isso explica duas coisas: escreve código plausível com rapidez e também inventa coisas plausíveis. Por isso a revisão humana nunca sai do processo.</aside>
+    </section>
+
+    <!-- 4 · Contexto -->
+    <section class="slide" id="s4" data-enter="context" aria-label="Contexto">
+      <div class="slide__inner">
+        <p class="tag" data-in>Conceitos</p>
+        <h2 data-in>Ela só enxerga o que está na janela de contexto.</h2>
+        <div class="ctxbar" role="img" aria-label="Janela de contexto dividida em instruções, histórico, arquivos e sua pergunta">
+          <div class="ctxbar__seg" style="flex:2"><span class="ctxbar__fill"></span><b>Instruções</b><small>como trabalhar aqui</small></div>
+          <div class="ctxbar__seg" style="flex:3"><span class="ctxbar__fill"></span><b>Histórico</b><small>a conversa até agora</small></div>
+          <div class="ctxbar__seg" style="flex:4"><span class="ctxbar__fill"></span><b>Arquivos</b><small>o que você anexou ou ela leu</small></div>
+          <div class="ctxbar__seg" style="flex:2"><span class="ctxbar__fill"></span><b>Sua pergunta</b><small>a tarefa da vez</small></div>
+        </div>
+        <div class="pair">
+          <p data-in><strong>Tudo isso é medido em tokens</strong>, pedaços de palavras. Cada token tem custo e ocupa espaço.</p>
+          <p data-in><strong>Cheia demais, ela perde o foco.</strong> Contexto certo vale mais do que contexto grande. Tarefa nova, conversa nova.</p>
+        </div>
+      </div>
+      <aside class="notes">A IA não lembra de nada fora dessa janela. O que o harness coloca ali define a qualidade da resposta. Dica prática: conversa nova a cada tarefa e anexar só o necessário.</aside>
+    </section>
+
+    <!-- 5 · Chat x agente -->
+    <section class="slide" id="s5" data-enter="agent" aria-label="Chat e agente">
+      <div class="slide__inner split">
+        <div>
+          <p class="tag" data-in>Conceitos</p>
+          <h2 data-in>Chat responde. Agente age.</h2>
+          <p class="body" data-in><strong>Chat:</strong> você pergunta, ela responde e acabou.</p>
+          <p class="body" data-in><strong>Agente:</strong> recebe um objetivo e trabalha em ciclo, usando ferramentas, até terminar ou pedir ajuda.</p>
+          <p class="body muted" data-in>Ler arquivo, editar código, rodar teste: tudo isso é “usar ferramenta”.</p>
+        </div>
+        <div class="loop" aria-label="Ciclo do agente: entende, usa ferramenta, vê o resultado, decide o próximo passo">
+          <svg viewBox="0 0 400 400" aria-hidden="true"><circle class="loop__ring" cx="200" cy="200" r="150" transform="rotate(-90 200 200)"/></svg>
+          <span class="loop__node n1">Entende o pedido</span>
+          <span class="loop__node n2">Usa uma ferramenta</span>
+          <span class="loop__node n3">Vê o resultado</span>
+          <span class="loop__node n4">Decide o próximo passo</span>
+          <span class="loop__core">repete até terminar</span>
+        </div>
+      </div>
+      <aside class="notes">Diferença central. Em modo chat a IA só fala. Em modo agente ela executa um ciclo: pensa, age, observa. Por isso o agente precisa de limites claros e de revisão no final.</aside>
+    </section>
+
+    <!-- 6 · Harness -->
+    <section class="slide" id="s6" data-enter="harness" aria-label="Harness">
+      <div class="slide__inner split">
+        <div>
+          <p class="tag" data-in>Conceitos</p>
+          <h2 data-in>O modelo é o&nbsp;motor. O&nbsp;harness é&nbsp;o&nbsp;carro.</h2>
+          <p class="body" data-in>O modelo só produz texto. O harness decide o que ele vê, quais ferramentas pode usar e transforma o texto dele em ação.</p>
+          <p class="body muted" data-in>Copilot, Kilo Code e Claude Code são harnesses.</p>
+        </div>
+        <div class="layers" aria-label="Harness em volta do modelo">
+          <div class="layer layer--out"><span class="layer__name">Harness</span>
+            <div class="layer layer--mid"><span class="layer__name">Contexto, ferramentas e regras</span>
+              <div class="layer layer--in"><span class="layer__name">Modelo</span></div>
+            </div>
+          </div>
+          <ul class="layers__legend">
+            <li>Contexto: monta o que o modelo vê</li>
+            <li>Ferramentas: ler, editar, rodar comandos</li>
+            <li>Regras: o que pode e o que não pode</li>
+          </ul>
+        </div>
+      </div>
+      <aside class="notes">Trocar de modelo muda a inteligência. Mexer no harness muda o comportamento. Tudo que vamos configurar na squad (instruções, skills, agentes) vive no harness.</aside>
+    </section>
+
+    <!-- 7 · Peças -->
+    <section class="slide" id="s7" aria-label="Peças do harness">
+      <div class="slide__inner">
+        <p class="tag" data-in>Conceitos</p>
+        <h2 data-in>Cinco peças que você vai ouvir o tempo todo.</h2>
+        <dl class="defs">
+          <div data-in><dt>Instructions</dt><dd>Sempre ligadas. Dizem como trabalhamos aqui: padrões e stack. Precisam ser curtas.</dd><span class="chip">sempre</span></div>
+          <div data-in><dt>Prompt</dt><dd>O pedido da vez. Quanto mais claro, melhor a resposta.</dd><span class="chip chip--alt">pontual</span></div>
+          <div data-in><dt>Skill</dt><dd>Um procedimento reutilizável. Só é carregado quando a tarefa pede.</dd><span class="chip chip--alt">sob demanda</span></div>
+          <div data-in><dt>Agente</dt><dd>Quem executa: lê, edita, roda e repete, usando as peças acima.</dd><span class="chip chip--alt">executor</span></div>
+          <div data-in><dt>Subagente</dt><dd>Ajudante com contexto próprio. Faz uma parte e devolve só o resumo.</dd><span class="chip chip--alt">delegado</span></div>
+        </dl>
+      </div>
+      <aside class="notes">Regra prática: instructions = sempre carregado, pouco e genérico. Skill = carregado quando precisa. Prompt = a entrada da vez. Agente = quem orquestra. Subagente economiza contexto do agente principal.</aside>
+    </section>
+
+    <!-- 8 · Vibe x assistida -->
+    <section class="slide" id="s8" data-enter="steps" aria-label="Programação assistida">
+      <div class="slide__inner">
+        <p class="tag" data-in>Como trabalhar</p>
+        <h2 data-in>A IA acelera. Quem responde pelo código é você.</h2>
+        <div class="versus">
+          <p class="versus__a" data-in><strong>Vibe coding</strong>Aceita o que vier e só confere se roda.</p>
+          <p class="versus__b" data-in><strong>Programação assistida</strong>Você decide e entende. A IA ajuda a chegar lá mais rápido.</p>
+        </div>
+        <ol class="steps5">
+          <li data-in><b>Problema</b><span>Entenda o que precisa resolver.</span></li>
+          <li data-in><b>Plano</b><span>Peça o plano antes do código.</span></li>
+          <li data-in><b>Código</b><span>Gere em passos pequenos.</span></li>
+          <li data-in><b>Prova</b><span>Teste e revise o resultado.</span></li>
+          <li data-in><b>Aprendizado</b><span>Entenda por que funciona.</span></li>
+        </ol>
+      </div>
+      <aside class="notes">Evitar dependência: se você não consegue explicar o código gerado, ele não está pronto. O último passo é o que mantém a evolução técnica do time.</aside>
+    </section>
+
+    <!-- 9 · SDD -->
+    <section class="slide" id="s9" aria-label="Especificação antes do código">
+      <div class="slide__inner">
+        <p class="tag" data-in>Como trabalhar</p>
+        <h2 data-in>Primeiro a especificação, depois o código.</h2>
+        <div class="versus">
+          <p class="versus__a" data-in><strong>Sem especificação</strong>A IA preenche as lacunas sozinha. Você descobre os palpites só na revisão.</p>
+          <p class="versus__b" data-in><strong>Com especificação</strong>A IA segue o combinado e você revisa o código contra o que foi escrito.</p>
+        </div>
+        <p class="takeaway" data-in>Uma boa especificação é o melhor prompt que existe. É o que chamamos de Spec-Driven Development.</p>
+      </div>
+      <aside class="notes">Spec = o que, por que e como, em arquivos simples. Reduz retrabalho, deixa a decisão rastreável e facilita auditoria, o que pesa no contexto de banco.</aside>
+    </section>
+
+    <!-- 10 · Cuidados -->
+    <section class="slide" id="s10" aria-label="Cuidados">
+      <div class="slide__inner">
+        <p class="tag" data-in>Como trabalhar</p>
+        <h2 data-in>Cinco cuidados que valem sempre.</h2>
+        <ul class="rules">
+          <li data-in><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19"/></svg><span>Nunca cole dados de clientes, senhas, tokens ou chaves em uma IA.</span></li>
+          <li data-in><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12l5 5L20 6"/></svg><span>Use só as ferramentas aprovadas pelo banco.</span></li>
+          <li data-in><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12l5 5L20 6"/></svg><span>Revise tudo antes de commitar. O código é seu, não da IA.</span></li>
+          <li data-in><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12l5 5L20 6"/></svg><span>Peça testes e evidências. Desconfie de resposta muito segura.</span></li>
+          <li data-in><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12l5 5L20 6"/></svg><span>Tarefa nova, conversa nova. Menos ruído, menos custo.</span></li>
+        </ul>
+      </div>
+      <aside class="notes">O primeiro item é o inegociável. Os outros são hábitos. Reforçar que revisar o código gerado é o mesmo padrão de qualquer pull request.</aside>
+    </section>
+
+    <!-- 11 · Divisor -->
+    <section class="slide slide--red slide--divider" id="s11" aria-label="Nossos agentes">
+      <div class="slide__inner">
+        <p class="ctx" data-in>Agora, na prática</p>
+        <h2 data-in>Nossos agentes</h2>
+        <p class="lede" data-in>Três ferramentas que aplicam tudo o que vimos, e por que vale a pena adotá-las.</p>
+      </div>
+      <aside class="notes">Transição: da teoria para as ferramentas que a squad vai usar. A partir daqui o foco é o que cada agente faz, quando chamar e por que isso muda o dia a dia.</aside>
+    </section>
+
+    <!-- 12 · Visão geral -->
+    <section class="slide" id="s12" data-enter="flow" aria-label="Visão geral dos agentes">
+      <div class="slide__inner">
+        <p class="tag" data-in>Nossos agentes</p>
+        <h2 data-in>Do problema ao código revisado, em etapas.</h2>
+        <div class="flow">
+          <div class="flow__group flow__group--disc" data-in>
+            <span class="flow__label">henrispec-discovery <em>v0.3.1</em></span>
+            <div class="flow__node">Discovery</div>
+          </div>
+          <span class="flow__conn" aria-hidden="true"></span>
+          <div class="flow__group flow__group--spec" data-in>
+            <span class="flow__label">henrispec <em>v0.4.5</em></span>
+            <div class="flow__row">
+              <div class="flow__node">Plan</div><span class="flow__conn" aria-hidden="true"></span>
+              <div class="flow__node">Implement</div><span class="flow__conn" aria-hidden="true"></span>
+              <div class="flow__node">Review</div><span class="flow__conn" aria-hidden="true"></span>
+              <div class="flow__node">Archive</div>
+            </div>
+          </div>
+        </div>
+        <p class="flow__debug" data-in><strong>depuracao-sistematica</strong> entra em qualquer ponto em que algo quebra: bug, teste falhando, build com erro.</p>
+      </div>
+      <aside class="notes">Visão de conjunto. Discovery quando o problema ainda está nebuloso. henrispec conduz o desenvolvimento em quatro etapas. Depuração é a rede de segurança para quando algo quebra. Os três conversam: o briefing da discovery alimenta o Plan, e a depuração pode ser chamada em qualquer etapa.</aside>
+    </section>
+
+    <!-- 13 · Por que adotar -->
+    <section class="slide" id="s13" aria-label="Por que adotar">
+      <div class="slide__inner">
+        <p class="tag" data-in>Nossos agentes · por que adotar</p>
+        <h2 data-in>Sem método, a IA só acelera o retrabalho.</h2>
+        <div class="versus">
+          <p class="versus__a" data-in><strong>Cada um do seu jeito</strong>O contexto some entre conversas, a decisão fica perdida no chat e a revisão depende de sorte.</p>
+          <p class="versus__b" data-in><strong>Um caminho comum</strong>A especificação guia, a decisão fica registrada e a revisão confere contra o que foi combinado.</p>
+        </div>
+        <div class="cols cols--4">
+          <div class="col" data-in><h3>Previsível</h3><p>As mesmas etapas para qualquer tarefa. Quem entra na squad já sabe o caminho.</p></div>
+          <div class="col" data-in><h3>Rastreável</h3><p>Pedido, decisão e entrega ficam registrados. Ajuda na revisão e na auditoria.</p></div>
+          <div class="col" data-in><h3>Econômico</h3><p>Uma etapa por sessão e contexto curto: menos tokens gastos, respostas mais focadas.</p></div>
+          <div class="col" data-in><h3>Seguro</h3><p>Você revisa e commita. Os agentes só agem quando chamados.</p></div>
+        </div>
+        <p class="takeaway" data-in>O valor não está em cada agente isolado. Está na squad inteira trabalhando do mesmo jeito.</p>
+      </div>
+      <aside class="notes">Esta é a justificativa de adoção. Ligar com o que vimos antes: contexto limpo e tokens (slide de janela de contexto), especificação antes do código (SDD), revisão humana e cuidados de banco. O ganho de verdade aparece em escala: quando todo mundo segue o mesmo caminho, a revisão de código fica mais simples e o conhecimento deixa de morar só na cabeça de quem fez.</aside>
+    </section>
+
+    <!-- 14 · henrispec -->
+    <section class="slide" id="s14" data-enter="stages" aria-label="henrispec">
+      <div class="slide__inner">
+        <p class="tag" data-in>Nossos agentes</p>
+        <h2 class="name" data-in>henrispec <span class="ver">v0.4.5</span></h2>
+        <p class="body" data-in>Conduz uma tarefa de desenvolvimento do pedido até o código revisado. A especificação é o guia, e cada etapa deixa um registro.</p>
+        <ol class="stages stages--rich">
+          <li data-in><b>Plan</b><code>henrispec-plan</code><span>Define o que será feito e como, antes de qualquer código.</span><p class="stage__out"><em>Sai</em>Proposta, especificação, design e tarefas em fatias.</p></li>
+          <li data-in><b>Implement</b><code>henrispec-implement</code><span>Executa as tarefas seguindo a especificação, um grupo por vez.</span><p class="stage__out"><em>Sai</em>Código de uma fatia, com parada para você revisar e commitar.</p></li>
+          <li data-in><b>Review</b><code>henrispec-review</code><span>Confere o resultado contra o que foi combinado e contra os padrões do repositório.</span><p class="stage__out"><em>Sai</em>Um veredito registrado, com os achados.</p></li>
+          <li data-in><b>Archive</b><code>henrispec-archive</code><span>Fecha a mudança e guarda o porquê das decisões.</span><p class="stage__out"><em>Sai</em>Especificação atualizada e um resumo pronto para o PR.</p></li>
+        </ol>
+        <p class="takeaway" data-in>Use quando o escopo estiver claro. Uma sessão por etapa mantém o contexto limpo e o custo baixo.</p>
+      </div>
+      <aside class="notes">Mensagem principal: não pule o Plan, e revise a especificação antes de mandar implementar. Cada etapa tem uma saída concreta, então dá para mostrar na demonstração o arquivo que ela gerou. O Archive também produz o resumo no estilo de descrição de pull request, para colar no PR, na task do Jira e na página do Confluence. Confirmar na demonstração os nomes exatos dos comandos na versão instalada.</aside>
+    </section>
+
+    <!-- 15 · henrispec: controle -->
+    <section class="slide" id="s15" aria-label="Como o henrispec protege o código">
+      <div class="slide__inner">
+        <p class="tag" data-in>Nossos agentes · henrispec</p>
+        <h2 data-in>Feito para você manter o controle.</h2>
+        <dl class="defs defs--wide">
+          <div data-in><dt>Uma fatia por vez</dt><dd>O Implement executa um grupo de tarefas e para. Você revisa e commita antes de seguir.</dd><span class="chip">controle</span></div>
+          <div data-in><dt>Dois olhares</dt><dd>O Review confere a especificação e, em separado, os padrões do repositório. Código pode seguir a spec e ainda quebrar o padrão.</dd><span class="chip chip--alt">qualidade</span></div>
+          <div data-in><dt>Só quando chamado</dt><dd>Um pedido comum no chat continua comum. O agente não transforma tudo em mudança formal.</dd><span class="chip chip--alt">sem atrito</span></div>
+          <div data-in><dt>O Git é seu</dt><dd>Ele sugere a mensagem de commit no padrão de mercado. Quem commita é você.</dd><span class="chip chip--alt">autoria</span></div>
+          <div data-in><dt>Memória do porquê</dt><dd>O Archive guarda decisões e alternativas descartadas. A ideia rejeitada não volta como proposta nova.</dd><span class="chip chip--alt">histórico</span></div>
+        </dl>
+      </div>
+      <aside class="notes">Este slide responde à pergunta "isso vai tirar o meu controle?". Não tira: cada decisão de risco continua com a pessoa. A fatia por vez evita receber um diff gigante impossível de revisar. Os dois olhares do Review existem porque aderir à spec não garante aderir ao padrão do repositório. E o agente só entra quando chamado, então ninguém é obrigado a usar em tarefa pequena.</aside>
+    </section>
+
+    <!-- 16 · discovery -->
+    <section class="slide" id="s16" aria-label="henrispec-discovery">
+      <div class="slide__inner split">
+        <div>
+          <p class="tag" data-in>Nossos agentes</p>
+          <h2 class="name" data-in>henrispec-discovery <span class="ver">v0.3.1</span></h2>
+          <p class="body" data-in>Antes de planejar, entenda o problema. Ele transforma uma ideia solta, ou um ticket incompleto, em um briefing que dá para especificar.</p>
+          <p class="body muted" data-in>Pergunta em rodadas e não olha o código: o foco é o problema, não a solução.</p>
+          <p class="takeaway" data-in>Use quando o pedido está vago ou a regra de negócio ainda não está clara.</p>
+        </div>
+        <div>
+          <p class="sub" data-in>Quatro formas de começar</p>
+          <ul class="modes">
+            <li data-in><b>Grill</b><code>henrispec-discovery-grill</code><span>Entrevista em rodadas, do zero até o briefing.</span></li>
+            <li data-in><b>Triagem</b><code>henrispec-discovery-triagem</code><span>Parte de um ticket ou chamado e pergunta só o que falta.</span></li>
+            <li data-in><b>Protótipo</b><code>henrispec-discovery-prototipo</code><span>Responde uma dúvida de design com código descartável.</span></li>
+            <li data-in><b>Rota</b><code>henrispec-discovery-rota</code><span>Indica por onde começar e para. Não decide por você.</span></li>
+          </ul>
+          <p class="fine" data-in>O briefing alimenta o Plan do henrispec.</p>
+        </div>
+      </div>
+      <aside class="notes">Discovery adiciona de uma a quatro sessões ao fluxo, mas evita retrabalho depois. Se a regra de negócio é incerta, comece por aqui. O grill serve quando a ideia ainda é solta; a triagem quando já existe um ticket mas ele é incompleto; o protótipo quando a dúvida só se resolve vendo; a rota quando você não sabe por qual deles começar.</aside>
+    </section>
+
+    <!-- 17 · discovery: briefing sem chute -->
+    <section class="slide" id="s17" aria-label="Briefing sem inferência">
+      <div class="slide__inner split">
+        <div>
+          <p class="tag" data-in>Nossos agentes · discovery</p>
+          <h2 data-in>O briefing só tem o que foi respondido.</h2>
+          <div class="versus">
+            <p class="versus__a" data-in><strong>Briefing inferido</strong>Parece completo. O plano não encontra ambiguidade, e a dúvida aparece só no código.</p>
+            <p class="versus__b" data-in><strong>Briefing honesto</strong>O que falta fica escrito. Todo mundo vê o que ainda precisa de decisão.</p>
+          </div>
+          <p class="takeaway" data-in>Sem o sintoma ou o resultado esperado, ele nem grava o briefing: devolve as perguntas.</p>
+        </div>
+        <div>
+          <div class="brief" data-in>
+            <p class="brief__head">briefing · exemplo ilustrativo</p>
+            <ul>
+              <li><b>Problema</b> cliente não consegue renegociar a dívida pelo app</li>
+              <li><b>Resultado esperado</b> simular parcelas e confirmar sem ligar</li>
+              <li><b>Quem pode</b> clientes com dívida vencida</li>
+              <li><b>Regra de desconto</b> <mark>[NÃO RESPONDIDO]</mark></li>
+              <li><b>Quem aprova exceção</b> <mark>[NÃO RESPONDIDO]</mark></li>
+              <li><b>Fora do escopo</b> renegociação de cartão</li>
+            </ul>
+          </div>
+          <p class="fine" data-in>A lacuna visível é o que protege o código de um palpite.</p>
+        </div>
+      </div>
+      <aside class="notes">Esta é a decisão de projeto mais importante da discovery. Uma IA tende a completar o que falta com algo plausível; um briefing completo demais é suspeito. Por isso a lacuna vira um marcador explícito. O marcador não garante que o plano pare, mas garante que a dúvida existe por escrito e não virou invenção. O exemplo é ilustrativo, não é uma regra real do banco.</aside>
+    </section>
+
+    <!-- 18 · depuração -->
+    <section class="slide" id="s18" data-enter="steps" aria-label="depuracao-sistematica">
+      <div class="slide__inner">
+        <p class="tag" data-in>Nossos agentes</p>
+        <h2 class="name" data-in>depuracao-sistematica</h2>
+        <p class="body" data-in>Para bug, teste falhando ou build quebrado: método em vez de chute.</p>
+        <p class="iron" data-in><span>Lei de Ferro</span> Nenhuma correção sem investigar a causa raiz antes.</p>
+        <ol class="steps5 steps5--4">
+          <li data-in><b>Investigar</b><span>Leia o erro inteiro, reproduza, veja o que mudou e siga o dado até a origem.</span></li>
+          <li data-in><b>Comparar</b><span>Ache um caso parecido que funciona e liste as diferenças.</span></li>
+          <li data-in><b>Testar hipótese</b><span>Uma hipótese por vez, mudando uma coisa só.</span></li>
+          <li data-in><b>Corrigir</b><span>Teste que falha primeiro, uma correção, prova de que resolveu.</span></li>
+        </ol>
+        <p class="takeaway" data-in>Entregue ao agente o erro completo, o log e os passos para reproduzir. “Arruma isso” sem contexto gera palpite.</p>
+      </div>
+      <aside class="notes">A skill vem de um método conhecido de depuração sistemática, adaptado para o nosso harness. A ideia central é a mesma da programação assistida: evidência antes de correção. A maior parte do tempo vai nas duas primeiras fases, e é exatamente onde a pressa faz mais estrago. O ponto de entrada é o agente depurar, selecionado no seletor de agentes (não é mais um prompt chamado por barra). Confirmar na demonstração o nome exato na versão instalada.</aside>
+    </section>
+
+    <!-- 19 · depuração: disciplina -->
+    <section class="slide" id="s19" aria-label="Investigar primeiro">
+      <div class="slide__inner split">
+        <div>
+          <p class="tag" data-in>Nossos agentes · depuração</p>
+          <h2 data-in>Investigar primeiro não é opcional.</h2>
+          <p class="body" data-in>O agente <code>depurar</code> não tem ferramenta de edição. É proposital: sem poder editar, o agente não consegue consertar no impulso.</p>
+          <p class="body muted" data-in>A correção vem em uma segunda chamada, já com a causa provada.</p>
+          <p class="takeaway" data-in>Três correções sem resultado? O problema deixou de ser o bug e passou a ser o desenho.</p>
+        </div>
+        <div>
+          <p class="sub" data-in>Sinais de que você está chutando</p>
+          <ul class="bullets">
+            <li data-in>“Só uma correção rápida por enquanto.”</li>
+            <li data-in>“Vou mudar várias coisas de uma vez.”</li>
+            <li data-in>“Deve ser isso”, sem nenhuma evidência.</li>
+            <li data-in>Cada correção revela um problema novo em outro lugar.</li>
+          </ul>
+          <p class="fine" data-in>Apareceu um desses? Volte para a primeira fase.</p>
+        </div>
+      </div>
+      <aside class="notes">A ausência de ferramenta de edição transforma a regra em estrutura: não depende de força de vontade nem de o modelo lembrar a instrução. A regra das três correções é um freio de arquitetura: se o terceiro conserto também falha, provavelmente a premissa está errada, e vale conversar com o time antes de insistir. Exemplo para contar em voz alta: o erro aparece na tela, mas a causa está duas camadas antes, e só o rastreio até a origem mostra isso.</aside>
+    </section>
+
+    <!-- 20 · Qual agente quando -->
+    <section class="slide" id="s20" aria-label="Qual agente usar">
+      <div class="slide__inner">
+        <p class="tag" data-in>Nossos agentes · na prática</p>
+        <h2 data-in>Qual agente para qual situação.</h2>
+        <dl class="defs defs--wide">
+          <div data-in><dt>Pedido vago</dt><dd>Ideia solta, ticket sem detalhe, regra de negócio incerta.</dd><span class="chip">henrispec-discovery</span></div>
+          <div data-in><dt>Escopo claro</dt><dd>Você sabe o que mudar e qual é o resultado esperado.</dd><span class="chip">henrispec</span></div>
+          <div data-in><dt>Algo quebrou</dt><dd>Bug, teste falhando, build com erro, comportamento inesperado.</dd><span class="chip">depuracao-sistematica</span></div>
+          <div data-in><dt>Ajuste pequeno</dt><dd>Renomear, trocar um texto de tela, mexer em uma linha óbvia.</dd><span class="chip chip--alt">chat comum</span></div>
+        </dl>
+        <p class="takeaway" data-in>Regra prática: se você não consegue explicar o resultado esperado em duas frases, comece pela discovery.</p>
+      </div>
+      <aside class="notes">Usar este slide como cola. Importante dizer a última linha da lista em voz alta: não é para usar agente em tudo. Ajuste pequeno e óbvio vai direto no chat. Adoção saudável é escolher a ferramenta certa, não passar todo pedido por um processo.</aside>
+    </section>
+
+    <!-- 21 · Adoção -->
+    <section class="slide" id="s21" data-enter="steps" aria-label="Como adotar">
+      <div class="slide__inner">
+        <p class="tag" data-in>Nossos agentes · adoção</p>
+        <h2 data-in>Adoção é um hábito, não um projeto.</h2>
+        <ol class="steps5 steps5--3">
+          <li data-in><b>Comece pequeno</b><span>Uma tarefa pequena e real, do Plan ao Archive. Aprenda o fluxo onde o erro custa pouco.</span></li>
+          <li data-in><b>Use onde dói</b><span>Pedido vago? Discovery. Bug teimoso? Depuração. Cada agente resolve uma dor conhecida.</span></li>
+          <li data-in><b>Devolva o aprendizado</b><span>Conte o que funcionou e o que travou. Os agentes evoluem com o uso da squad.</span></li>
+        </ol>
+        <div class="pair">
+          <p data-in><strong>Para você:</strong> menos retrabalho, revisão mais simples e decisões que não se perdem.</p>
+          <p data-in><strong>Para a squad:</strong> um jeito comum de trabalhar, histórico auditável e custo de IA sob controle.</p>
+        </div>
+        <p class="takeaway" data-in>Adotar não é usar tudo sempre. É escolher o agente certo para a tarefa e compartilhar o resultado.</p>
+      </div>
+      <aside class="notes">Fechar o bloco de agentes com o convite. O primeiro passo precisa ser pequeno para não virar barreira. O terceiro é o que faz os agentes melhorarem: o feedback da squad entra nas próximas versões.</aside>
+    </section>
+
+    <!-- 22 · Próximo passo -->
+    <section class="slide slide--red slide--end" id="s22" aria-label="Próximo passo">
+      <div class="slide__inner">
+        <p class="ctx" data-in>Para começar hoje</p>
+        <h2 data-in>Escolha uma tarefa pequena e&nbsp;real.</h2>
+        <ul class="next">
+          <li data-in>Pedido vago? Comece por henrispec-discovery.</li>
+          <li data-in>Escopo claro? Comece por henrispec e o Plan.</li>
+          <li data-in>Algo quebrou? Use a depuração antes de pedir correção.</li>
+          <li data-in>Revise a especificação antes de implementar.</li>
+          <li data-in>Conte para a squad o que funcionou e o que não funcionou.</li>
+        </ul>
+        <p class="lede" data-in>Perguntas?</p>
+      </div>
+      <aside class="notes">Fechar com ação concreta. Pedir que cada pessoa escolha uma tarefa pequena ainda hoje e compartilhe o aprendizado.</aside>
+    </section>
+
+  </main>
+
+</body>
+</html>
